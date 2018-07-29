@@ -666,8 +666,8 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 			case 'register' :
 			?>
 <script type="text/javascript">
-try{document.getElementById('user_login').focus();}catch(e){}
-if(typeof wpOnload=='function')wpOnload()
+	try {document.getElementById('user_login').focus();} catch(e){}
+	if (typeof wpOnload === 'function') { wpOnload(); }
 </script>
 <?php
 				break;
@@ -676,7 +676,7 @@ if(typeof wpOnload=='function')wpOnload()
 			?>
 <script type="text/javascript">
 try{document.getElementById('pass1').focus();}catch(e){}
-if(typeof wpOnload=='function')wpOnload()
+if(typeof wpOnload === 'function')wpOnload()
 </script>
 <?php
 				break;
@@ -874,7 +874,7 @@ if(typeof wpOnload=='function')wpOnload()
 		if ( 'page' != $menu_item->object )
 			return $menu_item;
 
-		// User  is logged in
+		// User is logged in
 		if ( is_user_logged_in() ) {
 
 			// Hide login, register and lost password
@@ -1313,7 +1313,7 @@ if(typeof wpOnload=='function')wpOnload()
 			$blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
 		}
 
-		$title = sprintf( __( '[%s] Password Reset', 'theme-my-login' ), $blogname );
+		$title = '[' . $blogname . '] '. __('Password Reset', 'theme-my-login');
 
 		$title = apply_filters( 'retrieve_password_title', $title, $user_login, $user_data );
 		$message = apply_filters( 'retrieve_password_message', $message, $key, $user_login, $user_data );

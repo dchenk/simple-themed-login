@@ -122,8 +122,8 @@ msgstr ""
 msgid "To reset your password, visit the following address:"
 msgstr ""
 
-#: includes/class-theme-my-login.php:1317
-msgid "[%s] Password Reset"
+#: includes/class-theme-my-login.php:1316
+msgid "Password Reset"
 msgstr ""
 
 #: includes/class-theme-my-login.php:1323

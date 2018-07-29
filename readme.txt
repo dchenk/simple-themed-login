@@ -30,8 +30,8 @@ Also includes a widget for sidebar login.
 
 == Installation ==
 
-1. Upload the plugin to your 'wp-content/plugins' directory
-1. Activate the plugin
+1. Upload the plugin to your plugins directory.
+1. Activate the plugin.
 
 
 == Frequently Asked Questions ==
