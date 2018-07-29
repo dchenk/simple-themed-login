@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Theme My Login package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Theme My Login 6.4.16\n"
+"Project-Id-Version: Theme My Login 9.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/theme-my-login\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13,13 +13,13 @@ msgstr ""
 "PO-Revision-Date: 2018-06-03T21:02:54-04:00\n"
 "X-Domain: theme-my-login\n"
 
-#: includes/class-theme-my-login.php:128
+#: includes/class-theme-my-login.php:127
 #: includes/class-theme-my-login-template.php:173
 #: templates/login-form.php:38
 msgid "Log In"
 msgstr ""
 
-#: includes/class-theme-my-login.php:129
+#: includes/class-theme-my-login.php:128
 msgid "Log Out"
 msgstr ""
 

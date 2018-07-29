@@ -665,8 +665,8 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 			case 'retrievepassword' :
 			case 'register' :
 			?>
-<script type="text/javascript">
-	try {document.getElementById('user_login').focus();} catch(e){}
+<script>
+	try {document.getElementById('user_login').focus();} catch(e) {}
 	if (typeof wpOnload === 'function') { wpOnload(); }
 </script>
 <?php
@@ -674,9 +674,9 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 			case 'resetpass' :
 			case 'rp' :
 			?>
-<script type="text/javascript">
-try{document.getElementById('pass1').focus();}catch(e){}
-if(typeof wpOnload === 'function')wpOnload()
+<script>
+	try {document.getElementById('pass1').focus();} catch(e) {}
+	if (typeof wpOnload === 'function') { wpOnload(); }
 </script>
 <?php
 				break;
@@ -685,29 +685,29 @@ if(typeof wpOnload === 'function')wpOnload()
 				if ( isset($_POST['log']) )
 					$user_login = ( 'incorrect_password' == $this->errors->get_error_code() || 'empty_password' == $this->errors->get_error_code() ) ? esc_attr( stripslashes( $_POST['log'] ) ) : '';
 			?>
-<script type="text/javascript">
-function wp_attempt_focus() {
-setTimeout( function() {
-try {
-<?php if ( $user_login ) { ?>
-d = document.getElementById('user_pass');
-d.value = '';
-<?php } else { ?>
-d = document.getElementById('user_login');
-<?php if ( 'invalid_username' == $this->errors->get_error_code() ) { ?>
-if ( d.value != '' )
-d.value = '';
-<?php
-}
-} ?>
-d.focus();
-d.select();
-} catch(e){}
-}, 200 );
-}
+<script>
+	function wp_attempt_focus() {
+		setTimeout( function() {
+			try {
+				<?php if ( $user_login ) { ?>
+				d = document.getElementById('user_pass');
+				d.value = '';
+				<?php } else { ?>
+				d = document.getElementById('user_login');
+				<?php if ( 'invalid_username' == $this->errors->get_error_code() ) { ?>
+				if ( d.value != '' )
+				d.value = '';
+				<?php
+				}
+				} ?>
+				d.focus();
+				d.select();
+			} catch(e) {}
+		}, 200);
+	}
 
-wp_attempt_focus();
-if(typeof wpOnload=='function')wpOnload()
+	wp_attempt_focus();
+	if (typeof wpOnload === 'function') { wpOnload(); }
 </script>
 <?php
 				break;
