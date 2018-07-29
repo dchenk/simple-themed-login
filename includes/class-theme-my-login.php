@@ -18,10 +18,9 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	/**
 	 * Holds plugin version
 	 *
-	 * @since 6.3.2
 	 * @const string
 	 */
-	const VERSION = '6.4.17';
+	const VERSION = '9.0.0';
 
 	/**
 	 * Holds options key

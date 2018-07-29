@@ -1,20 +1,16 @@
 <?php
 /*
 Plugin Name: Theme My Login
-Plugin URI: https://thememylogin.com
-Description: Themes the WordPress login, registration and forgot password pages according to your theme.
-Version: 6.4.17
+Plugin URI: https://github.com/dchenk/theme-my-login
+Description: Themes the WordPress login, registration, and forgot password pages according to your theme.
+Version: 9.0.0
 Author: Theme My Login
-Author URI: https://thememylogin.com
+Author URI: https://github.com/dchenk/theme-my-login
 Text Domain: theme-my-login
 Domain Path: /languages
 */
 
-// Allow custom functions file
-if ( file_exists( WP_PLUGIN_DIR . '/theme-my-login-custom.php' ) )
-	include_once( WP_PLUGIN_DIR . '/theme-my-login-custom.php' );
-
-if ( ! defined( 'THEME_MY_LOGIN_PATH' ) ) {
+if ( !defined('THEME_MY_LOGIN_PATH') ) {
 	define( 'THEME_MY_LOGIN_PATH', dirname( __FILE__ ) );
 }
 
@@ -42,18 +38,16 @@ if ( is_multisite() ) {
 	Theme_My_Login_MS_Signup::get_object();
 }
 
-if ( ! function_exists( 'theme_my_login' ) ) :
-/**
- * Displays a TML instance
- *
- * @see Theme_My_Login::shortcode() for $args parameters
- * @since 6.0
- *
- * @param string|array $args Template tag arguments
- */
-function theme_my_login( $args = '' ) {
-	echo Theme_My_Login::get_object()->shortcode( wp_parse_args( $args ) );
-}
+if ( !function_exists('theme_my_login') ) :
+	/**
+	 * Displays a TML instance
+	 *
+	 * @see Theme_My_Login::shortcode() for $args parameters
+	 * @since 6.0
+	 *
+	 * @param string|array $args Template tag arguments
+	 */
+	function theme_my_login( $args = '' ) {
+		echo Theme_My_Login::get_object()->shortcode( wp_parse_args( $args ) );
+	}
 endif;
-
-?>

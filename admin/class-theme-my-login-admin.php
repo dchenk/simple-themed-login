@@ -140,33 +140,12 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 	 *
 	 * @since 6.4.5
 	 *
-	 * @return [type] [description]
 	 */
 	public function admin_notices() {
-		$dismissed_notices = $this->get_option( 'dismissed_notices', array() );
-
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( !current_user_can('manage_options') ) {
 			return;
 		}
-
-		if ( ! in_array( '7', $dismissed_notices ) ) {
-			?>
-
-			<div class="notice notice-info tml-notice is-dismissible" data-notice="7">
-				<p>
-					<?php _e( '<strong>Heads up!</strong> Theme My Login 7 is right around the corner and some major changes are coming!', 'theme-my-login' ); ?>
-					<br /><br />
-					<?php _e( 'Most notably, all of the previously included modules (with the exception of Custom Passwords, which has been merged into the core plugin) have been removed.', 'theme-my-login' ); ?>
-					<?php _e( 'Instead, all of the legacy modules (now called "Extensions"), with many more to come, can now be purchased at our <a href="https://thememylogin.com/extensions">extensions store</a>.', 'theme-my-login' ); ?>
-					<br /><br />
-					<?php _e( "It's not all bad news though! As a legacy user, we're offering you a discount for a limited time. Use discount code <strong>SAVINGFACE</strong> at checkout in order to receive <strong>20% off</strong> of your purchase!", 'theme-my-login' ); ?>
-					<br /><br />
-					<a class="button button-primary" href="https://thememylogin.com/extensions" target="_blank"><?php _e( 'Take Me To The Store', 'theme-my-login' ); ?></a>
-				</p>
-			</div>
-
-			<?php
-		}
+        // Potentially useful function stub here.
 	}
 
 	/**
@@ -175,7 +154,7 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 	 * @since 6.4.15
 	 */
 	public function ajax_dismiss_notice() {
-		if ( empty( $_POST['notice'] ) ) {
+		if ( empty($_POST['notice']) ) {
 			return;
 		}
 
