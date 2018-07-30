@@ -23,30 +23,30 @@ msgstr ""
 msgid "Log Out"
 msgstr ""
 
-#: includes/class-theme-my-login.php:130
+#: includes/class-theme-my-login.php:129
 #: includes/class-theme-my-login-widget.php:111
 #: includes/class-theme-my-login-template.php:160
 #: templates/register-form.php:28
 msgid "Register"
 msgstr ""
 
-#: includes/class-theme-my-login.php:131
+#: includes/class-theme-my-login.php:130
 #: includes/class-theme-my-login-widget.php:112
 #: includes/class-theme-my-login-template.php:166
 msgid "Lost Password"
 msgstr ""
 
-#: includes/class-theme-my-login.php:132
+#: includes/class-theme-my-login.php:131
 #: templates/resetpass-form.php:44
 #: modules/custom-email/admin/custom-email-admin.php:100
 msgid "Reset Password"
 msgstr ""
 
-#: includes/class-theme-my-login.php:391
+#: includes/class-theme-my-login.php:390
 msgid "Your password reset link appears to be invalid. Please request a new link below."
 msgstr ""
 
-#: includes/class-theme-my-login.php:393
+#: includes/class-theme-my-login.php:392
 msgid "Your password reset link has expired. Please request a new link below."
 msgstr ""
 
@@ -449,38 +449,6 @@ msgstr ""
 
 #: admin/class-theme-my-login-admin.php:327
 msgid "Enable %s"
-msgstr ""
-
-#: admin/class-theme-my-login-admin.php:343
-msgid "Please read the following carefully!"
-msgstr ""
-
-#: admin/class-theme-my-login-admin.php:344
-msgid "Theme My Login version 7.0+ contains major changes that can possibly break some sites. In order to protect your site from potentially breaking, we are requiring you to opt-in to receive the update."
-msgstr ""
-
-#: admin/class-theme-my-login-admin.php:345
-msgid "So that we may help you understand some of these changes, we will go over them below."
-msgstr ""
-
-#: admin/class-theme-my-login-admin.php:348
-msgid "Modules will no longer be included with the plugin"
-msgstr ""
-
-#: admin/class-theme-my-login-admin.php:351
-msgid "With the exception of Custom Passwords (merged into the core plugin) and Custom User Links (discontinued), all of the modules listed above are now available in <a href=\"https://thememylogin.com/extensions\">our store</a>."
-msgstr ""
-
-#: admin/class-theme-my-login-admin.php:352
-msgid "If you update, you will need to purchase a license to use the new extensions."
-msgstr ""
-
-#: admin/class-theme-my-login-admin.php:353
-msgid "Most of these extensions have been completely rewritten and contain additional features not found in the 6.4.x modules."
-msgstr ""
-
-#: admin/class-theme-my-login-admin.php:354
-msgid "If you are not using any of the above modules, this change will not affect you."
 msgstr ""
 
 #: admin/class-theme-my-login-admin.php:357
@@ -1187,49 +1155,6 @@ msgstr ""
 msgid "Registration complete. You may now log in."
 msgstr ""
 
-#: modules/recaptcha/recaptcha.php:110
-msgid "<strong>ERROR</strong>: Invalid reCAPTCHA secret key."
-msgstr ""
-
-#: modules/recaptcha/recaptcha.php:114
-msgid "<strong>ERROR</strong>: Please check the box to prove that you are not a robot."
-msgstr ""
-
-#: modules/recaptcha/recaptcha.php:118
-msgid "<strong>ERROR</strong>: Unable to reach the reCAPTCHA server."
-msgstr ""
-
-#: modules/recaptcha/admin/recaptcha-admin.php:89
-#: modules/recaptcha/admin/recaptcha-admin.php:139
-msgid "Theme My Login reCAPTCHA Settings"
-msgstr ""
-
-#: modules/recaptcha/admin/recaptcha-admin.php:90
-msgid "reCAPTCHA"
-msgstr ""
-
-#: modules/recaptcha/admin/recaptcha-admin.php:98
-msgid "Site Key"
-msgstr ""
-
-#: modules/recaptcha/admin/recaptcha-admin.php:99
-msgid "Secret Key"
-msgstr ""
-
-#: modules/recaptcha/admin/recaptcha-admin.php:100
-msgid "Theme"
-msgstr ""
-
-#: modules/recaptcha/admin/recaptcha-admin.php:123
-msgctxt "recaptcha theme"
-msgid "Light"
-msgstr ""
-
-#: modules/recaptcha/admin/recaptcha-admin.php:124
-msgctxt "recaptcha theme"
-msgid "Dark"
-msgstr ""
-
 #: modules/custom-email/admin/custom-email-admin.php:90
 #: modules/custom-email/admin/custom-email-admin.php:147
 msgid "Theme My Login Custom E-mail Settings"
@@ -1438,20 +1363,4 @@ msgstr ""
 
 #: modules/custom-email/custom-email.php:907
 msgid "Password Lost and Changed for user: %s"
-msgstr ""
-
-#. Plugin URI of the plugin
-msgid "http://www.jfarthing.com/extend/wordpress-plugins/theme-my-login/"
-msgstr ""
-
-#. Description of the plugin
-msgid "Themes the WordPress login, registration and forgot password pages according to your theme."
-msgstr ""
-
-#. Author of the plugin
-msgid "Jeff Farthing"
-msgstr ""
-
-#. Author URI of the plugin
-msgid "http://www.jfarthing.com"
 msgstr ""

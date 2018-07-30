@@ -113,7 +113,6 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 		// Add sections
 		add_settings_section( 'general', __( 'General', 'theme-my-login' ), '__return_false',                          $this->options_key );
 		add_settings_section( 'modules', __( 'Modules', 'theme-my-login' ), '__return_false',                          $this->options_key );
-		add_settings_section( 'update',  __( 'Update',  'theme-my-login' ), array( $this, 'settings_section_update' ), $this->options_key );
 
 		// Add fields
 		add_settings_field( 'enable_css', __( 'Stylesheet', 'theme-my-login' ), array( $this, 'settings_field_enable_css' ), $this->options_key, 'general' );
@@ -314,63 +313,20 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 	}
 
 	/**
-	 * Renders Update settings section.
-	 *
-	 * @since 6.4.16
-	 */
-	public function settings_section_update() {
-		?>
-
-		<p><?php echo implode( ' ', array(
-			__( 'Please read the following carefully!', 'theme-my-login' ),
-			__( 'Theme My Login version 7.0+ contains major changes that can possibly break some sites. In order to protect your site from potentially breaking, we are requiring you to opt-in to receive the update.', 'theme-my-login' ),
-			__( 'So that we may help you understand some of these changes, we will go over them below.', 'theme-my-login' ),
-		) ); ?>
-
-		<h3><?php _e( 'Modules will no longer be included with the plugin', 'theme-my-login' ); ?></h3>
-
-		<p><?php echo implode( ' ', array(
-			__( 'With the exception of Custom Passwords (merged into the core plugin) and Custom User Links (discontinued), all of the modules listed above are now available in <a href="https://thememylogin.com/extensions">our store</a>.', 'theme-my-login' ),
-			__( 'If you update, you will need to purchase a license to use the new extensions.', 'theme-my-login' ),
-			__( 'Most of these extensions have been completely rewritten and contain additional features not found in the 6.4.x modules.', 'theme-my-login' ),
-			'<strong>' . __( 'If you are not using any of the above modules, this change will not affect you.', 'theme-my-login' ) . '</strong>',
-		) ); ?></p>
-
-		<h3><?php _e( 'Templates will no longer be utilized by the plugin', 'theme-my-login' ); ?></h3>
-
-		<p><?php echo implode( ' ', array(
-			__( 'In order to simplify the way the plugin generates forms, templates are no longer used. Instead, the forms are generated procedurally in PHP code. This makes it much easier to add, edit and rearrange form fields and leads to less complexity.', 'theme-my-login' ),
-			'<strong>' . __( 'If you are not using custom templates for any actions, this change will not affect you.', 'theme-my-login' ) . '</strong>',
-		) ); ?></p>
-
-		<h3><?php _e( 'The plugin will no longer use WordPress pages to represent actions', 'theme-my-login' ); ?></h3>
-
-		<p><?php echo implode( ' ', array(
-			__( 'Instead of using "real" pages, they are generated "on-the-fly", that is, as needed, when the corresponding action is requested. This eliminates clutter and avoids the accidental deletion of pages that represent actions.', 'theme-my-login' ),
-			'<strong>' . __( 'If you have not added anything to the pages that the plugin created, this change will not affect you.', 'theme-my-login' ) . '</strong>',
-		) ); ?></p>
-
-		<?php
-	}
-
-	/**
 	 * Renders Update settings field.
 	 *
 	 * @since 6.4.16
 	 */
 	public function settings_field_update() {
 		?>
-
 		<p>
-			<input name="theme_my_login[allow_update]" type="radio" id="theme_my_login_allow_update_on" value="1"<?php checked( (bool) $this->get_option( 'allow_update' ) ); ?> />
+			<input name="theme_my_login[allow_update]" type="radio" id="theme_my_login_allow_update_on" value="1"<?php checked( (bool) $this->get_option('allow_update') ); ?> />
 			<label for="theme_my_login_allow_update_on"><?php _e( 'I understand the possible consequences, but I want the latest features and wish to allow the update', 'theme-my-login' ); ?></label>
 		</p>
-
 		<p>
-			<input name="theme_my_login[allow_update]" type="radio" id="theme_my_login_allow_update_off" value="0"<?php checked( ! $this->get_option( 'allow_update' ) ); ?> />
+			<input name="theme_my_login[allow_update]" type="radio" id="theme_my_login_allow_update_off" value="0"<?php checked( !$this->get_option('allow_update') ); ?> />
 			<label for="theme_my_login_allow_update_off"><?php _e( 'I understand that I will no longer receive any new features but I would like to stay on the 6.4 branch anyway', 'theme-my-login' ); ?></label>
 		</p>
-
 		<?php
 	}
 

@@ -1130,7 +1130,7 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	}
 
 	/**
-	 * Enqueues the specified sylesheet
+	 * Enqueues the specified stylesheet
 	 *
 	 * First looks in theme/template directories for the stylesheet, falling back to plugin directory
 	 *
@@ -1212,7 +1212,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	 * @return object Instance object
 	 */
 	public function load_instance( $args = '' ) {
-
 		$instance = new Theme_My_Login_Template( $args );
 		$instance->set_option( 'instance', count( $this->loaded_instances ) );
 
@@ -1264,7 +1263,7 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	 * @return bool|WP_Error True: when finish. WP_Error on error
 	 */
 	public static function retrieve_password() {
-		global $wpdb, $wp_hasher;
+		global $wp_hasher;
 
 		$errors = new WP_Error();
 
