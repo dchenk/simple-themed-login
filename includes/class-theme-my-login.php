@@ -747,9 +747,9 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 		 * Bail if the URL is an interim-login URL
 		 *
 		 * This only works using the javascript workaround as implemented in
-		 * admin/theme-my-login-admin.php and admin/js/theme-my-login-admin.js.
+		 * admin/theme-my-login-admin.php and admin/theme-my-login-admin.js.
 		 *
-		 * @see http://core.trac.wordpress.org/ticket/31821
+		 * @see https://core.trac.wordpress.org/ticket/31821
 		 */
 		if ( isset( $query['interim-login'] ) )
 			return $url;
@@ -1182,7 +1182,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	 *
 	 * @param int $id Instance ID
 	 * @return object Instance object
-
 	 */
 	public function get_instance( $id = 0 ) {
 		if ( isset( $this->loaded_instances[$id] ) )
@@ -1263,8 +1262,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	 * @return bool|WP_Error True: when finish. WP_Error on error
 	 */
 	public static function retrieve_password() {
-		global $wp_hasher;
-
 		$errors = new WP_Error();
 
 		if ( empty( $_POST['user_login'] ) ) {

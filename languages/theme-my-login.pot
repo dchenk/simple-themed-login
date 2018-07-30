@@ -122,11 +122,11 @@ msgstr ""
 msgid "To reset your password, visit the following address:"
 msgstr ""
 
-#: includes/class-theme-my-login.php:1316
+#: includes/class-theme-my-login.php:1312
 msgid "Password Reset"
 msgstr ""
 
-#: includes/class-theme-my-login.php:1323
+#: includes/class-theme-my-login.php:1318
 #: modules/user-moderation/admin/user-moderation-admin.php:252
 #: modules/user-moderation/admin/user-moderation-admin.php:394
 #: modules/user-moderation/admin/user-moderation-admin.php:436

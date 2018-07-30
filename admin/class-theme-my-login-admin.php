@@ -128,7 +128,7 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 	 * @access public
 	 */
 	public function admin_enqueue_scripts() {
-		wp_enqueue_script( 'theme-my-login-admin', plugins_url( 'js/theme-my-login-admin.js', __FILE__ ), array( 'jquery' ), Theme_My_Login::VERSION, true );
+		wp_enqueue_script( 'theme-my-login-admin', plugins_url( 'theme-my-login-admin.js', __FILE__ ), array( 'jquery' ), Theme_My_Login::VERSION, true );
 		wp_localize_script( 'theme-my-login-admin', 'tmlAdmin', array(
 			'interim_login_url' => site_url( 'wp-login.php?interim-login=1', 'login' )
 		) );
