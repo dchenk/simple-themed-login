@@ -342,13 +342,11 @@ msgid "Your Data Request"
 msgstr ""
 
 #: includes/class-theme-my-login-template.php:354
-#: modules/custom-user-links/custom-user-links.php:61
 msgid "Dashboard"
 msgstr ""
 
 #: includes/class-theme-my-login-template.php:357
 #: modules/themed-profiles/themed-profiles.php:99
-#: modules/custom-user-links/custom-user-links.php:65
 msgid "Profile"
 msgstr ""
 
@@ -386,7 +384,6 @@ msgstr ""
 
 #: admin/class-theme-my-login-admin.php:113
 #: admin/class-theme-my-login-admin.php:119
-#: modules/custom-user-links/admin/custom-user-links-admin.php:237
 msgid "Update"
 msgstr ""
 
@@ -955,33 +952,6 @@ msgstr ""
 
 #: modules/security/security.php:603
 msgid "The following attempts resulted in the lock:"
-msgstr ""
-
-#: modules/custom-user-links/admin/custom-user-links-admin.php:94
-#: modules/custom-user-links/admin/custom-user-links-admin.php:144
-msgid "Theme My Login Custom User Links Settings"
-msgstr ""
-
-#: modules/custom-user-links/admin/custom-user-links-admin.php:95
-msgid "User Links"
-msgstr ""
-
-#: modules/custom-user-links/admin/custom-user-links-admin.php:181
-#: modules/custom-user-links/admin/custom-user-links-admin.php:231
-msgid "Title"
-msgstr ""
-
-#: modules/custom-user-links/admin/custom-user-links-admin.php:182
-#: modules/custom-user-links/admin/custom-user-links-admin.php:232
-msgid "URL"
-msgstr ""
-
-#: modules/custom-user-links/admin/custom-user-links-admin.php:205
-msgid "Add Link"
-msgstr ""
-
-#: modules/custom-user-links/admin/custom-user-links-admin.php:235
-msgid "Delete"
 msgstr ""
 
 #: modules/user-moderation/admin/user-moderation-admin.php:86
