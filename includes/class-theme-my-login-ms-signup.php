@@ -483,8 +483,8 @@ class Theme_My_Login_MS_Signup extends Theme_My_Login_Abstract {
 	 */
 	public function wpmu_new_blog( $blog_id, $user_id ) {
 		require_once ( ABSPATH . '/wp-admin/includes/plugin.php' );
-		if ( is_plugin_active_for_network( plugin_basename( THEME_MY_LOGIN_PATH ) . '/theme-my-login.php' ) ) {
-			require_once( THEME_MY_LOGIN_PATH . '/admin/class-theme-my-login-admin.php' );
+		if ( is_plugin_active_for_network( plugin_basename( SIMPLE_THEMED_LOGIN_PATH ) . '/theme-my-login.php' ) ) {
+			require_once( SIMPLE_THEMED_LOGIN_PATH . '/admin/class-theme-my-login-admin.php' );
 			switch_to_blog( $blog_id );
 			$admin = Theme_My_Login_Admin::get_object();
 			$admin->install();

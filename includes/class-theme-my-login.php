@@ -189,8 +189,8 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	 */
 	public function plugins_loaded() {
 		foreach ( $this->get_option( 'active_modules', array() ) as $module ) {
-			if ( file_exists( THEME_MY_LOGIN_PATH . '/modules/' . $module ) )
-				include_once( THEME_MY_LOGIN_PATH . '/modules/' . $module );
+			if ( file_exists( SIMPLE_THEMED_LOGIN_PATH . '/modules/' . $module ) )
+				include_once( SIMPLE_THEMED_LOGIN_PATH . '/modules/' . $module );
 		}
 		do_action_ref_array( 'tml_modules_loaded', array( &$this ) );
 	}
@@ -204,7 +204,7 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	public function init() {
 		global $pagenow;
 
-		load_plugin_textdomain( 'theme-my-login', false, plugin_basename( THEME_MY_LOGIN_PATH ) . '/languages' );
+		load_plugin_textdomain( 'theme-my-login', false, plugin_basename( SIMPLE_THEMED_LOGIN_PATH ) . '/languages' );
 
 		$this->errors = new WP_Error();
 

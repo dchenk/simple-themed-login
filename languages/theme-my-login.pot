@@ -1,8 +1,7 @@
-# Copyright (C) 2018 Theme My Login
-# This file is distributed under the same license as the Theme My Login package.
+# Copyright (C) 2018 Simple Themed Login
 msgid ""
 msgstr ""
-"Project-Id-Version: Theme My Login 9.0.0\n"
+"Project-Id-Version: Simple Themed Login 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/theme-my-login\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"

@@ -65,7 +65,7 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 		}
 		add_action( 'upgrader_pre_install', array( $this, 'upgrader_pre_install' ), 0, 2 );
 
-		register_uninstall_hook( THEME_MY_LOGIN_PATH . '/theme-my-login.php', array( 'Theme_My_Login_Admin', 'uninstall' ) );
+		register_uninstall_hook( SIMPLE_THEMED_LOGIN_PATH . '/theme-my-login.php', array( 'Theme_My_Login_Admin', 'uninstall' ) );
 	}
 
 	/**
@@ -301,7 +301,7 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 	 * @access public
 	 */
 	public function settings_field_modules() {
-		foreach ( get_plugins( sprintf( '/%s/modules', plugin_basename( THEME_MY_LOGIN_PATH ) ) ) as $path => $data ) {
+		foreach ( get_plugins( sprintf( '/%s/modules', plugin_basename( SIMPLE_THEMED_LOGIN_PATH ) ) ) as $path => $data ) {
 			$id = sanitize_key( $data['Name'] );
 		?>
 		<input name="theme_my_login[active_modules][]" type="checkbox" id="theme_my_login_active_modules_<?php echo $id; ?>" value="<?php echo $path; ?>"<?php checked( in_array( $path, (array) $this->get_option( 'active_modules' ) ) ); ?> />
@@ -350,8 +350,8 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 		// If we have modules to activate
 		if ( $activate = array_diff( $settings['active_modules'], $this->get_option( 'active_modules', array() ) ) ) {
 			foreach ( $activate as $module ) {
-				if ( file_exists( THEME_MY_LOGIN_PATH . '/modules/' . $module ) )
-					include_once( THEME_MY_LOGIN_PATH . '/modules/' . $module );
+				if ( file_exists( SIMPLE_THEMED_LOGIN_PATH . '/modules/' . $module ) )
+					include_once( SIMPLE_THEMED_LOGIN_PATH . '/modules/' . $module );
 				do_action( 'tml_activate_' . $module );
 			}
 		}
@@ -444,7 +444,7 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 			return $response;
 		}
 
-		$basename = plugin_basename( THEME_MY_LOGIN_PATH . '/theme-my-login.php' );
+		$basename = plugin_basename( SIMPLE_THEMED_LOGIN_PATH . '/theme-my-login.php' );
 
 		// Bal if we're not upgrading TML
 		if ( $basename != $args['plugin'] ) {
@@ -580,8 +580,8 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 
 		// Activate modules
 		foreach ( $this->get_option( 'active_modules', array() ) as $module ) {
-			if ( file_exists( THEME_MY_LOGIN_PATH . '/modules/' . $module ) )
-				include_once( THEME_MY_LOGIN_PATH . '/modules/' . $module );
+			if ( file_exists( SIMPLE_THEMED_LOGIN_PATH . '/modules/' . $module ) )
+				include_once( SIMPLE_THEMED_LOGIN_PATH . '/modules/' . $module );
 			do_action( 'tml_activate_' . $module );
 		}
 
@@ -622,12 +622,12 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 		require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
 		// Run module uninstall hooks
-		$modules = get_plugins( sprintf( '/%s/modules', plugin_basename( THEME_MY_LOGIN_PATH ) ) );
+		$modules = get_plugins( sprintf( '/%s/modules', plugin_basename( SIMPLE_THEMED_LOGIN_PATH ) ) );
 		foreach ( array_keys( $modules ) as $module ) {
 			$module = plugin_basename( trim( $module ) );
 
-			if ( file_exists( THEME_MY_LOGIN_PATH . '/modules/' . $module ) )
-				@include ( THEME_MY_LOGIN_PATH . '/modules/' . $module );
+			if ( file_exists( SIMPLE_THEMED_LOGIN_PATH . '/modules/' . $module ) )
+				@include ( SIMPLE_THEMED_LOGIN_PATH . '/modules/' . $module );
 
 			do_action( 'tml_uninstall_' . $module );
 		}
