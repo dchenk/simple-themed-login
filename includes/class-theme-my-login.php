@@ -3,7 +3,6 @@
  * Holds the Theme My Login class
  *
  * @package Theme_My_Login
- * @since 6.0
  */
 
 if ( ! class_exists( 'Theme_My_Login' ) ) :
@@ -25,8 +24,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	/**
 	 * Holds options key
 	 *
-	 * @since 6.3
-	 * @access protected
 	 * @var string
 	 */
 	protected $options_key = 'theme_my_login';
@@ -34,8 +31,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	/**
 	 * Holds errors object
 	 *
-	 * @since 6.0
-	 * @access public
 	 * @var object
 	 */
 	public $errors;
@@ -43,8 +38,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	/**
 	 * Holds current page being requested
 	 *
-	 * @since 6.3
-	 * @access public
 	 * @var string
 	 */
 	public $request_page;
@@ -52,8 +45,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	/**
 	 * Holds current action being requested
 	 *
-	 * @since 6.0
-	 * @access public
 	 * @var string
 	 */
 	public $request_action;
@@ -70,8 +61,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	/**
 	 * Holds the current instance being displayed
 	 *
-	 * @since 6.4.11
-	 * @access public
 	 * @var int
 	 */
 	public $current_instance = 0;
@@ -79,8 +68,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	/**
 	 * Holds loaded instances
 	 *
-	 * @since 6.3
-	 * @access protected
 	 * @var array
 	 */
 	protected $loaded_instances = array();
@@ -88,8 +75,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	/**
 	 * Returns singleton instance
 	 *
-	 * @since 6.3
-	 * @access public
 	 * @return object
 	 */
 	public static function get_object( $class = null ) {
@@ -98,9 +83,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 
 	/**
 	 * Returns default options
-	 *
-	 * @since 6.3
-	 * @access public
 	 *
 	 * @return array Default options
 	 */
@@ -117,9 +99,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	/**
 	 * Returns default pages
 	 *
-	 * @since 6.3
-	 * @access public
-	 *
 	 * @return array Default pages
 	 */
 	public static function default_pages() {
@@ -134,9 +113,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 
 	/**
 	 * Loads the plugin
-	 *
-	 * @since 6.0
-	 * @access public
 	 */
 	protected function load() {
 
@@ -180,9 +156,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 
 	/**
 	 * Loads active modules
-	 *
-	 * @since 6.3
-	 * @access public
 	 */
 	public function plugins_loaded() {
 		foreach ( $this->get_option( 'active_modules', array() ) as $module ) {
@@ -194,9 +167,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 
 	/**
 	 * Initializes the plugin
-	 *
-	 * @since 6.0
-	 * @access public
 	 */
 	public function init() {
 		global $pagenow;
@@ -211,9 +181,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 
 	/**
 	 * Registers the widget
-	 *
-	 * @since 6.0
-	 * @access public
 	 */
 	public function widgets_init() {
 		if ( class_exists( 'Theme_My_Login_Widget' ) )
@@ -222,9 +189,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 
 	/**
 	 * Used to add/remove filters from login page
-	 *
-	 * @since 6.1.1
-	 * @access public
 	 */
 	public function wp() {
 		if ( self::is_tml_page() ) {
@@ -265,9 +229,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 
 	/**
 	 * Exclude TML pages from search
-	 *
-	 * @since 6.1.13
-	 * @access public
 	 */
 	public function pre_get_posts( $query ) {
 
@@ -312,12 +273,9 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	}
 
 	/**
-	 * Proccesses the request
+	 * Processes the request
 	 *
 	 * Callback for "template_redirect" hook in template-loader.php
-	 *
-	 * @since 6.3
-	 * @access public
 	 */
 	public function template_redirect() {
 
@@ -606,8 +564,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	 * Calls "login_enqueue_scripts" on login page
 	 *
 	 * Callback for "wp_enqueue_scripts" hook
-	 *
-	 * @since 6.3
 	 */
 	public function wp_enqueue_scripts() {
 		if ( self::is_tml_page() )
@@ -618,9 +574,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	 * Calls "login_head" hook on login page
 	 *
 	 * Callback for "wp_head" hook
-	 *
-	 * @since 6.0
-	 * @access public
 	 */
 	public function wp_head() {
 		if ( self::is_tml_page() ) {
@@ -649,9 +602,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 
 	/**
 	 * Prints javascript in the footer
-	 *
-	 * @since 6.0
-	 * @access public
 	 */
 	public function wp_print_footer_scripts() {
 		if ( ! self::is_tml_page() )
@@ -716,9 +666,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	/**
 	 * Rewrites URL's containing wp-login.php created by site_url()
 	 *
-	 * @since 6.0
-	 * @access public
-	 *
 	 * @param string $url The URL
 	 * @param string $path The path specified
 	 * @param string $orig_scheme The current connection scheme (HTTP/HTTPS)
@@ -767,9 +714,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	 *
 	 * This is needed because WP doesn't pass the action parameter to site_url
 	 *
-	 * @since 6.3
-	 * @access public
-	 *
 	 * @param string $logout_url Logout URL
 	 * @param string $redirect Redirect URL
 	 * @return string Logout URL
@@ -787,8 +731,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	 * Callback for "single_post_title" hook in single_post_title()
 	 *
 	 * @see single_post_title()
-	 * @since 6.0
-	 * @access public
 	 *
 	 * @param string $title The current post title
 	 * @return string The modified post title
@@ -892,8 +834,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	/**
 	 * Excludes pages from wp_list_pages
 	 *
-	 * @since 6.3.7
-	 *
 	 * @param array $exclude Page IDs to exclude
 	 * @return array Page IDs to exclude
 	 */
@@ -912,8 +852,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	/**
 	 * Adds nonce to logout link
 	 *
-	 * @since 6.3.7
-	 *
 	 * @param string $link Page link
 	 * @param int $post_id Post ID
 	 * @return string Page link
@@ -926,8 +864,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 
 	/**
 	 * Add proper message in case of e-mail login error
-	 *
-	 * @since 6.4.5
 	 *
 	 * @param null|WP_Error|WP_User $user
 	 * @param string                $username
@@ -958,7 +894,7 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	 * - register_template - The template used for the register form. Defaults to "register-form.php".
 	 * - lostpassword_template - The template used for the lost password form. Defaults to "lostpassword-form.php".
 	 * - resetpass_template - The template used for the reset password form. Defaults to "resetpass-form.php".
-	 * - user_template - The templated used for when a user is logged in. Defalts to "user-panel.php".
+	 * - user_template - The template used for when a user is logged in. Defaults to "user-panel.php".
 	 * - show_title - True to display the current title, false to hide. Defaults to true.
 	 * - show_log_link - True to display the login link, false to hide. Defaults to true.
 	 * - show_reg_link - True to display the register link, false to hide. Defaults to true.
@@ -967,9 +903,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	 * - logged_out_widget - True to display the widget when logged out, false to hide. Defaults to true.
 	 * - show_gravatar - True to display the user's gravatar, false to hide. Defaults to true.
 	 * - gravatar_size - The size of the user's gravatar. Defaults to "50".
-	 *
-	 * @since 6.0
-	 * @access public
 	 *
 	 * @param string|array $atts Attributes passed from the shortcode
 	 * @return string HTML output from Theme_My_Login_Template->display()
@@ -1012,8 +945,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	/**
 	 * Determines if $action is for $page
 	 *
-	 * @since 6.3
-	 *
 	 * @param array|string $action An action or array of actions to check
 	 * @param int|object Post ID or object
 	 * @return bool True if $action is for $page, false otherwise
@@ -1039,9 +970,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 
 	/**
 	 * Returns link for a login page
-	 *
-	 * @since 6.3
-	 * @access public
 	 *
 	 * @param string $action The action
 	 * @param string|array $query Optional. Query arguments to add to link
@@ -1087,8 +1015,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	/**
 	 * Retrieves a page ID for an action
 	 *
-	 * @since 6.3
-	 *
 	 * @param string $action The action
 	 * @return int|bool The page ID if exists, false otherwise
 	 */
@@ -1112,8 +1038,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	/**
 	 * Get the action for a page
 	 *
-	 * @since 6.3
-	 *
 	 * @param int|object Post ID or object
 	 * @return string|bool Action name if exists, false otherwise
 	 */
@@ -1128,9 +1052,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	 * Enqueues the specified stylesheet
 	 *
 	 * First looks in theme/template directories for the stylesheet, falling back to plugin directory
-	 *
-	 * @since 6.0
-	 * @access public
 	 *
 	 * @param string $file Filename of stylesheet to load
 	 * @return string Path to stylesheet
@@ -1148,9 +1069,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	/**
 	 * Retrieves active instance object
 	 *
-	 * @since 6.3
-	 * @access public
-	 *
 	 * @return object Instance object
 	 */
 	public function get_active_instance() {
@@ -1160,9 +1078,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	/**
 	 * Get the current instance object
 	 *
-	 * @since 6.4.11
-	 * @access public
-	 *
 	 * @return object Instance object
 	 */
 	public function get_current_instance() {
@@ -1171,9 +1086,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 
 	/**
 	 * Retrieves a loaded instance object
-	 *
-	 * @since 6.3
-	 * @access public
 	 *
 	 * @param int $id Instance ID
 	 * @return object Instance object
@@ -1186,9 +1098,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	/**
 	 * Sets an instance object
 	 *
-	 * @since 6.3
-	 * @access public
-	 *
 	 * @param object $object Instance object
 	 */
 	public function set_instance( $object ) {
@@ -1198,11 +1107,7 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	/**
 	 * Instantiates an instance
 	 *
-	 * @since 6.3
-	 * @access public
-	 *
 	 * @param array|string $args Array or query string of arguments
-
 	 * @return object Instance object
 	 */
 	public function load_instance( $args = '' ) {
@@ -1227,8 +1132,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	 * translation files, please place them in a '/theme-my-login/'
 	 * directory within the global language folder.
 	 *
-	 * @since 6.4.4
-	 *
 	 * @param string $domain The domain for which a language file is being loaded.
 	 */
 	public function load_custom_textdomain( $domain ) {
@@ -1240,8 +1143,6 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	/**
 	 * Handles sending password retrieval email to user.
 	 *
-	 * @since 6.0
-	 * @access public
 	 * @uses $wpdb WordPress Database object
 	 *
 	 * @return bool|WP_Error True: when finish. WP_Error on error

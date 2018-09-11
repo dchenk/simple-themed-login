@@ -65,8 +65,8 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 	 */
 	public function admin_menu() {
 		add_menu_page(
-			__( 'Login Settings', 'simple-themed-login' ),
-			'Simple Themed Login',
+			__( 'Simple Themed Login Settings', 'simple-themed-login' ),
+			'STL',
 			'manage_options',
 			'theme_my_login',
 			['Theme_My_Login_Admin', 'settings_page']
@@ -202,7 +202,7 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 	 */
 	public static function settings_page( $args = '' ) {
 		extract( wp_parse_args( $args, array(
-			'title'       => __( 'Theme My Login Settings', 'simple-themed-login' ),
+			'title'       => 'Simple Themed Login Settings',
 			'options_key' => 'theme_my_login'
 		) ) );
 		?>

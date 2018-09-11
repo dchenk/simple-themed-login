@@ -17,7 +17,6 @@ class Theme_My_Login_Security_Admin extends Theme_My_Login_Abstract {
 	/**
 	 * Holds options key
 	 *
-	 * @ since 6.3
 	 * @var string
 	 */
 	protected $options_key = 'theme_my_login_security';
