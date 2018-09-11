@@ -4,21 +4,16 @@
  *
  * @package Theme_My_Login
  * @subpackage Theme_My_Login_Custom_Redirection
- * @since 6.0
  */
 
 if ( ! class_exists( 'Theme_My_Login_Custom_Redirection_Admin' ) ) :
 /**
  * Theme My Login Custom Redirection Admin class
- *
- * @since 6.3
  */
 class Theme_My_Login_Custom_Redirection_Admin extends Theme_My_Login_Abstract {
 	/**
 	 * Holds options key
 	 *
-	 * @since 6.3
-	 * @access protected
 	 * @var string
 	 */
 	protected $options_key = 'theme_my_login_redirection';
@@ -26,8 +21,6 @@ class Theme_My_Login_Custom_Redirection_Admin extends Theme_My_Login_Abstract {
 	/**
 	 * Returns singleton instance
 	 *
-	 * @since 6.3
-	 * @access public
 	 * @return object
 	 */
 	public static function get_object( $class = null ) {
@@ -36,9 +29,6 @@ class Theme_My_Login_Custom_Redirection_Admin extends Theme_My_Login_Abstract {
 
 	/**
 	 * Called on Theme_My_Login_Abstract::__construct
-	 *
-	 * @since 6.3
-	 * @access protected
 	 */
 	protected function load() {
 		add_action( 'tml_uninstall_custom-redirection/custom-redirection.php', array( $this, 'uninstall' ) );
@@ -51,9 +41,6 @@ class Theme_My_Login_Custom_Redirection_Admin extends Theme_My_Login_Abstract {
 
 	/**
 	 * Returns default options
-	 *
-	 * @since 6.3
-	 * @access public
 	 */
 	public static function default_options() {
 		return Theme_My_Login_Custom_Redirection::default_options();
@@ -65,8 +52,6 @@ class Theme_My_Login_Custom_Redirection_Admin extends Theme_My_Login_Abstract {
 	 * Callback for "tml_uninstall_custom-email/custom-email.php" hook in method Theme_My_Login_Admin::uninstall()
 	 *
 	 * @see Theme_My_Login_Admin::uninstall()
-	 * @since 6.3
-	 * @access public
 	 */
 	public function uninstall() {
 		delete_option( $this->options_key );
@@ -74,12 +59,10 @@ class Theme_My_Login_Custom_Redirection_Admin extends Theme_My_Login_Abstract {
 
 	/**
 	 * Adds "Redirection" tab to Theme My Login menu
-	 *
-	 * @since 6.0
-	 * @access public
 	 */
 	public function admin_menu() {
 		global $wp_roles;
+
 
 		add_submenu_page(
 			'theme_my_login',
@@ -87,12 +70,13 @@ class Theme_My_Login_Custom_Redirection_Admin extends Theme_My_Login_Abstract {
 			__( 'Redirection', 'simple-themed-login' ),
 			'manage_options',
 			$this->options_key,
-			array( $this, 'settings_page' )
+			[$this, 'settings_page']
 		);
 
 		foreach ( $wp_roles->get_names() as $role => $role_name ) {
-			if ( 'pending' != $role )
-				add_meta_box( $role, translate_user_role( $role_name ), array( $this, 'redirection_meta_box' ), 'tml_page_' . $this->options_key, 'normal' );
+			if ( 'pending' != $role ) {
+				add_meta_box( $role, translate_user_role( $role_name ), [$this, 'redirection_meta_box'], 'tml_page_theme_my_login_redirection', 'normal', $role );
+			}
 		}
 	}
 
@@ -100,9 +84,6 @@ class Theme_My_Login_Custom_Redirection_Admin extends Theme_My_Login_Abstract {
 	 * Registers options group
 	 *
 	 * Callback for "admin_init" hook
-	 *
-	 * @since 6.3
-	 * @access public
 	 */
 	public function admin_init() {
 		register_setting( $this->options_key, $this->options_key );
@@ -112,9 +93,6 @@ class Theme_My_Login_Custom_Redirection_Admin extends Theme_My_Login_Abstract {
 	 * Loads admin styles and scripts
 	 *
 	 * Callback for "load-settings_page_theme-my-login" hook in file "wp-admin/admin.php"
-	 *
-	 * @since 6.0
-	 * @access public
 	 */
 	public function load_settings_page() {
 		wp_enqueue_script( 'tml-custom-redirection-admin', plugins_url( 'js/custom-redirection-admin.js', __FILE__ ), array( 'postbox' ) );
@@ -122,9 +100,6 @@ class Theme_My_Login_Custom_Redirection_Admin extends Theme_My_Login_Abstract {
 
 	/**
 	 * Renders settings page
-	 *
-	 * @since 6.3
-	 * @access public
 	 */
 	public function settings_page() {
 		global $current_screen;
@@ -132,7 +107,6 @@ class Theme_My_Login_Custom_Redirection_Admin extends Theme_My_Login_Abstract {
 		<div class="wrap">
 			<h2><?php esc_html_e( 'STL Custom Redirection Settings', 'simple-themed-login' ); ?></h2>
 			<?php settings_errors(); ?>
-
 			<form method="post" action="options.php">
 				<?php
 				settings_fields( $this->options_key );
@@ -153,9 +127,6 @@ class Theme_My_Login_Custom_Redirection_Admin extends Theme_My_Login_Abstract {
 	 *
 	 * Callback for add_submenu_page()
 	 *
-	 * @since 6.3
-	 * @access public
-	 *
 	 * @param array $args Arguments passed in from add_submenu_page()
 	 */
 	public function redirection_meta_box( $object, $box ) {
@@ -163,7 +134,7 @@ class Theme_My_Login_Custom_Redirection_Admin extends Theme_My_Login_Abstract {
 		?>
 		<table class="form-table">
 			<tr valign="top">
-			<th scope="row"><?php _e( 'Log in' ); ?></th>
+				<th scope="row"><?php _e( 'Log in' ); ?></th>
 				<td>
 					<input name="<?php echo $this->options_key; ?>[<?php echo $role; ?>][login_type]" type="radio" id="<?php echo $this->options_key; ?>_<?php echo $role; ?>_login_type_default" value="default"<?php checked( 'default', $this->get_option( array( $role, 'login_type' ) ) ); ?> /> <label for="<?php echo $this->options_key; ?>_<?php echo $role; ?>_login_type_default"><?php _e( 'Default', 'simple-themed-login' ); ?></label>
 					<p class="description"><?php _e( 'Check this option to send the user to their WordPress Dashboard/Profile.', 'simple-themed-login' ); ?></p>

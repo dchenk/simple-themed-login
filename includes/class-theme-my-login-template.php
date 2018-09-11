@@ -288,9 +288,6 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 	/**
 	 * Returns the action links
 	 *
-	 * @since 6.0
-	 * @access public
-	 *
 	 * @param array $args Optionally specify which actions to include/exclude. By default, all are included.
 	 */
 	public function get_action_links( $args = '' ) {
@@ -343,9 +340,6 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 	/**
 	 * Returns logged-in user links
 	 *
-	 * @since 6.0
-	 * @access public
-	 *
 	 * @return array Logged-in user links
 	 */
 	public static function get_user_links() {
@@ -363,9 +357,6 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 
 	/**
 	 * Outputs logged-in user links
-	 *
-	 * @since 6.0
-	 * @access public
 	 */
 	public function the_user_links() {
 		echo '<ul class="tml-user-links">';
@@ -378,9 +369,6 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 
 	/**
 	 * Displays user avatar
-	 *
-	 * @since 6.0
-	 * @access public
 	 */
 	public function the_user_avatar( $size = '' ) {
 		if ( empty( $size ) )
@@ -393,9 +381,6 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 
 	/**
 	 * Returns template message for requested action
-	 *
-	 * @since 6.0
-	 * @access public
 	 *
 	 * @param string $action Action to retrieve
 	 * @return string The requested template message
@@ -422,9 +407,6 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 	/**
 	 * Outputs template message for requested action
 	 *
-	 * @since 6.0
-	 * @access public
-	 *
 	 * @param string $action Action to retrieve
 	 * @param string $before_message Text/HTML to add before the message
 	 * @param string $after_message Text/HTML to add after the message
@@ -436,9 +418,6 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 
 	/**
 	 * Locates specified template
-	 *
-	 * @since 6.0
-	 * @access public
 	 *
 	 * @param string|array $template_names The template(s) to locate
 	 * @param bool $load If true, the template will be included if found
@@ -493,9 +472,6 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 	/**
 	 * Returns the proper redirect URL according to action
 	 *
-	 * @since 6.0
-	 * @access public
-	 *
 	 * @param string $action The action
 	 * @return string The redirect URL
 	 */
@@ -526,9 +502,6 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 	/**
 	 * Outputs redirect URL
 	 *
-	 * @since 6.0
-	 * @access public
-	 *
 	 * @param string $action The action
 	 */
 	public function the_redirect_url( $action = '' ) {
@@ -537,9 +510,6 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 
 	/**
 	 * Outputs current template instance ID
-	 *
-	 * @since 6.0
-	 * @access public
 	 */
 	public function the_instance() {
 		if ( $this->get_option( 'instance' ) )
@@ -548,9 +518,6 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 
 	/**
 	 * Returns requested $value
-	 *
-	 * @since 6.0
-	 * @access public
 	 *
 	 * @param string $value The value to retrieve
 	 * @return string|bool The value if it exists, false if not
@@ -564,9 +531,6 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 	/**
 	 * Outputs requested value
 	 *
-	 * @since 6.0
-	 * @access public
-	 *
 	 * @param string $value The value to retrieve
 	 */
 	public function the_posted_value( $value ) {
@@ -576,9 +540,6 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 	/**
 	 * Returns active status
 	 *
-	 * @since 6.3
-	 * @access public
-	 *
 	 * @return bool True if instance is active, false if not
 	 */
 	public function is_active() {
@@ -587,9 +548,6 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 
 	/**
 	 * Sets active status
-	 *
-	 * @since 6.3
-	 * @access public
 	 *
 	 * @param bool $active Active status
 	 */

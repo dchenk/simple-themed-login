@@ -7,7 +7,6 @@
  *
  * @package Theme_My_Login
  * @subpackage Theme_My_Login_Custom_Redirection
- * @since 6.0
  */
 
 if ( ! class_exists( 'Theme_My_Login_Custom_Redirection' ) ) :
@@ -15,15 +14,11 @@ if ( ! class_exists( 'Theme_My_Login_Custom_Redirection' ) ) :
  * Theme My Login Custom Redirection class
  *
  * Adds the ability to redirect users when logging in/out based upon their "user role".
- *
- * @since 6.0
  */
 class Theme_My_Login_Custom_Redirection extends Theme_My_Login_Abstract {
 	/**
 	 * Holds options key
 	 *
-	 * @since 6.3
-	 * @access protected
 	 * @var string
 	 */
 	protected $options_key = 'theme_my_login_redirection';
@@ -31,8 +26,6 @@ class Theme_My_Login_Custom_Redirection extends Theme_My_Login_Abstract {
 	/**
 	 * Returns singleton instance
 	 *
-	 * @since 6.3
-	 * @access public
 	 * @return object
 	 */
 	public static function get_object( $class = null ) {
@@ -41,9 +34,6 @@ class Theme_My_Login_Custom_Redirection extends Theme_My_Login_Abstract {
 
 	/**
 	 * Called on Theme_My_Login_Abstract::__construct
-	 *
-	 * @since 6.0
-	 * @access protected
 	 */
 	protected function load() {
 		add_action( 'login_form',      array( $this, 'login_form'      )        );
@@ -53,9 +43,6 @@ class Theme_My_Login_Custom_Redirection extends Theme_My_Login_Abstract {
 
 	/**
 	 * Returns default options
-	 *
-	 * @since 6.3
-	 * @access public
 	 *
 	 * @return array Default options
 	 */
@@ -82,11 +69,8 @@ class Theme_My_Login_Custom_Redirection extends Theme_My_Login_Abstract {
 	/**
 	 * Get the redirect URL for a user.
 	 *
-	 * @since 6.4.1
-	 *
 	 * @param WP_User $user User object
-	 * @param string $type Optional. Type of redirect. Accepts 'login'
-	 *                               or 'logout'. Default is 'login'.
+	 * @param string $type Optional. Type of redirect. Accepts 'login' or 'logout'. Default is 'login'.
 	 * @param string $default Optional. Default URL if somehow not found
 	 * @return string Redirect URL
 	 */
