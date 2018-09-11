@@ -1,24 +1,14 @@
 <?php
-/**
- * Holds the Theme My Login Abstract class
- *
- * @package Theme_My_Login
- */
 
 if ( ! class_exists( 'Theme_My_Login_Abstract' ) ) :
 /*
  * Theme My Login Abstract class
- *
  * This class is the base class to be extended.
- *
- * @since 6.0
  */
 abstract class Theme_My_Login_Abstract {
 	/**
 	 * Holds singleton objects
 	 *
-	 * @since 6.3
-	 * @access private
 	 * @var array
 	 */
 	private static $objects = array();
@@ -26,8 +16,6 @@ abstract class Theme_My_Login_Abstract {
 	/**
 	 * Holds options key
 	 *
-	 * @since 6.3
-	 * @access protected
 	 * @var string
 	 */
 	protected $options_key;
@@ -39,18 +27,10 @@ abstract class Theme_My_Login_Abstract {
 	 * or create a method named default_options() which returns
 	 * an array of options.
 	 *
-	 * @since 6.3
-	 * @access protected
 	 * @var object
 	 */
 	protected $options = array();
 
-	/**
-	 * Constructor
-	 *
-	 * @since 6.3
-	 * @access protected
-	 */
 	protected function __construct() {
 		$this->load_options();
 		$this->load();
@@ -58,17 +38,11 @@ abstract class Theme_My_Login_Abstract {
 
 	/**
 	 * Clone
-	 *
-	 * @since 6.3
-	 * @access private
 	 */
 	private function __clone() {}
 
 	/**
 	 * Returns singleton instance
-	 *
-	 * @since 6.3
-	 * @access public
 	 *
 	 * @param string $class Class to instantiate
 	 * @return object Instance of $class
@@ -85,9 +59,6 @@ abstract class Theme_My_Login_Abstract {
 
 	/**
 	 * Called when object is constructed
-	 *
-	 * @since 6.3
-	 * @access protected
 	 */
 	protected function load() {
 		// This should be overridden by a child class
@@ -95,9 +66,6 @@ abstract class Theme_My_Login_Abstract {
 
 	/**
 	 * Loads options from DB
-	 *
-	 * @since 6.3
-	 * @access public
 	 *
 	 * @param array|string
 	 */
@@ -116,9 +84,6 @@ abstract class Theme_My_Login_Abstract {
 
 	/**
 	 * Saves options to DB
-	 *
-	 * @since 6.3
-	 * @access public
 	 */
 	public function save_options() {
 		if ( $this->options_key )
@@ -127,9 +92,6 @@ abstract class Theme_My_Login_Abstract {
 
 	/**
 	 * Retrieves an option
-	 *
-	 * @since 6.3
-	 * @access public
 	 *
 	 * @param string|array $option Name of option to retrieve or an array of hierarchy for multidimensional options
 	 * @param mixed $default Default value to return if $option is not set
@@ -143,9 +105,6 @@ abstract class Theme_My_Login_Abstract {
 
 	/**
 	 * Recursively retrieves a multidimensional option
-	 *
-	 * @since 6.3
-	 * @access private
 	 *
 	 * @param array $option Array of hierarchy
 	 * @param mixed $default Default value to return
@@ -164,10 +123,7 @@ abstract class Theme_My_Login_Abstract {
 	/**
 	 * Retrieves all options
 	 *
-	 * @since 6.3
-	 * @access public
-	 *
-	 * @return array Options
+	 * @return array
 	 */
 	public function get_options() {
 		return $this->options;
@@ -175,9 +131,6 @@ abstract class Theme_My_Login_Abstract {
 
 	/**
 	 * Sets an option
-	 *
-	 * @since 6.3
-	 * @access public
 	 *
 	 * @param string $option Name of option to set or an array of hierarchy for multidimensional options
 	 * @param mixed $value Value of new option
@@ -192,9 +145,6 @@ abstract class Theme_My_Login_Abstract {
 	/**
 	 * Recursively sets a multidimensional option
 	 *
-	 * @since 6.3
-	 * @access private
-	 *
 	 * @param array $option Array of hierarchy
 	 * @param mixed $value Value of new option
 	 * @param array $options Options to update
@@ -204,16 +154,14 @@ abstract class Theme_My_Login_Abstract {
 		if ( ! empty( $option ) ) {
 			if ( ! isset( $options[$key] ) )
 				$options[$key] = array();
-			return self::_set_option( $option, $value, $options[$key] );
+			self::_set_option( $option, $value, $options[$key] );
+			return;
 		}
 		$options[$key] = $value;
 	}
 
 	/**
 	 * Sets all options
-	 *
-	 * @since 6.3
-	 * @access public
 	 *
 	 * @param array $options Options array
 	 */
@@ -224,13 +172,10 @@ abstract class Theme_My_Login_Abstract {
 	/**
 	 * Deletes an option
 	 *
-	 * @since 6.3
-	 * @access public
-	 *
 	 * @param string $option Name of option to delete
 	 */
 	public function delete_option( $option ) {
-		if ( ! is_array( $option ) )
+		if ( !is_array( $option ) )
 			$option = array( $option );
 
 		self::_delete_option( $option, $this->options );
@@ -239,16 +184,15 @@ abstract class Theme_My_Login_Abstract {
 	/**
 	 * Recursively finds and deletes a multidimensional option
 	 *
-	 * @since 6.3
-	 * @access private
-	 *
 	 * @param array $option Array of hierarchy
 	 * @param array $options Options to update
 	 */
 	private function _delete_option( $option, &$options ) {
 		$key = array_shift( $option );
-		if ( ! empty( $option ) )
-			return self::_delete_option( $option, $options[$key] );
+		if ( !empty( $option ) ) {
+			self::_delete_option($option, $options[$key]);
+			return;
+		}
 		unset( $options[$key] );
 	}
 }

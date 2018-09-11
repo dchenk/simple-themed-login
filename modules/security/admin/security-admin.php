@@ -75,7 +75,7 @@ class Theme_My_Login_Security_Admin extends Theme_My_Login_Abstract {
 	public function admin_menu() {
 		add_submenu_page(
 			'theme_my_login',
-			__( 'Theme My Login Security Settings', 'simple-themed-login' ),
+			__( 'STL Security Settings', 'simple-themed-login' ),
 			__( 'Security', 'simple-themed-login' ),
 			'manage_options',
 			$this->options_key,

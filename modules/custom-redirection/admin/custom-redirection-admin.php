@@ -83,7 +83,7 @@ class Theme_My_Login_Custom_Redirection_Admin extends Theme_My_Login_Abstract {
 
 		add_submenu_page(
 			'theme_my_login',
-			__( 'Theme My Login Custom Redirection Settings', 'simple-themed-login' ),
+			__( 'STL Custom Redirection Settings', 'simple-themed-login' ),
 			__( 'Redirection', 'simple-themed-login' ),
 			'manage_options',
 			$this->options_key,
@@ -130,7 +130,7 @@ class Theme_My_Login_Custom_Redirection_Admin extends Theme_My_Login_Abstract {
 		global $current_screen;
 		?>
 		<div class="wrap">
-			<h2><?php esc_html_e( 'Theme My Login Custom Redirection Settings', 'simple-themed-login' ); ?></h2>
+			<h2><?php esc_html_e( 'STL Custom Redirection Settings', 'simple-themed-login' ); ?></h2>
 			<?php settings_errors(); ?>
 
 			<form method="post" action="options.php">

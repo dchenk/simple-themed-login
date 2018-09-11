@@ -16,7 +16,7 @@ This plugin will always look in your theme's directory first, before using this 
 		<?php endif; ?>
 
 		<p class="tml-user-email-wrap">
-			<label for="user_email<?php $template->the_instance(); ?>"><?php _e( 'E-mail', 'simple-themed-login' ); ?></label>
+			<label for="user_email<?php $template->the_instance(); ?>">E-mail</label>
 			<input type="text" name="user_email" id="user_email<?php $template->the_instance(); ?>" class="input" value="<?php $template->the_posted_value( 'user_email' ); ?>" size="20" />
 		</p>
 
