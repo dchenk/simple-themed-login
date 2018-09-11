@@ -20,7 +20,7 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	 *
 	 * @const string
 	 */
-	const VERSION = '9.0.0';
+	const VERSION = '1.0.0';
 
 	/**
 	 * Holds options key
@@ -124,11 +124,11 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	 */
 	public static function default_pages() {
 		return apply_filters( 'tml_default_pages', array(
-			'login'        => __( 'Log In'        , 'theme-my-login' ),
-			'logout'       => __( 'Log Out'       , 'theme-my-login' ),
-			'register'     => __( 'Register'      , 'theme-my-login' ),
-			'lostpassword' => __( 'Lost Password' , 'theme-my-login' ),
-			'resetpass'    => __( 'Reset Password', 'theme-my-login' )
+			'login'        => __( 'Log In'        , 'simple-themed-login' ),
+			'logout'       => __( 'Log Out'       , 'simple-themed-login' ),
+			'register'     => __( 'Register'      , 'simple-themed-login' ),
+			'lostpassword' => __( 'Lost Password' , 'simple-themed-login' ),
+			'resetpass'    => __( 'Reset Password', 'simple-themed-login' )
 		) );
 	}
 
@@ -167,7 +167,7 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 		add_filter( 'page_link',              array( $this, 'page_link'              ), 10, 2 );
 		add_filter( 'authenticate',           array( $this, 'authenticate'           ), 20, 3 );
 
-		add_shortcode( 'theme-my-login', array( $this, 'shortcode' ) );
+		add_shortcode( 'simple-themed-login', array( $this, 'shortcode' ) );
 
 		if ( 'username' == $this->get_option( 'login_type' ) ) {
 			remove_filter( 'authenticate', 'wp_authenticate_email_password', 20 );
@@ -176,10 +176,7 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 		}
 	}
 
-
-	/************************************************************************************************************************
-	 * Actions
-	 ************************************************************************************************************************/
+	// Actions
 
 	/**
 	 * Loads active modules
@@ -204,12 +201,12 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	public function init() {
 		global $pagenow;
 
-		load_plugin_textdomain( 'theme-my-login', false, plugin_basename( SIMPLE_THEMED_LOGIN_PATH ) . '/languages' );
+		load_plugin_textdomain( 'simple-themed-login', false, plugin_basename( SIMPLE_THEMED_LOGIN_PATH ) . '/languages' );
 
 		$this->errors = new WP_Error();
 
 		if ( ! is_admin() && 'wp-login.php' != $pagenow && $this->get_option( 'enable_css' ) )
-			wp_enqueue_style( 'theme-my-login', self::get_stylesheet(), array( 'dashicons' ), $this->get_option( 'version' ) );
+			wp_enqueue_style( 'simple-themed-login', self::get_stylesheet(), array( 'dashicons' ), $this->get_option( 'version' ) );
 	}
 
 	/**
@@ -387,9 +384,9 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 
 					if ( isset( $_REQUEST['error'] ) ) {
 						if ( 'invalidkey' == $_REQUEST['error'] )
-							$this->errors->add( 'invalidkey', __( 'Your password reset link appears to be invalid. Please request a new link below.', 'theme-my-login' ) );
+							$this->errors->add( 'invalidkey', __( 'Your password reset link appears to be invalid. Please request a new link below.', 'simple-themed-login' ) );
 						elseif ( 'expiredkey' == $_REQUEST['error'] )
-							$this->errors->add( 'expiredkey', __( 'Your password reset link has expired. Please request a new link below.', 'theme-my-login' ) );
+							$this->errors->add( 'expiredkey', __( 'Your password reset link has expired. Please request a new link below.', 'simple-themed-login' ) );
 					}
 
 					do_action( 'lost_password' );
@@ -427,7 +424,7 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 					}
 
 					if ( isset( $_POST['pass1'] ) && $_POST['pass1'] != $_POST['pass2'] )
-						$this->errors->add( 'password_reset_mismatch', __( 'The passwords do not match.', 'theme-my-login' ) );
+						$this->errors->add( 'password_reset_mismatch', __( 'The passwords do not match.', 'simple-themed-login' ) );
 
 					do_action( 'validate_password_reset', $this->errors, $user );
 
@@ -577,24 +574,24 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 						$this->errors = new WP_Error();
 
 					if ( $interim_login ) {
-						if ( ! $errors->get_error_code() )
-							$errors->add( 'expired', __( 'Your session has expired. Please log in to continue where you left off.', 'theme-my-login' ), 'message' );
+						if ( ! $this->errors->get_error_code() )
+							$this->errors->add( 'expired', __( 'Your session has expired. Please log in to continue where you left off.', 'simple-themed-login' ), 'message' );
 					} else {
 						// Some parts of this script use the main login form to display a message
 						if		( isset( $_GET['loggedout'] ) && true == $_GET['loggedout'] )
-							$this->errors->add( 'loggedout', __( 'You are now logged out.', 'theme-my-login' ), 'message' );
+							$this->errors->add( 'loggedout', __( 'You are now logged out.', 'simple-themed-login' ), 'message' );
 						elseif	( isset( $_GET['registration'] ) && 'disabled' == $_GET['registration'] )
-							$this->errors->add( 'registerdisabled', __( 'User registration is currently not allowed.', 'theme-my-login' ) );
+							$this->errors->add( 'registerdisabled', __( 'User registration is currently not allowed.', 'simple-themed-login' ) );
 						elseif	( isset( $_GET['checkemail'] ) && 'confirm' == $_GET['checkemail'] )
-							$this->errors->add( 'confirm', __( 'Check your email for the confirmation link.', 'theme-my-login' ), 'message' );
+							$this->errors->add( 'confirm', __( 'Check your email for the confirmation link.', 'simple-themed-login' ), 'message' );
 						elseif	( isset($_GET['checkemail']) && 'newpass' == $_GET['checkemail'] )
-							$this->errors->add( 'newpass', __( 'Check your email for your new password.', 'theme-my-login' ), 'message' );
+							$this->errors->add( 'newpass', __( 'Check your email for your new password.', 'simple-themed-login' ), 'message' );
 						elseif ( isset( $_GET['resetpass'] ) && 'complete' == $_GET['resetpass'] )
-							$this->errors->add( 'password_reset', __( 'Your password has been reset.', 'theme-my-login' ), 'message' );
+							$this->errors->add( 'password_reset', __( 'Your password has been reset.', 'simple-themed-login' ), 'message' );
 						elseif	( isset( $_GET['checkemail'] ) && 'registered' == $_GET['checkemail'] )
-							$this->errors->add( 'registered', __( 'Registration complete. Please check your email.', 'theme-my-login' ), 'message' );
+							$this->errors->add( 'registered', __( 'Registration complete. Please check your email.', 'simple-themed-login' ), 'message' );
 						elseif ( strpos( $redirect_to, 'about.php?updated' ) )
-							$this->errors->add('updated', __( '<strong>You have successfully updated WordPress!</strong> Please log back in to see what&#8217;s new.', 'theme-my-login' ), 'message' );
+							$this->errors->add('updated', __( '<strong>You have successfully updated WordPress!</strong> Please log back in to see what&#8217;s new.', 'simple-themed-login' ), 'message' );
 					}
 
 					// Clear any stale cookies.
@@ -714,9 +711,7 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 		}
 	}
 
-	/************************************************************************************************************************
-	 * Filters
-	 ************************************************************************************************************************/
+    // Filters
 
 	/**
 	 * Rewrites URL's containing wp-login.php created by site_url()
@@ -941,7 +936,7 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	 */
 	public function authenticate( $user, $username, $password ) {
 		if ( 'email' == $this->get_option( 'login_type' ) && null == $user ) {
-			return new WP_Error( 'invalid_email', __( '<strong>ERROR</strong>: Invalid email address.', 'theme-my-login' ) );
+			return new WP_Error( 'invalid_email', __( '<strong>ERROR</strong>: Invalid email address.', 'simple-themed-login' ) );
 		}
 
 		return $user;
@@ -1235,19 +1230,9 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	 * @since 6.4.4
 	 *
 	 * @param string $domain The domain for which a language file is being loaded.
-	 * @param string $mofile Full path to the target mofile.
 	 */
-	public function load_custom_textdomain( $domain, $mofile ) {
-		if ( 'theme-my-login' === $domain ) {
-			remove_action( 'load_textdomain', array( $this, 'load_custom_textdomain' ), 10, 2 );
-
-			// Look in global /wp-content/languages/theme-my-login folder for a translation
-			// and load it if available.
-			$mofile = basename( $mofile );
-			if ( file_exists( WP_LANG_DIR . '/theme-my-login/' . $mofile ) ) {
-				load_textdomain( 'theme-my-login', WP_LANG_DIR . '/theme-my-login/' . $mofile );
-			}
-
+	public function load_custom_textdomain( $domain ) {
+		if ( 'simple-themed-login' === $domain ) {
 			add_action( 'load_textdomain', array( $this, 'load_custom_textdomain' ), 10, 2 );
 		}
 	}
@@ -1265,11 +1250,11 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 		$errors = new WP_Error();
 
 		if ( empty( $_POST['user_login'] ) ) {
-			$errors->add( 'empty_username', __( '<strong>ERROR</strong>: Enter a username or e-mail address.', 'theme-my-login' ) );
+			$errors->add( 'empty_username', __( '<strong>ERROR</strong>: Enter a username or e-mail address.', 'simple-themed-login' ) );
 		} else if ( strpos( $_POST['user_login'], '@' ) ) {
 			$user_data = get_user_by( 'email', trim( wp_unslash( $_POST['user_login'] ) ) );
 			if ( empty( $user_data ) )
-				$errors->add( 'invalid_email', __( '<strong>ERROR</strong>: There is no user registered with that email address.', 'theme-my-login' ) );
+				$errors->add( 'invalid_email', __( '<strong>ERROR</strong>: There is no user registered with that email address.', 'simple-themed-login' ) );
 		} else {
 			$login = trim( $_POST['user_login'] );
 			$user_data = get_user_by( 'login', $login );
@@ -1281,7 +1266,7 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 			return $errors;
 
 		if ( ! $user_data ) {
-			$errors->add( 'invalidcombo', __( '<strong>ERROR</strong>: Invalid username or e-mail.', 'theme-my-login' ) );
+			$errors->add( 'invalidcombo', __( '<strong>ERROR</strong>: Invalid username or e-mail.', 'simple-themed-login' ) );
 			return $errors;
 		}
 
@@ -1294,11 +1279,11 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 			return $key;
 		}
 
-		$message = __( 'Someone requested that the password be reset for the following account:', 'theme-my-login' ) . "\r\n\r\n";
+		$message = __( 'Someone requested that the password be reset for the following account:', 'simple-themed-login' ) . "\r\n\r\n";
 		$message .= network_home_url( '/' ) . "\r\n\r\n";
-		$message .= sprintf( __( 'Username: %s', 'theme-my-login' ), $user_login ) . "\r\n\r\n";
-		$message .= __( 'If this was a mistake, just ignore this email and nothing will happen.', 'theme-my-login' ) . "\r\n\r\n";
-		$message .= __( 'To reset your password, visit the following address:', 'theme-my-login' ) . "\r\n\r\n";
+		$message .= sprintf( __( 'Username: %s', 'simple-themed-login' ), $user_login ) . "\r\n\r\n";
+		$message .= __( 'If this was a mistake, just ignore this email and nothing will happen.', 'simple-themed-login' ) . "\r\n\r\n";
+		$message .= __( 'To reset your password, visit the following address:', 'simple-themed-login' ) . "\r\n\r\n";
 		$message .= '<' . network_site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user_login ), 'login' ) . ">\r\n";
 
 		if ( is_multisite() ) {
@@ -1309,13 +1294,13 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 			$blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
 		}
 
-		$title = '[' . $blogname . '] '. __('Password Reset', 'theme-my-login');
+		$title = '[' . $blogname . '] '. __('Password Reset', 'simple-themed-login');
 
 		$title = apply_filters( 'retrieve_password_title', $title, $user_login, $user_data );
 		$message = apply_filters( 'retrieve_password_message', $message, $key, $user_login, $user_data );
 
 		if ( $message && ! wp_mail( $user_email, $title, $message ) )
-			wp_die( __( 'The e-mail could not be sent.', 'theme-my-login' ) . "<br />\n" . __( 'Possible reason: your host may have disabled the mail() function...', 'theme-my-login' ) );
+			wp_die( __( 'The e-mail could not be sent.', 'simple-themed-login' ) . "<br />\n" . __( 'Possible reason: your host may have disabled the mail() function...', 'simple-themed-login' ) );
 
 		return true;
 	}

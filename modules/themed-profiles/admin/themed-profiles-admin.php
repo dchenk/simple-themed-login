@@ -70,7 +70,7 @@ class Theme_My_Login_Themed_Profiles_Admin extends Theme_My_Login_Abstract {
 	public function activate() {
 		if ( ! $page_id = Theme_My_Login::get_page_id( 'profile' ) ) {
 			$page_id = wp_insert_post( array(
-				'post_title'     => __( 'Your Profile', 'theme-my-login' ),
+				'post_title'     => __( 'Your Profile', 'simple-themed-login' ),
 				'post_status'    => 'publish',
 				'post_type'      => 'page',
 				'post_content'   => '[theme-my-login]',
@@ -105,8 +105,8 @@ class Theme_My_Login_Themed_Profiles_Admin extends Theme_My_Login_Abstract {
 	public function admin_menu() {
 		add_submenu_page(
 			'theme_my_login',
-			__( 'Theme My Login Themed Profiles Settings', 'theme-my-login' ),
-			__( 'Themed Profiles', 'theme-my-login' ),
+			__( 'STL Themed Profiles Settings', 'simple-themed-login' ),
+			__( 'Themed Profiles', 'simple-themed-login' ),
 			'manage_options',
 			$this->options_key,
 			array( $this, 'settings_page' )
@@ -114,8 +114,8 @@ class Theme_My_Login_Themed_Profiles_Admin extends Theme_My_Login_Abstract {
 
 		add_settings_section( 'general', null, '__return_false', $this->options_key );
 
-		add_settings_field( 'themed_profiles', __( 'Themed Profiles',       'theme-my-login' ), array( $this, 'settings_field_themed_profiles'       ), $this->options_key, 'general' );
-		add_settings_field( 'restrict_admin',  __( 'Restrict Admin Access', 'theme-my-login' ), array( $this, 'settings_field_restrict_admin_access' ), $this->options_key, 'general' );
+		add_settings_field( 'themed_profiles', __( 'Themed Profiles',       'simple-themed-login' ), array( $this, 'settings_field_themed_profiles'       ), $this->options_key, 'general' );
+		add_settings_field( 'restrict_admin',  __( 'Restrict Admin Access', 'simple-themed-login' ), array( $this, 'settings_field_restrict_admin_access' ), $this->options_key, 'general' );
 	}
 
 	/**
@@ -140,7 +140,7 @@ class Theme_My_Login_Themed_Profiles_Admin extends Theme_My_Login_Abstract {
 	 */
 	public function settings_page() {
 		Theme_My_Login_Admin::settings_page( array(
-			'title'       => __( 'Theme My Login Themed Profiles Settings', 'theme-my-login' ),
+			'title'       => __( 'STL Themed Profiles Settings', 'simple-themed-login' ),
 			'options_key' => $this->options_key
 		) );
 	}

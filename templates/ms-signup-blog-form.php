@@ -1,7 +1,7 @@
 <?php
 /*
 If you would like to edit this file, copy it to your current theme's directory and edit it there.
-Theme My Login will always look in your theme's directory first, before using this default template.
+This plugin will always look in your theme's directory first, before using this default template.
 */
 ?>
 <form id="setupform" method="post" action="<?php $template->the_action_url( 'register', 'login_post' ); ?>">
@@ -12,9 +12,9 @@ Theme My Login will always look in your theme's directory first, before using th
 	<?php do_action( 'signup_hidden_fields' ); ?>
 
 	<?php if ( ! is_subdomain_install() ) { ?>
-	<label for="blogname<?php $template->the_instance(); ?>"><?php _e( 'Site Name:', 'theme-my-login' ); ?></label>
+	<label for="blogname<?php $template->the_instance(); ?>"><?php _e( 'Site Name:', 'simple-themed-login' ); ?></label>
 	<?php } else { ?>
-	<label for="blogname<?php $template->the_instance(); ?>"><?php _e( 'Site Domain:', 'theme-my-login' ); ?></label>
+	<label for="blogname<?php $template->the_instance(); ?>"><?php _e( 'Site Domain:', 'simple-themed-login' ); ?></label>
 	<?php } ?>
 
 	<?php if ( $errmsg = $errors->get_error_message( 'blogname' ) ) { ?>
@@ -31,13 +31,13 @@ Theme My Login will always look in your theme's directory first, before using th
 
 	<?php if ( ! is_user_logged_in() ) {
 		if ( ! is_subdomain_install() )
-			$site = $current_site->domain . $current_site->path . __( 'sitename', 'theme-my-login' );
+			$site = $current_site->domain . $current_site->path . __( 'sitename', 'simple-themed-login' );
 		else
-			$site = __( 'domain', 'theme-my-login' ) . '.' . $site_domain . $current_site->path;
-		echo '<p>(<strong>' . sprintf( __( 'Your address will be %s.', 'theme-my-login' ), $site ) . '</strong>) ' . __( 'Must be at least 4 characters, letters and numbers only. It cannot be changed, so choose carefully!', 'theme-my-login' ) . '</p>';
+			$site = __( 'domain', 'simple-themed-login' ) . '.' . $site_domain . $current_site->path;
+		echo '<p>(<strong>' . sprintf( __( 'Your address will be %s.', 'simple-themed-login' ), $site ) . '</strong>) ' . __( 'Must be at least 4 characters, letters and numbers only. It cannot be changed, so choose carefully!', 'simple-themed-login' ) . '</p>';
 	} ?>
 
-	<label for="blog_title<?php $template->the_instance(); ?>"><?php _e( 'Site Title:', 'theme-my-login' ); ?></label>
+	<label for="blog_title<?php $template->the_instance(); ?>"><?php _e( 'Site Title:', 'simple-themed-login' ); ?></label>
 	<?php if ( $errmsg = $errors->get_error_message( 'blog_title' ) ) { ?>
 		<p class="error"><?php echo $errmsg; ?></p>
 	<?php } ?>
@@ -45,22 +45,22 @@ Theme My Login will always look in your theme's directory first, before using th
 
 	<div id="privacy">
 		<p class="privacy-intro">
-			<label for="blog_public_on<?php $template->the_instance(); ?>"><?php _e( 'Privacy:', 'theme-my-login' ); ?></label>
-			<?php _e( 'Allow search engines to index this site.', 'theme-my-login' ); ?>
+			<label for="blog_public_on<?php $template->the_instance(); ?>"><?php _e( 'Privacy:', 'simple-themed-login' ); ?></label>
+			<?php _e( 'Allow search engines to index this site.', 'simple-themed-login' ); ?>
 			<br style="clear:both" />
 			<label class="checkbox" for="blog_public_on<?php $template->the_instance(); ?>">
 				<input type="radio" id="blog_public_on<?php $template->the_instance(); ?>" name="blog_public" value="1" <?php if ( ! isset( $_POST['blog_public'] ) || $_POST['blog_public'] == '1' ) { ?>checked="checked"<?php } ?> />
-				<strong><?php _e( 'Yes', 'theme-my-login' ); ?></strong>
+				<strong><?php _e( 'Yes', 'simple-themed-login' ); ?></strong>
 			</label>
 			<label class="checkbox" for="blog_public_off<?php $template->the_instance(); ?>">
 				<input type="radio" id="blog_public_off<?php $template->the_instance(); ?>" name="blog_public" value="0" <?php if ( isset( $_POST['blog_public'] ) && $_POST['blog_public'] == '0' ) { ?>checked="checked"<?php } ?> />
-				<strong><?php _e( 'No', 'theme-my-login' ); ?></strong>
+				<strong><?php _e( 'No', 'simple-themed-login' ); ?></strong>
 			</label>
 		</p>
 	</div>
 
 	<?php do_action( 'signup_blogform', $errors ); ?>
 
-	<p class="submit"><input type="submit" name="submit" class="submit" value="<?php esc_attr_e( 'Signup', 'theme-my-login' ); ?>" /></p>
+	<p class="submit"><input type="submit" name="submit" class="submit" value="<?php esc_attr_e( 'Signup', 'simple-themed-login' ); ?>" /></p>
 </form>
 <?php $template->the_action_links( array( 'register' => false ) ); ?>

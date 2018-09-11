@@ -83,8 +83,8 @@ class Theme_My_Login_Custom_Redirection_Admin extends Theme_My_Login_Abstract {
 
 		add_submenu_page(
 			'theme_my_login',
-			__( 'Theme My Login Custom Redirection Settings', 'theme-my-login' ),
-			__( 'Redirection', 'theme-my-login' ),
+			__( 'Theme My Login Custom Redirection Settings', 'simple-themed-login' ),
+			__( 'Redirection', 'simple-themed-login' ),
 			'manage_options',
 			$this->options_key,
 			array( $this, 'settings_page' )
@@ -130,7 +130,7 @@ class Theme_My_Login_Custom_Redirection_Admin extends Theme_My_Login_Abstract {
 		global $current_screen;
 		?>
 		<div class="wrap">
-			<h2><?php esc_html_e( 'Theme My Login Custom Redirection Settings', 'theme-my-login' ); ?></h2>
+			<h2><?php esc_html_e( 'Theme My Login Custom Redirection Settings', 'simple-themed-login' ); ?></h2>
 			<?php settings_errors(); ?>
 
 			<form method="post" action="options.php">
@@ -165,29 +165,29 @@ class Theme_My_Login_Custom_Redirection_Admin extends Theme_My_Login_Abstract {
 			<tr valign="top">
 			<th scope="row"><?php _e( 'Log in' ); ?></th>
 				<td>
-					<input name="<?php echo $this->options_key; ?>[<?php echo $role; ?>][login_type]" type="radio" id="<?php echo $this->options_key; ?>_<?php echo $role; ?>_login_type_default" value="default"<?php checked( 'default', $this->get_option( array( $role, 'login_type' ) ) ); ?> /> <label for="<?php echo $this->options_key; ?>_<?php echo $role; ?>_login_type_default"><?php _e( 'Default', 'theme-my-login' ); ?></label>
-					<p class="description"><?php _e( 'Check this option to send the user to their WordPress Dashboard/Profile.', 'theme-my-login' ); ?></p>
+					<input name="<?php echo $this->options_key; ?>[<?php echo $role; ?>][login_type]" type="radio" id="<?php echo $this->options_key; ?>_<?php echo $role; ?>_login_type_default" value="default"<?php checked( 'default', $this->get_option( array( $role, 'login_type' ) ) ); ?> /> <label for="<?php echo $this->options_key; ?>_<?php echo $role; ?>_login_type_default"><?php _e( 'Default', 'simple-themed-login' ); ?></label>
+					<p class="description"><?php _e( 'Check this option to send the user to their WordPress Dashboard/Profile.', 'simple-themed-login' ); ?></p>
 
-					<input name="<?php echo $this->options_key; ?>[<?php echo $role; ?>][login_type]" type="radio" id="<?php echo $this->options_key; ?>_<?php echo $role; ?>_login_type_referer" value="referer"<?php checked( 'referer', $this->get_option( array( $role, 'login_type' ) ) ); ?> /> <label for="<?php echo $this->options_key; ?>_<?php echo $role; ?>_login_type_referer"><?php _e( 'Referer', 'theme-my-login' ); ?></label>
-					<p class="description"><?php _e( 'Check this option to send the user back to the page they were visiting before logging in.', 'theme-my-login' ); ?></p>
+					<input name="<?php echo $this->options_key; ?>[<?php echo $role; ?>][login_type]" type="radio" id="<?php echo $this->options_key; ?>_<?php echo $role; ?>_login_type_referer" value="referer"<?php checked( 'referer', $this->get_option( array( $role, 'login_type' ) ) ); ?> /> <label for="<?php echo $this->options_key; ?>_<?php echo $role; ?>_login_type_referer"><?php _e( 'Referer', 'simple-themed-login' ); ?></label>
+					<p class="description"><?php _e( 'Check this option to send the user back to the page they were visiting before logging in.', 'simple-themed-login' ); ?></p>
 
 					<input name="<?php echo $this->options_key; ?>[<?php echo $role; ?>][login_type]" type="radio" id="<?php echo $this->options_key; ?>_<?php echo $role; ?>_login_type_custom" value="custom"<?php checked( 'custom', $this->get_option( array( $role, 'login_type' ) ) ); ?> />
 					<input name="<?php echo $this->options_key; ?>[<?php echo $role; ?>][login_url]" type="text" id="<?php echo $this->options_key; ?>_<?php echo $role; ?>_login_url" value="<?php echo $this->get_option( array( $role, 'login_url' ) ); ?>" class="regular-text" />
-					<p class="description"><?php _e( 'Check this option to send the user to a custom location, specified by the textbox above.', 'theme-my-login' ); ?></p>
+					<p class="description"><?php _e( 'Check this option to send the user to a custom location, specified by the textbox above.', 'simple-themed-login' ); ?></p>
 				</td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><?php _e( 'Log out' ); ?></th>
 				<td>
-					<input name="<?php echo $this->options_key; ?>[<?php echo $role; ?>][logout_type]" type="radio" id="<?php echo $this->options_key; ?>_<?php echo $role; ?>_logout_type_default" value="default"<?php checked( 'default', $this->get_option( array( $role, 'logout_type' ) ) ); ?> /> <label for="<?php echo $this->options_key; ?>_<?php echo $role; ?>_logout_type_default"><?php _e( 'Default', 'theme-my-login' ); ?></label><br />
-					<p class="description"><?php _e( 'Check this option to send the user to the log in page, displaying a message that they have successfully logged out.', 'theme-my-login' ); ?></p>
+					<input name="<?php echo $this->options_key; ?>[<?php echo $role; ?>][logout_type]" type="radio" id="<?php echo $this->options_key; ?>_<?php echo $role; ?>_logout_type_default" value="default"<?php checked( 'default', $this->get_option( array( $role, 'logout_type' ) ) ); ?> /> <label for="<?php echo $this->options_key; ?>_<?php echo $role; ?>_logout_type_default"><?php _e( 'Default', 'simple-themed-login' ); ?></label><br />
+					<p class="description"><?php _e( 'Check this option to send the user to the log in page, displaying a message that they have successfully logged out.', 'simple-themed-login' ); ?></p>
 
-					<input name="<?php echo $this->options_key; ?>[<?php echo $role; ?>][logout_type]" type="radio" id="<?php echo $this->options_key; ?>_<?php echo $role; ?>_logout_type_referer" value="referer"<?php checked( 'referer', $this->get_option( array( $role, 'logout_type' ) ) ); ?> /> <label for="<?php echo $this->options_key; ?>_<?php echo $role; ?>_logout_type_referer"><?php _e( 'Referer', 'theme-my-login' ); ?></label><br />
-					<p class="description"><?php _e( 'Check this option to send the user back to the page they were visiting before logging out. (Note: If the previous page being visited was an admin page, this can have unexpected results.)', 'theme-my-login' ); ?></p>
+					<input name="<?php echo $this->options_key; ?>[<?php echo $role; ?>][logout_type]" type="radio" id="<?php echo $this->options_key; ?>_<?php echo $role; ?>_logout_type_referer" value="referer"<?php checked( 'referer', $this->get_option( array( $role, 'logout_type' ) ) ); ?> /> <label for="<?php echo $this->options_key; ?>_<?php echo $role; ?>_logout_type_referer"><?php _e( 'Referer', 'simple-themed-login' ); ?></label><br />
+					<p class="description"><?php _e( 'Check this option to send the user back to the page they were visiting before logging out. (Note: If the previous page being visited was an admin page, this can have unexpected results.)', 'simple-themed-login' ); ?></p>
 
 					<input name="<?php echo $this->options_key; ?>[<?php echo $role; ?>][logout_type]" type="radio" id="<?php echo $this->options_key; ?>_<?php echo $role; ?>_logout_type_custom" value="custom"<?php checked( 'custom', $this->get_option( array( $role, 'logout_type' ) ) ); ?> />
 					<input name="<?php echo $this->options_key; ?>[<?php echo $role; ?>][logout_url]" type="text" id="<?php echo $this->options_key; ?>_<?php echo $role; ?>_logout_url" value="<?php echo $this->get_option( array( $role, 'logout_url' ) ); ?>" class="regular-text" />
-					<p class="description"><?php _e( 'Check this option to send the user to a custom location, specified by the textbox above.', 'theme-my-login' ); ?></p>
+					<p class="description"><?php _e( 'Check this option to send the user to a custom location, specified by the textbox above.', 'simple-themed-login' ); ?></p>
 				</td>
 			</tr>
 		</table>

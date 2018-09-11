@@ -415,7 +415,7 @@ msgid "Take Me To The Store"
 msgstr ""
 
 #: admin/class-theme-my-login-admin.php:196
-msgid "Theme My Login Action"
+msgid "Simple Themed Login Action"
 msgstr ""
 
 #: admin/class-theme-my-login-admin.php:284
@@ -480,7 +480,7 @@ msgid "I understand that I will no longer receive any new features but I would l
 msgstr ""
 
 #: admin/class-theme-my-login-admin.php:468
-msgid "Theme My Login has not been updated because you have not allowed the update on the <a href=\"%s\" target=\"_top\">settings page</a>."
+msgid "Simple Themed Login has not been updated because you have not allowed the update on the <a href=\"%s\" target=\"_top\">settings page</a>."
 msgstr ""
 
 #: templates/resetpass-form.php:14
@@ -765,7 +765,7 @@ msgstr ""
 
 #: modules/themed-profiles/admin/themed-profiles-admin.php:108
 #: modules/themed-profiles/admin/themed-profiles-admin.php:143
-msgid "Theme My Login Themed Profiles Settings"
+msgid "STL Themed Profiles Settings"
 msgstr ""
 
 #: modules/themed-profiles/admin/themed-profiles-admin.php:109
@@ -787,7 +787,7 @@ msgstr ""
 
 #: modules/custom-redirection/admin/custom-redirection-admin.php:86
 #: modules/custom-redirection/admin/custom-redirection-admin.php:133
-msgid "Theme My Login Custom Redirection Settings"
+msgid "STL Custom Redirection Settings"
 msgstr ""
 
 #: modules/custom-redirection/admin/custom-redirection-admin.php:87
@@ -827,7 +827,7 @@ msgstr ""
 
 #: modules/security/admin/security-admin.php:89
 #: modules/security/admin/security-admin.php:121
-msgid "Theme My Login Security Settings"
+msgid "STL Security Settings"
 msgstr ""
 
 #: modules/security/admin/security-admin.php:90
@@ -959,7 +959,7 @@ msgstr ""
 
 #: modules/user-moderation/admin/user-moderation-admin.php:136
 #: modules/user-moderation/admin/user-moderation-admin.php:168
-msgid "Theme My Login User Moderation Settings"
+msgid "STL User Moderation Settings"
 msgstr ""
 
 #: modules/user-moderation/admin/user-moderation-admin.php:137
@@ -1126,7 +1126,7 @@ msgstr ""
 
 #: modules/custom-email/admin/custom-email-admin.php:90
 #: modules/custom-email/admin/custom-email-admin.php:147
-msgid "Theme My Login Custom E-mail Settings"
+msgid "STL Custom E-mail Settings"
 msgstr ""
 
 #: modules/custom-email/admin/custom-email-admin.php:97

@@ -1,12 +1,12 @@
 <?php
 /*
-Plugin Name: Theme My Login
+Plugin Name: Simple Themed Login
 Plugin URI: https://github.com/dchenk/theme-my-login
 Description: Themes the WordPress login, registration, and forgot password pages according to your theme.
-Version: 9.0.0
-Author: Theme My Login
-Author URI: https://github.com/dchenk/theme-my-login
-Text Domain: theme-my-login
+Version: 1.0.0
+Author: Simple Themed Login
+Author URI: https://github.com/dchenk/simple-themed-login
+Text Domain: simple-themed-login
 Domain Path: /languages
 */
 
@@ -43,7 +43,6 @@ if ( !function_exists('theme_my_login') ) :
 	 * Displays a TML instance
 	 *
 	 * @see Theme_My_Login::shortcode() for $args parameters
-	 * @since 6.0
 	 *
 	 * @param string|array $args Template tag arguments
 	 */

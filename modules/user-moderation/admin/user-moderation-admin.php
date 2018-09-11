@@ -10,24 +10,16 @@
 if ( ! class_exists( 'Theme_My_Login_User_Moderation_Admin' ) ) :
 /**
  * Theme My Login User Moderation Admin class
- *
- * @since 6.0
  */
 class Theme_My_Login_User_Moderation_Admin extends Theme_My_Login_Abstract {
 	/**
 	 * Holds options key
-	 *
-	 * @since 6.3
-	 * @access protected
 	 * @var string
 	 */
 	protected $options_key = 'theme_my_login_moderation';
 
 	/**
 	 * Returns singleton instance
-	 *
-	 * @since 6.3
-	 * @access public
 	 * @return object
 	 */
 	public static function get_object( $class = null ) {
@@ -36,9 +28,6 @@ class Theme_My_Login_User_Moderation_Admin extends Theme_My_Login_Abstract {
 
 	/**
 	 * Loads the module
-	 *
-	 * @since 6.0
-	 * @access protected
 	 */
 	protected function load() {
 		add_action( 'tml_activate_user-moderation/user-moderation.php',   array( $this, 'activate'  ) );
@@ -76,14 +65,12 @@ class Theme_My_Login_User_Moderation_Admin extends Theme_My_Login_Abstract {
 	 * Callback for "tml_activate_user-moderation/user-moderation.php" hook in method Theme_My_Login_Admin::activate_module()
 	 *
 	 * @see Theme_My_Login_Admin::activate_module()
-	 * @since 6.0
-	 * @access public
 	 *
 	 * @param object $theme_my_login Reference to global $theme_my_login object
 	 */
 	public function activate() {
 		if ( is_multisite() ) {
-			add_settings_error( $this->options_key, 'invalid_module', __( 'User Moderation is not currently compatible with multisite.', 'theme-my-login' ) );
+			add_settings_error( $this->options_key, 'invalid_module', __( 'User Moderation is not currently compatible with multisite.', 'simple-themed-login' ) );
 			return;
 		}
 		add_role( 'pending', 'Pending', array() );
@@ -126,15 +113,12 @@ class Theme_My_Login_User_Moderation_Admin extends Theme_My_Login_Abstract {
 	 * Adds "Moderation" to Theme My Login menu
 	 *
 	 * Callback for "admin_menu" hook
-	 *
-	 * @since 6.0
-	 * @access public
 	 */
 	public function admin_menu() {
 		add_submenu_page(
 			'theme_my_login',
-			__( 'Theme My Login User Moderation Settings', 'theme-my-login' ),
-			__( 'Moderation', 'theme-my-login' ),
+			__( 'STL User Moderation Settings', 'simple-themed-login' ),
+			__( 'Moderation', 'simple-themed-login' ),
 			'manage_options',
 			$this->options_key,
 			array( $this, 'settings_page' )
@@ -142,7 +126,7 @@ class Theme_My_Login_User_Moderation_Admin extends Theme_My_Login_Abstract {
 
 		add_settings_section( 'general', null, '__return_false', $this->options_key );
 
-		add_settings_field( 'type', __( 'Moderation Type', 'theme-my-login' ), array( $this, 'settings_field_moderation_type' ), $this->options_key, 'general' );
+		add_settings_field( 'type', __( 'Moderation Type', 'simple-themed-login' ), array( $this, 'settings_field_moderation_type' ), $this->options_key, 'general' );
 	}
 
 	/**
@@ -165,7 +149,7 @@ class Theme_My_Login_User_Moderation_Admin extends Theme_My_Login_Abstract {
 	 */
 	public function settings_page() {
 		Theme_My_Login_Admin::settings_page( array(
-			'title'       => __( 'Theme My Login User Moderation Settings', 'theme-my-login' ),
+			'title'       => __( 'STL User Moderation Settings', 'simple-themed-login' ),
 			'options_key' => $this->options_key
 		) );
 	}
@@ -179,16 +163,16 @@ class Theme_My_Login_User_Moderation_Admin extends Theme_My_Login_Abstract {
 	public function settings_field_moderation_type() {
 		?>
 		<input name="<?php echo $this->options_key; ?>[type]" type="radio" id="<?php echo $this->options_key; ?>_type_none" value="none"<?php checked( $this->get_option( 'type' ), 'none' ); ?> />
-		<label for="<?php echo $this->options_key; ?>_type_none"><?php _e( 'None', 'theme-my-login' ); ?></label>
-		<p class="description"><?php _e( 'Check this option to require no moderation.', 'theme-my-login' ); ?></p>
+		<label for="<?php echo $this->options_key; ?>_type_none"><?php _e( 'None', 'simple-themed-login' ); ?></label>
+		<p class="description"><?php _e( 'Check this option to require no moderation.', 'simple-themed-login' ); ?></p>
 
 		<input name="<?php echo $this->options_key; ?>[type]" type="radio" id="<?php echo $this->options_key; ?>_type_email" value="email" <?php checked( $this->get_option( 'type' ), 'email' ); ?> />
-		<label for="<?php echo $this->options_key; ?>_type_email"><?php _e( 'E-mail Confirmation', 'theme-my-login' ); ?></label>
-		<p class="description"><?php _e( 'Check this option to require new users to confirm their e-mail address before they may log in.', 'theme-my-login' ); ?></p>
+		<label for="<?php echo $this->options_key; ?>_type_email"><?php _e( 'E-mail Confirmation', 'simple-themed-login' ); ?></label>
+		<p class="description"><?php _e( 'Check this option to require new users to confirm their e-mail address before they may log in.', 'simple-themed-login' ); ?></p>
 
 		<input name="<?php echo $this->options_key; ?>[type]" type="radio" id="<?php echo $this->options_key; ?>_type_admin" value="admin" <?php checked( $this->get_option( 'type' ), 'admin' ); ?> />
-		<label for="<?php echo $this->options_key; ?>_type_admin"><?php _e( 'Admin Approval', 'theme-my-login' ); ?></label>
-		<p class="description"><?php _e( 'Check this option to require new users to be approved by an administrator before they may log in.', 'theme-my-login' ); ?></p>
+		<label for="<?php echo $this->options_key; ?>_type_admin"><?php _e( 'Admin Approval', 'simple-themed-login' ); ?></label>
+		<p class="description"><?php _e( 'Check this option to require new users to be approved by an administrator before they may log in.', 'simple-themed-login' ); ?></p>
 		<?php
 	}
 
@@ -229,7 +213,7 @@ class Theme_My_Login_User_Moderation_Admin extends Theme_My_Login_Abstract {
 
 				// No user ID?
 				if ( ! $user || ! current_user_can( 'edit_user', $user ) )
-					wp_die( __( 'You can&#8217;t edit that user.', 'theme-my-login' ) );
+					wp_die( __( 'You can&#8217;t edit that user.', 'simple-themed-login' ) );
 
 				// Where did we come from?
 				$redirect_to = isset( $_REQUEST['wp_http_referer'] ) ? remove_query_arg( array( 'wp_http_referer', 'updated', 'delete_count' ), stripslashes( $_REQUEST['wp_http_referer'] ) ) : 'users.php';
@@ -239,7 +223,7 @@ class Theme_My_Login_User_Moderation_Admin extends Theme_My_Login_Abstract {
 						check_admin_referer( 'approve-user' );
 
 						if ( ! self::approve_user( $user ) )
-							wp_die( __( 'You can&#8217;t edit that user.', 'theme-my-login' ) );
+							wp_die( __( 'You can&#8217;t edit that user.', 'simple-themed-login' ) );
 
 						$redirect_to = add_query_arg( 'update', 'approve', $redirect_to );
 						break;
@@ -249,7 +233,7 @@ class Theme_My_Login_User_Moderation_Admin extends Theme_My_Login_Abstract {
 						do_action( 'tml_user_activation_resend', $user );
 
 						if ( ! Theme_My_Login_User_Moderation::new_user_activation_notification( $user ) )
-							wp_die( __( 'The e-mail could not be sent.', 'theme-my-login' ) . "<br />\n" . __( 'Possible reason: your host may have disabled the mail() function...', 'theme-my-login' ) );
+							wp_die( __( 'The e-mail could not be sent.', 'simple-themed-login' ) . "<br />\n" . __( 'Possible reason: your host may have disabled the mail() function...', 'simple-themed-login' ) );
 
 						$redirect_to = add_query_arg( 'update', 'sendactivation', $redirect_to );
 						break;
@@ -272,9 +256,9 @@ class Theme_My_Login_User_Moderation_Admin extends Theme_My_Login_Abstract {
 		if ( isset( $_GET['update'] ) && in_array( $_GET['update'], array( 'approve', 'sendactivation' ) ) ) {
 			echo '<div id="message" class="updated fade"><p>';
 			if ( 'approve' == $_GET['update'] )
-				_e( 'User approved.', 'theme-my-login' );
+				_e( 'User approved.', 'simple-themed-login' );
 			elseif ( 'sendactivation' == $_GET['update'] )
-				_e( 'Activation sent.', 'theme-my-login' );
+				_e( 'Activation sent.', 'simple-themed-login' );
 			echo '</p></div>';
 		}
 	}
@@ -305,7 +289,7 @@ class Theme_My_Login_User_Moderation_Admin extends Theme_My_Login_Abstract {
 								urlencode( esc_url( stripslashes( $_SERVER['REQUEST_URI'] ) ) ),
 								wp_nonce_url( "users.php?action=resendactivation&amp;user=$user_object->ID", 'resend-activation' )
 							),
-							__( 'Resend Activation', 'theme-my-login' )
+							__( 'Resend Activation', 'simple-themed-login' )
 						);
 						break;
 					case 'admin' :
@@ -315,7 +299,7 @@ class Theme_My_Login_User_Moderation_Admin extends Theme_My_Login_Abstract {
 								urlencode( esc_url( stripslashes( $_SERVER['REQUEST_URI'] ) ) ),
 								wp_nonce_url( "users.php?action=approve&amp;user=$user_object->ID", 'approve-user' )
 							),
-							__( 'Approve', 'theme-my-login' )
+							__( 'Approve', 'simple-themed-login' )
 						);
 						break;
 				}
@@ -378,20 +362,20 @@ class Theme_My_Login_User_Moderation_Admin extends Theme_My_Login_Abstract {
 		$hashed = time() . ':' . $wp_hasher->HashPassword( $key );
 		$wpdb->update( $wpdb->users, array( 'user_activation_key' => $hashed ), array( 'user_login' => $user->user_login ) );
 
-		$message  = sprintf( __( 'You have been approved access to %s', 'theme-my-login' ), $blogname         ) . "\r\n\r\n";
-		$message .= sprintf( __( 'Username: %s',                        'theme-my-login' ), $user->user_login ) . "\r\n";
-		$message .= __( 'To set your password, visit the following address:', 'theme-my-login' ) . "\r\n\r\n";
+		$message  = sprintf( __( 'You have been approved access to %s', 'simple-themed-login' ), $blogname         ) . "\r\n\r\n";
+		$message .= sprintf( __( 'Username: %s',                        'simple-themed-login' ), $user->user_login ) . "\r\n";
+		$message .= __( 'To set your password, visit the following address:', 'simple-themed-login' ) . "\r\n\r\n";
 		$message .= '<' . network_site_url( "wp-login.php?action=rp&key=$key&login=" . rawurlencode( $user->user_login ), 'login' ) . ">\r\n\r\n";
 
 		$message .= site_url( 'wp-login.php', 'login' ) . "\r\n";
 
-		$title    = sprintf( __( '[%s] Registration Approved', 'theme-my-login' ), $blogname );
+		$title    = sprintf( __( '[%s] Registration Approved', 'simple-themed-login' ), $blogname );
 
 		$title    = apply_filters( 'user_approval_notification_title',   $title,         $user->ID );
 		$message  = apply_filters( 'user_approval_notification_message', $message, $key, $user->ID );
 
 		if ( $message && ! wp_mail( $user->user_email, $title, $message ) )
-			  die( '<p>' . __( 'The e-mail could not be sent.', 'theme-my-login' ) . "<br />\n" . __( 'Possible reason: your host may have disabled the mail() function...', 'theme-my-login' ) . '</p>' );
+			  die( '<p>' . __( 'The e-mail could not be sent.', 'simple-themed-login' ) . "<br />\n" . __( 'Possible reason: your host may have disabled the mail() function...', 'simple-themed-login' ) . '</p>' );
 
 		return true;
 	}
@@ -426,14 +410,14 @@ class Theme_My_Login_User_Moderation_Admin extends Theme_My_Login_Abstract {
 			$blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
 		}
 
-		$message = sprintf( __( 'You have been denied access to %s', 'theme-my-login' ), $blogname );
-		$title   = sprintf( __( '[%s] Registration Denied',          'theme-my-login' ), $blogname );
+		$message = sprintf( __( 'You have been denied access to %s', 'simple-themed-login' ), $blogname );
+		$title   = sprintf( __( '[%s] Registration Denied',          'simple-themed-login' ), $blogname );
 
 		$title   = apply_filters( 'user_denial_notification_title',   $title,   $user_id );
 		$message = apply_filters( 'user_denial_notification_message', $message, $user_id );
 
 		if ( $message && ! wp_mail( $user->user_email, $title, $message ) )
-			  die( '<p>' . __( 'The e-mail could not be sent.', 'theme-my-login' ) . "<br />\n" . __( 'Possible reason: your host may have disabled the mail() function...', 'theme-my-login' ) . '</p>' );
+			  die( '<p>' . __( 'The e-mail could not be sent.', 'simple-themed-login' ) . "<br />\n" . __( 'Possible reason: your host may have disabled the mail() function...', 'simple-themed-login' ) . '</p>' );
 	}
 }
 

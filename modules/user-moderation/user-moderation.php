@@ -156,11 +156,11 @@ class Theme_My_Login_User_Moderation extends Theme_My_Login_Abstract {
 			if ( array_key_exists( 'pending', (array) $userdata->$cap_key ) ) {
 				if ( 'email' == $this->get_option( 'type' ) ) {
 					return new WP_Error( 'pending', sprintf(
-						__( '<strong>ERROR</strong>: You have not yet confirmed your e-mail address. <a href="%s">Resend activation</a>?', 'theme-my-login' ),
+						__( '<strong>ERROR</strong>: You have not yet confirmed your e-mail address. <a href="%s">Resend activation</a>?', 'simple-themed-login' ),
 						Theme_My_Login::get_page_link( 'login', array( 'action' => 'sendactivation', 'login' => $username ) )
 					) );
 				} else {
-					return new WP_Error( 'pending', __( '<strong>ERROR</strong>: Your registration has not yet been approved.', 'theme-my-login' ) );
+					return new WP_Error( 'pending', __( '<strong>ERROR</strong>: Your registration has not yet been approved.', 'simple-themed-login' ) );
 				}
 			}
 		}
@@ -199,10 +199,10 @@ class Theme_My_Login_User_Moderation extends Theme_My_Login_Abstract {
 		if ( isset( $_GET['pending'] ) ) {
 			switch ( $_GET['pending'] ) {
 				case 'activation' :
-					$theme_my_login->errors->add( 'pending_activation', __( 'Your registration was successful but you must now confirm your email address before you can log in. Please check your email and click on the link provided.', 'theme-my-login' ), 'message' );
+					$theme_my_login->errors->add( 'pending_activation', __( 'Your registration was successful but you must now confirm your email address before you can log in. Please check your email and click on the link provided.', 'simple-themed-login' ), 'message' );
 					break;
 				case 'approval' :
-					$theme_my_login->errors->add( 'pending_approval', __( 'Your registration was successful but you must now be approved by an administrator before you can log in. You will be notified by e-mail once your account has been reviewed.', 'theme-my-login' ), 'message' );
+					$theme_my_login->errors->add( 'pending_approval', __( 'Your registration was successful but you must now be approved by an administrator before you can log in. You will be notified by e-mail once your account has been reviewed.', 'simple-themed-login' ), 'message' );
 					break;
 			}
 		}
@@ -211,12 +211,12 @@ class Theme_My_Login_User_Moderation extends Theme_My_Login_Abstract {
 			switch ( $_GET['activation'] ) {
 				case 'complete' :
 					if ( class_exists( 'Theme_My_Login_Custom_Passwords' ) )
-						$theme_my_login->errors->add( 'activation_complete', __( 'Your account has been activated. You may now log in.', 'theme-my-login' ), 'message' );
+						$theme_my_login->errors->add( 'activation_complete', __( 'Your account has been activated. You may now log in.', 'simple-themed-login' ), 'message' );
 					else
-						$theme_my_login->errors->add( 'activation_complete', __( 'Your account has been activated. Please check your e-mail for your password.', 'theme-my-login' ), 'message' );
+						$theme_my_login->errors->add( 'activation_complete', __( 'Your account has been activated. Please check your e-mail for your password.', 'simple-themed-login' ), 'message' );
 					break;
 				case 'invalidkey' :
-					$theme_my_login->errors->add( 'invalid_key', __( '<strong>ERROR</strong>: Sorry, that key does not appear to be valid.', 'theme-my-login' ) );
+					$theme_my_login->errors->add( 'invalid_key', __( '<strong>ERROR</strong>: Sorry, that key does not appear to be valid.', 'simple-themed-login' ) );
 					break;
 			}
 		}
@@ -224,10 +224,10 @@ class Theme_My_Login_User_Moderation extends Theme_My_Login_Abstract {
 		if ( isset( $_GET['sendactivation'] ) ) {
 			switch ( $_GET['sendactivation'] ) {
 				case 'failed' :
-					$theme_my_login->errors->add( 'sendactivation_failed', __('<strong>ERROR</strong>: Sorry, the activation e-mail could not be sent.', 'theme-my-login' ) );
+					$theme_my_login->errors->add( 'sendactivation_failed', __('<strong>ERROR</strong>: Sorry, the activation e-mail could not be sent.', 'simple-themed-login' ) );
 					break;
 				case 'sent' :
-					$theme_my_login->errors->add( 'sendactivation_sent', __( 'The activation e-mail has been sent to the e-mail address with which you registered. Please check your email and click on the link provided.', 'theme-my-login' ), 'message' );
+					$theme_my_login->errors->add( 'sendactivation_sent', __( 'The activation e-mail has been sent to the e-mail address with which you registered. Please check your email and click on the link provided.', 'simple-themed-login' ), 'message' );
 					break;
 			}
 		}
@@ -342,15 +342,15 @@ class Theme_My_Login_User_Moderation extends Theme_My_Login_Abstract {
 		$key = preg_replace( '/[^a-z0-9]/i', '', $key );
 
 		if ( empty( $key ) || ! is_string( $key ) )
-			return new WP_Error( 'invalid_key', __( 'Invalid key', 'theme-my-login' ) );
+			return new WP_Error( 'invalid_key', __( 'Invalid key', 'simple-themed-login' ) );
 
 		if ( empty( $login ) || ! is_string( $login ) )
-			return new WP_Error( 'invalid_key', __( 'Invalid key', 'theme-my-login' ) );
+			return new WP_Error( 'invalid_key', __( 'Invalid key', 'simple-themed-login' ) );
 
 		// Validate activation key
 		$user = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->users WHERE user_activation_key = %s AND user_login = %s", $key, $login ) );
 		if ( empty( $user ) )
-			return new WP_Error( 'invalid_key', __( 'Invalid key', 'theme-my-login' ) );
+			return new WP_Error( 'invalid_key', __( 'Invalid key', 'simple-themed-login' ) );
 
 		do_action( 'tml_user_activation_post', $user->user_login, $user->user_email );
 
@@ -418,8 +418,8 @@ class Theme_My_Login_User_Moderation extends Theme_My_Login_Abstract {
 
 		$activation_url = add_query_arg( array( 'action' => 'activate', 'key' => $key, 'login' => rawurlencode( $user_login ) ), wp_login_url() );
 
-		$title    = sprintf( __( '[%s] Activate Your Account', 'theme-my-login' ), $blogname );
-		$message  = sprintf( __( 'Thanks for registering at %s! To complete the activation of your account please click the following link: ', 'theme-my-login' ), $blogname ) . "\r\n\r\n";
+		$title    = sprintf( __( '[%s] Activate Your Account', 'simple-themed-login' ), $blogname );
+		$message  = sprintf( __( 'Thanks for registering at %s! To complete the activation of your account please click the following link: ', 'simple-themed-login' ), $blogname ) . "\r\n\r\n";
 		$message .=  $activation_url . "\r\n";
 
 		$title   = apply_filters( 'user_activation_notification_title',   $title,   $user_id );
@@ -455,12 +455,12 @@ class Theme_My_Login_User_Moderation extends Theme_My_Login_Abstract {
 			$blogname = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
 		}
 
-		$title = sprintf( __( '[%s] New User Awaiting Approval', 'theme-my-login' ), $blogname );
+		$title = sprintf( __( '[%s] New User Awaiting Approval', 'simple-themed-login' ), $blogname );
 
-		$message  = sprintf( __( 'New user requires approval on your blog %s:', 'theme-my-login' ), $blogname ) . "\r\n\r\n";
-		$message .= sprintf( __( 'Username: %s', 'theme-my-login' ), $user_login ) . "\r\n";
-		$message .= sprintf( __( 'E-mail: %s', 'theme-my-login' ), $user_email ) . "\r\n\r\n";
-		$message .= __( 'To approve or deny this user:', 'theme-my-login' ) . "\r\n";
+		$message  = sprintf( __( 'New user requires approval on your blog %s:', 'simple-themed-login' ), $blogname ) . "\r\n\r\n";
+		$message .= sprintf( __( 'Username: %s', 'simple-themed-login' ), $user_login ) . "\r\n";
+		$message .= sprintf( __( 'E-mail: %s', 'simple-themed-login' ), $user_email ) . "\r\n\r\n";
+		$message .= __( 'To approve or deny this user:', 'simple-themed-login' ) . "\r\n";
 		$message .= admin_url( 'users.php?role=pending' );
 
 		$title   = apply_filters( 'user_approval_admin_notification_title',   $title,   $user_id );

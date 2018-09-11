@@ -16,8 +16,6 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 	/**
 	 * Holds options key
 	 *
-	 * @since 6.3
-	 * @access protected
 	 * @var string
 	 */
 	protected $options_key = 'theme_my_login';
@@ -25,8 +23,6 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 	/**
 	 * Returns singleton instance
 	 *
-	 * @since 6.3
-	 * @access public
 	 * @return Theme_My_Login
 	 */
 	public static function get_object( $class = null ) {
@@ -36,8 +32,6 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 	/**
 	 * Returns default options
 	 *
-	 * @since 6.3
-	 * @access public
 	 */
 	public static function default_options() {
 		return Theme_My_Login::default_options();
@@ -46,8 +40,6 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 	/**
 	 * Loads object
 	 *
-	 * @since 6.3
-	 * @access public
 	 */
 	protected function load() {
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
@@ -70,36 +62,29 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 
 	/**
 	 * Builds plugin admin menu and pages
-	 *
-	 * @since 6.0
-	 * @access public
 	 */
 	public function admin_menu() {
 		add_menu_page(
-			__( 'Theme My Login Settings', 'theme-my-login' ),
-			__( 'TML', 'theme-my-login' ),
+			__( 'Login Settings', 'simple-themed-login' ),
+			__( 'STL', 'simple-themed-login' ),
 			'manage_options',
 			'theme_my_login',
-			array( 'Theme_My_Login_Admin', 'settings_page' )
+			['Theme_My_Login_Admin', 'settings_page']
 		);
 
 		add_submenu_page(
 			'theme_my_login',
-			__( 'General', 'theme-my-login' ),
-			__( 'General', 'theme-my-login' ),
+			__( 'General', 'simple-themed-login' ),
+			__( 'General', 'simple-themed-login' ),
 			'manage_options',
 			'theme_my_login',
-			array( 'Theme_My_Login_Admin', 'settings_page' )
+			['Theme_My_Login_Admin', 'settings_page']
 		);
 	}
 
 	/**
 	 * Registers TML settings
-	 *
 	 * This is used because register_setting() isn't available until the "admin_init" hook.
-	 *
-	 * @since 6.0
-	 * @access public
 	 */
 	public function admin_init() {
 
@@ -111,21 +96,18 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 			$this->install();
 
 		// Add sections
-		add_settings_section( 'general', __( 'General', 'theme-my-login' ), '__return_false',                          $this->options_key );
-		add_settings_section( 'modules', __( 'Modules', 'theme-my-login' ), '__return_false',                          $this->options_key );
+		add_settings_section( 'general', __( 'General', 'simple-themed-login' ), '__return_false',                          $this->options_key );
+		add_settings_section( 'modules', __( 'Modules', 'simple-themed-login' ), '__return_false',                          $this->options_key );
 
 		// Add fields
-		add_settings_field( 'enable_css', __( 'Stylesheet', 'theme-my-login' ), array( $this, 'settings_field_enable_css' ), $this->options_key, 'general' );
-		add_settings_field( 'login_type', __( 'Login Type', 'theme-my-login' ), array( $this, 'settings_field_login_type' ), $this->options_key, 'general' );
-		add_settings_field( 'modules',    __( 'Modules',    'theme-my-login' ), array( $this, 'settings_field_modules'    ), $this->options_key, 'modules' );
-		add_settings_field( 'update',     __( 'Update',     'theme-my-login' ), array( $this, 'settings_field_update'     ), $this->options_key, 'update'  );
+		add_settings_field( 'enable_css', __( 'Stylesheet', 'simple-themed-login' ), array( $this, 'settings_field_enable_css' ), $this->options_key, 'general' );
+		add_settings_field( 'login_type', __( 'Login Type', 'simple-themed-login' ), array( $this, 'settings_field_login_type' ), $this->options_key, 'general' );
+		add_settings_field( 'modules',    __( 'Modules',    'simple-themed-login' ), array( $this, 'settings_field_modules'    ), $this->options_key, 'modules' );
+		add_settings_field( 'update',     __( 'Update',     'simple-themed-login' ), array( $this, 'settings_field_update'     ), $this->options_key, 'update'  );
 	}
 
 	/**
 	 * Enqueues TML scripts
-	 *
-	 * @since 6.3.11
-	 * @access public
 	 */
 	public function admin_enqueue_scripts() {
 		wp_enqueue_script( 'theme-my-login-admin', plugins_url( 'theme-my-login-admin.js', __FILE__ ), array( 'jquery' ), Theme_My_Login::VERSION, true );
@@ -136,9 +118,6 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 
 	/**
 	 * Print admin notices.
-	 *
-	 * @since 6.4.5
-	 *
 	 */
 	public function admin_notices() {
 		if ( !current_user_can('manage_options') ) {
@@ -149,8 +128,6 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 
 	/**
 	 * Handle saving of notice dismissals.
-	 *
-	 * @since 6.4.15
 	 */
 	public function ajax_dismiss_notice() {
 		if ( empty($_POST['notice']) ) {
@@ -168,13 +145,11 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 
 	/**
 	 * Adds the TML Action meta box.
-	 *
-	 * @since 6.4.13
 	 */
 	public function add_meta_boxes() {
 		add_meta_box(
 			'tml_action',
-			__( 'Theme My Login Action', 'theme-my-login' ),
+			__( 'Theme My Login Action', 'simple-themed-login' ),
 			array( $this, 'action_meta_box' ),
 			'page',
 			'side'
@@ -183,8 +158,6 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 
 	/**
 	 * Renders the TML Action meta box.
-	 *
-	 * @since 6.4.13
 	 *
 	 * @param WP_Post $post The post object.
 	 */
@@ -204,8 +177,6 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 
 	/**
 	 * Saves the TML Action meta box.
-	 *
-	 * @since 6.4.13
 	 *
 	 * @param int $post_id The post ID.
 	 */
@@ -228,13 +199,10 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 
 	/**
 	 * Renders the settings page
-	 *
-	 * @since 6.0
-	 * @access public
 	 */
 	public static function settings_page( $args = '' ) {
 		extract( wp_parse_args( $args, array(
-			'title'       => __( 'Theme My Login Settings', 'theme-my-login' ),
+			'title'       => __( 'Theme My Login Settings', 'simple-themed-login' ),
 			'options_key' => 'theme_my_login'
 		) ) );
 		?>
@@ -255,23 +223,17 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 
 	/**
 	 * Renders Stylesheet settings field
-	 *
-	 * @since 6.3
-	 * @access public
 	 */
 	public function settings_field_enable_css() {
 		?>
 		<input name="theme_my_login[enable_css]" type="checkbox" id="theme_my_login_enable_css" value="1"<?php checked( 1, $this->get_option( 'enable_css' ) ); ?> />
-		<label for="theme_my_login_enable_css"><?php _e( 'Enable "theme-my-login.css"', 'theme-my-login' ); ?></label>
-		<p class="description"><?php _e( 'In order to keep changes between upgrades, you can store your customized "theme-my-login.css" in your current theme directory.', 'theme-my-login' ); ?></p>
+		<label for="theme_my_login_enable_css"><?php _e( 'Enable "theme-my-login.css"', 'simple-themed-login' ); ?></label>
+		<p class="description"><?php _e( 'In order to keep changes between upgrades, you can store your customized "theme-my-login.css" in your current theme directory.', 'simple-themed-login' ); ?></p>
 		<?php
 	}
 
 	/**
 	 * Renders Login Type settings field
-	 *
-	 * @since 6.3
-	 * @access public
 	 */
 	public function settings_field_login_type() {
 		?>
@@ -279,17 +241,17 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 		<ul>
 
 			<li><input name="theme_my_login[login_type]" type="radio" id="theme_my_login_login_type_default" value="default"<?php checked( 'default', $this->get_option( 'login_type' ) ); ?> />
-			<label for="theme_my_login_login_type_default"><?php _e( 'Username or E-mail', 'theme-my-login' ); ?></label></li>
+			<label for="theme_my_login_login_type_default"><?php _e( 'Username or E-mail', 'simple-themed-login' ); ?></label></li>
 
 			<li><input name="theme_my_login[login_type]" type="radio" id="theme_my_login_login_type_username" value="username"<?php checked( 'username', $this->get_option( 'login_type' ) ); ?> />
-			<label for="theme_my_login_login_type_username"><?php _e( 'Username only', 'theme-my-login' ); ?></label></li>
+			<label for="theme_my_login_login_type_username"><?php _e( 'Username only', 'simple-themed-login' ); ?></label></li>
 
 			<li><input name="theme_my_login[login_type]" type="radio" id="theme_my_login_login_type_email" value="email"<?php checked( 'email', $this->get_option( 'login_type' ) ); ?> />
-			<label for="theme_my_login_login_type_email"><?php _e( 'E-mail only', 'theme-my-login' ); ?></label></li>
+			<label for="theme_my_login_login_type_email"><?php _e( 'E-mail only', 'simple-themed-login' ); ?></label></li>
 
 		</ul>
 
-		<p class="description"><?php _e( 'Allow users to login using their username and/or e-mail address.', 'theme-my-login' ); ?></p>
+		<p class="description"><?php _e( 'Allow users to login using their username and/or e-mail address.', 'simple-themed-login' ); ?></p>
 
 		<?php
 	}
@@ -297,15 +259,13 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 	/**
 	 * Renders Modules settings field
 	 *
-	 * @since 6.3
-	 * @access public
 	 */
 	public function settings_field_modules() {
 		foreach ( get_plugins( sprintf( '/%s/modules', plugin_basename( SIMPLE_THEMED_LOGIN_PATH ) ) ) as $path => $data ) {
 			$id = sanitize_key( $data['Name'] );
 		?>
 		<input name="theme_my_login[active_modules][]" type="checkbox" id="theme_my_login_active_modules_<?php echo $id; ?>" value="<?php echo $path; ?>"<?php checked( in_array( $path, (array) $this->get_option( 'active_modules' ) ) ); ?> />
-		<label for="theme_my_login_active_modules_<?php echo $id; ?>"><?php printf( __( 'Enable %s', 'theme-my-login' ), $data['Name'] ); ?></label><br />
+		<label for="theme_my_login_active_modules_<?php echo $id; ?>"><?php printf( __( 'Enable %s', 'simple-themed-login' ), $data['Name'] ); ?></label><br />
 		<?php if ( $data['Description'] ) : ?>
 		<p class="description"><?php echo $data['Description']; ?></p>
 		<?php endif;
@@ -315,17 +275,16 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 	/**
 	 * Renders Update settings field.
 	 *
-	 * @since 6.4.16
 	 */
 	public function settings_field_update() {
 		?>
 		<p>
 			<input name="theme_my_login[allow_update]" type="radio" id="theme_my_login_allow_update_on" value="1"<?php checked( (bool) $this->get_option('allow_update') ); ?> />
-			<label for="theme_my_login_allow_update_on"><?php _e( 'I understand the possible consequences, but I want the latest features and wish to allow the update', 'theme-my-login' ); ?></label>
+			<label for="theme_my_login_allow_update_on"><?php _e( 'I understand the possible consequences, but I want the latest features and wish to allow the update', 'simple-themed-login' ); ?></label>
 		</p>
 		<p>
 			<input name="theme_my_login[allow_update]" type="radio" id="theme_my_login_allow_update_off" value="0"<?php checked( !$this->get_option('allow_update') ); ?> />
-			<label for="theme_my_login_allow_update_off"><?php _e( 'I understand that I will no longer receive any new features but I would like to stay on the 6.4 branch anyway', 'theme-my-login' ); ?></label>
+			<label for="theme_my_login_allow_update_off"><?php _e( 'I understand that I will no longer receive any new features but I would like to stay on the 6.4 branch anyway', 'simple-themed-login' ); ?></label>
 		</p>
 		<?php
 	}
@@ -334,9 +293,6 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 	 * Sanitizes TML settings
 	 *
 	 * This is the callback for register_setting()
-	 *
-	 * @since 6.0
-	 * @access public
 	 *
 	 * @param string|array $settings Settings passed in from filter
 	 * @return string|array Sanitized settings
@@ -371,7 +327,6 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 	/**
 	 * Give those who opt to stay on the 6.4 branch updates.
 	 *
-	 * @since 6.4.17
 	 *
 	 * @param object $transient The transient data.
 	 * @return object The transient data.
@@ -399,7 +354,7 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 
 		require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
 
-		$plugin_info = plugins_api( 'plugin_information', array( 'slug' => 'theme-my-login' ) );
+		$plugin_info = plugins_api( 'plugin_information', array( 'slug' => 'simple-themed-login' ) );
 		if ( is_wp_error( $plugin_info ) ) {
 			return $transient;
 		}
@@ -432,7 +387,6 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 	/**
 	 * Disable upgrading to 7.0+ unless explicitly allowed.
 	 *
-	 * @since 6.4.16
 	 *
 	 * @param bool|WP_Error $response Whether to allow the install or not.
 	 * @param array         $args     Extra arguments passed to the hook.
@@ -464,17 +418,11 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 		}
 
 		return new WP_Error( 'update_denied', sprintf(
-			__( 'Theme My Login has not been updated because you have not allowed the update on the <a href="%s" target="_top">settings page</a>.', 'theme-my-login' ),
+			__( 'Theme My Login has not been updated because you have not allowed the update on the <a href="%s" target="_top">settings page</a>.', 'simple-themed-login' ),
 			admin_url( 'admin.php?page=theme_my_login' )
 		) );
 	}
 
-	/**
-	 * Installs TML
-	 *
-	 * @since 6.0
-	 * @access public
-	 */
 	public function install() {
 		global $wpdb;
 
@@ -486,20 +434,6 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 			$page = get_post( $page_id );
 		} else {
 			$page = get_page_by_title( 'Login' );
-		}
-
-		// 4.4 upgrade
-		if ( version_compare( $version, '4.4', '<' ) ) {
-			remove_role( 'denied' );
-		}
-
-		// 6.0 upgrade
-		if ( version_compare( $version, '6.0', '<' ) ) {
-			// Replace shortcode
-			if ( $page ) {
-				$page->post_content = str_replace( '[theme-my-login-page]', '[theme-my-login]', $page->post_content );
-				wp_update_post( $page );
-			}
 		}
 
 		// 6.3 upgrade
@@ -591,9 +525,6 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 
 	/**
 	 * Wrapper for multisite uninstallation
-	 *
-	 * @since 6.1
-	 * @access public
 	 */
 	public static function uninstall() {
 		global $wpdb;
@@ -612,12 +543,6 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 		self::_uninstall();
 	}
 
-	/**
-	 * Uninstalls TML
-	 *
-	 * @since 6.0
-	 * @access protected
-	 */
 	protected static function _uninstall() {
 		require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 
