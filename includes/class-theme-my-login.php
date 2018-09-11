@@ -143,7 +143,7 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 		add_filter( 'page_link',              array( $this, 'page_link'              ), 10, 2 );
 		add_filter( 'authenticate',           array( $this, 'authenticate'           ), 20, 3 );
 
-		add_shortcode( 'simple-themed-login', array( $this, 'shortcode' ) );
+		add_shortcode( 'theme-my-login', array( $this, 'shortcode' ) );
 
 		if ( 'username' == $this->get_option( 'login_type' ) ) {
 			remove_filter( 'authenticate', 'wp_authenticate_email_password', 20 );
