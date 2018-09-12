@@ -1,6 +1,6 @@
 === Simple Themed Login ===
 Contributors: dchenk, jfarthing84
-Tags: widget, login, registration, theme, log in, register, redirection, e-mail
+Tags: widget, login, registration, theme, log in, register, e-mail
 Requires at least: 4.5
 Tested up to: 4.9.8
 Stable tag: 1.0.0
