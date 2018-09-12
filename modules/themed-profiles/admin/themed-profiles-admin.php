@@ -158,8 +158,8 @@ class Theme_My_Login_Themed_Profiles_Admin extends Theme_My_Login_Abstract {
 			if ( 'pending' == $role )
 				continue;
 			?>
-            <input name="<?php echo $this->options_key; ?>[<?php echo $role; ?>][theme_profile]" type="checkbox" id="<?php echo $this->options_key; ?>_<?php echo $role; ?>_theme_profile" value="1"<?php checked( $this->get_option( array( $role, 'theme_profile' ) ) ); ?> />
-            <label for="<?php echo $this->options_key; ?>_<?php echo $role; ?>_theme_profile"><?php echo $role_name; ?></label><br />
+            <input name="<?php echo $this->options_key; ?>[<?php echo $role; ?>][theme_profile]" type="checkbox" id="<?php echo $this->options_key; ?>_<?php echo $role; ?>_theme_profile" value="1"<?php checked( $this->get_option( array( $role, 'theme_profile' ) ) ); ?>>
+            <label for="<?php echo $this->options_key; ?>_<?php echo $role; ?>_theme_profile"><?php echo $role_name; ?></label><br>
     		<?php
     	}
 	}
@@ -177,8 +177,8 @@ class Theme_My_Login_Themed_Profiles_Admin extends Theme_My_Login_Abstract {
 			if ( 'pending' == $role )
 				continue;
 			?>
-			<input name="<?php echo $this->options_key; ?>[<?php echo $role; ?>][restrict_admin]" type="checkbox" id="<?php echo $this->options_key; ?>_<?php echo $role; ?>_restrict_admin" value="1"<?php checked( $this->get_option( array( $role, 'restrict_admin' ) ) ); ?><?php if ( 'administrator' == $role ) echo ' disabled="disabled"'; ?> />
-			<label for="<?php echo $this->options_key; ?>_<?php echo $role; ?>_restrict_admin"><?php echo $role_name; ?></label><br />
+			<input name="<?php echo $this->options_key; ?>[<?php echo $role; ?>][restrict_admin]" type="checkbox" id="<?php echo $this->options_key; ?>_<?php echo $role; ?>_restrict_admin" value="1"<?php checked( $this->get_option( array( $role, 'restrict_admin' ) ) ); ?><?php if ( 'administrator' == $role ) echo ' disabled="disabled"'; ?>>
+			<label for="<?php echo $this->options_key; ?>_<?php echo $role; ?>_restrict_admin"><?php echo $role_name; ?></label><br>
 			<?php
 		}
 	}

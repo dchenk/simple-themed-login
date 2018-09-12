@@ -393,10 +393,10 @@ class Theme_My_Login_MS_Signup extends Theme_My_Login_Abstract {
 			<form name="activateform" id="activateform" method="post" action="<?php $template->the_action_url( 'activate' ); ?>">
 				<p>
 					<label for="key<?php $template->the_instance(); ?>"><?php _e( 'Activation Key:', 'simple-themed-login' ) ?></label>
-					<br /><input type="text" name="key<?php $template->the_instance(); ?>" id="key" value="" size="50" />
+					<br><input type="text" name="key<?php $template->the_instance(); ?>" id="key" value="" size="50">
 				</p>
 				<p class="submit">
-					<input id="submit<?php $template->the_instance(); ?>" type="submit" name="Submit" class="submit" value="<?php esc_attr_e( 'Activate', 'simple-themed-login' ) ?>" />
+					<input id="submit<?php $template->the_instance(); ?>" type="submit" name="Submit" class="submit" value="<?php esc_attr_e( 'Activate', 'simple-themed-login' ) ?>">
 				</p>
 			</form>
 

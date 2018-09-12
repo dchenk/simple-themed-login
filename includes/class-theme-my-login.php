@@ -888,7 +888,7 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	 *
 	 * Optional $atts contents:
 	 *
-	 * - instance - A unqiue instance ID for this instance.
+	 * - instance - A unique instance ID for this instance.
 	 * - default_action - The action to display. Defaults to "login".
 	 * - login_template - The template used for the login form. Defaults to "login-form.php".
 	 * - register_template - The template used for the register form. Defaults to "register-form.php".
@@ -1201,7 +1201,7 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 		$message = apply_filters( 'retrieve_password_message', $message, $key, $user_login, $user_data );
 
 		if ( $message && ! wp_mail( $user_email, $title, $message ) )
-			wp_die( __( 'The e-mail could not be sent.', 'simple-themed-login' ) . "<br />\n" . __( 'Possible reason: your host may have disabled the mail() function...', 'simple-themed-login' ) );
+			wp_die( __( 'The e-mail could not be sent.', 'simple-themed-login' ) . "<br>\n" . __( 'Possible reason: your host may have disabled the mail() function...', 'simple-themed-login' ) );
 
 		return true;
 	}

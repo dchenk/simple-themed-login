@@ -15,16 +15,16 @@ This plugin will always look in your theme's directory first, before using this 
 			} else {
 				_e( 'Username or E-mail:', 'simple-themed-login' );
 			} ?></label>
-			<input type="text" name="user_login" id="user_login<?php $template->the_instance(); ?>" class="input" value="<?php $template->the_posted_value( 'user_login' ); ?>" size="20" />
+			<input type="text" name="user_login" id="user_login<?php $template->the_instance(); ?>" class="input" value="<?php $template->the_posted_value( 'user_login' ); ?>" size="20">
 		</p>
 
 		<?php do_action( 'lostpassword_form' ); ?>
 
 		<p class="tml-submit-wrap">
-			<input type="submit" name="wp-submit" id="wp-submit<?php $template->the_instance(); ?>" value="<?php esc_attr_e( 'Get New Password', 'simple-themed-login' ); ?>" />
-			<input type="hidden" name="redirect_to" value="<?php $template->the_redirect_url( 'lostpassword' ); ?>" />
-			<input type="hidden" name="instance" value="<?php $template->the_instance(); ?>" />
-			<input type="hidden" name="action" value="lostpassword" />
+			<input type="submit" name="wp-submit" id="wp-submit<?php $template->the_instance(); ?>" value="<?php esc_attr_e( 'Get New Password', 'simple-themed-login' ); ?>">
+			<input type="hidden" name="redirect_to" value="<?php $template->the_redirect_url( 'lostpassword' ); ?>">
+			<input type="hidden" name="instance" value="<?php $template->the_instance(); ?>">
+			<input type="hidden" name="action" value="lostpassword">
 		</p>
 	</form>
 	<?php $template->the_action_links( array( 'lostpassword' => false ) ); ?>

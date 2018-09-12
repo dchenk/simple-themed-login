@@ -97,7 +97,7 @@ class Theme_My_Login_Widget extends WP_Widget {
 			'lostpassword' => __( 'Lost Password', 'simple-themed-login' )
 		);
 
-		echo '<p>' . __( 'Default Action', 'simple-themed-login' ) . '<br /><select name="' . $this->get_field_name( 'default_action' ) . '" id="' . $this->get_field_id( 'default_action' ) . '">';
+		echo '<p>' . __( 'Default Action', 'simple-themed-login' ) . '<br><select name="' . $this->get_field_name( 'default_action' ) . '" id="' . $this->get_field_id( 'default_action' ) . '">';
 		foreach ( $actions as $action => $title ) {
 			$is_selected = ( $instance['default_action'] == $action ) ? ' selected="selected"' : '';
 			echo '<option value="' . $action . '"' . $is_selected . '>' . $title . '</option>';
@@ -125,7 +125,7 @@ class Theme_My_Login_Widget extends WP_Widget {
 		$is_checked = ( empty( $instance['show_gravatar'] ) ) ? '' : 'checked="checked" ';
 		echo '<p><input name="' . $this->get_field_name( 'show_gravatar' ) . '" type="checkbox" id="' . $this->get_field_id( 'show_gravatar' ) . '" value="1" ' . $is_checked . '/> <label for="' . $this->get_field_id( 'show_gravatar' ) . '">' . __( 'Show Gravatar', 'simple-themed-login' ) . '</label></p>' . "\n";
 
-		echo '<p>' . __( 'Gravatar Size', 'simple-themed-login' ) . ': <input name="' . $this->get_field_name( 'gravatar_size' ) . '" type="text" id="' . $this->get_field_id( 'gravatar_size' ) . '" value="' . $instance['gravatar_size'] . '" size="3" /> <label for="' . $this->get_field_id( 'gravatar_size' ) . '"></label></p>' . "\n";
+		echo '<p>' . __( 'Gravatar Size', 'simple-themed-login' ) . ': <input name="' . $this->get_field_name( 'gravatar_size' ) . '" type="text" id="' . $this->get_field_id( 'gravatar_size' ) . '" value="' . $instance['gravatar_size'] . '" size="3"> <label for="' . $this->get_field_id( 'gravatar_size' ) . '"></label></p>' . "\n";
 	}
 }
 endif; // Class exists

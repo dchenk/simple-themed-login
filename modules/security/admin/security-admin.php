@@ -113,7 +113,7 @@ class Theme_My_Login_Security_Admin extends Theme_My_Login_Abstract {
 	 */
 	public function settings_field_private_site() {
 		?>
-		<input name="<?php echo $this->options_key; ?>[private_site]" type="checkbox" id="<?php echo $this->options_key; ?>_private_site" value="1"<?php checked( $this->get_option( 'private_site' ) ); ?> />
+		<input name="<?php echo $this->options_key; ?>[private_site]" type="checkbox" id="<?php echo $this->options_key; ?>_private_site" value="1"<?php checked( $this->get_option( 'private_site' ) ); ?>>
 		<label for="<?php echo $this->options_key; ?>_private_site"><?php _e( 'Require users to be logged in to view site', 'simple-themed-login' ); ?></label>
 		<?php
 	}
@@ -124,7 +124,7 @@ class Theme_My_Login_Security_Admin extends Theme_My_Login_Abstract {
 	 */
 	public function settings_field_private_login() {
 		?>
-		<input name="<?php echo $this->options_key; ?>[private_login]" type="checkbox" id="<?php echo $this->options_key; ?>_private_login" value="1"<?php checked( $this->get_option( 'private_login' ) ); ?> />
+		<input name="<?php echo $this->options_key; ?>[private_login]" type="checkbox" id="<?php echo $this->options_key; ?>_private_login" value="1"<?php checked( $this->get_option( 'private_login' ) ); ?>>
 		<label for="<?php echo $this->options_key; ?>_private_login"><?php _e( 'Disable <tt>wp-login.php</tt>', 'simple-themed-login' ); ?></label>
 		<?php
 	}
@@ -142,10 +142,10 @@ class Theme_My_Login_Security_Admin extends Theme_My_Login_Abstract {
 		);
 
 		// Threshold
-		$threshold = '<input type="text" name="' . $this->options_key . '[failed_login][threshold]" id="' . $this->options_key . '_failed_login_threshold" value="' . $this->get_option( array( 'failed_login', 'threshold' ) ) . '" size="1" />';
+		$threshold = '<input type="text" name="' . $this->options_key . '[failed_login][threshold]" id="' . $this->options_key . '_failed_login_threshold" value="' . $this->get_option( array( 'failed_login', 'threshold' ) ) . '" size="1">';
 
 		// Threshold duration
-		$threshold_duration = '<input type="text" name="' . $this->options_key . '[failed_login][threshold_duration]" id="' . $this->options_key . '_failed_login_threshold_duration" value="' . $this->get_option( array( 'failed_login', 'threshold_duration' ) ) . '" size="1" />';
+		$threshold_duration = '<input type="text" name="' . $this->options_key . '[failed_login][threshold_duration]" id="' . $this->options_key . '_failed_login_threshold_duration" value="' . $this->get_option( array( 'failed_login', 'threshold_duration' ) ) . '" size="1">';
 
 		// Threshold duration unit
 		$threshold_duration_unit = '<select name="' . $this->options_key . '[failed_login][threshold_duration_unit]" id="' . $this->options_key . '_failed_login_threshold_duration_unit">';
@@ -155,7 +155,7 @@ class Theme_My_Login_Security_Admin extends Theme_My_Login_Abstract {
 		$threshold_duration_unit .= '</select>';
 
 		// Lockout duration
-		$lockout_duration = '<input type="text" name="' . $this->options_key . '[failed_login][lockout_duration]" id="' . $this->options_key . '_failed_login_lockout_duration" value="' . $this->get_option( array( 'failed_login', 'lockout_duration' ) ) . '" size="1" />';
+		$lockout_duration = '<input type="text" name="' . $this->options_key . '[failed_login][lockout_duration]" id="' . $this->options_key . '_failed_login_lockout_duration" value="' . $this->get_option( array( 'failed_login', 'lockout_duration' ) ) . '" size="1">';
 
 		// Lockout duration unit
 		$lockout_duration_unit = '<select name="' . $this->options_key . '[failed_login][lockout_duration_unit]" id="' . $this->options_key . '_failed_login_lockout_duration_unit">';

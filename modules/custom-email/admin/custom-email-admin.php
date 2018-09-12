@@ -154,11 +154,11 @@ class Theme_My_Login_Custom_Email_Admin extends Theme_My_Login_Abstract {
 		<table class="form-table">
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_new_user_mail_from_name"><?php _e( 'From Name', 'simple-themed-login' ); ?></label></th>
-				<td><input name="<?php echo $this->options_key; ?>[new_user][mail_from_name]" type="text" id="<?php echo $this->options_key; ?>_new_user_mail_from_name" value="<?php echo $this->get_option( array( 'new_user', 'mail_from_name' ) ); ?>" class="regular-text" /></td>
+				<td><input name="<?php echo $this->options_key; ?>[new_user][mail_from_name]" type="text" id="<?php echo $this->options_key; ?>_new_user_mail_from_name" value="<?php echo $this->get_option( array( 'new_user', 'mail_from_name' ) ); ?>" class="regular-text"></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_new_user_mail_from"><?php _e( 'From E-mail', 'simple-themed-login' ); ?></label></th>
-				<td><input name="<?php echo $this->options_key; ?>[new_user][mail_from]" type="text" id="<?php echo $this->options_key; ?>_new_user_mail_from" value="<?php echo $this->get_option( array( 'new_user', 'mail_from' ) ); ?>" class="regular-text" /></td>
+				<td><input name="<?php echo $this->options_key; ?>[new_user][mail_from]" type="text" id="<?php echo $this->options_key; ?>_new_user_mail_from" value="<?php echo $this->get_option( array( 'new_user', 'mail_from' ) ); ?>" class="regular-text"></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_new_user_mail_content_type"><?php _e( 'E-mail Format', 'simple-themed-login' ); ?></label></th>
@@ -171,7 +171,7 @@ class Theme_My_Login_Custom_Email_Admin extends Theme_My_Login_Abstract {
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_new_user_title"><?php _e( 'Subject', 'simple-themed-login' ); ?></label></th>
-				<td><input name="<?php echo $this->options_key; ?>[new_user][title]" type="text" id="<?php echo $this->options_key; ?>_new_user_title" value="<?php echo $this->get_option( array( 'new_user', 'title' ) ); ?>" class="large-text" /></td>
+				<td><input name="<?php echo $this->options_key; ?>[new_user][title]" type="text" id="<?php echo $this->options_key; ?>_new_user_title" value="<?php echo $this->get_option( array( 'new_user', 'title' ) ); ?>" class="large-text"></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_new_user_message"><?php _e( 'Message', 'simple-themed-login' ); ?></label></th>
@@ -200,15 +200,15 @@ class Theme_My_Login_Custom_Email_Admin extends Theme_My_Login_Abstract {
 		<table class="form-table">
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_new_user_admin_mail_to"><?php _e( 'To', 'simple-themed-login' ); ?></label></th>
-				<td><input name="<?php echo $this->options_key; ?>[new_user][admin_mail_to]" type="text" id="<?php echo $this->options_key; ?>_new_user_admin_mail_to" value="<?php echo $this->get_option( array( 'new_user', 'admin_mail_to' ) ); ?>" class="regular-text" /></td>
+				<td><input name="<?php echo $this->options_key; ?>[new_user][admin_mail_to]" type="text" id="<?php echo $this->options_key; ?>_new_user_admin_mail_to" value="<?php echo $this->get_option( array( 'new_user', 'admin_mail_to' ) ); ?>" class="regular-text"></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_new_user_admin_mail_from_name"><?php _e( 'From Name', 'simple-themed-login' ); ?></label></th>
-				<td><input name="<?php echo $this->options_key; ?>[new_user][admin_mail_from_name]" type="text" id="<?php echo $this->options_key; ?>_new_user_admin_mail_from_name" value="<?php echo $this->get_option( array( 'new_user', 'admin_mail_from_name' ) ); ?>" class="regular-text" /></td>
+				<td><input name="<?php echo $this->options_key; ?>[new_user][admin_mail_from_name]" type="text" id="<?php echo $this->options_key; ?>_new_user_admin_mail_from_name" value="<?php echo $this->get_option( array( 'new_user', 'admin_mail_from_name' ) ); ?>" class="regular-text"></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_new_user_admin_mail_from"><?php _e( 'From E-mail', 'simple-themed-login' ); ?></label></th>
-				<td><input name="<?php echo $this->options_key; ?>[new_user][admin_mail_from]" type="text" id="<?php echo $this->options_key; ?>_new_user_admin_mail_from" value="<?php echo $this->get_option( array( 'new_user', 'admin_mail_from' ) ); ?>" class="regular-text" /></td>
+				<td><input name="<?php echo $this->options_key; ?>[new_user][admin_mail_from]" type="text" id="<?php echo $this->options_key; ?>_new_user_admin_mail_from" value="<?php echo $this->get_option( array( 'new_user', 'admin_mail_from' ) ); ?>" class="regular-text"></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_new_user_admin_mail_content_type"><?php _e( 'E-mail Format', 'simple-themed-login' ); ?></label></th>
@@ -220,7 +220,7 @@ class Theme_My_Login_Custom_Email_Admin extends Theme_My_Login_Abstract {
 				</td>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_new_user_admin_title"><?php _e( 'Subject', 'simple-themed-login' ); ?></label></th>
-				<td><input name="<?php echo $this->options_key; ?>[new_user][admin_title]" type="text" id="<?php echo $this->options_key; ?>_new_user_admin_title" value="<?php echo $this->get_option( array( 'new_user', 'admin_title' ) ); ?>" class="large-text" /></td>
+				<td><input name="<?php echo $this->options_key; ?>[new_user][admin_title]" type="text" id="<?php echo $this->options_key; ?>_new_user_admin_title" value="<?php echo $this->get_option( array( 'new_user', 'admin_title' ) ); ?>" class="large-text"></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_new_user_admin_message"><?php _e( 'Message', 'simple-themed-login' ); ?></label></th>
@@ -232,7 +232,7 @@ class Theme_My_Login_Custom_Email_Admin extends Theme_My_Login_Abstract {
 			<tr valign="top">
 				<th scope="row">&nbsp;</th>
 				<td>
-					<input name="<?php echo $this->options_key; ?>[new_user][admin_disable]" type="checkbox" id="<?php echo $this->options_key; ?>_new_user_admin_disable" value="1"<?php checked( 1, $this->get_option( array( 'new_user', 'admin_disable' ) ) ); ?> />
+					<input name="<?php echo $this->options_key; ?>[new_user][admin_disable]" type="checkbox" id="<?php echo $this->options_key; ?>_new_user_admin_disable" value="1"<?php checked( 1, $this->get_option( array( 'new_user', 'admin_disable' ) ) ); ?>>
 					<label for="<?php echo $this->options_key; ?>_new_user_admin_disable"><?php _e( 'Disable Admin Notification', 'simple-themed-login' ); ?></label>
 				</td>
 			</tr>
@@ -257,11 +257,11 @@ class Theme_My_Login_Custom_Email_Admin extends Theme_My_Login_Abstract {
 		<table class="form-table">
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_retrieve_pass_mail_from_name"><?php _e( 'From Name', 'simple-themed-login' ); ?></label></th>
-				<td><input name="<?php echo $this->options_key; ?>[retrieve_pass][mail_from_name]" type="text" id="<?php echo $this->options_key; ?>_retrieve_pass_mail_from_name" value="<?php echo $this->get_option( array( 'retrieve_pass', 'mail_from_name' ) ); ?>" class="regular-text" /></td>
+				<td><input name="<?php echo $this->options_key; ?>[retrieve_pass][mail_from_name]" type="text" id="<?php echo $this->options_key; ?>_retrieve_pass_mail_from_name" value="<?php echo $this->get_option( array( 'retrieve_pass', 'mail_from_name' ) ); ?>" class="regular-text"></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_retrieve_pass_mail_from"><?php _e( 'From E-mail', 'simple-themed-login' ); ?></label></th>
-				<td><input name="<?php echo $this->options_key; ?>[retrieve_pass][mail_from]" type="text" id="<?php echo $this->options_key; ?>_retrieve_pass_mail_from" value="<?php echo $this->get_option( array( 'retrieve_pass', 'mail_from' ) ); ?>" class="regular-text" /></td>
+				<td><input name="<?php echo $this->options_key; ?>[retrieve_pass][mail_from]" type="text" id="<?php echo $this->options_key; ?>_retrieve_pass_mail_from" value="<?php echo $this->get_option( array( 'retrieve_pass', 'mail_from' ) ); ?>" class="regular-text"></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_retrieve_pass_mail_content_type"><?php _e( 'E-mail Format', 'simple-themed-login' ); ?></label></th>
@@ -274,7 +274,7 @@ class Theme_My_Login_Custom_Email_Admin extends Theme_My_Login_Abstract {
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_retrieve_pass_title"><?php _e( 'Subject', 'simple-themed-login' ); ?></label></th>
-				<td><input name="<?php echo $this->options_key; ?>[retrieve_pass][title]" type="text" id="<?php echo $this->options_key; ?>_retrieve_pass_title" value="<?php echo $this->get_option( array( 'retrieve_pass', 'title' ) ); ?>" class="large-text" /></td>
+				<td><input name="<?php echo $this->options_key; ?>[retrieve_pass][title]" type="text" id="<?php echo $this->options_key; ?>_retrieve_pass_title" value="<?php echo $this->get_option( array( 'retrieve_pass', 'title' ) ); ?>" class="large-text"></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_retrieve_pass_message"><?php _e( 'Message', 'simple-themed-login' ); ?></label></th>
@@ -303,15 +303,15 @@ class Theme_My_Login_Custom_Email_Admin extends Theme_My_Login_Abstract {
 		<table class="form-table">
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_reset_pass_admin_mail_to"><?php _e( 'To', 'simple-themed-login' ); ?></label></th>
-				<td><input name="<?php echo $this->options_key; ?>[reset_pass][admin_mail_to]" type="text" id="<?php echo $this->options_key; ?>_reset_pass_admin_mail_to" value="<?php echo $this->get_option( array( 'reset_pass', 'admin_mail_to' ) ); ?>" class="regular-text" /></td>
+				<td><input name="<?php echo $this->options_key; ?>[reset_pass][admin_mail_to]" type="text" id="<?php echo $this->options_key; ?>_reset_pass_admin_mail_to" value="<?php echo $this->get_option( array( 'reset_pass', 'admin_mail_to' ) ); ?>" class="regular-text"></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_reset_pass_admin_mail_from_name"><?php _e( 'From Name', 'simple-themed-login' ); ?></label></th>
-				<td><input name="<?php echo $this->options_key; ?>[reset_pass][admin_mail_from_name]" type="text" id="<?php echo $this->options_key; ?>_reset_pass_admin_mail_from_name" value="<?php echo $this->get_option( array( 'reset_pass', 'admin_mail_from_name' ) ); ?>" class="regular-text" /></td>
+				<td><input name="<?php echo $this->options_key; ?>[reset_pass][admin_mail_from_name]" type="text" id="<?php echo $this->options_key; ?>_reset_pass_admin_mail_from_name" value="<?php echo $this->get_option( array( 'reset_pass', 'admin_mail_from_name' ) ); ?>" class="regular-text"></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_reset_pass_admin_mail_from"><?php _e( 'From E-mail', 'simple-themed-login' ); ?></label></th>
-				<td><input name="<?php echo $this->options_key; ?>[reset_pass][admin_mail_from]" type="text" id="<?php echo $this->options_key; ?>_reset_pass_admin_mail_from" value="<?php echo $this->get_option( array( 'reset_pass', 'admin_mail_from' ) ); ?>" class="regular-text" /></td>
+				<td><input name="<?php echo $this->options_key; ?>[reset_pass][admin_mail_from]" type="text" id="<?php echo $this->options_key; ?>_reset_pass_admin_mail_from" value="<?php echo $this->get_option( array( 'reset_pass', 'admin_mail_from' ) ); ?>" class="regular-text"></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_reset_pass_admin_mail_content_type"><?php _e( 'E-mail Format', 'simple-themed-login' ); ?></label></th>
@@ -324,7 +324,7 @@ class Theme_My_Login_Custom_Email_Admin extends Theme_My_Login_Abstract {
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_reset_pass_admin_title"><?php _e( 'Subject', 'simple-themed-login' ); ?></label></th>
-				<td><input name="<?php echo $this->options_key; ?>[reset_pass][admin_title]" type="text" id="<?php echo $this->options_key; ?>_reset_pass_admin_title" value="<?php echo $this->get_option( array( 'reset_pass', 'admin_title' ) ); ?>" class="large-text" /></td>
+				<td><input name="<?php echo $this->options_key; ?>[reset_pass][admin_title]" type="text" id="<?php echo $this->options_key; ?>_reset_pass_admin_title" value="<?php echo $this->get_option( array( 'reset_pass', 'admin_title' ) ); ?>" class="large-text"></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_reset_pass_admin_message"><?php _e( 'Message', 'simple-themed-login' ); ?></label></th>
@@ -336,7 +336,7 @@ class Theme_My_Login_Custom_Email_Admin extends Theme_My_Login_Abstract {
 			<tr valign="top">
 				<th scope="row">&nbsp;</th>
 				<td>
-					<input name="<?php echo $this->options_key; ?>[reset_pass][admin_disable]" type="checkbox" id="<?php echo $this->options_key; ?>_reset_pass_admin_disable" value="1"<?php checked( 1, $this->get_option( array( 'reset_pass', 'admin_disable' ) ) ); ?> />
+					<input name="<?php echo $this->options_key; ?>[reset_pass][admin_disable]" type="checkbox" id="<?php echo $this->options_key; ?>_reset_pass_admin_disable" value="1"<?php checked( 1, $this->get_option( array( 'reset_pass', 'admin_disable' ) ) ); ?>>
 					<label for="<?php echo $this->options_key; ?>_reset_pass_admin_disable"><?php _e( 'Disable Admin Notification', 'simple-themed-login' ); ?></label>
 				</td>
 			</tr>
@@ -361,11 +361,11 @@ class Theme_My_Login_Custom_Email_Admin extends Theme_My_Login_Abstract {
 		<table class="form-table">
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_user_activation_mail_from_name"><?php _e( 'From Name', 'simple-themed-login' ); ?></label></th>
-				<td><input name="<?php echo $this->options_key; ?>[user_activation][mail_from_name]" type="text" id="<?php echo $this->options_key; ?>_user_activation_mail_from_name" value="<?php echo $this->get_option( array( 'user_activation', 'mail_from_name' ) ); ?>" class="regular-text" /></td>
+				<td><input name="<?php echo $this->options_key; ?>[user_activation][mail_from_name]" type="text" id="<?php echo $this->options_key; ?>_user_activation_mail_from_name" value="<?php echo $this->get_option( array( 'user_activation', 'mail_from_name' ) ); ?>" class="regular-text"></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_user_activation_mail_from"><?php _e( 'From E-mail', 'simple-themed-login' ); ?></label></th>
-				<td><input name="<?php echo $this->options_key; ?>[user_activation][mail_from]" type="text" id="<?php echo $this->options_key; ?>_user_activation_mail_from" value="<?php echo $this->get_option( array( 'user_activation', 'mail_from' ) ); ?>" class="regular-text" /></td>
+				<td><input name="<?php echo $this->options_key; ?>[user_activation][mail_from]" type="text" id="<?php echo $this->options_key; ?>_user_activation_mail_from" value="<?php echo $this->get_option( array( 'user_activation', 'mail_from' ) ); ?>" class="regular-text"></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_user_activation_mail_content_type"><?php _e( 'E-mail Format', 'simple-themed-login' ); ?></label></th>
@@ -378,7 +378,7 @@ class Theme_My_Login_Custom_Email_Admin extends Theme_My_Login_Abstract {
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_user_activation_title"><?php _e( 'Subject', 'simple-themed-login' ); ?></label></th>
-				<td><input name="<?php echo $this->options_key; ?>[user_activation][title]" type="text" id="<?php echo $this->options_key; ?>_user_activation_title" value="<?php echo $this->get_option( array( 'user_activation', 'title' ) ); ?>" class="large-text" /></td>
+				<td><input name="<?php echo $this->options_key; ?>[user_activation][title]" type="text" id="<?php echo $this->options_key; ?>_user_activation_title" value="<?php echo $this->get_option( array( 'user_activation', 'title' ) ); ?>" class="large-text"></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_user_activation_message"><?php _e( 'Message', 'simple-themed-login' ); ?></label></th>
@@ -408,11 +408,11 @@ class Theme_My_Login_Custom_Email_Admin extends Theme_My_Login_Abstract {
 		<table class="form-table">
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_user_approval_mail_from_name"><?php _e( 'From Name', 'simple-themed-login' ); ?></label></th>
-				<td><input name="<?php echo $this->options_key; ?>[user_approval][mail_from_name]" type="text" id="<?php echo $this->options_key; ?>_user_approval_mail_from_name" value="<?php echo $this->get_option( array( 'user_approval', 'mail_from_name' ) ); ?>" class="regular-text" /></td>
+				<td><input name="<?php echo $this->options_key; ?>[user_approval][mail_from_name]" type="text" id="<?php echo $this->options_key; ?>_user_approval_mail_from_name" value="<?php echo $this->get_option( array( 'user_approval', 'mail_from_name' ) ); ?>" class="regular-text"></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_user_approval_mail_from"><?php _e( 'From E-mail', 'simple-themed-login' ); ?></label></th>
-				<td><input name="<?php echo $this->options_key; ?>[user_approval][mail_from]" type="text" id="<?php echo $this->options_key; ?>_user_approval_mail_from" value="<?php echo $this->get_option( array( 'user_approval', 'mail_from' ) ); ?>" class="regular-text" /></td>
+				<td><input name="<?php echo $this->options_key; ?>[user_approval][mail_from]" type="text" id="<?php echo $this->options_key; ?>_user_approval_mail_from" value="<?php echo $this->get_option( array( 'user_approval', 'mail_from' ) ); ?>" class="regular-text"></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_user_approval_mail_content_type"><?php _e( 'E-mail Format', 'simple-themed-login' ); ?></label></th>
@@ -425,7 +425,7 @@ class Theme_My_Login_Custom_Email_Admin extends Theme_My_Login_Abstract {
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_user_approval_title"><?php _e( 'Subject', 'simple-themed-login' ); ?></label></th>
-				<td><input name="<?php echo $this->options_key; ?>[user_approval][title]" type="text" id="<?php echo $this->options_key; ?>_user_approval_title" value="<?php echo $this->get_option( array( 'user_approval', 'title' ) ); ?>" class="large-text" /></td>
+				<td><input name="<?php echo $this->options_key; ?>[user_approval][title]" type="text" id="<?php echo $this->options_key; ?>_user_approval_title" value="<?php echo $this->get_option( array( 'user_approval', 'title' ) ); ?>" class="large-text"></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_user_approval_message"><?php _e( 'Message', 'simple-themed-login' ); ?></label></th>
@@ -454,15 +454,15 @@ class Theme_My_Login_Custom_Email_Admin extends Theme_My_Login_Abstract {
 		<table class="form-table">
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_user_approval_admin_mail_to"><?php _e( 'To', 'simple-themed-login' ); ?></label></th>
-				<td><input name="<?php echo $this->options_key; ?>[user_approval][admin_mail_to]" type="text" id="<?php echo $this->options_key; ?>_user_approval_admin_mail_to" value="<?php echo $this->get_option( array( 'user_approval', 'admin_mail_to' ) ); ?>" class="regular-text" /></td>
+				<td><input name="<?php echo $this->options_key; ?>[user_approval][admin_mail_to]" type="text" id="<?php echo $this->options_key; ?>_user_approval_admin_mail_to" value="<?php echo $this->get_option( array( 'user_approval', 'admin_mail_to' ) ); ?>" class="regular-text"></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_user_approval_admin_mail_from_name"><?php _e( 'From Name', 'simple-themed-login' ); ?></label></th>
-				<td><input name="<?php echo $this->options_key; ?>[user_approval][admin_mail_from_name]" type="text" id="<?php echo $this->options_key; ?>_user_approval_admin_mail_from_name" value="<?php echo $this->get_option( array( 'user_approval', 'admin_mail_from_name' ) ); ?>" class="regular-text" /></td>
+				<td><input name="<?php echo $this->options_key; ?>[user_approval][admin_mail_from_name]" type="text" id="<?php echo $this->options_key; ?>_user_approval_admin_mail_from_name" value="<?php echo $this->get_option( array( 'user_approval', 'admin_mail_from_name' ) ); ?>" class="regular-text"></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_user_approval_admin_mail_from"><?php _e( 'From E-mail', 'simple-themed-login' ); ?></label></th>
-				<td><input name="<?php echo $this->options_key; ?>[user_approval][admin_mail_from]" type="text" id="<?php echo $this->options_key; ?>_user_approval_admin_mail_from" value="<?php echo $this->get_option( array( 'user_approval', 'admin_mail_from' ) ); ?>" class="regular-text" /></td>
+				<td><input name="<?php echo $this->options_key; ?>[user_approval][admin_mail_from]" type="text" id="<?php echo $this->options_key; ?>_user_approval_admin_mail_from" value="<?php echo $this->get_option( array( 'user_approval', 'admin_mail_from' ) ); ?>" class="regular-text"></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_user_approval_admin_mail_content_type"><?php _e( 'E-mail Format', 'simple-themed-login' ); ?></label></th>
@@ -475,7 +475,7 @@ class Theme_My_Login_Custom_Email_Admin extends Theme_My_Login_Abstract {
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_user_approval_admin_title"><?php _e( 'Subject', 'simple-themed-login' ); ?></label></th>
-				<td><input name="<?php echo $this->options_key; ?>[user_approval][admin_title]" type="text" id="<?php echo $this->options_key; ?>_user_approval_admin_title" value="<?php echo $this->get_option( array( 'user_approval', 'admin_title' ) ); ?>" class="large-text" /></td>
+				<td><input name="<?php echo $this->options_key; ?>[user_approval][admin_title]" type="text" id="<?php echo $this->options_key; ?>_user_approval_admin_title" value="<?php echo $this->get_option( array( 'user_approval', 'admin_title' ) ); ?>" class="large-text"></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_user_approval_admin_message"><?php _e( 'Message', 'simple-themed-login' ); ?></label></th>
@@ -487,7 +487,7 @@ class Theme_My_Login_Custom_Email_Admin extends Theme_My_Login_Abstract {
 			<tr valign="top">
 				<th scope="row">&nbsp;</th>
 				<td>
-					<input name="<?php echo $this->options_key; ?>[user_approval][admin_disable]" type="checkbox" id="<?php echo $this->options_key; ?>_user_approval_admin_disable" value="1"<?php checked( 1, $this->get_option( array( 'user_approval', 'admin_disable' ) ) ); ?> />
+					<input name="<?php echo $this->options_key; ?>[user_approval][admin_disable]" type="checkbox" id="<?php echo $this->options_key; ?>_user_approval_admin_disable" value="1"<?php checked( 1, $this->get_option( array( 'user_approval', 'admin_disable' ) ) ); ?>>
 					<label for="<?php echo $this->options_key; ?>_user_approval_admin_disable"><?php _e( 'Disable Admin Notification', 'simple-themed-login' ); ?></label>
 				</td>
 			</tr>
@@ -512,11 +512,11 @@ class Theme_My_Login_Custom_Email_Admin extends Theme_My_Login_Abstract {
 		<table class="form-table">
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_user_denial_mail_from_name"><?php _e( 'From Name', 'simple-themed-login' ); ?></label></th>
-				<td><input name="<?php echo $this->options_key; ?>[user_denial][mail_from_name]" type="text" id="<?php echo $this->options_key; ?>_user_denial_mail_from_name" value="<?php echo $this->get_option( array( 'user_denial', 'mail_from_name' ) ); ?>" class="regular-text" /></td>
+				<td><input name="<?php echo $this->options_key; ?>[user_denial][mail_from_name]" type="text" id="<?php echo $this->options_key; ?>_user_denial_mail_from_name" value="<?php echo $this->get_option( array( 'user_denial', 'mail_from_name' ) ); ?>" class="regular-text"></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_user_denial_mail_from"><?php _e( 'From E-mail', 'simple-themed-login' ); ?></label></th>
-				<td><input name="<?php echo $this->options_key; ?>[user_denial][mail_from]" type="text" id="<?php echo $this->options_key; ?>_user_denial_mail_from" value="<?php echo $this->get_option( array( 'user_denial', 'mail_from' ) ); ?>" class="regular-text" /></td>
+				<td><input name="<?php echo $this->options_key; ?>[user_denial][mail_from]" type="text" id="<?php echo $this->options_key; ?>_user_denial_mail_from" value="<?php echo $this->get_option( array( 'user_denial', 'mail_from' ) ); ?>" class="regular-text"></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_user_denial_mail_content_type"><?php _e( 'E-mail Format', 'simple-themed-login' ); ?></label></th>
@@ -529,7 +529,7 @@ class Theme_My_Login_Custom_Email_Admin extends Theme_My_Login_Abstract {
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_user_denial_title"><?php _e('Subject', 'simple-themed-login'); ?></label></th>
-				<td><input name="<?php echo $this->options_key; ?>[user_denial][title]" type="text" id="<?php echo $this->options_key; ?>_user_denial_title" value="<?php echo $this->get_option( array( 'user_denial', 'title' ) ); ?>" class="large-text" /></td>
+				<td><input name="<?php echo $this->options_key; ?>[user_denial][title]" type="text" id="<?php echo $this->options_key; ?>_user_denial_title" value="<?php echo $this->get_option( array( 'user_denial', 'title' ) ); ?>" class="large-text"></td>
 			</tr>
 			<tr valign="top">
 				<th scope="row"><label for="<?php echo $this->options_key; ?>_user_denial_message"><?php _e('Message', 'simple-themed-login'); ?></label></th>
@@ -541,7 +541,7 @@ class Theme_My_Login_Custom_Email_Admin extends Theme_My_Login_Abstract {
 			<tr valign="top">
 				<th scope="row">&nbsp;</th>
 				<td>
-					<input name="<?php echo $this->options_key; ?>[user_denial][disable]" type="checkbox" id="<?php echo $this->options_key; ?>_user_denial_disable" value="1"<?php checked( 1, $this->get_option( array( 'user_denial', 'disable' ) ) ); ?> />
+					<input name="<?php echo $this->options_key; ?>[user_denial][disable]" type="checkbox" id="<?php echo $this->options_key; ?>_user_denial_disable" value="1"<?php checked( 1, $this->get_option( array( 'user_denial', 'disable' ) ) ); ?>>
 					<label for="<?php echo $this->options_key; ?>_user_denial_disable"><?php _e( 'Disable Notification', 'simple-themed-login' ); ?></label>
 				</td>
 			</tr>

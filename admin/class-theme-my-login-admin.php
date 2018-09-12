@@ -226,7 +226,7 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 	 */
 	public function settings_field_enable_css() {
 		?>
-		<input name="theme_my_login[enable_css]" type="checkbox" id="theme_my_login_enable_css" value="1"<?php checked( 1, $this->get_option( 'enable_css' ) ); ?> />
+		<input name="theme_my_login[enable_css]" type="checkbox" id="theme_my_login_enable_css" value="1"<?php checked( 1, $this->get_option( 'enable_css' ) ); ?>>
 		<label for="theme_my_login_enable_css"><?php _e( 'Enable "theme-my-login.css"', 'simple-themed-login' ); ?></label>
 		<p class="description"><?php _e( 'In order to keep changes between upgrades, you can store your customized "theme-my-login.css" in your current theme directory.', 'simple-themed-login' ); ?></p>
 		<?php
@@ -240,13 +240,13 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 
 		<ul>
 
-			<li><input name="theme_my_login[login_type]" type="radio" id="theme_my_login_login_type_default" value="default"<?php checked( 'default', $this->get_option( 'login_type' ) ); ?> />
+			<li><input name="theme_my_login[login_type]" type="radio" id="theme_my_login_login_type_default" value="default"<?php checked( 'default', $this->get_option( 'login_type' ) ); ?>>
 			<label for="theme_my_login_login_type_default"><?php _e( 'Username or E-mail', 'simple-themed-login' ); ?></label></li>
 
-			<li><input name="theme_my_login[login_type]" type="radio" id="theme_my_login_login_type_username" value="username"<?php checked( 'username', $this->get_option( 'login_type' ) ); ?> />
+			<li><input name="theme_my_login[login_type]" type="radio" id="theme_my_login_login_type_username" value="username"<?php checked( 'username', $this->get_option( 'login_type' ) ); ?>>
 			<label for="theme_my_login_login_type_username"><?php _e( 'Username only', 'simple-themed-login' ); ?></label></li>
 
-			<li><input name="theme_my_login[login_type]" type="radio" id="theme_my_login_login_type_email" value="email"<?php checked( 'email', $this->get_option( 'login_type' ) ); ?> />
+			<li><input name="theme_my_login[login_type]" type="radio" id="theme_my_login_login_type_email" value="email"<?php checked( 'email', $this->get_option( 'login_type' ) ); ?>>
 			<label for="theme_my_login_login_type_email"><?php _e( 'E-mail only', 'simple-themed-login' ); ?></label></li>
 
 		</ul>
@@ -264,8 +264,8 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 		foreach ( get_plugins( sprintf( '/%s/modules', plugin_basename( SIMPLE_THEMED_LOGIN_PATH ) ) ) as $path => $data ) {
 			$id = sanitize_key( $data['Name'] );
 		?>
-		<input name="theme_my_login[active_modules][]" type="checkbox" id="theme_my_login_active_modules_<?php echo $id; ?>" value="<?php echo $path; ?>"<?php checked( in_array( $path, (array) $this->get_option( 'active_modules' ) ) ); ?> />
-		<label for="theme_my_login_active_modules_<?php echo $id; ?>"><?php printf( __( 'Enable %s', 'simple-themed-login' ), $data['Name'] ); ?></label><br />
+		<input name="theme_my_login[active_modules][]" type="checkbox" id="theme_my_login_active_modules_<?php echo $id; ?>" value="<?php echo $path; ?>"<?php checked( in_array( $path, (array) $this->get_option( 'active_modules' ) ) ); ?>>
+		<label for="theme_my_login_active_modules_<?php echo $id; ?>"><?php printf( __( 'Enable %s', 'simple-themed-login' ), $data['Name'] ); ?></label><br>
 		<?php if ( $data['Description'] ) : ?>
 		<p class="description"><?php echo $data['Description']; ?></p>
 		<?php endif;
@@ -279,11 +279,11 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 	public function settings_field_update() {
 		?>
 		<p>
-			<input name="theme_my_login[allow_update]" type="radio" id="theme_my_login_allow_update_on" value="1"<?php checked( (bool) $this->get_option('allow_update') ); ?> />
+			<input name="theme_my_login[allow_update]" type="radio" id="theme_my_login_allow_update_on" value="1"<?php checked( (bool) $this->get_option('allow_update') ); ?>>
 			<label for="theme_my_login_allow_update_on"><?php _e( 'I understand the possible consequences, but I want the latest features and wish to allow the update', 'simple-themed-login' ); ?></label>
 		</p>
 		<p>
-			<input name="theme_my_login[allow_update]" type="radio" id="theme_my_login_allow_update_off" value="0"<?php checked( !$this->get_option('allow_update') ); ?> />
+			<input name="theme_my_login[allow_update]" type="radio" id="theme_my_login_allow_update_off" value="0"<?php checked( !$this->get_option('allow_update') ); ?>>
 			<label for="theme_my_login_allow_update_off"><?php _e( 'I understand that I will no longer receive any new features but I would like to stay on the 6.4 branch anyway', 'simple-themed-login' ); ?></label>
 		</p>
 		<?php

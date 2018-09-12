@@ -220,9 +220,9 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 					$severity = $wp_error->get_error_data( $code );
 					foreach ( $wp_error->get_error_messages( $code ) as $error ) {
 						if ( 'message' == $severity )
-							$messages .= '    ' . $error . "<br />\n";
+							$messages .= '    ' . $error . "<br>\n";
 						else
-							$errors .= '    ' . $error . "<br />\n";
+							$errors .= '    ' . $error . "<br>\n";
 					}
 				}
 				if ( ! empty( $errors ) )
