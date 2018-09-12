@@ -121,29 +121,29 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 
 		$this->load_instance();
 
-		add_action( 'plugins_loaded',          array( $this, 'plugins_loaded'          ) );
-		add_action( 'init',                    array( $this, 'init'                    ) );
-		add_action( 'load_textdomain',         array( $this, 'load_custom_textdomain'   ), 10, 2 );
-		add_action( 'widgets_init',            array( $this, 'widgets_init'            ) );
-		add_action( 'wp',                      array( $this, 'wp'                      ) );
-		add_action( 'pre_get_posts',           array( $this, 'pre_get_posts'           ) );
-		add_action( 'template_redirect',       array( $this, 'template_redirect'       ) );
-		add_action( 'wp_enqueue_scripts',      array( $this, 'wp_enqueue_scripts'      ) );
-		add_action( 'wp_head',                 array( $this, 'wp_head'                 ) );
-		add_action( 'wp_footer',               array( $this, 'wp_footer'               ) );
-		add_action( 'wp_print_footer_scripts', array( $this, 'wp_print_footer_scripts' ) );
+		add_action( 'plugins_loaded',          [$this, 'plugins_loaded'          ] );
+		add_action( 'init',                    [$this, 'init'                    ] );
+		add_action( 'load_textdomain',         [$this, 'load_custom_textdomain'  ], 10, 2 );
+		add_action( 'widgets_init',            [$this, 'widgets_init'            ] );
+		add_action( 'wp',                      [$this, 'wp'                      ] );
+		add_action( 'pre_get_posts',           [$this, 'pre_get_posts'           ] );
+		add_action( 'template_redirect',       [$this, 'template_redirect'       ] );
+		add_action( 'wp_enqueue_scripts',      [$this, 'wp_enqueue_scripts'      ] );
+		add_action( 'wp_head',                 [$this, 'wp_head'                 ] );
+		add_action( 'wp_footer',               [$this, 'wp_footer'               ] );
+		add_action( 'wp_print_footer_scripts', [$this, 'wp_print_footer_scripts' ] );
 
-		add_filter( 'site_url',               array( $this, 'site_url'               ), 10, 3 );
-		add_filter( 'logout_url',             array( $this, 'logout_url'             ), 10, 2 );
-		add_filter( 'single_post_title',      array( $this, 'single_post_title'      )        );
-		add_filter( 'the_title',              array( $this, 'the_title'              ), 10, 2 );
-		add_filter( 'document_title_parts',   array( $this, 'document_title_parts'   )        );
-		add_filter( 'wp_setup_nav_menu_item', array( $this, 'wp_setup_nav_menu_item' )        );
-		add_filter( 'wp_list_pages_excludes', array( $this, 'wp_list_pages_excludes' )        );
-		add_filter( 'page_link',              array( $this, 'page_link'              ), 10, 2 );
-		add_filter( 'authenticate',           array( $this, 'authenticate'           ), 20, 3 );
+		add_filter( 'site_url',               [$this, 'site_url'               ], 10, 3 );
+		add_filter( 'logout_url',             [$this, 'logout_url'             ], 10, 2 );
+		add_filter( 'single_post_title',      [$this, 'single_post_title'      ]        );
+		add_filter( 'the_title',              [$this, 'the_title'              ], 10, 2 );
+		add_filter( 'document_title_parts',   [$this, 'document_title_parts'   ]        );
+		add_filter( 'wp_setup_nav_menu_item', [$this, 'wp_setup_nav_menu_item' ]        );
+		add_filter( 'wp_list_pages_excludes', [$this, 'wp_list_pages_excludes' ]        );
+		add_filter( 'page_link',              [$this, 'page_link'              ], 10, 2 );
+		add_filter( 'authenticate',           [$this, 'authenticate'           ], 20, 3 );
 
-		add_shortcode( 'theme-my-login', array( $this, 'shortcode' ) );
+		add_shortcode( 'theme-my-login', [$this, 'shortcode'] );
 
 		if ( 'username' == $this->get_option( 'login_type' ) ) {
 			remove_filter( 'authenticate', 'wp_authenticate_email_password', 20 );
@@ -176,7 +176,7 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 		$this->errors = new WP_Error();
 
 		if ( ! is_admin() && 'wp-login.php' != $pagenow && $this->get_option( 'enable_css' ) )
-			wp_enqueue_style( 'simple-themed-login', self::get_stylesheet(), array( 'dashicons' ), $this->get_option( 'version' ) );
+			wp_enqueue_style( 'simple-themed-login', self::get_stylesheet(), ['dashicons'], $this->get_option( 'version' ) );
 	}
 
 	/**

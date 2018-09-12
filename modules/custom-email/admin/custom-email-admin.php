@@ -87,13 +87,6 @@ class Theme_My_Login_Custom_Email_Admin extends Theme_My_Login_Abstract {
 		add_meta_box( 'retrieve_pass',  __( 'Retrieve Password', 'simple-themed-login' ), array( $this, 'retrieve_pass_meta_box' ),  'tml_page_' . $this->options_key, 'normal' );
 		add_meta_box( 'reset_pass',     __( 'Reset Password',    'simple-themed-login' ), array( $this, 'reset_pass_meta_box' ),     'tml_page_' . $this->options_key, 'normal' );
 
-		// Check for User Moderation module
-		if ( class_exists( 'Theme_My_Login_User_Moderation' ) ) {
-			add_meta_box( 'user_activation',     __( 'User Activation',     'simple-themed-login' ), array( $this, 'user_activation_meta_box' ),     'tml_page_' . $this->options_key, 'normal' );
-			add_meta_box( 'user_approval',       __( 'User Approval',       'simple-themed-login' ), array( $this, 'user_approval_meta_box' ),       'tml_page_' . $this->options_key, 'normal' );
-			add_meta_box( 'user_approval_admin', __( 'User Approval Admin', 'simple-themed-login'),  array( $this, 'user_approval_admin_meta_box' ), 'tml_page_' . $this->options_key, 'normal' );
-			add_meta_box( 'user_denial',         __( 'User Denial',         'simple-themed-login' ), array( $this, 'user_denial_meta_box' ),         'tml_page_' . $this->options_key, 'normal' );
-		}
 	}
 
 	/**
