@@ -102,30 +102,30 @@ class Theme_My_Login_Widget extends WP_Widget {
 			$is_selected = ( $instance['default_action'] == $action ) ? ' selected="selected"' : '';
 			echo '<option value="' . $action . '"' . $is_selected . '>' . $title . '</option>';
 		}
-		echo '</select></p>' . "\n";
+		echo '</select></p>';
 
 		$is_checked = ( empty( $instance['logged_in_widget'] ) ) ? '' : 'checked="checked" ';
-		echo '<p><input name="' . $this->get_field_name( 'logged_in_widget' ) . '" type="checkbox" id="' . $this->get_field_id( 'logged_in_widget' ) . '" value="1" ' . $is_checked . '/> <label for="' . $this->get_field_id( 'logged_in_widget' ) . '">' . __( 'Show When Logged In', 'simple-themed-login' ) . '</label></p>' . "\n";
+		echo '<p><input name="' . $this->get_field_name( 'logged_in_widget' ) . '" type="checkbox" id="' . $this->get_field_id( 'logged_in_widget' ) . '" value="1" ' . $is_checked . '/> <label for="' . $this->get_field_id( 'logged_in_widget' ) . '">' . __( 'Show When Logged In', 'simple-themed-login' ) . '</label></p>';
 
 		$is_checked = ( empty( $instance['logged_out_widget'] ) ) ? '' : 'checked="checked" ';
-		echo '<p><input name="' . $this->get_field_name( 'logged_out_widget' ) . '" type="checkbox" id="' . $this->get_field_id( 'logged_out_widget' ) . '" value="1" ' . $is_checked . '/> <label for="' . $this->get_field_id( 'logged_out_widget' ) . '">' . __( 'Show When Logged Out', 'simple-themed-login' ) . '</label></p>' . "\n";
+		echo '<p><input name="' . $this->get_field_name( 'logged_out_widget' ) . '" type="checkbox" id="' . $this->get_field_id( 'logged_out_widget' ) . '" value="1" ' . $is_checked . '/> <label for="' . $this->get_field_id( 'logged_out_widget' ) . '">' . __( 'Show When Logged Out', 'simple-themed-login' ) . '</label></p>';
 
 		$is_checked = ( empty( $instance['show_title'] ) ) ? '' : 'checked="checked" ';
-		echo '<p><input name="' . $this->get_field_name( 'show_title' ) . '" type="checkbox" id="' . $this->get_field_id( 'show_title' ) . '" value="1" ' . $is_checked . '/> <label for="' . $this->get_field_id( 'show_title' ) . '">' . __( 'Show Title', 'simple-themed-login' ) . '</label></p>' . "\n";
+		echo '<p><input name="' . $this->get_field_name( 'show_title' ) . '" type="checkbox" id="' . $this->get_field_id( 'show_title' ) . '" value="1" ' . $is_checked . '/> <label for="' . $this->get_field_id( 'show_title' ) . '">' . __( 'Show Title', 'simple-themed-login' ) . '</label></p>';
 
 		$is_checked = ( empty( $instance['show_log_link'] ) ) ? '' : 'checked="checked" ';
-		echo '<p><input name="' . $this->get_field_name( 'show_log_link' ) . '" type="checkbox" id="' . $this->get_field_id( 'show_log_link' ) . '" value="1" ' . $is_checked . '/> <label for="' . $this->get_field_id( 'show_log_link' ) . '">' . __( 'Show Login Link', 'simple-themed-login' ) . '</label></p>' . "\n";
+		echo '<p><input name="' . $this->get_field_name( 'show_log_link' ) . '" type="checkbox" id="' . $this->get_field_id( 'show_log_link' ) . '" value="1" ' . $is_checked . '/> <label for="' . $this->get_field_id( 'show_log_link' ) . '">' . __( 'Show Login Link', 'simple-themed-login' ) . '</label></p>';
 
 		$is_checked = ( empty( $instance['show_reg_link'] ) ) ? '' : 'checked="checked" ';
-		echo '<p><input name="' . $this->get_field_name( 'show_reg_link' ) . '" type="checkbox" id="' . $this->get_field_id( 'show_reg_link' ) . '" value="1" ' . $is_checked . '/> <label for="' . $this->get_field_id( 'show_reg_link' ) . '">' . __( 'Show Register Link', 'simple-themed-login' ) . '</label></p>' . "\n";
+		echo '<p><input name="' . $this->get_field_name( 'show_reg_link' ) . '" type="checkbox" id="' . $this->get_field_id( 'show_reg_link' ) . '" value="1" ' . $is_checked . '/> <label for="' . $this->get_field_id( 'show_reg_link' ) . '">' . __( 'Show Register Link', 'simple-themed-login' ) . '</label></p>';
 
 		$is_checked = ( empty( $instance['show_pass_link'] ) ) ? '' : 'checked="checked" ';
-		echo '<p><input name="' . $this->get_field_name( 'show_pass_link' ) . '" type="checkbox" id="' . $this->get_field_id( 'show_pass_link' ) . '" value="1" ' . $is_checked . '/> <label for="' . $this->get_field_id( 'show_pass_link' ) . '">' . __( 'Show Lost Password Link', 'simple-themed-login' ) . '</label></p>' . "\n";
+		echo '<p><input name="' . $this->get_field_name( 'show_pass_link' ) . '" type="checkbox" id="' . $this->get_field_id( 'show_pass_link' ) . '" value="1" ' . $is_checked . '/> <label for="' . $this->get_field_id( 'show_pass_link' ) . '">' . __( 'Show Lost Password Link', 'simple-themed-login' ) . '</label></p>';
 
 		$is_checked = ( empty( $instance['show_gravatar'] ) ) ? '' : 'checked="checked" ';
-		echo '<p><input name="' . $this->get_field_name( 'show_gravatar' ) . '" type="checkbox" id="' . $this->get_field_id( 'show_gravatar' ) . '" value="1" ' . $is_checked . '/> <label for="' . $this->get_field_id( 'show_gravatar' ) . '">' . __( 'Show Gravatar', 'simple-themed-login' ) . '</label></p>' . "\n";
+		echo '<p><input name="' . $this->get_field_name( 'show_gravatar' ) . '" type="checkbox" id="' . $this->get_field_id( 'show_gravatar' ) . '" value="1" ' . $is_checked . '/> <label for="' . $this->get_field_id( 'show_gravatar' ) . '">' . __( 'Show Gravatar', 'simple-themed-login' ) . '</label></p>';
 
-		echo '<p>' . __( 'Gravatar Size', 'simple-themed-login' ) . ': <input name="' . $this->get_field_name( 'gravatar_size' ) . '" type="text" id="' . $this->get_field_id( 'gravatar_size' ) . '" value="' . $instance['gravatar_size'] . '" size="3"> <label for="' . $this->get_field_id( 'gravatar_size' ) . '"></label></p>' . "\n";
+		echo '<p>' . __( 'Gravatar Size', 'simple-themed-login' ) . ': <input name="' . $this->get_field_name( 'gravatar_size' ) . '" type="text" id="' . $this->get_field_id( 'gravatar_size' ) . '" value="' . $instance['gravatar_size'] . '" size="3"> <label for="' . $this->get_field_id( 'gravatar_size' ) . '"></label></p>';
 	}
 }
 endif; // Class exists

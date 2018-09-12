@@ -329,11 +329,11 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 	 */
 	public function the_action_links( $args = '' ) {
 		if ( $action_links = $this->get_action_links( $args ) ) {
-			echo '<ul class="tml-action-links">' . "\n";
+			echo '<ul class="tml-action-links">';
 			foreach ( (array) $action_links as $link ) {
-				echo '<li><a href="' . esc_url( $link['url'] ) . '" rel="nofollow">' . esc_html( $link['title'] ) . '</a></li>' . "\n";
+				echo '<li><a href="' . esc_url( $link['url'] ) . '" rel="nofollow">' . esc_html( $link['title'] ) . '</a></li>';
 			}
-			echo '</ul>' . "\n";
+			echo '</ul>';
 		}
 	}
 
@@ -361,9 +361,9 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 	public function the_user_links() {
 		echo '<ul class="tml-user-links">';
 		foreach ( (array) self::get_user_links() as $link ) {
-			echo '<li><a href="' . esc_url( $link['url'] ) . '">' . esc_html( $link['title'] ) . '</a></li>' . "\n";
+			echo '<li><a href="' . esc_url( $link['url'] ) . '">' . esc_html( $link['title'] ) . '</a></li>';
 		}
-		echo '<li><a href="' . wp_logout_url() . '">' . self::get_title( 'logout' ) . '</a></li>' . "\n";
+		echo '<li><a href="' . wp_logout_url() . '">' . self::get_title( 'logout' ) . '</a></li>';
 		echo '</ul>';
 	}
 

@@ -120,7 +120,7 @@ class Theme_My_Login_Custom_Passwords extends Theme_My_Login_Abstract {
 	 */
 	public function ms_hidden_password_field() {
 		if ( isset( $_POST['user_pass'] ) )
-			echo '<input type="hidden" name="user_pass" value="' . $_POST['user_pass'] . '">' . "\n";
+			echo '<input type="hidden" name="user_pass" value="' . $_POST['user_pass'] . '">';
 	}
 
 	/**
