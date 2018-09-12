@@ -774,21 +774,21 @@ msgstr ""
 msgid "Profile updated."
 msgstr ""
 
-#: modules/custom-redirection/admin/custom-redirection-admin.php:86
-#: modules/custom-redirection/admin/custom-redirection-admin.php:133
+#: modules/custom-redirection/admin/custom-redirection-admin.php:69
+#: modules/custom-redirection/admin/custom-redirection-admin.php:108
 msgid "STL Custom Redirection Settings"
 msgstr ""
 
-#: modules/custom-redirection/admin/custom-redirection-admin.php:87
+#: modules/custom-redirection/admin/custom-redirection-admin.php:70
 msgid "Redirection"
 msgstr ""
 
-#: modules/custom-redirection/admin/custom-redirection-admin.php:168
-#: modules/custom-redirection/admin/custom-redirection-admin.php:182
+#: modules/custom-redirection/admin/custom-redirection-admin.php:140
+#: modules/custom-redirection/admin/custom-redirection-admin.php:154
 msgid "Default"
 msgstr ""
 
-#: modules/custom-redirection/admin/custom-redirection-admin.php:169
+#: modules/custom-redirection/admin/custom-redirection-admin.php:141
 msgid "Check this option to send the user to their WordPress Dashboard/Profile."
 msgstr ""
 
@@ -797,7 +797,7 @@ msgstr ""
 msgid "Referer"
 msgstr ""
 
-#: modules/custom-redirection/admin/custom-redirection-admin.php:172
+#: modules/custom-redirection/admin/custom-redirection-admin.php:144
 msgid "Check this option to send the user back to the page they were visiting before logging in."
 msgstr ""
 
@@ -810,7 +810,7 @@ msgstr ""
 msgid "Check this option to send the user to the log in page, displaying a message that they have successfully logged out."
 msgstr ""
 
-#: modules/custom-redirection/admin/custom-redirection-admin.php:186
+#: modules/custom-redirection/admin/custom-redirection-admin.php:158
 msgid "Check this option to send the user back to the page they were visiting before logging out. (Note: If the previous page being visited was an admin page, this can have unexpected results.)"
 msgstr ""
 

@@ -533,7 +533,7 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 
 					if ( $interim_login ) {
 						if ( ! $this->errors->get_error_code() )
-							$this->errors->add( 'expired', __( 'Your session has expired. Please log in to continue where you left off.', 'simple-themed-login' ), 'message' );
+							$errors->add( 'expired', __( 'Your session has expired. Please log in to continue where you left off.', 'simple-themed-login' ), 'message' );
 					} else {
 						// Some parts of this script use the main login form to display a message
 						if		( isset( $_GET['loggedout'] ) && true == $_GET['loggedout'] )
