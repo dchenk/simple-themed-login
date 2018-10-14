@@ -33,7 +33,7 @@ class Theme_My_Login_Security_Admin extends Theme_My_Login_Abstract {
 	/**
 	 * Returns default options
 	 *
-	 * @var array
+	 * @return array
 	 */
 	public static function default_options() {
 		return Theme_My_Login_Security::default_options();
@@ -41,7 +41,6 @@ class Theme_My_Login_Security_Admin extends Theme_My_Login_Abstract {
 
 	/**
 	 * Loads the module
-	 *
 	 */
 	protected function load() {
 		add_action( 'tml_uninstall_security/security.php', array( $this, 'uninstall' ) );
@@ -90,7 +89,6 @@ class Theme_My_Login_Security_Admin extends Theme_My_Login_Abstract {
 
 	/**
 	 * Registers options group
-	 *
 	 */
 	public function admin_init() {
 		register_setting( $this->options_key, $this->options_key, array( $this, 'save_settings' ) );
@@ -98,7 +96,6 @@ class Theme_My_Login_Security_Admin extends Theme_My_Login_Abstract {
 
 	/**
 	 * Renders settings page
-	 *
 	 */
 	public function settings_page() {
 		Theme_My_Login_Admin::settings_page( array(
@@ -109,7 +106,6 @@ class Theme_My_Login_Security_Admin extends Theme_My_Login_Abstract {
 
 	/**
 	 * Renders Private Site settings field
-	 *
 	 */
 	public function settings_field_private_site() {
 		?>
@@ -120,26 +116,23 @@ class Theme_My_Login_Security_Admin extends Theme_My_Login_Abstract {
 
 	/**
 	 * Renders Private Login settings field
-	 *
 	 */
 	public function settings_field_private_login() {
 		?>
 		<input name="<?php echo $this->options_key; ?>[private_login]" type="checkbox" id="<?php echo $this->options_key; ?>_private_login" value="1"<?php checked( $this->get_option( 'private_login' ) ); ?>>
-		<label for="<?php echo $this->options_key; ?>_private_login"><?php _e( 'Disable <tt>wp-login.php</tt>', 'simple-themed-login' ); ?></label>
+		<label for="<?php echo $this->options_key; ?>_private_login"><?php _e( 'Disable <code>wp-login.php</code>', 'simple-themed-login' ); ?></label>
 		<?php
 	}
 
 	/**
 	 * Renders Login Attempts settings field
-	 *
 	 */
 	public function settings_field_login_attempts() {
-		// Units
-		$units = array(
+		$units = [
 			'minute' => __( 'minute(s)', 'simple-themed-login' ),
 			'hour'   => __( 'hour(s)',   'simple-themed-login' ),
 			'day'    => __( 'day(s)',    'simple-themed-login' )
-		);
+		];
 
 		// Threshold
 		$threshold = '<input type="text" name="' . $this->options_key . '[failed_login][threshold]" id="' . $this->options_key . '_failed_login_threshold" value="' . $this->get_option( array( 'failed_login', 'threshold' ) ) . '" size="1">';
@@ -196,7 +189,6 @@ class Theme_My_Login_Security_Admin extends Theme_My_Login_Abstract {
 	 * Attaches actions/filters explicitly to "users.php"
 	 *
 	 * Callback for "load-users.php" hook
-	 *
 	 */
 	public function load_users_page() {
 
@@ -240,7 +232,6 @@ class Theme_My_Login_Security_Admin extends Theme_My_Login_Abstract {
 	 * Adds update messages to the admin screen
 	 *
 	 * Callback for "admin_notices" hook in file admin-header.php
-	 *
 	 */
 	public function admin_notices() {
 		if ( isset( $_GET['update'] ) ) {
@@ -255,7 +246,6 @@ class Theme_My_Login_Security_Admin extends Theme_My_Login_Abstract {
 	 * Adds "Lock" and "Unlock" links for each pending user on users.php
 	 *
 	 * Callback for "user_row_actions" hook in {@internal unknown}
-	 *
 	 *
 	 * @param array $actions The user actions
 	 * @param WP_User $user_object The current user object

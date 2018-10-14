@@ -799,8 +799,8 @@ msgstr ""
 msgid "Require users to be logged in to view site"
 msgstr ""
 
-#: modules/security/admin/security-admin.php:148
-msgid "Disable <tt>wp-login.php</tt>"
+#: modules/security/admin/security-admin.php:123
+msgid "Disable <code>wp-login.php</code>"
 msgstr ""
 
 #: modules/security/admin/security-admin.php:161
