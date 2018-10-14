@@ -6,9 +6,7 @@
 	box-sizing: border-box;
 }
 
-.tml .error,
-.tml .message,
-.tml .success {
+.tml .error, .tml .message, .tml .success {
 	padding: 1em;
 }
 
@@ -57,16 +55,12 @@
 	font-size: 90%;
 }
 
-.tml input,
-.tml textarea,
-.tml select {
+.tml input, .tml textarea, .tml select {
 	margin: 0.5em 0;
 	width: 100%;
 }
 
-.tml input[type="checkbox"],
-.tml input[type="radio"],
-.tml .tml-rememberme-wrap input {
+.tml input[type="checkbox"], .tml input[type="radio"], .tml .tml-rememberme-wrap input {
 	margin: 0 0.5em 0 0;
 	vertical-align: middle;
 	width: auto;
@@ -170,8 +164,7 @@
 	opacity: 1;
 }
 
-#pass1.good,
-#pass1-text.good {
+#pass1.good, #pass1-text.good {
 	border-color: #ffc733;
 }
 
@@ -181,8 +174,7 @@
 	opacity: 1;
 }
 
-#pass1.strong,
-#pass1-text.strong {
+#pass1.strong, #pass1-text.strong {
 	border-color: #83c373;
 }
 
@@ -211,18 +203,20 @@
 	white-space: nowrap;
 }
 
-#pass1,
-#pass1-text {
+#pass1, #pass1-text {
 	width: 100%;
 }
 
-#pass1-text,
-.show-password #pass1 {
+#pass1-text, .show-password #pass1 {
 	display: none;
 }
 
 .show-password #pass1-text {
 	display: inline-block;
+}
+
+.g-recaptcha {
+	margin-bottom: 16px;
 }
 
 @media (min-width: 768px) {

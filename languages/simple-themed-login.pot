@@ -1,17 +1,17 @@
 # Copyright (C) 2018 Simple Themed Login
 msgid ""
 msgstr ""
-"Project-Id-Version: Simple Themed Login 1.0.0\n"
+"Project-Id-Version: Simple Themed Login 1.1.0\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2018-06-03T21:02:54-04:00\n"
-"PO-Revision-Date: 2018-06-03T21:02:54-04:00\n"
+"PO-Revision-Date: 2018-10-14T21:02:54-04:00\n"
 "X-Domain: theme-my-login\n"
 
 #: includes/class-theme-my-login.php:127
 #: includes/class-theme-my-login-template.php:173
-#: templates/login-form.php:38
+#: templates/login-form.php:35
 msgid "Log In"
 msgstr ""
 
@@ -368,13 +368,13 @@ msgid "TML"
 msgstr ""
 
 #: admin/class-theme-my-login-admin.php:85
-#: admin/class-theme-my-login-admin.php:86
+#: admin/class-theme-my-login-admin.php:99
 #: admin/class-theme-my-login-admin.php:111
 msgid "General"
 msgstr ""
 
-#: admin/class-theme-my-login-admin.php:112
-#: admin/class-theme-my-login-admin.php:118
+#: admin/class-theme-my-login-admin.php:100
+#: admin/class-theme-my-login-admin.php:105
 msgid "Modules"
 msgstr ""
 
@@ -391,22 +391,6 @@ msgstr ""
 msgid "Login Type"
 msgstr ""
 
-#: admin/class-theme-my-login-admin.php:154
-msgid "<strong>Heads up!</strong> Theme My Login 7 is right around the corner and some major changes are coming!"
-msgstr ""
-
-#: admin/class-theme-my-login-admin.php:156
-msgid "Most notably, all of the previously included modules (with the exception of Custom Passwords, which has been merged into the core plugin) have been removed."
-msgstr ""
-
-#: admin/class-theme-my-login-admin.php:157
-msgid "Instead, all of the legacy modules (now called \"Extensions\"), with many more to come, can now be purchased at our <a href=\"https://thememylogin.com/extensions\">extensions store</a>."
-msgstr ""
-
-#: admin/class-theme-my-login-admin.php:159
-msgid "It's not all bad news though! As a legacy user, we're offering you a discount for a limited time. Use discount code <strong>SAVINGFACE</strong> at checkout in order to receive <strong>20% off</strong> of your purchase!"
-msgstr ""
-
 #: admin/class-theme-my-login-admin.php:196
 msgid "Simple Themed Login Action"
 msgstr ""
@@ -420,7 +404,7 @@ msgid "In order to keep changes between upgrades, you can store your customized 
 msgstr ""
 
 #: admin/class-theme-my-login-admin.php:301
-#: templates/login-form.php:18
+#: templates/login-form.php:28
 msgid "Username or E-mail"
 msgstr ""
 
@@ -739,12 +723,12 @@ msgstr ""
 msgid "Get New Password"
 msgstr ""
 
-#: templates/login-form.php:25
+#: templates/login-form.php:24
 #: modules/custom-passwords/custom-passwords.php:69
 msgid "Password"
 msgstr ""
 
-#: templates/login-form.php:34
+#: templates/login-form.php:32
 msgid "Remember Me"
 msgstr ""
 

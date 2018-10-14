@@ -492,18 +492,16 @@ class Theme_My_Login_Security extends Theme_My_Login_Abstract {
 	 * @return int Number of seconds
 	 */
 	public static function get_seconds_from_unit( $value, $unit = 'minute' ) {
-		switch ( $unit ) {
+		switch ($unit) {
 			case 'day':
-				$value = $value * 24 * 60 * 60;
-				break;
+				return $value * 24 * 60 * 60;
 			case 'hour':
-				$value = $value * 60 * 60;
-				break;
+				return $value * 60 * 60;
 			case 'minute':
-				$value = $value * 60;
-				break;
+				return $value * 60;
+			default:
+				return 120;
 		}
-		return $value;
 	}
 
 	/**

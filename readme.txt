@@ -3,7 +3,7 @@ Contributors: dchenk, jfarthing84
 Tags: widget, login, registration, theme, log in, register, e-mail
 Requires at least: 4.5
 Tested up to: 4.9.8
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 
 Themes the WordPress login pages according to your theme.
 
@@ -39,6 +39,10 @@ Visit yoursite.com/wp-login.php.
 
 
 == Changelog ==
+
+= 1.1.0 =
+* Added reCAPTCHA field on login forms
+* Improved, modernized the code throughout
 
 = 1.0.0 =
 * First release

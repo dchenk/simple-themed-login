@@ -3,7 +3,7 @@
 Plugin Name: Simple Themed Login
 Plugin URI: https://github.com/dchenk/theme-my-login
 Description: Themes the WordPress login, registration, and forgot password pages according to your theme.
-Version: 1.0.0
+Version: 1.1.0
 Author: Simple Themed Login
 Author URI: https://github.com/dchenk/simple-themed-login
 Text Domain: simple-themed-login
