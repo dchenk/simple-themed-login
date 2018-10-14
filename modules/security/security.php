@@ -15,8 +15,6 @@ if ( ! class_exists( 'Theme_My_Login_Security' ) ) :
  * Theme My Login Security module class
  *
  * Adds options to help protect your site.
- *
- * @since 6.0
  */
 class Theme_My_Login_Security extends Theme_My_Login_Abstract {
 	/**
@@ -38,45 +36,42 @@ class Theme_My_Login_Security extends Theme_My_Login_Abstract {
 	/**
 	 * Returns default options
 	 *
-	 *
 	 * @return array Default options
 	 */
 	public static function default_options() {
-		return array(
+		return [
 			'private_site'  => 0,
 			'private_login' => 0,
-			'failed_login'  => array(
+			'failed_login'  => [
 				'threshold'               => 5,
 				'threshold_duration'      => 1,
 				'threshold_duration_unit' => 'hour',
-				'lockout_duration'        => 24,
+				'lockout_duration'        => 30,
 				'lockout_duration_unit'   => 'hour'
-			)
-		);
+			]
+		];
 	}
 
 	/**
 	 * Loads the module
-	 *
 	 */
 	protected function load() {
-		add_action( 'init',               array( $this, 'init'              ) );
-		add_action( 'template_redirect',  array( $this, 'template_redirect' ) );
-		add_action( 'tml_request_unlock', array( $this, 'request_unlock'    ) );
-		add_action( 'tml_request',        array( $this, 'action_messages'   ) );
+		add_action('init',               [$this, 'init']);
+		add_action('template_redirect',  [$this, 'template_redirect']);
+		add_action('tml_request_unlock', [$this, 'request_unlock']);
+		add_action('tml_request',        [$this, 'action_messages']);
 
-		add_action( 'authenticate',         array( $this, 'authenticate'         ), 100, 3 );
-		add_filter( 'allow_password_reset', array( $this, 'allow_password_reset' ),  10, 2 );
+		add_action('authenticate',         [$this, 'authenticate'], 100, 3);
+		add_filter('allow_password_reset', [$this, 'allow_password_reset'], 10, 2);
 
-		add_action( 'show_user_profile', array( $this, 'show_user_profile' ) );
-		add_action( 'edit_user_profile', array( $this, 'show_user_profile' ) );
+		add_action('show_user_profile', [$this, 'show_user_profile']);
+		add_action('edit_user_profile', [$this, 'show_user_profile']);
 
-		add_filter( 'show_admin_bar', array( $this, 'show_admin_bar' ) );
+		add_filter('show_admin_bar', [$this, 'show_admin_bar']);
 	}
 
 	/**
 	 * Sets a 404 error for wp-login.php if it's disabled
-	 *
 	 */
 	public function init() {
 		global $wp_query, $pagenow;
@@ -84,8 +79,9 @@ class Theme_My_Login_Security extends Theme_My_Login_Abstract {
 		if ( 'wp-login.php' == $pagenow && $this->get_option( 'private_login' ) ) {
 
 			parse_str( $_SERVER['QUERY_STRING'], $q );
-			if ( ! empty( $q['interim-login'] ) || ! empty( $_REQUEST['interim-login'] ) )
+			if ( !empty($q['interim-login']) || !empty($_REQUEST['interim-login']) ) {
 				return;
+            }
 
 			$pagenow = 'index.php';
 			$wp_query->set_404();
@@ -102,7 +98,6 @@ class Theme_My_Login_Security extends Theme_My_Login_Abstract {
 	 * Blocks entire site if user is not logged in and private site is enabled
 	 *
 	 * Callback for "template_redirect" hook in the file wp-settings.php
-	 *
 	 */
 	public function template_redirect() {
 		if ( $private_site = apply_filters( 'tml_enforce_private_site', $this->get_option( 'private_site' ) ) ) {
@@ -144,7 +139,6 @@ class Theme_My_Login_Security extends Theme_My_Login_Abstract {
 	 *
 	 * Callback for "tml_request" hook in Theme_My_Login::the_request()
 	 *
-	 *
 	 * @param object $theme_my_login Reference to global $theme_my_login object
 	 */
 	public function action_messages( &$theme_my_login ) {
@@ -155,14 +149,11 @@ class Theme_My_Login_Security extends Theme_My_Login_Abstract {
 	/**
 	 * Validates a user unlock key
 	 *
-	 *
 	 * @param string $key Unlock key
 	 * @param string $login User login
 	 * @return WP_User|WP_Error WP_User object on success, WP_Error object on failure
 	 */
 	public static function check_user_unlock_key( $key, $login ) {
-		global $wpdb;
-
 		$key = preg_replace( '/[^a-z0-9]/i', '', $key );
 
 		if ( empty( $key ) || ! is_string( $key ) )
@@ -261,7 +252,6 @@ class Theme_My_Login_Security extends Theme_My_Login_Abstract {
 	/**
 	 * Displays failed login attempts on users profile for administrators
 	 *
-	 *
 	 * @param object $profileuser User object
 	 */
 	public function show_user_profile( $profileuser ) {
@@ -298,7 +288,6 @@ class Theme_My_Login_Security extends Theme_My_Login_Abstract {
 	/**
 	 * Shows admin bar for wp-login.php when it is disabled
 	 *
-	 *
 	 * @param bool $show True to show admin bar, false to hide
 	 * @return bool True to show admin bar, false to hide
 	 */
@@ -312,7 +301,6 @@ class Theme_My_Login_Security extends Theme_My_Login_Abstract {
 
 	/**
 	 * Locks a user
-	 *
 	 *
 	 * @param int|WP_User $user User ID ir WP_User object
 	 * @param int $expires When the lock expires, in seconds from current time
@@ -340,8 +328,8 @@ class Theme_My_Login_Security extends Theme_My_Login_Abstract {
 	/**
 	 * Unlocks a user
 	 *
-	 *
 	 * @param int|WP_User $user User ID or WP_User object
+     * @return bool|int
 	 */
 	public static function unlock_user( $user ) {
 		if ( is_object( $user ) )
@@ -363,7 +351,6 @@ class Theme_My_Login_Security extends Theme_My_Login_Abstract {
 
 	/**
 	 * Determine if a user is locked or not
-	 *
 	 *
 	 * @param int|WP_User $user User ID or WP_User object
 	 * @return bool True if user is locked, false if not
@@ -397,7 +384,6 @@ class Theme_My_Login_Security extends Theme_My_Login_Abstract {
 	/**
 	 * Get a user's security meta
 	 *
-	 *
 	 * @param int $user_id User ID
 	 * @return array User's security meta
 	 */
@@ -430,8 +416,8 @@ class Theme_My_Login_Security extends Theme_My_Login_Abstract {
 	/**
 	 * Reset a user's failed login attempts
 	 *
-	 *
 	 * @param int $user_id User ID
+	 * @return bool|int
 	 */
 	public static function reset_failed_login_attempts( $user_id ) {
 		$security_meta = self::get_security_meta( $user_id );
@@ -453,10 +439,10 @@ class Theme_My_Login_Security extends Theme_My_Login_Abstract {
 	/**
 	 * Add a failed login attempt to a user
 	 *
-	 *
 	 * @param int $user_id User ID
 	 * @param int $time Time of attempt, in seconds
 	 * @param string $ip IP address of attempt
+	 * @return bool|int
 	 */
 	public static function add_failed_login_attempt( $user_id, $time = '', $ip = '' ) {
 		$security_meta = self::get_security_meta( $user_id );
@@ -479,7 +465,6 @@ class Theme_My_Login_Security extends Theme_My_Login_Abstract {
 	/**
 	 * Get user's lock expiration time
 	 *
-	 *
 	 * @param int $user_id User ID
 	 * @return int User's lock expiration time
 	 */
@@ -491,7 +476,6 @@ class Theme_My_Login_Security extends Theme_My_Login_Abstract {
 	/**
 	 * Get a user's unlock key
 	 *
-	 *
 	 * @param int $user_id User ID
 	 * @return string User's unlock key
 	 */
@@ -501,8 +485,7 @@ class Theme_My_Login_Security extends Theme_My_Login_Abstract {
 	}
 
 	/**
-	 * Get number of secongs from days, hours and minutes
-	 *
+	 * Get number of seconds from days, hours and minutes
 	 *
 	 * @param int $value Number of $unit
 	 * @param string $unit Can be either "day", "hour" or "minute"
@@ -510,13 +493,13 @@ class Theme_My_Login_Security extends Theme_My_Login_Abstract {
 	 */
 	public static function get_seconds_from_unit( $value, $unit = 'minute' ) {
 		switch ( $unit ) {
-			case 'day' :
+			case 'day':
 				$value = $value * 24 * 60 * 60;
 				break;
-			case 'hour' :
+			case 'hour':
 				$value = $value * 60 * 60;
 				break;
-			case 'minute' :
+			case 'minute':
 				$value = $value * 60;
 				break;
 		}
@@ -526,11 +509,10 @@ class Theme_My_Login_Security extends Theme_My_Login_Abstract {
 	/**
 	 * Sends a user a notification that their account has been locked
 	 *
-	 *
 	 * @param int $user_id User ID
 	 */
 	public static function user_lock_notification( $user_id ) {
-		global $wpdb, $current_site;
+		global $current_site;
 
 		if ( apply_filters( 'send_user_lock_notification', true ) ) {
 			$user = new WP_User( $user_id );
@@ -552,7 +534,7 @@ class Theme_My_Login_Security extends Theme_My_Login_Abstract {
 			$message  = sprintf( __( 'For your security, your account has been locked because of too many failed login attempts. To unlock your account please click the following link: ', 'simple-themed-login' ), $blogname ) . "\r\n\r\n";
 			$message .=  $unlock_url . "\r\n";
 
-			if ( $user->has_cap( 'administrator' ) ) {
+			if ( $user->has_cap('administrator') ) {
 				$message .= "\r\n";
 				$message .= __( 'The following attempts resulted in the lock:', 'simple-themed-login' ) . "\r\n\r\n";
 				foreach ( self::get_failed_login_attempts( $user->ID ) as $attempt ) {
@@ -564,7 +546,7 @@ class Theme_My_Login_Security extends Theme_My_Login_Abstract {
 			$title   = apply_filters( 'user_lock_notification_title',   $title,   $user_id );
 			$message = apply_filters( 'user_lock_notification_message', $message, $unlock_url, $user_id );
 
-			wp_mail( $user_email, $title, $message );
+			wp_mail($user_email, $title, $message);
 		}
 	}
 }
