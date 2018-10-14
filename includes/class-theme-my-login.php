@@ -946,26 +946,25 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	 * Determines if $action is for $page
 	 *
 	 * @param array|string $action An action or array of actions to check
-	 * @param int|object Post ID or object
+	 * @param int|object Post ID or WP_Post object, or null to use global $post
 	 * @return bool True if $action is for $page, false otherwise
 	 */
-	public static function is_tml_page( $action = '', $page = '' ) {
-		if ( ! $page = get_post( $page ) )
+	public static function is_tml_page($action = '', $page = null) {
+	    $page = get_post($page);
+		if (!$page || $page->post_type != 'page') {
 			return false;
+        }
 
-		if ( 'page' != $page->post_type )
+		$page_action = self::get_page_action($page->ID);
+		if (!$page_action) {
 			return false;
+        }
 
-		if ( ! $page_action = self::get_page_action( $page->ID ) )
-			return false;
-
-		if ( empty( $action ) )
+		if (empty($action)) {
 			return true;
+        }
 
-		if ( in_array( $page_action, (array) $action ) )
-			return true;
-
-		return false;
+		return in_array($page_action, (array) $action);
 	}
 
 	/**
