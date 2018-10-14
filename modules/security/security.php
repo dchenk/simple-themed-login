@@ -537,7 +537,7 @@ class Theme_My_Login_Security extends Theme_My_Login_Abstract {
 				$message .= __( 'The following attempts resulted in the lock:', 'simple-themed-login' ) . "\r\n\r\n";
 				foreach ( self::get_failed_login_attempts( $user->ID ) as $attempt ) {
 					$time = date_i18n( __( 'Y/m/d g:i:s A', 'simple-themed-login' ), $attempt['time'] );
-					$message .= $attempt['ip'] . "\t" . $time . "\r\n";
+					$message .= $attempt['ip'] . "\t" . $time . "\r\n\r\n";
 				}
 			}
 
