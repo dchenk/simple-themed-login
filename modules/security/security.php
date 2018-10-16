@@ -71,26 +71,16 @@ class Theme_My_Login_Security extends Theme_My_Login_Abstract {
 	}
 
 	/**
-	 * Sets a 404 error for wp-login.php if it's disabled
+	 * Redirects to a /login page if wp-login.php is disabled
 	 */
 	public function init() {
-		global $wp_query, $pagenow;
-
-		if ( 'wp-login.php' == $pagenow && $this->get_option( 'private_login' ) ) {
-
-			parse_str( $_SERVER['QUERY_STRING'], $q );
-			if ( !empty($q['interim-login']) || !empty($_REQUEST['interim-login']) ) {
-				return;
-            }
-
-			$pagenow = 'index.php';
-			$wp_query->set_404();
-			status_header( 404 );
-			nocache_headers();
-			if ( ! $template = get_404_template() )
-				$template = 'index.php';
-			include( $template );
-			exit;
+		global $pagenow;
+		if ($pagenow == 'wp-login.php' && $this->get_option('private_login')) {
+			parse_str($_SERVER['QUERY_STRING'], $q);
+			if (empty($q['interim-login']) && empty($_REQUEST['interim-login'])) {
+				wp_redirect('/login');
+				exit;
+			}
 		}
 	}
 
@@ -329,7 +319,7 @@ class Theme_My_Login_Security extends Theme_My_Login_Abstract {
 	 * Unlocks a user
 	 *
 	 * @param int|WP_User $user User ID or WP_User object
-     * @return bool|int
+	 * @return bool|int
 	 */
 	public static function unlock_user( $user ) {
 		if ( is_object( $user ) )
