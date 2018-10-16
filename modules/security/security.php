@@ -89,6 +89,8 @@ class Theme_My_Login_Security extends Theme_My_Login_Abstract {
 			nocache_headers();
 			if ( ! $template = get_404_template() )
 				$template = 'index.php';
+			error_log('Template included: '.$template);
+			error_log("  Host: http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
 			include( $template );
 			exit;
 		}
