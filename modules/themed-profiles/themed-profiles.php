@@ -7,7 +7,6 @@
  *
  * @package Theme_My_Login
  * @subpackage Theme_My_Login_Themed_Profiles
- * @since 6.0
  */
 
 if ( ! class_exists( 'Theme_My_Login_Themed_Profiles' ) ) :
@@ -15,14 +14,11 @@ if ( ! class_exists( 'Theme_My_Login_Themed_Profiles' ) ) :
  * Theme My Login Themed Profiles class
  *
  * Allows users to edit profile on the front-end.
- *
- * @since 6.0
  */
 class Theme_My_Login_Themed_Profiles extends Theme_My_Login_Abstract {
 	/**
 	 * Holds options key
 	 *
-	 * @since 6.3
 	 * @access protected
 	 * @var string
 	 */
@@ -31,7 +27,6 @@ class Theme_My_Login_Themed_Profiles extends Theme_My_Login_Abstract {
 	/**
 	 * Returns singleton instance
 	 *
-	 * @since 6.3
 	 * @access public
 	 * @return object
 	 */
@@ -42,7 +37,6 @@ class Theme_My_Login_Themed_Profiles extends Theme_My_Login_Abstract {
 	/**
 	 * Returns default options
 	 *
-	 * @since 6.3
 	 * @access public
 	 *
 	 * @return array Default options
@@ -53,7 +47,7 @@ class Theme_My_Login_Themed_Profiles extends Theme_My_Login_Abstract {
 		if ( empty( $wp_roles ) )
 			$wp_roles = new WP_Roles;
 
-		$options = array();
+		$options = [];
 		foreach ( $wp_roles->get_names() as $role => $label ) {
 			if ( 'pending' != $role ) {
 				$options[$role] = array(
@@ -68,7 +62,6 @@ class Theme_My_Login_Themed_Profiles extends Theme_My_Login_Abstract {
 	/**
 	 * Loads the module
 	 *
-	 * @since 6.0
 	 * @access protected
 	 */
 	protected function load() {
@@ -90,8 +83,6 @@ class Theme_My_Login_Themed_Profiles extends Theme_My_Login_Abstract {
 	/**
 	 * Add the profile page to the default pages.
 	 *
-	 * @since 6.4.13
-	 *
 	 * @param array $page The default pages.
 	 * @return array The default pages with the profile page added.
 	 */
@@ -105,7 +96,6 @@ class Theme_My_Login_Themed_Profiles extends Theme_My_Login_Abstract {
 	 *
 	 * Callback for "tml_modules_loaded" in file "theme-my-login.php"
 	 *
-	 * @since 6.0
 	 * @access public
 	 */
 	public function modules_loaded() {
@@ -118,7 +108,6 @@ class Theme_My_Login_Themed_Profiles extends Theme_My_Login_Abstract {
 	 *
 	 * Callback for "init" hook
 	 *
-	 * @since 6.0
 	 * @access public
 	 */
 	public function init() {
@@ -154,7 +143,6 @@ class Theme_My_Login_Themed_Profiles extends Theme_My_Login_Abstract {
 	 *
 	 * Callback for "template_redirect" hook
 	 *
-	 * @since 6.0
 	 * @access public
 	 */
 	public function template_redirect() {
@@ -193,7 +181,6 @@ class Theme_My_Login_Themed_Profiles extends Theme_My_Login_Abstract {
 	 *
 	 * Callback for "show_admin_bar" hook
 	 *
-	 * @since 6.2
 	 * @access public
 	 */
 	public function show_admin_bar( $show_admin_bar ) {
@@ -212,7 +199,6 @@ class Theme_My_Login_Themed_Profiles extends Theme_My_Login_Abstract {
 	/**
 	 * Enqueue scripts
 	 *
-	 * @since 6.4
 	 * @access public
 	 */
 	public function wp_enqueue_scripts() {
@@ -222,7 +208,6 @@ class Theme_My_Login_Themed_Profiles extends Theme_My_Login_Abstract {
 	/**
 	 * Add a 'no-js' class to the body
 	 *
-	 * @since 6.4
 	 * @access public
 	 *
 	 * @param array $classes Body classes
@@ -245,7 +230,6 @@ class Theme_My_Login_Themed_Profiles extends Theme_My_Login_Abstract {
 	 * Callback for "tml_request_profile" in method Theme_My_Login::the_request()
 	 *
 	 * @see Theme_My_Login::the_request()
-	 * @since 6.0
 	 * @access public
 	 */
 	public function tml_request_profile() {
@@ -293,7 +277,6 @@ class Theme_My_Login_Themed_Profiles extends Theme_My_Login_Abstract {
 	 * Callback for "tml_display_profile" hook in method Theme_My_login_Template::display()
 	 *
 	 * @see Theme_My_Login_Template::display()
-	 * @since 6.0
 	 * @access public
 	 *
 	 * @param object $template Reference to $theme_my_login_template object
@@ -340,7 +323,6 @@ class Theme_My_Login_Themed_Profiles extends Theme_My_Login_Abstract {
 	 * Callback for "site_url" hook
 	 *
 	 * @see site_url()
-	 * @since 6.0
 	 * @access public
 	 *
 	 * @param string $url The generated link
@@ -375,7 +357,6 @@ class Theme_My_Login_Themed_Profiles extends Theme_My_Login_Abstract {
 	 * Callback for "wp_setup_nav_menu_item" hook in wp_setup_nav_menu_item()
 	 *
 	 * @see wp_setup_nav_menu_item()
-	 * @since 6.4
 	 * @access public
 	 *
 	 * @param object $menu_item The menu item
@@ -388,13 +369,9 @@ class Theme_My_Login_Themed_Profiles extends Theme_My_Login_Abstract {
 		if ( 'page' != $menu_item->object )
 			return $menu_item;
 
-		// User is not logged in
-		if ( ! is_user_logged_in() ) {
-
-			// Hide Profile
-			if ( Theme_My_Login::is_tml_page( 'profile', $menu_item->object_id ) ) {
-				$menu_item->_invalid = true;
-			}
+		// If user is not logged in, hide profile.
+		if (!is_user_logged_in() && Theme_My_Login::is_tml_page('profile', $menu_item->object_id)) {
+			$menu_item->_invalid = true;
 		}
 
 		return $menu_item;

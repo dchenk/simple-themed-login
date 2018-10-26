@@ -10,14 +10,11 @@
 if ( ! class_exists( 'Theme_My_Login_Themed_Profiles_Admin' ) ) :
 /**
  * Theme My Login Themed Profiles Admin class
- *
- * @since 6.2
  */
 class Theme_My_Login_Themed_Profiles_Admin extends Theme_My_Login_Abstract {
 	/**
 	 * Holds options key
 	 *
-	 * @since 6.3
 	 * @access protected
 	 * @var string
 	 */
@@ -26,7 +23,6 @@ class Theme_My_Login_Themed_Profiles_Admin extends Theme_My_Login_Abstract {
 	/**
 	 * Returns singleton instance
 	 *
-	 * @since 6.3
 	 * @access public
 	 * @return object
 	 */
@@ -37,7 +33,6 @@ class Theme_My_Login_Themed_Profiles_Admin extends Theme_My_Login_Abstract {
 	/**
 	 * Loads the module
 	 *
-	 * @since 6.2
 	 * @access protected
 	 */
 	protected function load() {
@@ -51,7 +46,6 @@ class Theme_My_Login_Themed_Profiles_Admin extends Theme_My_Login_Abstract {
 	/**
 	 * Returns default options
 	 *
-	 * @since 6.3
 	 * @access public
 	 */
 	public static function default_options() {
@@ -64,7 +58,6 @@ class Theme_My_Login_Themed_Profiles_Admin extends Theme_My_Login_Abstract {
 	 * Callback for "tml_activate_themed-profiles/themed-profiles.php" hook in method Theme_My_Login_Modules_Admin::activate_module()
 	 *
 	 * @see Theme_My_Login_Modules_Admin::activate_module()
-	 * @since 6.0
 	 * @access public
 	 */
 	public function activate() {
@@ -87,7 +80,6 @@ class Theme_My_Login_Themed_Profiles_Admin extends Theme_My_Login_Abstract {
 	 * Callback for "tml_uninstall_themed-profiles/themed-profiles.php" hook in method Theme_My_Login_Admin::uninstall()
 	 *
 	 * @see Theme_My_Login_Admin::uninstall()
-	 * @since 6.3
 	 * @access public
 	 */
 	public function uninstall() {
@@ -99,7 +91,6 @@ class Theme_My_Login_Themed_Profiles_Admin extends Theme_My_Login_Abstract {
 	 *
 	 * Callback for "admin_menu" hook
 	 *
-	 * @since 6.3
 	 * @access public
 	 */
 	public function admin_menu() {
@@ -123,7 +114,6 @@ class Theme_My_Login_Themed_Profiles_Admin extends Theme_My_Login_Abstract {
 	 *
 	 * Callback for "admin_init" hook
 	 *
-	 * @since 6.3
 	 * @access public
 	 */
 	public function admin_init() {
@@ -135,7 +125,6 @@ class Theme_My_Login_Themed_Profiles_Admin extends Theme_My_Login_Abstract {
 	 *
 	 * Callback for add_submenu_page()
 	 *
-	 * @since 6.3
 	 * @access public
 	 */
 	public function settings_page() {
@@ -148,7 +137,6 @@ class Theme_My_Login_Themed_Profiles_Admin extends Theme_My_Login_Abstract {
 	/**
 	 * Renders Themed Profiles settings field
 	 *
-	 * @since 6.3
 	 * @access public
 	 */
 	public function settings_field_themed_profiles() {
@@ -167,7 +155,6 @@ class Theme_My_Login_Themed_Profiles_Admin extends Theme_My_Login_Abstract {
 	/**
 	 * Renders Restrict Admin Access settings field
 	 *
-	 * @since 6.3
 	 * @access public
 	 */
 	public function settings_field_restrict_admin_access() {
@@ -188,7 +175,6 @@ class Theme_My_Login_Themed_Profiles_Admin extends Theme_My_Login_Abstract {
 	 *
 	 * Callback for register_setting()
 	 *
-	 * @since 6.2
 	 * @access public
 	 *
 	 * @param array $settings Settings passed in from filter
