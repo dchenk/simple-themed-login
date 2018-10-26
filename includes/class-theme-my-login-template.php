@@ -3,7 +3,6 @@
  * Holds the Theme My Login template class
  *
  * @package Theme_My_Login
- * @since 6.0
  */
 
 if ( ! class_exists( 'Theme_My_Login_Template' ) ) :
@@ -11,14 +10,11 @@ if ( ! class_exists( 'Theme_My_Login_Template' ) ) :
  * Theme My Login template class
  *
  * This class contains properties and methods common to displaying output.
- *
- * @since 6.0
  */
 class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 	/**
 	 * Holds active instance flag
 	 *
-	 * @since 6.3
 	 * @access private
 	 * @var bool
 	 */
@@ -27,7 +23,6 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 	/**
 	 * Constructor
 	 *
-	 * @since 6.0
 	 * @access public
 	 *
 	 * @param array $options Instance options
@@ -42,7 +37,6 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 	/**
 	 * Retrieves default options
 	 *
-	 * @since 6.3
 	 * @access public
 	 *
 	 * @return array Default options
@@ -74,7 +68,6 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 	/**
 	 * Displays output according to current action
 	 *
-	 * @since 6.0
 	 * @access public
 	 *
 	 * @return string HTML output
@@ -136,7 +129,6 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 	/**
 	 * Returns action title
 	 *
-	 * @since 6.0
 	 * @access public
 	 *
 	 * @param string $action The action to retrieve. Defaults to current action.
@@ -180,7 +172,6 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 	/**
 	 * Outputs action title
 	 *
-	 * @since 6.0
 	 * @access public
 	 *
 	 * @param string $action The action to retieve. Defaults to current action.
@@ -192,7 +183,6 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 	/**
 	 * Returns plugin errors
 	 *
-	 * @since 6.0
 	 * @access public
 	 */
 	public function get_errors() {
@@ -237,7 +227,6 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 	/**
 	 * Prints plugin errors
 	 *
-	 * @since 6.0
 	 * @access public
 	 */
 	public function the_errors() {
@@ -247,7 +236,6 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 	/**
 	 * Returns requested action URL
 	 *
-	 * @since 6.0
 	 * @access public
 	 *
 	 * @param string $action Action to retrieve
@@ -275,7 +263,6 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 	/**
 	 * Outputs requested action URL
 	 *
-	 * @since 6.0
 	 * @access public
 	 *
 	 * @param string $action Action to retrieve
@@ -322,7 +309,6 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 	/**
 	 * Outputs the action links
 	 *
-	 * @since 6.0
 	 * @access public
 	 *
 	 * @param array $args Optionally specify which actions to include/exclude. By default, all are included.

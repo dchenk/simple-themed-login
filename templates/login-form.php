@@ -5,21 +5,26 @@
 // and contain just the key string.
 $recapKey = '{not found}';
 $recapKeyPath = ABSPATH . 'recaptcha-key.txt';
-if (file_exists($recapKeyPath)) {
-    $recapKey = file_get_contents($recapKeyPath);
+$stlRecaptcha = defined('STL_RECAPTCHA') && STL_RECAPTCHA;
+if ($stlRecaptcha) {
+	if (file_exists($recapKeyPath)) {
+		$recapKey = file_get_contents($recapKeyPath);
+	}
+	?>
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+	<script>
+		var uBoxChecked = false;
+		function onSubmitCheck() {
+			if (uBoxChecked) {return true;}
+			alert("Please check the box to verify that you're a human.");
+			return false;
+		}
+		function boxChecked() { uBoxChecked = true; }
+		function boxRedo() { uBoxChecked = false; alert("Please check the box again to verify that you're a human."); }
+	</script>
+	<?php
 }
 ?>
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-<script>
-    var uBoxChecked = false;
-    function onSubmitCheck() {
-    	if (uBoxChecked) {return true;}
-    	alert("Please check the box to verify that you're a human.");
-		return false;
-	}
-	function boxChecked() { uBoxChecked = true; }
-	function boxRedo() { uBoxChecked = false; alert("Please check the box again to verify that you're a human."); }
-</script>
 <div class="tml tml-login" id="theme-my-login<?php $template->the_instance(); ?>">
 	<?php
 	$template->the_action_template_message( 'login' );
@@ -41,7 +46,9 @@ if (file_exists($recapKeyPath)) {
 			<label for="user_pass<?php $template->the_instance(); ?>"><?php _e( 'Password', 'simple-themed-login' ); ?></label>
 			<input type="password" name="pwd" id="user_pass<?php $template->the_instance(); ?>" class="input" value="" size="20" autocomplete="off">
 		</p>
-		<div class="g-recaptcha" data-callback="boxChecked" data-expired-callback="boxRedo" data-error-callback="boxRedo" data-sitekey="<?php echo $recapKey; ?>"></div>
+		<?php if ($stlRecaptcha) {
+			echo '<div class="g-recaptcha" data-callback="boxChecked" data-expired-callback="boxRedo" data-error-callback="boxRedo" data-sitekey="' . $recapKey . '"></div>';
+		} ?>
 		<?php do_action('login_form'); ?>
 		<div class="tml-rememberme-submit-wrap">
 			<p class="tml-rememberme-wrap">
@@ -56,5 +63,5 @@ if (file_exists($recapKeyPath)) {
 			</p>
 		</div>
 	</form>
-	<?php $template->the_action_links( array( 'login' => false ) ); ?>
+	<?php $template->the_action_links(['login' => false]); ?>
 </div>
