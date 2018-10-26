@@ -19,7 +19,7 @@ class Theme_My_Login extends Theme_My_Login_Abstract {
 	 *
 	 * @const string
 	 */
-	const VERSION = '1.1.0';
+	const VERSION = '1.2.0';
 
 	/**
 	 * Holds options key

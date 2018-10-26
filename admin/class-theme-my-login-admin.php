@@ -87,8 +87,6 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 	 * This is used because register_setting() isn't available until the "admin_init" hook.
 	 */
 	public function admin_init() {
-
-		// Register setting
 		register_setting( 'theme_my_login', 'theme_my_login',  array( $this, 'save_settings' ) );
 
 		// Install/Upgrade
@@ -96,8 +94,8 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 			$this->install();
 
 		// Add sections
-		add_settings_section( 'general', __( 'General', 'simple-themed-login' ), '__return_false',                          $this->options_key );
-		add_settings_section( 'modules', __( 'Modules', 'simple-themed-login' ), '__return_false',                          $this->options_key );
+		add_settings_section( 'general', __( 'General', 'simple-themed-login' ), '__return_false', $this->options_key );
+		add_settings_section( 'modules', __( 'Modules', 'simple-themed-login' ), '__return_false', $this->options_key );
 
 		// Add fields
 		add_settings_field( 'enable_css', __( 'Stylesheet', 'simple-themed-login' ), array( $this, 'settings_field_enable_css' ), $this->options_key, 'general' );
@@ -424,82 +422,10 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 	}
 
 	public function install() {
-		global $wpdb;
-
-		// Current version
-		$version = $this->get_option( 'version', Theme_My_Login::VERSION );
-
-		// Check if legacy page exists
-		if ( $page_id = $this->get_option( 'page_id' ) ) {
-			$page = get_post( $page_id );
-		} else {
-			$page = get_page_by_title( 'Login' );
-		}
-
-		// 6.3 upgrade
-		if ( version_compare( $version, '6.3.3', '<' ) ) {
-			// Delete obsolete options
-			$this->delete_option( 'page_id'     );
-			$this->delete_option( 'show_page'   );
-			$this->delete_option( 'initial_nag' );
-			$this->delete_option( 'permalinks'  );
-			$this->delete_option( 'flush_rules' );
-
-			// Move options to their own rows
-			foreach ( $this->get_options() as $key => $value ) {
-				if ( in_array( $key, array( 'active_modules' ) ) )
-					continue;
-
-				if ( ! is_array( $value ) )
-					continue;
-
-				update_option( "theme_my_login_{$key}", $value );
-
-				$this->delete_option( $key );
-			}
-
-			// Maybe create login page?
-			if ( $page ) {
-				// Make sure the page is not in the trash
-				if ( 'trash' == $page->post_status )
-					wp_untrash_post( $page->ID );
-
-				update_post_meta( $page->ID, '_tml_action', 'login' );
-			}
-		}
-
-		// 6.3.7 upgrade
-		if ( version_compare( $version, '6.3.7', '<' ) ) {
-			// Convert TML pages to regular pages
-			$wpdb->update( $wpdb->posts, array( 'post_type' => 'page' ), array( 'post_type' => 'tml_page' ) );
-
-			// Get rid of stale rewrite rules
-			flush_rewrite_rules( false );
-		}
-
-		// 6.4 upgrade
-		if ( version_compare( $version, '6.4', '<' ) ) {
-			// Convert e-mail login option
-			if ( $this->get_option( 'email_login' ) )
-				$this->set_option( 'login_type', 'both' );
-			$this->delete_option( 'email_login' );
-		}
-
-		// 6.4.5 upgrade
-		if ( version_compare( $version, '6.4.5', '<' ) ) {
-			// Convert login type option
-			$login_type = $this->get_option( 'login_type' );
-			if ( 'both' == $login_type ) {
-				$this->set_option( 'login_type', 'default' );
-			} elseif ( 'default' == $login_type ) {
-				$this->set_option( 'login_type', 'username' );
-			}
-		}
-
-		// Setup default pages
-		foreach ( Theme_My_Login::default_pages() as $action => $title ) {
-			if ( ! $page_id = Theme_My_Login::get_page_id( $action ) ) {
-				$page_id = wp_insert_post( array(
+		// Setup default pages.
+		foreach (Theme_My_Login::default_pages() as $action => $title) {
+			if (!Theme_My_Login::get_page_id($action)) {
+				$page_id = wp_insert_post([
 					'post_title'     => $title,
 					'post_name'      => $action,
 					'post_status'    => 'publish',
@@ -507,16 +433,17 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 					'post_content'   => '[theme-my-login]',
 					'comment_status' => 'closed',
 					'ping_status'    => 'closed'
-				) );
-				update_post_meta( $page_id, '_tml_action', $action );
+				]);
+				update_post_meta($page_id, '_tml_action', $action);
 			}
 		}
 
 		// Activate modules
-		foreach ( $this->get_option( 'active_modules', array() ) as $module ) {
-			if ( file_exists( SIMPLE_THEMED_LOGIN_PATH . '/modules/' . $module ) )
-				include_once( SIMPLE_THEMED_LOGIN_PATH . '/modules/' . $module );
-			do_action( 'tml_activate_' . $module );
+		foreach ( $this->get_option('active_modules', []) as $module ) {
+			$fp = SIMPLE_THEMED_LOGIN_PATH . '/modules/' . $module;
+			if (file_exists($fp))
+				include_once($fp);
+			do_action('tml_activate_' . $module);
 		}
 
 		$this->set_option( 'version', Theme_My_Login::VERSION );
@@ -528,7 +455,6 @@ class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
 	 */
 	public static function uninstall() {
 		global $wpdb;
-
 		if ( is_multisite() ) {
 			if ( isset( $_GET['networkwide'] ) && ( $_GET['networkwide'] == 1 ) ) {
 				$blogids = $wpdb->get_col( "SELECT blog_id FROM $wpdb->blogs" );
