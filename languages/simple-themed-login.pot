@@ -787,16 +787,16 @@ msgstr ""
 msgid "Disable <code>wp-login.php</code>"
 msgstr ""
 
-#: modules/security/admin/security-admin.php:161
-msgid "minute(s)"
+#: modules/security/admin/security-admin.php:130
+msgid "minutes"
 msgstr ""
 
-#: modules/security/admin/security-admin.php:162
-msgid "hour(s)"
+#: modules/security/admin/security-admin.php:131
+msgid "hours"
 msgstr ""
 
-#: modules/security/admin/security-admin.php:163
-msgid "day(s)"
+#: modules/security/admin/security-admin.php:132
+msgid "days"
 msgstr ""
 
 #: modules/security/admin/security-admin.php:190

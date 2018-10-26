@@ -64,11 +64,9 @@ class Theme_My_Login_Security_Admin extends Theme_My_Login_Abstract {
 	}
 
 	/**
-
 	 * Adds "Security" tab to Theme My Login menu
 	 *
 	 * Callback for "admin_menu" hook
-	 *
 	 */
 	public function admin_menu() {
 		add_submenu_page(
@@ -129,9 +127,9 @@ class Theme_My_Login_Security_Admin extends Theme_My_Login_Abstract {
 	 */
 	public function settings_field_login_attempts() {
 		$units = [
-			'minute' => __( 'minute(s)', 'simple-themed-login' ),
-			'hour'   => __( 'hour(s)',   'simple-themed-login' ),
-			'day'    => __( 'day(s)',    'simple-themed-login' )
+			'minute' => __( 'minutes', 'simple-themed-login' ),
+			'hour'   => __( 'hours',   'simple-themed-login' ),
+			'day'    => __( 'days',    'simple-themed-login' )
 		];
 
 		// Threshold
@@ -172,17 +170,17 @@ class Theme_My_Login_Security_Admin extends Theme_My_Login_Abstract {
 	 * @return string|array Sanitized settings
 	 */
 	public function save_settings( $settings ) {
-		return array(
+		return [
 			'private_site'  => ! empty( $settings['private_site']  ),
 			'private_login' => ! empty( $settings['private_login'] ),
-			'failed_login' => array(
+			'failed_login'  => [
 				'threshold'               => absint( $settings['failed_login']['threshold'] ),
 				'threshold_duration'      => absint( $settings['failed_login']['threshold_duration'] ),
 				'threshold_duration_unit' => $settings['failed_login']['threshold_duration_unit'],
 				'lockout_duration'        => absint( $settings['failed_login']['lockout_duration'] ),
 				'lockout_duration_unit'   => $settings['failed_login']['lockout_duration_unit']
-			)
-		);
+			]
+		];
 	}
 
 	/**
@@ -235,10 +233,13 @@ class Theme_My_Login_Security_Admin extends Theme_My_Login_Abstract {
 	 */
 	public function admin_notices() {
 		if ( isset( $_GET['update'] ) ) {
-			if ( 'lock' == $_GET['update'] )
-				echo '<div id="message" class="updated fade"><p>' . __( 'User locked.',   'simple-themed-login' ) . '</p></div>';
-			elseif ( 'unlock' == $_GET['update'] )
-				echo '<div id="message" class="updated fade"><p>' . __( 'User unlocked.', 'simple-themed-login' ) . '</p></div>';
+		    echo '<div id="message" class="updated fade"><p>';
+			if ('lock' == $_GET['update']) {
+			    echo __( 'User locked.',   'simple-themed-login' );
+            } elseif ('unlock' == $_GET['update']) {
+				echo __( 'User unlocked.', 'simple-themed-login' );
+            }
+			echo '</p></div>';
 		}
 	}
 
