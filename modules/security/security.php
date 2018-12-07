@@ -38,17 +38,17 @@ class Theme_My_Login_Security extends Theme_My_Login_Abstract {
 	 *
 	 * @return array Default options
 	 */
-	public static function default_options() {
+	public static function default_options(): array {
 		return [
 			'private_site'  => 0,
-			'private_login' => 0,
+			'private_login' => 1,
 			'failed_login'  => [
 				'threshold'               => 5,
 				'threshold_duration'      => 1,
 				'threshold_duration_unit' => 'hour',
 				'lockout_duration'        => 30,
-				'lockout_duration_unit'   => 'hour'
-			]
+				'lockout_duration_unit'   => 'hour',
+			],
 		];
 	}
 
