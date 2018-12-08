@@ -18,18 +18,7 @@ if (!class_exists('Theme_My_Login_Admin')) {
 		protected $options_key = 'theme_my_login';
 
 		/**
-		 * Returns singleton instance
-		 *
-		 * @param null|mixed $class
-		 * @return Theme_My_Login
-		 */
-		public static function get_object($class = null) {
-			return parent::get_object(__CLASS__);
-		}
-
-		/**
 		 * Returns default options
-		 *
 		 */
 		public static function default_options() {
 			return Theme_My_Login::default_options();
@@ -49,13 +38,13 @@ if (!class_exists('Theme_My_Login_Admin')) {
 		}
 
 		/**
-		 * Registers TML settings
+		 * Registers settings
 		 * This is used because register_setting() isn't available until the "admin_init" hook.
 		 */
 		public function admin_init() {
 			register_setting('theme_my_login', 'theme_my_login', [$this, 'save_settings']);
 
-			// Install/Upgrade
+			// Install with default settings
 			if (version_compare($this->get_option('version', '0'), Theme_My_Login::VERSION, '<')) {
 				$this->install();
 			}
@@ -71,7 +60,7 @@ if (!class_exists('Theme_My_Login_Admin')) {
 		}
 
 		/**
-		 * Enqueues TML scripts
+		 * Enqueues scripts
 		 */
 		public function admin_enqueue_scripts() {
 			wp_enqueue_script('theme-my-login-admin', plugins_url('theme-my-login-admin.js', __FILE__), ['jquery'], Theme_My_Login::VERSION, true);
@@ -108,14 +97,14 @@ if (!class_exists('Theme_My_Login_Admin')) {
 		}
 
 		/**
-		 * Adds the TML Action meta box.
+		 * Adds the Action meta box.
 		 */
 		public function add_meta_boxes() {
 			add_meta_box('tml_action', __('Login Action', 'simple-themed-login'), [$this, 'action_meta_box'], 'page', 'side');
 		}
 
 		/**
-		 * Renders the TML Action meta box.
+		 * Renders the Action meta box.
 		 *
 		 * @param WP_Post $post object
 		 */
@@ -126,8 +115,7 @@ if (!class_exists('Theme_My_Login_Admin')) {
 				<?php
 				foreach (Theme_My_Login::default_pages() as $action => $label) {
 					?>
-					<option
-						value="<?php echo esc_attr($action); ?>"<?php selected($action, $page_action); ?>><?php echo esc_html($label); ?></option>
+					<option value="<?php echo esc_attr($action); ?>"<?php selected($action, $page_action); ?>><?php echo esc_html($label); ?></option>
 					<?php
 				} ?>
 			</select>
@@ -135,7 +123,7 @@ if (!class_exists('Theme_My_Login_Admin')) {
 		}
 
 		/**
-		 * Saves the TML Action meta box.
+		 * Saves the Action meta box.
 		 *
 		 * @param int $post_id The post ID.
 		 */
@@ -160,18 +148,18 @@ if (!class_exists('Theme_My_Login_Admin')) {
 		 * Renders the settings page
 		 */
 		public static function settings_page($args = '') {
-			extract(wp_parse_args($args, [
+			$args = wp_parse_args($args, [
 				'title' => 'Simple Themed Login Settings',
 				'options_key' => 'theme_my_login',
-			])); ?>
+			]); ?>
 			<div id="<?php echo 'theme_my_login'; ?>" class="wrap">
-				<h2><?php echo esc_html($title); ?></h2>
+				<h2><?php echo esc_html($args['title']); ?></h2>
 				<?php settings_errors(); ?>
 				<form method="post" action="options.php">
 					<?php
-					settings_fields('theme_my_login');
-					do_settings_sections('theme_my_login');
-					submit_button(); ?>
+			settings_fields($args['options_key']);
+			do_settings_sections($args['options_key']);
+			submit_button(); ?>
 				</form>
 			</div>
 			<?php
@@ -239,7 +227,7 @@ if (!class_exists('Theme_My_Login_Admin')) {
 		}
 
 		/**
-		 * Sanitizes TML settings
+		 * Sanitizes settings
 		 *
 		 * This is the callback for register_setting()
 		 *
@@ -249,13 +237,14 @@ if (!class_exists('Theme_My_Login_Admin')) {
 		public function save_settings($settings) {
 			$settings['enable_css'] = !empty($settings['enable_css']);
 			$settings['login_type'] = in_array($settings['login_type'], ['default', 'username', 'email'], true) ? $settings['login_type'] : 'default';
-			$settings['active_modules'] = isset($settings['active_modules']) ? (array)$settings['active_modules'] : [];
+			$settings['active_modules'] = isset($settings['active_modules']) ? (array) $settings['active_modules'] : [];
 
 			// If we have modules to activate
 			if ($activate = array_diff($settings['active_modules'], $this->get_option('active_modules', []))) {
 				foreach ($activate as $module) {
-					if (file_exists(SIMPLE_THEMED_LOGIN_PATH . '/modules/' . $module)) {
-						include_once(SIMPLE_THEMED_LOGIN_PATH . '/modules/' . $module);
+					$fp = SIMPLE_THEMED_LOGIN_PATH . '/modules/' . $module;
+					if (file_exists($fp)) {
+						include_once($fp);
 					}
 					do_action('tml_activate_' . $module);
 				}
@@ -336,7 +325,7 @@ if (!class_exists('Theme_My_Login_Admin')) {
 			add_action('add_meta_boxes', [$this, 'add_meta_boxes']);
 			add_action('save_post', [$this, 'save_action_meta_box']);
 
-			register_uninstall_hook(SIMPLE_THEMED_LOGIN_PATH . '/theme-my-login.php', ['Theme_My_Login_Admin', 'uninstall']);
+			register_uninstall_hook(SIMPLE_THEMED_LOGIN_PATH . '/theme-my-login.php', [$this, 'uninstall']);
 		}
 
 		protected static function _uninstall() {
@@ -365,7 +354,7 @@ if (!class_exists('Theme_My_Login_Admin')) {
 
 			// Delete pages
 			foreach ($pages as $page) {
-				wp_delete_post($page->ID, true);
+				wp_delete_post($page->ID);
 			}
 
 			// Delete options

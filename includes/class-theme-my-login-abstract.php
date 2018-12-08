@@ -2,11 +2,10 @@
 
 if (!class_exists('Theme_My_Login_Abstract')) {
 
-	/*
+	/**
 	 * Theme My Login Abstract class
 	 * This class is the base class to be extended.
 	 */
-
 	abstract class Theme_My_Login_Abstract {
 		/**
 		 * Holds options key
@@ -25,14 +24,7 @@ if (!class_exists('Theme_My_Login_Abstract')) {
 		 */
 		protected $options = [];
 
-		/**
-		 * Holds singleton objects
-		 *
-		 * @var array
-		 */
-		private static $objects = [];
-
-		protected function __construct() {
+		public function __construct() {
 			$this->load_options();
 			$this->load();
 		}
@@ -47,10 +39,7 @@ if (!class_exists('Theme_My_Login_Abstract')) {
 			if (!class_exists($class)) {
 				return null;
 			}
-			if (!isset(self::$objects[$class])) {
-				self::$objects[$class] = new $class;
-			}
-			return self::$objects[$class];
+			return new $class;
 		}
 
 		/**
@@ -60,7 +49,7 @@ if (!class_exists('Theme_My_Login_Abstract')) {
 		 */
 		public function load_options() {
 			if (method_exists($this, 'default_options')) {
-				$this->options = (array)$this->default_options();
+				$this->options = (array) $this->default_options();
 			}
 
 			if (!$this->options_key) {
@@ -68,9 +57,7 @@ if (!class_exists('Theme_My_Login_Abstract')) {
 			}
 
 			$options = get_option($this->options_key, []);
-			$options = wp_parse_args($options, $this->options);
-
-			$this->options = $options;
+			$this->options = wp_parse_args($options, $this->options);
 		}
 
 		/**

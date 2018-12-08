@@ -27,8 +27,7 @@ class Theme_My_Login_Widget extends WP_Widget {
 	 * @param array $instance The settings for the particular instance of the widget
 	 */
 	public function widget( $args, $instance ) {
-
-		$theme_my_login = Theme_My_Login::get_object();
+		global $themeMyLoginInstance;
 
 		$instance = wp_parse_args( $instance, array(
 			'default_action'      => 'login',
@@ -52,7 +51,7 @@ class Theme_My_Login_Widget extends WP_Widget {
 
 		$args = array_merge( $args, $instance );
 
-		echo $theme_my_login->shortcode( $args );
+		echo $themeMyLoginInstance->shortcode( $args );
 	}
 
 	/**

@@ -71,16 +71,6 @@ if (!class_exists('Theme_My_Login')) {
 		protected $loaded_instances = [];
 
 		/**
-		 * Returns singleton instance
-		 *
-		 * @param null|mixed $class
-		 * @return object
-		 */
-		public static function get_object($class = null) {
-			return parent::get_object(__CLASS__);
-		}
-
-		/**
 		 * Returns default options
 		 *
 		 * @return array Default options
@@ -1166,8 +1156,6 @@ if (!class_exists('Theme_My_Login')) {
 		/**
 		 * Handles sending password retrieval email to user.
 		 *
-		 * @uses $wpdb WordPress Database object
-		 *
 		 * @return bool|WP_Error True: when finish. WP_Error on error
 		 */
 		public static function retrieve_password() {
@@ -1227,7 +1215,7 @@ if (!class_exists('Theme_My_Login')) {
 			$message = apply_filters('retrieve_password_message', $message, $key, $user_login, $user_data);
 
 			if ($message && !wp_mail($user_email, $title, $message)) {
-				wp_die(__('The e-mail could not be sent.', 'simple-themed-login') . "<br>\n" . __('Possible reason: your host may have disabled the mail() function...', 'simple-themed-login'));
+				wp_die(__('The e-mail could not be sent.', 'simple-themed-login') . "<br>\n" . __('Possible reason: your host may have disabled the mail() function.', 'simple-themed-login'));
 			}
 
 			return true;
@@ -1238,7 +1226,7 @@ if (!class_exists('Theme_My_Login')) {
 		 */
 		protected function load() {
 			$this->request_action = isset($_REQUEST['action']) ? sanitize_key($_REQUEST['action']) : '';
-			$this->request_instance = isset($_REQUEST['instance']) ? (int)$_REQUEST['instance'] : 0;
+			$this->request_instance = isset($_REQUEST['instance']) ? (int) $_REQUEST['instance'] : 0;
 
 			$this->load_instance();
 
@@ -1275,4 +1263,5 @@ if (!class_exists('Theme_My_Login')) {
 			}
 		}
 	}
-} // Class exists
+
+}

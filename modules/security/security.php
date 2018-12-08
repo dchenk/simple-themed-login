@@ -57,6 +57,7 @@ if (! class_exists('Theme_My_Login_Security')) {
 		 */
 		public function init() {
 			global $pagenow;
+			error_log('SECURITY INIT');
 			if ($pagenow == 'wp-login.php' && $this->get_option('private_login')) {
 				parse_str($_SERVER['QUERY_STRING'], $q);
 				if (empty($q['interim-login']) && empty($_REQUEST['interim-login'])) {
@@ -183,16 +184,16 @@ if (! class_exists('Theme_My_Login_Security')) {
 				$first_attempt = reset($attempts);
 
 				// Get the relative duration
-				$duration = $first_attempt['time'] + self::get_seconds_from_unit($this->get_option([ 'failed_login', 'threshold_duration' ]), $this->get_option([ 'failed_login', 'threshold_duration_unit' ]));
+				$duration = $first_attempt['time'] + self::get_seconds_from_unit($this->get_option(['failed_login', 'threshold_duration']), $this->get_option(['failed_login', 'threshold_duration_unit']));
 
 				// If current time is less than relative duration time, we're still within the defensive zone
 				if ($time < $duration) {
 					// Log this attempt
 					self::add_failed_login_attempt($userdata->ID, $time);
 					// If failed attempts reach treshold, lock the account
-					if (self::get_failed_login_attempt_count($userdata->ID) >= $this->get_option([ 'failed_login', 'threshold' ])) {
+					if (self::get_failed_login_attempt_count($userdata->ID) >= $this->get_option(['failed_login', 'threshold'])) {
 						// Create new expiration
-						$expiration = $time + self::get_seconds_from_unit($this->get_option([ 'failed_login', 'lockout_duration' ]), $this->get_option([ 'failed_login', 'lockout_duration_unit' ]));
+						$expiration = $time + self::get_seconds_from_unit($this->get_option(['failed_login', 'lockout_duration']), $this->get_option(['failed_login', 'lockout_duration_unit']));
 						self::lock_user($userdata->ID, $expiration);
 						return new WP_Error('locked_account', sprintf(__('<strong>ERROR</strong>: This account has been locked because of too many failed login attempts. You may try again in %s.', 'simple-themed-login'), human_time_diff($time, $expiration)));
 					}
@@ -218,7 +219,7 @@ if (! class_exists('Theme_My_Login_Security')) {
 		 * @return bool Whether to allow password reset or not
 		 */
 		public function allow_password_reset($allow, $user_id) {
-			if (self::is_user_locked($user_id) && ! self::get_user_lock_expiration($user_id)) {
+			if (self::is_user_locked($user_id) && !self::get_user_lock_expiration($user_id)) {
 				$allow = false;
 			}
 			return $allow;
@@ -235,14 +236,14 @@ if (! class_exists('Theme_My_Login_Security')) {
 			}
 			if ($failed_login_attempts = self::get_failed_login_attempts($profileuser->ID)) {
 				?>
-			<h3><?php _e('Failed Login Attempts', 'simple-themed-login'); ?></h3>
+				<h3><?php _e('Failed Login Attempts', 'simple-themed-login'); ?></h3>
 
-			<table class="form-table">
-			<tr>
-				<th scope="col"><?php _e('IP Address', 'simple-themed-login'); ?></th>
-				<th scope="col"><?php _e('Date', 'simple-themed-login'); ?></th>
-			</tr>
-			<?php foreach ($failed_login_attempts as $attempt) {
+				<table class="form-table">
+				<tr>
+					<th scope="col"><?php _e('IP Address', 'simple-themed-login'); ?></th>
+					<th scope="col"><?php _e('Date', 'simple-themed-login'); ?></th>
+				</tr>
+				<?php foreach ($failed_login_attempts as $attempt) {
 					$t_time = date_i18n(__('Y/m/d g:i:s A', 'simple-themed-login'), $attempt['time']);
 
 					$time_diff = time() - $attempt['time'];
@@ -252,14 +253,14 @@ if (! class_exists('Theme_My_Login_Security')) {
 					} else {
 						$h_time = date_i18n(__('Y/m/d', 'simple-themed-login'), $attempt['time']);
 					} ?>
-			<tr>
-				<td><?php echo $attempt['ip']; ?></td>
-				<td><abbr title="<?php echo $t_time; ?>"><?php echo $h_time; ?></abbr></td>
-			</tr>
-			<?php
+				<tr>
+					<td><?php echo $attempt['ip']; ?></td>
+					<td><abbr title="<?php echo $t_time; ?>"><?php echo $h_time; ?></abbr></td>
+				</tr>
+				<?php
 				} ?>
-			</table>
-		<?php
+				</table>
+			<?php
 			}
 		}
 
@@ -269,7 +270,7 @@ if (! class_exists('Theme_My_Login_Security')) {
 		 * @param bool $show True to show admin bar, false to hide
 		 * @return bool True to show admin bar, false to hide
 		 */
-		public function show_admin_bar($show) {
+		public function show_admin_bar($show): bool {
 			global $pagenow;
 			if (is_user_logged_in() && 'wp-login.php' == $pagenow && $this->get_option('private_login')) {
 				return true;
@@ -346,16 +347,17 @@ if (! class_exists('Theme_My_Login_Security')) {
 			$security = self::get_security_meta($user);
 
 			// If "is_locked" is not set, there is no lock
-			if (! $security['is_locked']) {
+			if (!$security['is_locked']) {
 				return false;
 			}
+
 			// If "lock_expires" is not set, there is a lock but no expiry
-			if (! $expires = self::get_user_lock_expiration($user)) {
+			if (!$expires = self::get_user_lock_expiration($user)) {
 				return true;
 			}
+
 			// We have a lock with an expiry
-			$time = time();
-			if ($time > $expires) {
+			if (time() > $expires) {
 				self::unlock_user($user);
 				return false;
 			}
@@ -420,7 +422,7 @@ if (! class_exists('Theme_My_Login_Security')) {
 				$ip = $_SERVER['REMOTE_ADDR'];
 			}
 
-			$security_meta['failed_login_attempts'][] = [ 'time' => $time, 'ip' => $ip ];
+			$security_meta['failed_login_attempts'][] = ['time' => $time, 'ip' => $ip];
 
 			return update_user_meta($user_id, 'theme_my_login_security', $security_meta);
 		}
@@ -489,7 +491,7 @@ if (! class_exists('Theme_My_Login_Security')) {
 					$blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
 				}
 
-				$unlock_url = add_query_arg([ 'action' => 'unlock', 'key' => self::get_user_unlock_key($user->ID), 'login' => rawurlencode($user_login) ], wp_login_url());
+				$unlock_url = add_query_arg(['action' => 'unlock', 'key' => self::get_user_unlock_key($user->ID), 'login' => rawurlencode($user_login)], wp_login_url());
 
 				$title    = sprintf(__('[%s] Account Locked', 'simple-themed-login'), $blogname);
 				$message  = sprintf(__('For your security, your account has been locked because of too many failed login attempts. To unlock your account please click the following link: ', 'simple-themed-login'), $blogname) . "\r\n\r\n";
@@ -515,6 +517,8 @@ if (! class_exists('Theme_My_Login_Security')) {
 		 * Loads the module
 		 */
 		protected function load() {
+			error_log('loading SECURITY  --  ' . $_SERVER['REQUEST_URI']);
+
 			add_action('init', [$this, 'init']);
 			add_action('template_redirect', [$this, 'template_redirect']);
 			add_action('tml_request_unlock', [$this, 'request_unlock']);
@@ -551,7 +555,8 @@ if (! class_exists('Theme_My_Login_Security')) {
 		}
 	}
 
-	Theme_My_Login_Security::get_object();
+//	Theme_My_Login_Security::get_object();
+	new Theme_My_Login_Security();
 
 }
 

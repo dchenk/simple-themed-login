@@ -19,16 +19,6 @@ if (!class_exists('Theme_My_Login_Security_Admin')) {
 		protected $options_key = 'theme_my_login_security';
 
 		/**
-		 * Returns singleton instance
-		 *
-		 * @param string $class Class to instantiate
-		 * @return object
-		 */
-		public static function get_object($class = null) {
-			return parent::get_object(__CLASS__);
-		}
-
-		/**
 		 * Returns default options
 		 *
 		 * @return array
@@ -54,9 +44,11 @@ if (!class_exists('Theme_My_Login_Security_Admin')) {
 		 * Callback for "admin_menu" hook
 		 */
 		public function admin_menu() {
+//			error_log('SECURITY ADMIN admin_menu');
+
 			add_submenu_page(
 				'theme_my_login',
-				__('STL Security Settings', 'simple-themed-login'),
+				__('Login Security Settings', 'simple-themed-login'),
 				__('Security', 'simple-themed-login'),
 				'manage_options',
 				$this->options_key,
@@ -64,6 +56,8 @@ if (!class_exists('Theme_My_Login_Security_Admin')) {
 			);
 
 			add_settings_section('general', null, '__return_false', $this->options_key);
+
+//			error_log("Options key (security-admin): {$this->options_key}");
 
 			add_settings_field('private_site', __('Private Site', 'simple-themed-login'), [$this, 'settings_field_private_site'], $this->options_key, 'general');
 			add_settings_field('private_login', __('Private Login', 'simple-themed-login'), [$this, 'settings_field_private_login'], $this->options_key, 'general');
@@ -81,8 +75,9 @@ if (!class_exists('Theme_My_Login_Security_Admin')) {
 		 * Renders settings page
 		 */
 		public function settings_page() {
+			error_log("Options key, settings_page (security-admin): {$this->options_key}");
 			Theme_My_Login_Admin::settings_page([
-				'title' => __('STL Security Settings', 'simple-themed-login'),
+				'title' => __('Login Security Settings', 'simple-themed-login'),
 				'options_key' => $this->options_key,
 			]);
 		}
@@ -95,8 +90,7 @@ if (!class_exists('Theme_My_Login_Security_Admin')) {
 			<input name="<?php echo $this->options_key; ?>[private_site]" type="checkbox"
 				id="<?php echo $this->options_key; ?>_private_site"
 				value="1"<?php checked($this->get_option('private_site')); ?>>
-			<label
-				for="<?php echo $this->options_key; ?>_private_site"><?php _e('Require users to be logged in to view site', 'simple-themed-login'); ?></label>
+			<label for="<?php echo $this->options_key; ?>_private_site"><?php _e('Require users to be logged in to view site', 'simple-themed-login'); ?></label>
 			<?php
 		}
 
@@ -108,8 +102,7 @@ if (!class_exists('Theme_My_Login_Security_Admin')) {
 			<input name="<?php echo $this->options_key; ?>[private_login]" type="checkbox"
 				id="<?php echo $this->options_key; ?>_private_login"
 				value="1"<?php checked($this->get_option('private_login')); ?>>
-			<label
-				for="<?php echo $this->options_key; ?>_private_login"><?php _e('Disable <code>wp-login.php</code>', 'simple-themed-login'); ?></label>
+			<label for="<?php echo $this->options_key; ?>_private_login"><?php _e('Disable <code>wp-login.php</code>', 'simple-themed-login'); ?></label>
 			<?php
 		}
 
@@ -179,8 +172,6 @@ if (!class_exists('Theme_My_Login_Security_Admin')) {
 		 * Callback for "load-users.php" hook
 		 */
 		public function load_users_page() {
-			$security = Theme_My_Login_Security::get_object();
-
 			wp_enqueue_script('tml-security-admin', plugins_url('security-admin.js', __FILE__), ['jquery']);
 
 			add_action('admin_notices', [$this, 'admin_notices']);
@@ -199,12 +190,12 @@ if (!class_exists('Theme_My_Login_Security_Admin')) {
 
 				if ('lock' == $_GET['action']) {
 					check_admin_referer('lock-user_' . $user->ID);
-					$security->lock_user($user);
+					Theme_My_Login_Security::lock_user($user);
 					$redirect_to = add_query_arg('update', 'lock', $redirect_to);
 				} else {
 					if ('unlock' == $_GET['action']) {
 						check_admin_referer('unlock-user_' . $user->ID);
-						$security->unlock_user($user);
+						Theme_My_Login_Security::unlock_user($user);
 						$redirect_to = add_query_arg('update', 'unlock', $redirect_to);
 					}
 				}
@@ -276,6 +267,8 @@ if (!class_exists('Theme_My_Login_Security_Admin')) {
 		 * Loads the module
 		 */
 		protected function load() {
+			error_log('loading SECURITY_ADMIN  --  ' . $_SERVER['REQUEST_URI']);
+
 			add_action('tml_uninstall_security/security.php', [$this, 'uninstall']);
 
 			add_action('admin_menu', [$this, 'admin_menu']);
@@ -286,6 +279,7 @@ if (!class_exists('Theme_My_Login_Security_Admin')) {
 		}
 	}
 
-	Theme_My_Login_Security_Admin::get_object();
+//	Theme_My_Login_Security_Admin::get_object();
+	new Theme_My_Login_Security_Admin();
 
 }
