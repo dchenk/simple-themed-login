@@ -11,14 +11,11 @@ if ( ! class_exists( 'Theme_My_Login_Common' ) ) :
  * Theme My Login Helper class
  *
  * This class holds methods common to being common.
- *
- * @since 6.3
  */
 class Theme_My_Login_Common {
 	/**
 	 * Returns current URL
 	 *
-	 * @since 6.3
 	 * @access public
 	 *
 	 * @param string $query Optionally append query to the current URL
@@ -44,7 +41,6 @@ class Theme_My_Login_Common {
 	/**
 	 * Merges arrays recursively, replacing duplicate string keys
 	 *
-	 * @since 6.3
 	 * @access public
 	 */
 	public static function array_merge_recursive() {
@@ -75,7 +71,6 @@ class Theme_My_Login_Common {
 	/**
 	 * Replaces certain user and blog variables in $input string
 	 *
-	 * @since 6.0
 	 * @access public
 	 *
 	 * @param string $input The input string
@@ -126,8 +121,6 @@ class Theme_My_Login_Common {
 
 	/**
 	 * Strip unwanted query arguments from a URL
-	 *
-	 * @since 6.4.1
 	 *
 	 * @param string $url The URL
 	 * @return string The URL

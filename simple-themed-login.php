@@ -10,43 +10,43 @@ Text Domain: simple-themed-login
 Domain Path: /languages
 */
 
-if ( !defined('SIMPLE_THEMED_LOGIN_PATH') ) {
-	define( 'SIMPLE_THEMED_LOGIN_PATH', dirname( __FILE__ ) );
+if (!defined('SIMPLE_THEMED_LOGIN_PATH')) {
+	define('SIMPLE_THEMED_LOGIN_PATH', __DIR__);
 }
 
 // Require a few needed files
-require_once( SIMPLE_THEMED_LOGIN_PATH . '/includes/class-theme-my-login-common.php' );
-require_once( SIMPLE_THEMED_LOGIN_PATH . '/includes/class-theme-my-login-abstract.php' );
-require_once( SIMPLE_THEMED_LOGIN_PATH . '/includes/class-theme-my-login.php' );
-require_once( SIMPLE_THEMED_LOGIN_PATH . '/includes/class-theme-my-login-template.php' );
-require_once( SIMPLE_THEMED_LOGIN_PATH . '/includes/class-theme-my-login-widget.php' );
+require_once(SIMPLE_THEMED_LOGIN_PATH . '/includes/class-theme-my-login-common.php');
+require_once(SIMPLE_THEMED_LOGIN_PATH . '/includes/class-theme-my-login-abstract.php');
+require_once(SIMPLE_THEMED_LOGIN_PATH . '/includes/class-theme-my-login.php');
+require_once(SIMPLE_THEMED_LOGIN_PATH . '/includes/class-theme-my-login-template.php');
+require_once(SIMPLE_THEMED_LOGIN_PATH . '/includes/class-theme-my-login-widget.php');
 
 // Instantiate Theme_My_Login singleton
 Theme_My_Login::get_object();
 
-if ( is_admin() ) {
-	require_once( SIMPLE_THEMED_LOGIN_PATH . '/admin/class-theme-my-login-admin.php' );
+if (is_admin()) {
+	require_once(SIMPLE_THEMED_LOGIN_PATH . '/admin/class-theme-my-login-admin.php');
 
 	// Instantiate Theme_My_Login_Admin singleton
 	Theme_My_Login_Admin::get_object();
 }
 
-if ( is_multisite() ) {
-	require_once( SIMPLE_THEMED_LOGIN_PATH . '/includes/class-theme-my-login-ms-signup.php' );
+if (is_multisite()) {
+	require_once(SIMPLE_THEMED_LOGIN_PATH . '/includes/class-theme-my-login-ms-signup.php');
 
 	// Instantiate Theme_My_Login_MS_Signup singleton
 	Theme_My_Login_MS_Signup::get_object();
 }
 
-if ( !function_exists('theme_my_login') ) :
+if (!function_exists('theme_my_login')) {
 	/**
 	 * Displays a TML instance
 	 *
 	 * @see Theme_My_Login::shortcode() for $args parameters
 	 *
-	 * @param string|array $args Template tag arguments
+	 * @param array|string $args Template tag arguments
 	 */
-	function theme_my_login( $args = '' ) {
-		echo Theme_My_Login::get_object()->shortcode( wp_parse_args( $args ) );
+	function theme_my_login($args = '') {
+		echo Theme_My_Login::get_object()->shortcode($args);
 	}
-endif;
+}
