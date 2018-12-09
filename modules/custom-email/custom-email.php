@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Plugin Name: Custom E-mail
  * Description: Enabling this module will initialize custom e-mails. You will then have to configure the settings via the "E-mail" tab.
  *

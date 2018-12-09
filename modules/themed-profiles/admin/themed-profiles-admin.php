@@ -50,7 +50,7 @@ if (!class_exists('Theme_My_Login_Themed_Profiles_Admin')) {
 		public function activate() {
 			if (!$page_id = Theme_My_Login::get_page_id('profile')) {
 				$page_id = wp_insert_post([
-					'post_title' => __('Your Profile', 'simple-themed-login'),
+					'post_title' => __('Your Profile', 'themed-login'),
 					'post_status' => 'publish',
 					'post_type' => 'page',
 					'post_content' => '[theme-my-login]',
@@ -83,8 +83,8 @@ if (!class_exists('Theme_My_Login_Themed_Profiles_Admin')) {
 		public function admin_menu() {
 			add_submenu_page(
 				'theme_my_login',
-				__('STL Themed Profiles Settings', 'simple-themed-login'),
-				__('Themed Profiles', 'simple-themed-login'),
+				__('STL Themed Profiles Settings', 'themed-login'),
+				__('Themed Profiles', 'themed-login'),
 				'manage_options',
 				$this->options_key,
 				[$this, 'settings_page']
@@ -92,8 +92,8 @@ if (!class_exists('Theme_My_Login_Themed_Profiles_Admin')) {
 
 			add_settings_section('general', null, '__return_false', $this->options_key);
 
-			add_settings_field('themed_profiles', __('Themed Profiles', 'simple-themed-login'), [$this, 'settings_field_themed_profiles'], $this->options_key, 'general');
-			add_settings_field('restrict_admin', __('Restrict Admin Access', 'simple-themed-login'), [$this, 'settings_field_restrict_admin_access'], $this->options_key, 'general');
+			add_settings_field('themed_profiles', __('Themed Profiles', 'themed-login'), [$this, 'settings_field_themed_profiles'], $this->options_key, 'general');
+			add_settings_field('restrict_admin', __('Restrict Admin Access', 'themed-login'), [$this, 'settings_field_restrict_admin_access'], $this->options_key, 'general');
 		}
 
 		/**
@@ -116,7 +116,7 @@ if (!class_exists('Theme_My_Login_Themed_Profiles_Admin')) {
 		 */
 		public function settings_page() {
 			Theme_My_Login_Admin::settings_page([
-				'title' => __('STL Themed Profiles Settings', 'simple-themed-login'),
+				'title' => __('STL Themed Profiles Settings', 'themed-login'),
 				'options_key' => $this->options_key,
 			]);
 		}

@@ -67,7 +67,7 @@ if (!class_exists('Theme_My_Login_Themed_Profiles')) {
 		 * @return array The default pages with the profile page added.
 		 */
 		public function tml_default_pages($pages) {
-			$pages['profile'] = __('Profile', 'simple-themed-login');
+			$pages['profile'] = __('Profile', 'themed-login');
 			return $pages;
 		}
 
@@ -237,7 +237,7 @@ if (!class_exists('Theme_My_Login_Themed_Profiles')) {
 				check_admin_referer('update-user_' . $current_user->ID);
 
 				if (! current_user_can('edit_user', $current_user->ID)) {
-					wp_die(__('You do not have permission to edit this user.', 'simple-themed-login'));
+					wp_die(__('You do not have permission to edit this user.', 'themed-login'));
 				}
 
 				do_action('personal_options_update', $current_user->ID);
@@ -274,7 +274,7 @@ if (!class_exists('Theme_My_Login_Themed_Profiles')) {
 			require_once(ABSPATH . 'wp-admin/includes/misc.php');
 
 			if (isset($_GET['updated']) && 'true' == $_GET['updated']) {
-				Theme_My_Login::get_object()->errors->add('profile_updated', __('Profile updated.', 'simple-themed-login'), 'message');
+				Theme_My_Login::get_object()->errors->add('profile_updated', __('Profile updated.', 'themed-login'), 'message');
 			}
 
 			$current_user = wp_get_current_user();

@@ -116,7 +116,7 @@ if (! class_exists('Theme_My_Login_Security')) {
 		 */
 		public function action_messages(&$theme_my_login) {
 			if (isset($_GET['unlock']) && 'complete' == $_GET['unlock']) {
-				$theme_my_login->errors->add('unlock_complete', __('Your account has been unlocked. You may now log in.', 'simple-themed-login'), 'message');
+				$theme_my_login->errors->add('unlock_complete', __('Your account has been unlocked. You may now log in.', 'themed-login'), 'message');
 			}
 		}
 
@@ -131,16 +131,16 @@ if (! class_exists('Theme_My_Login_Security')) {
 			$key = preg_replace('/[^a-z0-9]/i', '', $key);
 
 			if (empty($key) || ! is_string($key)) {
-				return new WP_Error('invalid_key', __('Invalid key', 'simple-themed-login'));
+				return new WP_Error('invalid_key', __('Invalid key', 'themed-login'));
 			}
 			if (empty($login) || ! is_string($login)) {
-				return new WP_Error('invalid_key', __('Invalid key', 'simple-themed-login'));
+				return new WP_Error('invalid_key', __('Invalid key', 'themed-login'));
 			}
 			if (! $user = get_user_by('login', $login)) {
-				return new WP_Error('invalid_key', __('Invalid key', 'simple-themed-login'));
+				return new WP_Error('invalid_key', __('Invalid key', 'themed-login'));
 			}
 			if ($key != self::get_user_unlock_key($user->ID)) {
-				return new WP_Error('invalid_key', __('Invalid key', 'simple-themed-login'));
+				return new WP_Error('invalid_key', __('Invalid key', 'themed-login'));
 			}
 			return $user;
 		}
@@ -171,10 +171,10 @@ if (! class_exists('Theme_My_Login_Security')) {
 					if ($time > $expiration) {
 						self::unlock_user($userdata->ID);
 					} else {
-						return new WP_Error('locked_account', sprintf(__('<strong>ERROR</strong>: This account has been locked because of too many failed login attempts. You may try again in %s.', 'simple-themed-login'), human_time_diff($time, $expiration)));
+						return new WP_Error('locked_account', sprintf(__('<strong>ERROR</strong>: This account has been locked because of too many failed login attempts. You may try again in %s.', 'themed-login'), human_time_diff($time, $expiration)));
 					}
 				} else {
-					return new WP_Error('locked_account', __('<strong>ERROR</strong>: This account has been locked.', 'simple-themed-login'));
+					return new WP_Error('locked_account', __('<strong>ERROR</strong>: This account has been locked.', 'themed-login'));
 				}
 			} elseif (is_wp_error($user) && 'incorrect_password' == $user->get_error_code()) {
 				// Get the attempts
@@ -195,7 +195,7 @@ if (! class_exists('Theme_My_Login_Security')) {
 						// Create new expiration
 						$expiration = $time + self::get_seconds_from_unit($this->get_option(['failed_login', 'lockout_duration']), $this->get_option(['failed_login', 'lockout_duration_unit']));
 						self::lock_user($userdata->ID, $expiration);
-						return new WP_Error('locked_account', sprintf(__('<strong>ERROR</strong>: This account has been locked because of too many failed login attempts. You may try again in %s.', 'simple-themed-login'), human_time_diff($time, $expiration)));
+						return new WP_Error('locked_account', sprintf(__('<strong>ERROR</strong>: This account has been locked because of too many failed login attempts. You may try again in %s.', 'themed-login'), human_time_diff($time, $expiration)));
 					}
 				} else {
 					// Clear the attempts
@@ -236,22 +236,22 @@ if (! class_exists('Theme_My_Login_Security')) {
 			}
 			if ($failed_login_attempts = self::get_failed_login_attempts($profileuser->ID)) {
 				?>
-				<h3><?php _e('Failed Login Attempts', 'simple-themed-login'); ?></h3>
+				<h3><?php _e('Failed Login Attempts', 'themed-login'); ?></h3>
 
 				<table class="form-table">
 				<tr>
-					<th scope="col"><?php _e('IP Address', 'simple-themed-login'); ?></th>
-					<th scope="col"><?php _e('Date', 'simple-themed-login'); ?></th>
+					<th scope="col"><?php _e('IP Address', 'themed-login'); ?></th>
+					<th scope="col"><?php _e('Date', 'themed-login'); ?></th>
 				</tr>
 				<?php foreach ($failed_login_attempts as $attempt) {
-					$t_time = date_i18n(__('Y/m/d g:i:s A', 'simple-themed-login'), $attempt['time']);
+					$t_time = date_i18n(__('Y/m/d g:i:s A', 'themed-login'), $attempt['time']);
 
 					$time_diff = time() - $attempt['time'];
 
 					if ($time_diff > 0 && $time_diff < 24*60*60) {
-						$h_time = sprintf(__('%s ago', 'simple-themed-login'), human_time_diff($attempt['time']));
+						$h_time = sprintf(__('%s ago', 'themed-login'), human_time_diff($attempt['time']));
 					} else {
-						$h_time = date_i18n(__('Y/m/d', 'simple-themed-login'), $attempt['time']);
+						$h_time = date_i18n(__('Y/m/d', 'themed-login'), $attempt['time']);
 					} ?>
 				<tr>
 					<td><?php echo $attempt['ip']; ?></td>
@@ -493,15 +493,15 @@ if (! class_exists('Theme_My_Login_Security')) {
 
 				$unlock_url = add_query_arg(['action' => 'unlock', 'key' => self::get_user_unlock_key($user->ID), 'login' => rawurlencode($user_login)], wp_login_url());
 
-				$title    = sprintf(__('[%s] Account Locked', 'simple-themed-login'), $blogname);
-				$message  = sprintf(__('For your security, your account has been locked because of too many failed login attempts. To unlock your account please click the following link: ', 'simple-themed-login'), $blogname) . "\r\n\r\n";
+				$title    = sprintf(__('[%s] Account Locked', 'themed-login'), $blogname);
+				$message  = sprintf(__('For your security, your account has been locked because of too many failed login attempts. To unlock your account please click the following link: ', 'themed-login'), $blogname) . "\r\n\r\n";
 				$message .=  $unlock_url . "\r\n";
 
 				if ($user->has_cap('administrator')) {
 					$message .= "\r\n";
-					$message .= __('The following attempts resulted in the lock:', 'simple-themed-login') . "\r\n\r\n";
+					$message .= __('The following attempts resulted in the lock:', 'themed-login') . "\r\n\r\n";
 					foreach (self::get_failed_login_attempts($user->ID) as $attempt) {
-						$time = date_i18n(__('Y/m/d g:i:s A', 'simple-themed-login'), $attempt['time']);
+						$time = date_i18n(__('Y/m/d g:i:s A', 'themed-login'), $attempt['time']);
 						$message .= $attempt['ip'] . "\t" . $time . "\r\n\r\n";
 					}
 				}

@@ -91,7 +91,7 @@ if (!class_exists('Theme_My_Login')) {
 		 */
 		public static function default_pages() {
 			return apply_filters('tml_default_pages', [
-				'login' => __('Log In', 'simple-themed-login'),
+				'login' => __('Log In', 'themed-login'),
 				'logout' => __('Log Out', 'simple-themed-login'),
 				'register' => __('Register', 'simple-themed-login'),
 				'lostpassword' => __('Lost Password', 'simple-themed-login'),

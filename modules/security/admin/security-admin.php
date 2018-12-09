@@ -48,8 +48,8 @@ if (!class_exists('Theme_My_Login_Security_Admin')) {
 
 			add_submenu_page(
 				'theme_my_login',
-				__('Login Security Settings', 'simple-themed-login'),
-				__('Security', 'simple-themed-login'),
+				__('Login Security Settings', 'themed-login'),
+				__('Security', 'themed-login'),
 				'manage_options',
 				$this->options_key,
 				[$this, 'settings_page']
@@ -59,9 +59,9 @@ if (!class_exists('Theme_My_Login_Security_Admin')) {
 
 //			error_log("Options key (security-admin): {$this->options_key}");
 
-			add_settings_field('private_site', __('Private Site', 'simple-themed-login'), [$this, 'settings_field_private_site'], $this->options_key, 'general');
-			add_settings_field('private_login', __('Private Login', 'simple-themed-login'), [$this, 'settings_field_private_login'], $this->options_key, 'general');
-			add_settings_field('login_attempts', __('Login Attempts', 'simple-themed-login'), [$this, 'settings_field_login_attempts'], $this->options_key, 'general');
+			add_settings_field('private_site', __('Private Site', 'themed-login'), [$this, 'settings_field_private_site'], $this->options_key, 'general');
+			add_settings_field('private_login', __('Private Login', 'themed-login'), [$this, 'settings_field_private_login'], $this->options_key, 'general');
+			add_settings_field('login_attempts', __('Login Attempts', 'themed-login'), [$this, 'settings_field_login_attempts'], $this->options_key, 'general');
 		}
 
 		/**
@@ -77,7 +77,7 @@ if (!class_exists('Theme_My_Login_Security_Admin')) {
 		public function settings_page() {
 			error_log("Options key, settings_page (security-admin): {$this->options_key}");
 			Theme_My_Login_Admin::settings_page([
-				'title' => __('Login Security Settings', 'simple-themed-login'),
+				'title' => __('Login Security Settings', 'themed-login'),
 				'options_key' => $this->options_key,
 			]);
 		}
@@ -90,7 +90,7 @@ if (!class_exists('Theme_My_Login_Security_Admin')) {
 			<input name="<?php echo $this->options_key; ?>[private_site]" type="checkbox"
 				id="<?php echo $this->options_key; ?>_private_site"
 				value="1"<?php checked($this->get_option('private_site')); ?>>
-			<label for="<?php echo $this->options_key; ?>_private_site"><?php _e('Require users to be logged in to view site', 'simple-themed-login'); ?></label>
+			<label for="<?php echo $this->options_key; ?>_private_site"><?php _e('Require users to be logged in to view site', 'themed-login'); ?></label>
 			<?php
 		}
 
@@ -102,7 +102,7 @@ if (!class_exists('Theme_My_Login_Security_Admin')) {
 			<input name="<?php echo $this->options_key; ?>[private_login]" type="checkbox"
 				id="<?php echo $this->options_key; ?>_private_login"
 				value="1"<?php checked($this->get_option('private_login')); ?>>
-			<label for="<?php echo $this->options_key; ?>_private_login"><?php _e('Disable <code>wp-login.php</code>', 'simple-themed-login'); ?></label>
+			<label for="<?php echo $this->options_key; ?>_private_login"><?php _e('Disable <code>wp-login.php</code>', 'themed-login'); ?></label>
 			<?php
 		}
 
@@ -111,9 +111,9 @@ if (!class_exists('Theme_My_Login_Security_Admin')) {
 		 */
 		public function settings_field_login_attempts() {
 			$units = [
-				'minute' => __('minutes', 'simple-themed-login'),
-				'hour' => __('hours', 'simple-themed-login'),
-				'day' => __('days', 'simple-themed-login'),
+				'minute' => __('minutes', 'themed-login'),
+				'hour' => __('hours', 'themed-login'),
+				'day' => __('days', 'themed-login'),
 			];
 
 			// Threshold
@@ -139,7 +139,7 @@ if (!class_exists('Theme_My_Login_Security_Admin')) {
 			}
 			$lockout_duration_unit .= '</select>';
 
-			printf(__('After %1$s failed login attempts within %2$s %3$s, lock the account out for %4$s %5$s.', 'simple-themed-login'), $threshold, $threshold_duration, $threshold_duration_unit, $lockout_duration, $lockout_duration_unit);
+			printf(__('After %1$s failed login attempts within %2$s %3$s, lock the account out for %4$s %5$s.', 'themed-login'), $threshold, $threshold_duration, $threshold_duration_unit, $lockout_duration, $lockout_duration_unit);
 		}
 
 		/**
@@ -181,11 +181,11 @@ if (!class_exists('Theme_My_Login_Security_Admin')) {
 				$user = $_GET['user'] ?? '';
 
 				if (!$user || !current_user_can('edit_user', $user)) {
-					wp_die(__('You can&#8217;t edit that user.', 'simple-themed-login'));
+					wp_die(__('You can&#8217;t edit that user.', 'themed-login'));
 				}
 
 				if (!$user = get_userdata($user)) {
-					wp_die(__('You can&#8217;t edit that user.', 'simple-themed-login'));
+					wp_die(__('You can&#8217;t edit that user.', 'themed-login'));
 				}
 
 				if ('lock' == $_GET['action']) {
@@ -215,10 +215,10 @@ if (!class_exists('Theme_My_Login_Security_Admin')) {
 				echo '<div id="message" class="updated fade"><p>';
 				switch ($_GET['update']) {
 					case 'lock':
-						echo __('User locked.', 'simple-themed-login');
+						echo __('User locked.', 'themed-login');
 						break;
 					case 'unlock':
-						echo __('User unlocked.', 'simple-themed-login');
+						echo __('User unlocked.', 'themed-login');
 				}
 				echo '</p></div>';
 			}
@@ -246,7 +246,7 @@ if (!class_exists('Theme_My_Login_Security_Admin')) {
 							urlencode(esc_url(stripslashes($_SERVER['REQUEST_URI']))),
 							wp_nonce_url("users.php?action=unlock&amp;user={$user_object->ID}", "unlock-user_{$user_object->ID}")
 						) . '">' .
-						__('Unlock', 'simple-themed-login') .
+						__('Unlock', 'themed-login') .
 						'</a>';
 				} else {
 					$new_actions['lock-user'] = '<a href="' .
@@ -255,7 +255,7 @@ if (!class_exists('Theme_My_Login_Security_Admin')) {
 							urlencode(esc_url(stripslashes($_SERVER['REQUEST_URI']))),
 							wp_nonce_url("users.php?action=lock&amp;user={$user_object->ID}", "lock-user_{$user_object->ID}")
 						) . '">' .
-						__('Lock', 'simple-themed-login') .
+						__('Lock', 'themed-login') .
 						'</a>';
 				}
 				$actions = array_merge($new_actions, $actions);

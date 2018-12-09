@@ -142,27 +142,27 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 			return;
 
 		if ( is_user_logged_in() && 'login' == $action && $action == $this->get_option( 'default_action' ) ) {
-			$title = sprintf( __( 'Welcome, %s', 'simple-themed-login' ), wp_get_current_user()->display_name );
+			$title = sprintf( __( 'Welcome, %s', 'themed-login' ), wp_get_current_user()->display_name );
 		} else {
 			if ( $page_id = Theme_My_Login::get_page_id( $action ) ) {
 				$title = get_post_field( 'post_title', $page_id );
 			} else {
 				switch ( $action ) {
 					case 'register':
-						$title = __( 'Register', 'simple-themed-login' );
+						$title = __( 'Register', 'themed-login' );
 						break;
 					case 'lostpassword':
 					case 'retrievepassword':
 					case 'resetpass':
 					case 'rp':
-						$title = __( 'Lost Password', 'simple-themed-login' );
+						$title = __( 'Lost Password', 'themed-login' );
 						break;
 					case 'confirmaction':
-						$title = __( 'Your Data Request', 'simple-themed-login' );
+						$title = __( 'Your Data Request', 'themed-login' );
 						break;
 					case 'login':
 					default:
-						$title = __( 'Log In', 'simple-themed-login' );
+						$title = __( 'Log In', 'themed-login' );
 				}
 			}
 		}
@@ -331,10 +331,10 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 	public static function get_user_links() {
 		$user_links = array(
 			array(
-				'title' => __( 'Dashboard', 'simple-themed-login' ),
+				'title' => __( 'Dashboard', 'themed-login' ),
 				'url'   => admin_url() ),
 			array(
-				'title' => __( 'Profile', 'simple-themed-login' ),
+				'title' => __( 'Profile', 'themed-login' ),
 				'url'   => admin_url( 'profile.php' )
 			)
 		);
@@ -374,13 +374,13 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 	public static function get_action_template_message( $action = '' ) {
 		switch ( $action ) {
 			case 'register':
-				$message = __( 'Register For This Site', 'simple-themed-login' );
+				$message = __( 'Register For This Site', 'themed-login' );
 				break;
 			case 'lostpassword':
-				$message = __( 'Please enter your username or email address. You will receive a link to create a new password via email.', 'simple-themed-login' );
+				$message = __( 'Please enter your username or email address. You will receive a link to create a new password via email.', 'themed-login' );
 				break;
 			case 'resetpass':
-				$message = __( 'Enter your new password below.', 'simple-themed-login' );
+				$message = __( 'Enter your new password below.', 'themed-login' );
 				break;
 			default:
 				$message = '';

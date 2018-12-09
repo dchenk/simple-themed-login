@@ -7,20 +7,16 @@
  *
  * @package Theme_My_Login
  * @subpackage Theme_My_Login_Custom_Passwords
- * @since 6.0
  */
 
 if ( ! class_exists( 'Theme_My_Login_Custom_Passwords' ) ) :
 /**
  * Theme My Login Custom Passwords module class
- *
- * @since 6.0
  */
 class Theme_My_Login_Custom_Passwords extends Theme_My_Login_Abstract {
 	/**
 	 * Returns singleton instance
 	 *
-	 * @since 6.3
 	 * @access public
 	 * @return object
 	 */

@@ -30,7 +30,7 @@ if (!class_exists('Theme_My_Login_Admin')) {
 		 */
 		public function admin_menu() {
 			add_menu_page(
-				__('Simple Themed Login Settings', 'simple-themed-login'),
+				__('Simple Themed Login Settings', 'themed-login'),
 				'STL',
 				'manage_options',
 				'theme_my_login',
@@ -51,13 +51,13 @@ if (!class_exists('Theme_My_Login_Admin')) {
 			}
 
 			// Add sections
-			add_settings_section('general', __('General', 'simple-themed-login'), '__return_false', $this->options_key);
-			add_settings_section('modules', __('Modules', 'simple-themed-login'), '__return_false', $this->options_key);
+			add_settings_section('general', __('General', 'themed-login'), '__return_false', $this->options_key);
+			add_settings_section('modules', __('Modules', 'themed-login'), '__return_false', $this->options_key);
 
 			// Add fields
-			add_settings_field('enable_css', __('Stylesheet', 'simple-themed-login'), [$this, 'settings_field_enable_css'], $this->options_key, 'general');
-			add_settings_field('login_type', __('Login Type', 'simple-themed-login'), [$this, 'settings_field_login_type'], $this->options_key, 'general');
-			add_settings_field('modules', __('Modules', 'simple-themed-login'), [$this, 'settings_field_modules'], $this->options_key, 'modules');
+			add_settings_field('enable_css', __('Stylesheet', 'themed-login'), [$this, 'settings_field_enable_css'], $this->options_key, 'general');
+			add_settings_field('login_type', __('Login Type', 'themed-login'), [$this, 'settings_field_login_type'], $this->options_key, 'general');
+			add_settings_field('modules', __('Modules', 'themed-login'), [$this, 'settings_field_modules'], $this->options_key, 'modules');
 		}
 
 		/**
@@ -101,7 +101,7 @@ if (!class_exists('Theme_My_Login_Admin')) {
 		 * Adds the Action meta box.
 		 */
 		public function add_meta_boxes() {
-			add_meta_box('tml_action', __('Login Action', 'simple-themed-login'), [$this, 'action_meta_box'], 'page', 'side');
+			add_meta_box('tml_action', __('Login Action', 'themed-login'), [$this, 'action_meta_box'], 'page', 'side');
 		}
 
 		/**
@@ -174,8 +174,8 @@ if (!class_exists('Theme_My_Login_Admin')) {
 			<input name="theme_my_login[enable_css]" type="checkbox" id="theme_my_login_enable_css"
 				value="1"<?php checked(1, $this->get_option('enable_css')); ?>>
 			<label
-				for="theme_my_login_enable_css"><?php _e('Enable "theme-my-login.css"', 'simple-themed-login'); ?></label>
-			<p class="description"><?php _e('In order to keep changes between upgrades, you can store your customized "theme-my-login.css" in your current theme directory.', 'simple-themed-login'); ?></p>
+				for="theme_my_login_enable_css"><?php _e('Enable "theme-my-login.css"', 'themed-login'); ?></label>
+			<p class="description"><?php _e('In order to keep changes between upgrades, you can store your customized "theme-my-login.css" in your current theme directory.', 'themed-login'); ?></p>
 			<?php
 		}
 
@@ -188,21 +188,21 @@ if (!class_exists('Theme_My_Login_Admin')) {
 				<li>
 					<input name="theme_my_login[login_type]" type="radio" id="theme_my_login_login_type_default"
 						value="default"<?php checked('default', $this->get_option('login_type')); ?>>
-					<label for="theme_my_login_login_type_default"><?php _e('Username or E-mail', 'simple-themed-login'); ?></label>
+					<label for="theme_my_login_login_type_default"><?php _e('Username or E-mail', 'themed-login'); ?></label>
 				</li>
 				<li>
 					<input name="theme_my_login[login_type]" type="radio" id="theme_my_login_login_type_username"
 						value="username"<?php checked('username', $this->get_option('login_type')); ?>>
-					<label for="theme_my_login_login_type_username"><?php _e('Username only', 'simple-themed-login'); ?></label>
+					<label for="theme_my_login_login_type_username"><?php _e('Username only', 'themed-login'); ?></label>
 				</li>
 				<li>
 					<input name="theme_my_login[login_type]" type="radio" id="theme_my_login_login_type_email"
 						value="email"<?php checked('email', $this->get_option('login_type')); ?>>
-					<label for="theme_my_login_login_type_email"><?php _e('E-mail only', 'simple-themed-login'); ?></label>
+					<label for="theme_my_login_login_type_email"><?php _e('E-mail only', 'themed-login'); ?></label>
 				</li>
 			</ul>
 
-			<p class="description"><?php _e('Allow users to login using their username and/or e-mail address.', 'simple-themed-login'); ?></p>
+			<p class="description"><?php _e('Allow users to login using their username and/or e-mail address.', 'themed-login'); ?></p>
 			<?php
 		}
 
@@ -217,7 +217,7 @@ if (!class_exists('Theme_My_Login_Admin')) {
 					id="theme_my_login_active_modules_<?php echo $id; ?>"
 					value="<?php echo $path; ?>"<?php checked(in_array($path, (array) $this->get_option('active_modules'), true)); ?>>
 				<label
-					for="theme_my_login_active_modules_<?php echo $id; ?>"><?php printf(__('Enable %s', 'simple-themed-login'), $data['Name']); ?></label>
+					for="theme_my_login_active_modules_<?php echo $id; ?>"><?php printf(__('Enable %s', 'themed-login'), $data['Name']); ?></label>
 				<br>
 				<?php if ($data['Description']) {
 					?>
