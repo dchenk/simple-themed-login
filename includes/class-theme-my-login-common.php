@@ -1,18 +1,17 @@
 <?php
 /**
- * Holds the Theme My Login Common class
+ * Holds the Themed Login Common class
  *
- * @package Theme_My_Login
- * @since 6.3
+ * @package ThemedLogin
  */
 
-if ( ! class_exists( 'Theme_My_Login_Common' ) ) :
+if ( ! class_exists( 'ThemedLogin_Common' ) ) :
 /*
- * Theme My Login Helper class
+ * Themed Login Helper class
  *
  * This class holds methods common to being common.
  */
-class Theme_My_Login_Common {
+class ThemedLogin_Common {
 	/**
 	 * Returns current URL
 	 *

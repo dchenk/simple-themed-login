@@ -3,19 +3,19 @@
  * Plugin Name: Security
  * Description: Enabling this module will initialize security. You will then have to configure the settings via the "Security" tab.
  *
- * Holds Theme My Login Security class
+ * Holds Themed Login Security class
  *
- * @package Theme_My_Login
+ * @package ThemedLogin
  */
 
-if (! class_exists('Theme_My_Login_Security')) {
+if (! class_exists('ThemedLogin_Security')) {
 
 	/**
-	 * Theme My Login Security module class
+	 * Themed Login Security module class
 	 *
 	 * Adds options to help protect your site.
 	 */
-	class Theme_My_Login_Security extends Theme_My_Login_Abstract {
+	class ThemedLogin_Security extends ThemedLogin_Abstract {
 		/**
 		 * Holds options key
 		 *
@@ -74,7 +74,7 @@ if (! class_exists('Theme_My_Login_Security')) {
 		 */
 		public function template_redirect() {
 			if ($private_site = apply_filters('tml_enforce_private_site', $this->get_option('private_site'))) {
-				if (! (is_user_logged_in() || Theme_My_Login::is_tml_page())) {
+				if (! (is_user_logged_in() || ThemedLogin::is_tml_page())) {
 					$redirect_to = apply_filters('tml_security_private_site_redirect', wp_login_url($_SERVER['REQUEST_URI'], true));
 					wp_safe_redirect($redirect_to);
 					exit;
@@ -85,14 +85,14 @@ if (! class_exists('Theme_My_Login_Security')) {
 		/**
 		 * Handles "unlock" action for login page
 		 *
-		 * Callback for "tml_request_activate" hook in method Theme_My_Login::the_request();
+		 * Callback for "tml_request_activate" hook in method ThemedLogin::the_request();
 		 *
-		 * @see Theme_My_Login::the_request();
+		 * @see ThemedLogin::the_request();
 		 */
 		public function request_unlock() {
 			$user = self::check_user_unlock_key($_GET['key'], $_GET['login']);
 
-			$redirect_to = Theme_My_Login_Common::get_current_url();
+			$redirect_to = ThemedLogin_Common::get_current_url();
 
 			if (is_wp_error($user)) {
 				$redirect_to = add_query_arg('unlock', 'invalidkey', $redirect_to);
@@ -110,9 +110,9 @@ if (! class_exists('Theme_My_Login_Security')) {
 		/**
 		 * Handles display of various action/status messages
 		 *
-		 * Callback for "tml_request" hook in Theme_My_Login::the_request()
+		 * Callback for "tml_request" hook in ThemedLogin::the_request()
 		 *
-		 * @param Theme_My_Login $tml object Reference to the global object
+		 * @param ThemedLogin $tml object Reference to the global object
 		 */
 		public function action_messages(&$tml) {
 			if (isset($_GET['unlock']) && 'complete' == $_GET['unlock']) {
@@ -210,9 +210,9 @@ if (! class_exists('Theme_My_Login_Security')) {
 		/**
 		 * Blocks locked users from resetting their password, if locked by admin
 		 *
-		 * Callback for "allow_password_reset" in method Theme_My_Login::retrieve_password()
+		 * Callback for "allow_password_reset" in method ThemedLogin::retrieve_password()
 		 *
-		 * @see Theme_My_Login::retrieve_password()
+		 * @see ThemedLogin::retrieve_password()
 		 *
 		 * @param bool $allow Default setting
 		 * @param int $user_id User ID
@@ -555,8 +555,8 @@ if (! class_exists('Theme_My_Login_Security')) {
 		}
 	}
 
-//	Theme_My_Login_Security::get_object();
-	new Theme_My_Login_Security();
+//	ThemedLogin_Security::get_object();
+	new ThemedLogin_Security();
 
 }
 

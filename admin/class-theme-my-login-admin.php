@@ -1,16 +1,16 @@
 <?php
 /**
- * Holds the Theme My Login Admin class
+ * Holds the Themed Login Admin class
  *
- * @package Theme_My_Login
+ * @package ThemedLogin
  */
 
-if (!class_exists('Theme_My_Login_Admin')) {
+if (!class_exists('ThemedLogin_Admin')) {
 
 	/**
-	 * Theme My Login Admin class
+	 * Themed Login Admin class
 	 */
-	class Theme_My_Login_Admin extends Theme_My_Login_Abstract {
+	class ThemedLogin_Admin extends ThemedLogin_Abstract {
 		/**
 		 * Holds options key
 		 *
@@ -22,7 +22,7 @@ if (!class_exists('Theme_My_Login_Admin')) {
 		 * Returns default options
 		 */
 		public static function default_options() {
-			return Theme_My_Login::default_options();
+			return ThemedLogin::default_options();
 		}
 
 		/**
@@ -46,7 +46,7 @@ if (!class_exists('Theme_My_Login_Admin')) {
 			register_setting('theme_my_login', 'theme_my_login', [$this, 'save_settings']);
 
 			// Install with default settings
-			if (version_compare($this->get_option('version', '0'), Theme_My_Login::VERSION, '<')) {
+			if (version_compare($this->get_option('version', '0'), ThemedLogin::VERSION, '<')) {
 				$this->install();
 			}
 
@@ -64,7 +64,7 @@ if (!class_exists('Theme_My_Login_Admin')) {
 		 * Enqueues scripts
 		 */
 		public function admin_enqueue_scripts() {
-			wp_enqueue_script('theme-my-login-admin', plugins_url('theme-my-login-admin.js', __FILE__), ['jquery'], Theme_My_Login::VERSION, true);
+			wp_enqueue_script('theme-my-login-admin', plugins_url('theme-my-login-admin.js', __FILE__), ['jquery'], ThemedLogin::VERSION, true);
 			wp_localize_script('theme-my-login-admin', 'tmlAdmin', [
 				'interim_login_url' => site_url('wp-login.php?interim-login=1', 'login'),
 			]);
@@ -114,7 +114,7 @@ if (!class_exists('Theme_My_Login_Admin')) {
 			<select name="tml_action" id="tml_action">
 				<option value=""></option>
 				<?php
-				foreach (Theme_My_Login::default_pages() as $action => $label) {
+				foreach (ThemedLogin::default_pages() as $action => $label) {
 					?>
 					<option value="<?php echo esc_attr($action); ?>"<?php selected($action, $page_action); ?>><?php echo esc_html($label); ?></option>
 					<?php
@@ -265,8 +265,8 @@ if (!class_exists('Theme_My_Login_Admin')) {
 
 		public function install() {
 			// Setup default pages.
-			foreach (Theme_My_Login::default_pages() as $action => $title) {
-				if (!Theme_My_Login::get_page_id($action)) {
+			foreach (ThemedLogin::default_pages() as $action => $title) {
+				if (!ThemedLogin::get_page_id($action)) {
 					$page_id = wp_insert_post([
 						'post_title' => $title,
 						'post_name' => $action,
@@ -289,7 +289,7 @@ if (!class_exists('Theme_My_Login_Admin')) {
 				do_action('tml_activate_' . $module);
 			}
 
-			$this->set_option('version', Theme_My_Login::VERSION);
+			$this->set_option('version', ThemedLogin::VERSION);
 			$this->save_options();
 		}
 

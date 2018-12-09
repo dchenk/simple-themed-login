@@ -1,15 +1,15 @@
 <?php
 /**
- * Holds Theme My Login Custom E-mail Admin class
+ * Holds Themed Login Custom E-mail Admin class
  *
- * @package Theme_My_Login
+ * @package ThemedLogin
  */
 
-if (!class_exists('Theme_My_Login_Custom_Email_Admin')) {
+if (!class_exists('ThemedLogin_Custom_Email_Admin')) {
 	/**
-	 * Theme My Login Custom E-mail Admin class
+	 * Themed Login Custom E-mail Admin class
 	 */
-	class Theme_My_Login_Custom_Email_Admin extends Theme_My_Login_Abstract {
+	class ThemedLogin_Custom_Email_Admin extends ThemedLogin_Abstract {
 		/**
 		 * Holds options key
 		 *
@@ -21,22 +21,22 @@ if (!class_exists('Theme_My_Login_Custom_Email_Admin')) {
 		 * Returns default options
 		 */
 		public static function default_options() {
-			return Theme_My_Login_Custom_Email::default_options();
+			return ThemedLogin_Custom_Email::default_options();
 		}
 
 		/**
 		 * Uninstalls the module
 		 *
-		 * Callback for "tml_uninstall_custom-email/custom-email.php" hook in method Theme_My_Login_Admin::uninstall()
+		 * Callback for "tml_uninstall_custom-email/custom-email.php" hook in method ThemedLogin_Admin::uninstall()
 		 *
-		 * @see Theme_My_Login_Admin::uninstall()
+		 * @see ThemedLogin_Admin::uninstall()
 		 */
 		public function uninstall() {
 			delete_option($this->options_key);
 		}
 
 		/**
-		 * Adds "E-mail" to the Theme My Login menu
+		 * Adds "E-mail" to the Themed Login menu
 		 *
 		 * Callback for "admin_menu" hook
 		 */
@@ -82,7 +82,7 @@ if (!class_exists('Theme_My_Login_Custom_Email_Admin')) {
 		 * Callback for add_submenu_page()
 		 */
 		public function settings_page() {
-			Theme_My_Login_Admin::settings_page([
+			ThemedLogin_Admin::settings_page([
 				'title' => __('Login Email Settings', 'themed-login'),
 				'options_key' => $this->options_key,
 			]);
@@ -513,20 +513,20 @@ if (!class_exists('Theme_My_Login_Custom_Email_Admin')) {
 			$settings['new_user']['admin_disable'] = isset($settings['new_user']['admin_disable']) ? (bool) $settings['new_user']['admin_disable'] : false;
 			$settings['reset_pass']['admin_disable'] = isset($settings['reset_pass']['admin_disable']) ? (bool) $settings['reset_pass']['admin_disable'] : false;
 
-			if (class_exists('Theme_My_Login_User_Moderation')) {
+			if (class_exists('ThemedLogin_User_Moderation')) {
 				$settings['user_approval']['admin_disable'] = isset($settings['user_approval']['admin_disable']) ? (bool) $settings['user_approval']['admin_disable'] : false;
 				$settings['user_denial']['disable'] = isset($settings['user_denial']['disable']) ? (bool) $settings['user_denial']['disable'] : false;
 			}
 
-			return Theme_My_Login_Common::array_merge_recursive($this->get_options(), $settings);
+			return ThemedLogin_Common::array_merge_recursive($this->get_options(), $settings);
 		}
 
 		/**
 		 * Loads the module
 		 *
-		 * Called by Theme_My_Login_Abstract::__construct()
+		 * Called by ThemedLogin_Abstract::__construct()
 		 *
-		 * @see Theme_My_Login_Abstract::__construct()
+		 * @see ThemedLogin_Abstract::__construct()
 		 */
 		protected function load() {
 			add_action('tml_uninstall_custom-email/custom-email.php', [$this, 'uninstall']);
@@ -538,6 +538,6 @@ if (!class_exists('Theme_My_Login_Custom_Email_Admin')) {
 		}
 	}
 
-	new Theme_My_Login_Custom_Email_Admin();
+	new ThemedLogin_Custom_Email_Admin();
 
 }

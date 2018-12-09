@@ -3,19 +3,19 @@
  * Plugin Name: Themed Profiles
  * Description: Enabling this module will initialize and enable themed profiles. You will then have to configure the settings via the "Themed Profiles" tab.
  *
- * Holds Theme My Login Themed Profiles class
+ * Holds Themed Login Themed Profiles class
  *
- * @package Theme_My_Login
+ * @package ThemedLogin
  */
 
-if (!class_exists('Theme_My_Login_Themed_Profiles')) {
+if (!class_exists('ThemedLogin_Themed_Profiles')) {
 
 	/**
-	 * Theme My Login Themed Profiles class
+	 * Themed Login Themed Profiles class
 	 *
 	 * Allows users to edit profile on the front-end.
 	 */
-	class Theme_My_Login_Themed_Profiles extends Theme_My_Login_Abstract {
+	class ThemedLogin_Themed_Profiles extends ThemedLogin_Abstract {
 		/**
 		 * Holds options key
 		 *
@@ -94,7 +94,7 @@ if (!class_exists('Theme_My_Login_Themed_Profiles')) {
 			global $current_user, $pagenow;
 
 			if (is_user_logged_in() && is_admin()) {
-				$redirect_to = Theme_My_Login::get_page_link('profile');
+				$redirect_to = ThemedLogin::get_page_link('profile');
 
 				$user_role = reset($current_user->roles);
 				if (is_multisite() && empty($user_role)) {
@@ -128,14 +128,14 @@ if (!class_exists('Theme_My_Login_Themed_Profiles')) {
 		 * @access public
 		 */
 		public function template_redirect() {
-			$theme_my_login = Theme_My_Login::get_object();
+			$theme_my_login = ThemedLogin::get_object();
 
-			if (Theme_My_Login::is_tml_page()) {
+			if (ThemedLogin::is_tml_page()) {
 				switch ($theme_my_login->request_action) {
 				case 'profile':
 					// Redirect to login page if not logged in
 					if (! is_user_logged_in()) {
-						$redirect_to = Theme_My_Login::get_page_link('login', 'reauth=1');
+						$redirect_to = ThemedLogin::get_page_link('login', 'reauth=1');
 						wp_redirect($redirect_to);
 						exit;
 					}
@@ -152,7 +152,7 @@ if (!class_exists('Theme_My_Login_Themed_Profiles')) {
 				default:
 					// Redirect to profile for any other action if logged in
 					if (is_user_logged_in()) {
-						$redirect_to = Theme_My_Login::get_page_link('profile');
+						$redirect_to = ThemedLogin::get_page_link('profile');
 						wp_redirect($redirect_to);
 						exit;
 					}
@@ -199,7 +199,7 @@ if (!class_exists('Theme_My_Login_Themed_Profiles')) {
 		 * @return array Body classes
 		 */
 		public function body_class($classes) {
-			if (! Theme_My_Login::is_tml_page('profile')) {
+			if (! ThemedLogin::is_tml_page('profile')) {
 				return $classes;
 			}
 			if (! in_array('no-js', $classes, true)) {
@@ -212,9 +212,9 @@ if (!class_exists('Theme_My_Login_Themed_Profiles')) {
 		/**
 		 * Handles profile action
 		 *
-		 * Callback for "tml_request_profile" in method Theme_My_Login::the_request()
+		 * Callback for "tml_request_profile" in method ThemedLogin::the_request()
 		 *
-		 * @see Theme_My_Login::the_request()
+		 * @see ThemedLogin::the_request()
 		 * @access public
 		 */
 		public function tml_request_profile() {
@@ -253,16 +253,16 @@ if (!class_exists('Theme_My_Login_Themed_Profiles')) {
 					wp_redirect($redirect);
 					exit;
 				}
-				Theme_My_Login::get_object()->errors = $errors;
+				ThemedLogin::get_object()->errors = $errors;
 			}
 		}
 
 		/**
 		 * Outputs profile form HTML
 		 *
-		 * Callback for "tml_display_profile" hook in method Theme_My_login_Template::display()
+		 * Callback for "tml_display_profile" hook in method ThemedLogin_Template::display()
 		 *
-		 * @see Theme_My_Login_Template::display()
+		 * @see ThemedLogin_Template::display()
 		 * @access public
 		 *
 		 * @param object $template Reference to $theme_my_login_template object
@@ -274,7 +274,7 @@ if (!class_exists('Theme_My_Login_Themed_Profiles')) {
 			require_once(ABSPATH . 'wp-admin/includes/misc.php');
 
 			if (isset($_GET['updated']) && 'true' == $_GET['updated']) {
-				Theme_My_Login::get_object()->errors->add('profile_updated', __('Profile updated.', 'themed-login'), 'message');
+				ThemedLogin::get_object()->errors->add('profile_updated', __('Profile updated.', 'themed-login'), 'message');
 			}
 
 			$current_user = wp_get_current_user();
@@ -334,7 +334,7 @@ if (!class_exists('Theme_My_Login_Themed_Profiles')) {
 				}
 				$parsed_url = parse_url($url);
 
-				$url = Theme_My_Login::get_page_link('profile');
+				$url = ThemedLogin::get_page_link('profile');
 
 				if (isset($parsed_url['query'])) {
 					$url = add_query_arg(array_map('rawurlencode', wp_parse_args($parsed_url['query'])), $url);
@@ -362,7 +362,7 @@ if (!class_exists('Theme_My_Login_Themed_Profiles')) {
 				return $menu_item;
 			}
 			// If user is not logged in, hide profile.
-			if (!is_user_logged_in() && Theme_My_Login::is_tml_page('profile', $menu_item->object_id)) {
+			if (!is_user_logged_in() && ThemedLogin::is_tml_page('profile', $menu_item->object_id)) {
 				$menu_item->_invalid = true;
 			}
 
@@ -391,7 +391,7 @@ if (!class_exists('Theme_My_Login_Themed_Profiles')) {
 		}
 	}
 
-	Theme_My_Login_Themed_Profiles::get_object();
+	ThemedLogin_Themed_Profiles::get_object();
 
 }
 

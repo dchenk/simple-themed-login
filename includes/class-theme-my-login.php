@@ -1,18 +1,18 @@
 <?php
 /**
- * Holds the Theme My Login class
+ * Holds the Themed Login class
  *
- * @package Theme_My_Login
+ * @package ThemedLogin
  */
 
-if (!class_exists('Theme_My_Login')) {
+if (!class_exists('ThemedLogin')) {
 	/*
-	 * Theme My Login class
+	 * Themed Login class
 	 *
 	 * This class contains properties and methods common to the front-end.
 	 */
 
-	class Theme_My_Login extends Theme_My_Login_Abstract {
+	class ThemedLogin extends ThemedLogin_Abstract {
 		/**
 		 * Holds plugin version
 		 *
@@ -133,8 +133,8 @@ if (!class_exists('Theme_My_Login')) {
 		 * Registers the widget
 		 */
 		public function widgets_init() {
-			if (class_exists('Theme_My_Login_Widget')) {
-				register_widget('Theme_My_Login_Widget');
+			if (class_exists('ThemedLogin_Widget')) {
+				register_widget('ThemedLogin_Widget');
 			}
 		}
 
@@ -887,7 +887,7 @@ if (!class_exists('Theme_My_Login')) {
 		 * - gravatar_size - The size of the user's gravatar. Defaults to "50".
 		 *
 		 * @param array|string $atts Attributes passed from the shortcode
-		 * @return string HTML output from Theme_My_Login_Template->display()
+		 * @return string HTML output from ThemedLogin_Template->display()
 		 */
 		public function shortcode($atts = '') {
 			static $did_main_instance = false;
@@ -1109,7 +1109,7 @@ if (!class_exists('Theme_My_Login')) {
 		 * @return object Instance object
 		 */
 		public function load_instance($args = '') {
-			$instance = new Theme_My_Login_Template($args);
+			$instance = new ThemedLogin_Template($args);
 			$instance->set_option('instance', count($this->loaded_instances));
 
 			if ($instance->get_option('instance') === $this->request_instance) {

@@ -1,15 +1,15 @@
 <?php
 /**
- * Holds the Theme My Login widget class
+ * Holds the Themed Login widget class
  *
- * @package Theme_My_Login
+ * @package ThemedLogin
  */
 
-if ( ! class_exists( 'Theme_My_Login_Widget' ) ) :
+if ( ! class_exists( 'ThemedLogin_Widget' ) ) :
 /*
- * Theme My Login widget class
+ * Themed Login widget class
  */
-class Theme_My_Login_Widget extends WP_Widget {
+class ThemedLogin_Widget extends WP_Widget {
 	public function __construct() {
 		$widget_options = array(
 			'classname'   => 'widget_theme_my_login',

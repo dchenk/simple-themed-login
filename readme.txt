@@ -1,4 +1,4 @@
-=== Simple Themed Login ===
+=== Themed Login ===
 Contributors: dchenk, jfarthing84
 Tags: widget, login, registration, theme, log in, register, e-mail
 Requires at least: 4.9

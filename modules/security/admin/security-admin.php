@@ -1,16 +1,16 @@
 <?php
 /**
- * Holds Theme My Login Security Admin class
+ * Holds Themed Login Security Admin class
  *
- * @package Theme_My_Login
+ * @package ThemedLogin
  */
 
-if (!class_exists('Theme_My_Login_Security_Admin')) {
+if (!class_exists('ThemedLogin_Security_Admin')) {
 
 	/**
-	 * Theme My Login Security Admin class
+	 * Themed Login Security Admin class
 	 */
-	class Theme_My_Login_Security_Admin extends Theme_My_Login_Abstract {
+	class ThemedLogin_Security_Admin extends ThemedLogin_Abstract {
 		/**
 		 * Holds options key
 		 *
@@ -24,22 +24,22 @@ if (!class_exists('Theme_My_Login_Security_Admin')) {
 		 * @return array
 		 */
 		public static function default_options(): array {
-			return Theme_My_Login_Security::default_options();
+			return ThemedLogin_Security::default_options();
 		}
 
 		/**
 		 * Uninstalls the module
 		 *
-		 * Callback for "tml_uninstall_security/security.php" hook in method Theme_My_Login_Admin::uninstall()
+		 * Callback for "tml_uninstall_security/security.php" hook in method ThemedLogin_Admin::uninstall()
 		 *
-		 * @see Theme_My_Login_Admin::uninstall()
+		 * @see ThemedLogin_Admin::uninstall()
 		 */
 		public function uninstall() {
 			delete_option($this->options_key);
 		}
 
 		/**
-		 * Adds "Security" tab to Theme My Login menu
+		 * Adds "Security" tab to Themed Login menu
 		 *
 		 * Callback for "admin_menu" hook
 		 */
@@ -76,7 +76,7 @@ if (!class_exists('Theme_My_Login_Security_Admin')) {
 		 */
 		public function settings_page() {
 			error_log("Options key, settings_page (security-admin): {$this->options_key}");
-			Theme_My_Login_Admin::settings_page([
+			ThemedLogin_Admin::settings_page([
 				'title' => __('Login Security Settings', 'themed-login'),
 				'options_key' => $this->options_key,
 			]);
@@ -145,9 +145,9 @@ if (!class_exists('Theme_My_Login_Security_Admin')) {
 		/**
 		 * Sanitizes settings
 		 *
-		 * Callback for "tml_save_settings" hook in method Theme_My_Login_Admin::save_settings()
+		 * Callback for "tml_save_settings" hook in method ThemedLogin_Admin::save_settings()
 		 *
-		 * @see Theme_My_Login_Admin::save_settings()
+		 * @see ThemedLogin_Admin::save_settings()
 		 *
 		 * @param array|string $settings Settings passed in from filter
 		 * @return array|string Sanitized settings
@@ -190,12 +190,12 @@ if (!class_exists('Theme_My_Login_Security_Admin')) {
 
 				if ('lock' == $_GET['action']) {
 					check_admin_referer('lock-user_' . $user->ID);
-					Theme_My_Login_Security::lock_user($user);
+					ThemedLogin_Security::lock_user($user);
 					$redirect_to = add_query_arg('update', 'lock', $redirect_to);
 				} else {
 					if ('unlock' == $_GET['action']) {
 						check_admin_referer('unlock-user_' . $user->ID);
-						Theme_My_Login_Security::unlock_user($user);
+						ThemedLogin_Security::unlock_user($user);
 						$redirect_to = add_query_arg('update', 'unlock', $redirect_to);
 					}
 				}
@@ -279,7 +279,7 @@ if (!class_exists('Theme_My_Login_Security_Admin')) {
 		}
 	}
 
-//	Theme_My_Login_Security_Admin::get_object();
-	new Theme_My_Login_Security_Admin();
+//	ThemedLogin_Security_Admin::get_object();
+	new ThemedLogin_Security_Admin();
 
 }

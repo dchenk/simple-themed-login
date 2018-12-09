@@ -3,17 +3,17 @@
  * Plugin Name: Custom Passwords
  * Description: Enabling this module will initialize and enable custom passwords. There are no other settings for this module.
  *
- * Holds the Theme My Login Custom Passwords class
+ * Holds the Themed Login Custom Passwords class
  *
- * @package Theme_My_Login
- * @subpackage Theme_My_Login_Custom_Passwords
+ * @package ThemedLogin
+ * @subpackage ThemedLogin_Custom_Passwords
  */
 
-if ( ! class_exists( 'Theme_My_Login_Custom_Passwords' ) ) :
+if ( ! class_exists( 'ThemedLogin_Custom_Passwords' ) ) :
 /**
- * Theme My Login Custom Passwords module class
+ * Themed Login Custom Passwords module class
  */
-class Theme_My_Login_Custom_Passwords extends Theme_My_Login_Abstract {
+class ThemedLogin_Custom_Passwords extends ThemedLogin_Abstract {
 	/**
 	 * Returns singleton instance
 	 *
@@ -52,14 +52,14 @@ class Theme_My_Login_Custom_Passwords extends Theme_My_Login_Abstract {
 	/**
 	 * Outputs password fields to registration form
 	 *
-	 * Callback for "register_form" hook in file "register-form.php", included by Theme_My_Login_Template::display()
+	 * Callback for "register_form" hook in file "register-form.php", included by ThemedLogin_Template::display()
 	 *
-	 * @see Theme_My_Login::display()
+	 * @see ThemedLogin::display()
 	 * @since 6.0
 	 * @access public
 	 */
 	public function password_fields() {
-		$template = Theme_My_Login::get_object()->get_current_instance();
+		$template = ThemedLogin::get_object()->get_current_instance();
 		?>
 		<p class="tml-user-pass1-wrap">
 			<label for="pass1<?php $template->the_instance(); ?>"><?php _e( 'Password', 'themed-login' ); ?></label>
@@ -75,14 +75,14 @@ class Theme_My_Login_Custom_Passwords extends Theme_My_Login_Abstract {
 	/**
 	 * Outputs password fields to multisite signup user form
 	 *
-	 * Callback for "signup_extra_fields" hook in file "ms-signup-user-form.php", included by Theme_My_Login_Template::display()
+	 * Callback for "signup_extra_fields" hook in file "ms-signup-user-form.php", included by ThemedLogin_Template::display()
 	 *
-	 * @see Theme_My_Login::display()
+	 * @see ThemedLogin::display()
 	 * @since 6.1
 	 * @access public
 	 */
 	public function ms_password_fields() {
-		$theme_my_login = Theme_My_Login::get_object();
+		$theme_my_login = ThemedLogin::get_object();
 
 		$template = $theme_my_login->get_active_instance();
 
@@ -108,9 +108,9 @@ class Theme_My_Login_Custom_Passwords extends Theme_My_Login_Abstract {
 	/**
 	 * Outputs password field to multisite signup blog form
 	 *
-	 * Callback for "signup_hidden_fields" hook in file "ms-signup-blog-form.php", included by Theme_My_Login_Template::display()
+	 * Callback for "signup_hidden_fields" hook in file "ms-signup-blog-form.php", included by ThemedLogin_Template::display()
 	 *
-	 * @see Theme_My_Login::display()
+	 * @see ThemedLogin::display()
 	 * @access public
 	 */
 	public function ms_hidden_password_field() {
@@ -121,9 +121,9 @@ class Theme_My_Login_Custom_Passwords extends Theme_My_Login_Abstract {
 	/**
 	 * Handles password errors for registration form
 	 *
-	 * Callback for "registration_errors" hook in Theme_My_Login::register_new_user()
+	 * Callback for "registration_errors" hook in ThemedLogin::register_new_user()
 	 *
-	 * @see Theme_My_Login::register_new_user()
+	 * @see ThemedLogin::register_new_user()
 	 * @since 6.0
 	 * @access public
 	 *
@@ -162,9 +162,9 @@ class Theme_My_Login_Custom_Passwords extends Theme_My_Login_Abstract {
 	/**
 	 * Handles password errors for multisite signup form
 	 *
-	 * Callback for "registration_errors" hook in Theme_My_Login::register_new_user()
+	 * Callback for "registration_errors" hook in ThemedLogin::register_new_user()
 	 *
-	 * @see Theme_My_Login::register_new_user()
+	 * @see ThemedLogin::register_new_user()
 	 * @since 6.1
 	 * @access public
 	 *
@@ -268,7 +268,7 @@ class Theme_My_Login_Custom_Passwords extends Theme_My_Login_Abstract {
 	/**
 	 * Handles display of various action/status messages
 	 *
-	 * Callback for "tml_request" hook in Theme_My_Login::the_request()
+	 * Callback for "tml_request" hook in ThemedLogin::the_request()
 	 *
 	 * @since 6.0
 	 * @access public
@@ -284,9 +284,9 @@ class Theme_My_Login_Custom_Passwords extends Theme_My_Login_Abstract {
 	/**
 	 * Changes where the user is redirected upon successful registration
 	 *
-	 * Callback for "registration_redirect" hook in Theme_My_Login_Template::get_redirect_url()
+	 * Callback for "registration_redirect" hook in ThemedLogin_Template::get_redirect_url()
 	 *
-	 * @see Theme_My_Login_Template::get_redirect_url()
+	 * @see ThemedLogin_Template::get_redirect_url()
 	 *
 	 * @return string $redirect_to Default redirect
 	 * @return string URL to redirect to
@@ -301,6 +301,6 @@ class Theme_My_Login_Custom_Passwords extends Theme_My_Login_Abstract {
 	}
 }
 
-Theme_My_Login_Custom_Passwords::get_object();
+ThemedLogin_Custom_Passwords::get_object();
 
 endif;

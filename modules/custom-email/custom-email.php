@@ -3,17 +3,17 @@
  * Plugin Name: Custom E-mail
  * Description: Enabling this module will initialize custom e-mails. You will then have to configure the settings via the "E-mail" tab.
  *
- * Holds Theme My Login Custom E-mail class
+ * Holds Themed Login Custom E-mail class
  *
- * @package Theme_My_Login
+ * @package ThemedLogin
  */
 
-if (!class_exists('Theme_My_Login_Custom_Email')) {
+if (!class_exists('ThemedLogin_Custom_Email')) {
 
 	/**
-	 * Theme My Login Custom E-mail class
+	 * Themed Login Custom E-mail class
 	 */
-	class Theme_My_Login_Custom_Email extends Theme_My_Login_Abstract {
+	class ThemedLogin_Custom_Email extends ThemedLogin_Abstract {
 		/**
 		 * Holds options key
 		 *
@@ -105,9 +105,9 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 		/**
 		 * Applies all password retrieval mail filters
 		 *
-		 * Callback for "retrieve_password" hook in Theme_My_Login::retrieve_password()
+		 * Callback for "retrieve_password" hook in ThemedLogin::retrieve_password()
 		 *
-		 * @see Theme_My_Login::retrieve_password()
+		 * @see ThemedLogin::retrieve_password()
 		 */
 		public function apply_retrieve_pass_filters() {
 			$this->set_mail_headers(
@@ -122,9 +122,9 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 		/**
 		 * Applies all password reset mail filters
 		 *
-		 * Callback for "password_reset" hook in Theme_My_Login::reset_password()
+		 * Callback for "password_reset" hook in ThemedLogin::reset_password()
 		 *
-		 * @see Theme_My_Login::reset_password()
+		 * @see ThemedLogin::reset_password()
 		 */
 		public function apply_password_reset_filters() {
 			$this->set_mail_headers(
@@ -141,9 +141,9 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 		/**
 		 * Applies all new user mail filters
 		 *
-		 * Callback for "register_post" hook in Theme_My_Login::register_new_user()
+		 * Callback for "register_post" hook in ThemedLogin::register_new_user()
 		 *
-		 * @see Theme_My_Login::register_new_user()
+		 * @see ThemedLogin::register_new_user()
 		 */
 		public function apply_new_user_filters() {
 			add_filter('new_user_notification_title', [$this, 'new_user_notification_title_filter'], 10, 2);
@@ -200,9 +200,9 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 		/**
 		 * Changes the retrieve password e-mail subject
 		 *
-		 * Callback for "retrieve_pass_title" hook in Theme_My_Login::retrieve_password()
+		 * Callback for "retrieve_pass_title" hook in ThemedLogin::retrieve_password()
 		 *
-		 * @see Theme_My_Login::retrieve_password()
+		 * @see ThemedLogin::retrieve_password()
 		 *
 		 * @param string $title Default subject
 		 * @param string $user_login User login
@@ -211,15 +211,15 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 		 */
 		public function retrieve_pass_title_filter($title, $user_login, $user_data) {
 			$_title = $this->get_option(['retrieve_pass', 'title']);
-			return empty($_title) ? $title : Theme_My_Login_Common::replace_vars($_title, $user_data->ID);
+			return empty($_title) ? $title : ThemedLogin_Common::replace_vars($_title, $user_data->ID);
 		}
 
 		/**
 		 * Changes the retrieve password e-mail message
 		 *
-		 * Callback for "retrieve_password_message" hook in Theme_My_Login::retrieve_password()
+		 * Callback for "retrieve_password_message" hook in ThemedLogin::retrieve_password()
 		 *
-		 * @see Theme_My_Login::retrieve_password()
+		 * @see ThemedLogin::retrieve_password()
 		 *
 		 * @param string $message Default message
 		 * @param string $key The user's reset key
@@ -230,7 +230,7 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 		public function retrieve_pass_message_filter($message, $key, $user_login, $user_data) {
 			$_message = $this->get_option(['retrieve_pass', 'message']);
 			if (! empty($_message)) {
-				$message = Theme_My_Login_Common::replace_vars($_message, $user_data->ID, [
+				$message = ThemedLogin_Common::replace_vars($_message, $user_data->ID, [
 					'%loginurl%' => site_url('wp-login.php', 'login'),
 					'%reseturl%' => site_url("wp-login.php?action=rp&key=${key}&login=" . rawurlencode($user_login), 'login'),
 				]);
@@ -266,7 +266,7 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 		 */
 		public function password_change_notification_title_filter($title, $user_id) {
 			$_title = $this->get_option(['reset_pass', 'admin_title']);
-			return empty($_title) ? $title : Theme_My_Login_Common::replace_vars($_title, $user_id);
+			return empty($_title) ? $title : ThemedLogin_Common::replace_vars($_title, $user_id);
 		}
 
 		/**
@@ -281,7 +281,7 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 		 */
 		public function password_change_notification_message_filter($message, $user_id) {
 			$_message = $this->get_option(['reset_pass', 'admin_message']);
-			return empty($_message) ? $message : Theme_My_Login_Common::replace_vars($_message, $user_id);
+			return empty($_message) ? $message : ThemedLogin_Common::replace_vars($_message, $user_id);
 		}
 
 		/**
@@ -321,7 +321,7 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 		 */
 		public function new_user_notification_title_filter($title, $user_id) {
 			$_title = $this->get_option(['new_user', 'title']);
-			return empty($_title) ? $title : Theme_My_Login_Common::replace_vars($_title, $user_id);
+			return empty($_title) ? $title : ThemedLogin_Common::replace_vars($_title, $user_id);
 		}
 
 		/**
@@ -339,7 +339,7 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 			$_message = $this->get_option(['new_user', 'message']);
 			if (! empty($_message)) {
 				$user = get_userdata($user_id);
-				$message = Theme_My_Login_Common::replace_vars($_message, $user_id, [
+				$message = ThemedLogin_Common::replace_vars($_message, $user_id, [
 					'%reseturl%' => network_site_url("wp-login.php?action=rp&key=${key}&login=" . rawurlencode($user->user_login), 'login'),
 					'%loginurl%' => site_url('wp-login.php', 'login'),
 				]);
@@ -395,7 +395,7 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 		 */
 		public function new_user_admin_notification_title_filter($title, $user_id) {
 			$_title = $this->get_option(['new_user', 'admin_title']);
-			return empty($_title) ? $title : Theme_My_Login_Common::replace_vars($_title, $user_id);
+			return empty($_title) ? $title : ThemedLogin_Common::replace_vars($_title, $user_id);
 		}
 
 		/**
@@ -410,7 +410,7 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 		 */
 		public function new_user_admin_notification_message_filter($message, $user_id) {
 			$_message = $this->get_option(['new_user', 'admin_message']);
-			return empty($_message) ? $message : Theme_My_Login_Common::replace_vars($_message, $user_id);
+			return empty($_message) ? $message : ThemedLogin_Common::replace_vars($_message, $user_id);
 		}
 
 		/**
@@ -440,15 +440,15 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 		/**
 		 * Applies user moderation mail filters according to moderation type
 		 *
-		 * Callback for "register_post" hook in Theme_My_Login::register_new_user()
+		 * Callback for "register_post" hook in ThemedLogin::register_new_user()
 		 *
-		 * @see Theme_My_Login::register_new_user()
+		 * @see ThemedLogin::register_new_user()
 		 */
 		public function apply_user_moderation_notification_filters() {
-			if (! class_exists('Theme_My_Login_User_Moderation')) {
+			if (! class_exists('ThemedLogin_User_Moderation')) {
 				return;
 			}
-			$moderation_type = Theme_My_Login_User_Moderation::get_object()->get_option('type');
+			$moderation_type = ThemedLogin_User_Moderation::get_object()->get_option('type');
 			switch ($moderation_type) {
 			case 'email':
 				$this->set_mail_headers(
@@ -476,9 +476,9 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 		/**
 		 * Applies all user approval mail filters
 		 *
-		 * Callback for "approve_user" hook in Theme_My_Login_User_Moderation::approve_user()
+		 * Callback for "approve_user" hook in ThemedLogin_User_Moderation::approve_user()
 		 *
-		 * @see Theme_My_Login_User_Moderation::approve_user()
+		 * @see ThemedLogin_User_Moderation::approve_user()
 		 */
 		public function apply_user_approval_notification_filters() {
 			$this->set_mail_headers(
@@ -493,9 +493,9 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 		/**
 		 * Applies all user denial mail filters
 		 *
-		 * Callback for "deny_user" hook in Theme_My_Login_User_Moderation_Admin::deny_user()
+		 * Callback for "deny_user" hook in ThemedLogin_User_Moderation_Admin::deny_user()
 		 *
-		 * @see Theme_My_Login_User_Moderation_Admin::deny_user()
+		 * @see ThemedLogin_User_Moderation_Admin::deny_user()
 		 */
 		public function apply_user_denial_notification_filters() {
 			$this->set_mail_headers(
@@ -511,9 +511,9 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 		/**
 		 * Changes the user activation e-mail subject
 		 *
-		 * Callback for "user_activation_notification_title" hook in Theme_My_Login_User_Moderation::new_user_activation_notification()
+		 * Callback for "user_activation_notification_title" hook in ThemedLogin_User_Moderation::new_user_activation_notification()
 		 *
-		 * @see Theme_My_Login_User_Moderation::new_user_activation_notification()
+		 * @see ThemedLogin_User_Moderation::new_user_activation_notification()
 		 *
 		 * @param string $title The default subject
 		 * @param int $user_id The user's ID
@@ -521,15 +521,15 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 		 */
 		public function user_activation_notification_title_filter($title, $user_id) {
 			$_title = $this->get_option(['user_activation', 'title']);
-			return empty($_title) ? $title : Theme_My_Login_Common::replace_vars($_title, $user_id);
+			return empty($_title) ? $title : ThemedLogin_Common::replace_vars($_title, $user_id);
 		}
 
 		/**
 		 * Changes the user activation e-mail message
 		 *
-		 * Callback for "user_activation_notification_message" hook in Theme_My_Login_User_Moderation::new_user_activation_notification()
+		 * Callback for "user_activation_notification_message" hook in ThemedLogin_User_Moderation::new_user_activation_notification()
 		 *
-		 * @see Theme_My_Login_User_Moderation::new_user_activation_notification()
+		 * @see ThemedLogin_User_Moderation::new_user_activation_notification()
 		 *
 		 * @param int $user_id The user's ID
 		 * @param string $activation_url The activation URL
@@ -538,7 +538,7 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 		public function user_activation_notification_message_filter($message, $activation_url, $user_id) {
 			$_message = $this->get_option(['user_activation', 'message']);
 			if (! empty($_message)) {
-				$message = Theme_My_Login_Common::replace_vars($_message, $user_id, [
+				$message = ThemedLogin_Common::replace_vars($_message, $user_id, [
 					'%activateurl%' => $activation_url,
 				]);
 			}
@@ -548,9 +548,9 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 		/**
 		 * Changes the user approval e-mail subject
 		 *
-		 * Callback for "user_approval_notification_title" hook in Theme_My_Login_User_Moderation_Admin::approve_user()
+		 * Callback for "user_approval_notification_title" hook in ThemedLogin_User_Moderation_Admin::approve_user()
 		 *
-		 * @see Theme_My_Login_User_Moderation_Admin::approve_user()
+		 * @see ThemedLogin_User_Moderation_Admin::approve_user()
 		 *
 		 * @param string $title The default subject
 		 * @param int $user_id The user's ID
@@ -558,15 +558,15 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 		 */
 		public function user_approval_notification_title_filter($title, $user_id) {
 			$_title = $this->get_option(['user_approval', 'title']);
-			return empty($_title) ? $title : Theme_My_Login_Common::replace_vars($_title, $user_id);
+			return empty($_title) ? $title : ThemedLogin_Common::replace_vars($_title, $user_id);
 		}
 
 		/**
 		 * Changes the user approval e-mail message
 		 *
-		 * Callback for "user_approval_notification_message" hook in Theme_My_Login_User_Moderation_Admin::approve_user()
+		 * Callback for "user_approval_notification_message" hook in ThemedLogin_User_Moderation_Admin::approve_user()
 		 *
-		 * @see Theme_My_Login_User_Moderation_Admin::approve_user()
+		 * @see ThemedLogin_User_Moderation_Admin::approve_user()
 		 *
 		 * @param string $key The user's reset key
 		 * @param int $user_id The user's ID
@@ -576,8 +576,8 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 			$_message = $this->get_option(['user_approval', 'message']);
 			if (! empty($_message)) {
 				$user = get_user_by('id', $user_id);
-				$message = Theme_My_Login_Common::replace_vars($_message, $user_id, [
-					'%loginurl%' => Theme_My_Login::get_object()->get_page_link('login'),
+				$message = ThemedLogin_Common::replace_vars($_message, $user_id, [
+					'%loginurl%' => ThemedLogin::get_object()->get_page_link('login'),
 					'%reseturl%' => site_url("wp-login.php?action=rp&key=${key}&login=" . rawurlencode($user->user_login), 'login'),
 				]);
 			}
@@ -587,9 +587,9 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 		/**
 		 * Changes the user approval admin e-mail recipient
 		 *
-		 * Callback for "user_approval_admin_notification_mail_to" hook in Theme_My_Login_User_Moderation::new_user_approval_admin_notification()
+		 * Callback for "user_approval_admin_notification_mail_to" hook in ThemedLogin_User_Moderation::new_user_approval_admin_notification()
 		 *
-		 * @see Theme_My_Login_User_Moderation::new_user_approval_admin_notification()
+		 * @see ThemedLogin_User_Moderation::new_user_approval_admin_notification()
 		 *
 		 * @param string $to The default recipient
 		 * @return string The filtered recipient
@@ -602,9 +602,9 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 		/**
 		 * Changes the user approval admin e-mail subject
 		 *
-		 * Callback for "user_approval_admin_notification_title" hook in Theme_My_Login_User_Moderation::new_user_approval_admin_notification()
+		 * Callback for "user_approval_admin_notification_title" hook in ThemedLogin_User_Moderation::new_user_approval_admin_notification()
 		 *
-		 * @see Theme_My_Login_User_Moderation::new_user_approval_admin_notification()
+		 * @see ThemedLogin_User_Moderation::new_user_approval_admin_notification()
 		 *
 		 * @param string $title The default subject
 		 * @param int $user_id The user's ID
@@ -612,15 +612,15 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 		 */
 		public function user_approval_admin_notification_title_filter($title, $user_id) {
 			$_title = $this->get_option(['user_approval', 'admin_title']);
-			return empty($_title) ? $title : Theme_My_Login_Common::replace_vars($_title, $user_id);
+			return empty($_title) ? $title : ThemedLogin_Common::replace_vars($_title, $user_id);
 		}
 
 		/**
 		 * Changes the user approval admin e-mail message
 		 *
-		 * Callback for "user_approval_admin_notification_message" hook in Theme_My_Login_User_Moderation::new_user_approval_admin_notification()
+		 * Callback for "user_approval_admin_notification_message" hook in ThemedLogin_User_Moderation::new_user_approval_admin_notification()
 		 *
-		 * @see Theme_My_Login_User_Moderation::new_user_approval_admin_notification()
+		 * @see ThemedLogin_User_Moderation::new_user_approval_admin_notification()
 		 *
 		 * @param string $message The default message
 		 * @param int $user_id The user's ID
@@ -629,7 +629,7 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 		public function user_approval_admin_notification_message_filter($message, $user_id) {
 			$_message = $this->get_option(['user_approval', 'admin_message']);
 			if (! empty($_message)) {
-				$message = Theme_My_Login_Common::replace_vars($_message, $user_id, [
+				$message = ThemedLogin_Common::replace_vars($_message, $user_id, [
 					'%pendingurl%' => admin_url('users.php?role=pending'),
 				]);
 			}
@@ -654,9 +654,9 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 		/**
 		 * Changes the user denial e-mail subject
 		 *
-		 * Callback for "user_denial_notification_title" hook in Theme_My_Login_User_Moderation_Admin::deny_user()
+		 * Callback for "user_denial_notification_title" hook in ThemedLogin_User_Moderation_Admin::deny_user()
 		 *
-		 * @see Theme_My_Login_User_Moderation_Admin::deny_user()
+		 * @see ThemedLogin_User_Moderation_Admin::deny_user()
 		 *
 		 * @param string $title The default subject
 		 * @param int $user_id The user's ID
@@ -664,15 +664,15 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 		 */
 		public function user_denial_notification_title_filter($title, $user_id) {
 			$_title = $this->get_option(['user_denial', 'title']);
-			return empty($_title) ? $title : Theme_My_Login_Common::replace_vars($_title, $user_id);
+			return empty($_title) ? $title : ThemedLogin_Common::replace_vars($_title, $user_id);
 		}
 
 		/**
 		 * Changes the user denial e-mail message
 		 *
-		 * Callback for "user_denial_notification_message" hook in Theme_My_Login_User_Moderation_Admin::deny_user()
+		 * Callback for "user_denial_notification_message" hook in ThemedLogin_User_Moderation_Admin::deny_user()
 		 *
-		 * @see Theme_My_Login_User_Moderation_Admin::deny_user()
+		 * @see ThemedLogin_User_Moderation_Admin::deny_user()
 		 *
 		 * @param string $message The default message
 		 * @param int $user_id The user's ID
@@ -680,7 +680,7 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 		 */
 		public function user_denial_notification_message_filter($message, $user_id) {
 			$_message = $this->get_option(['user_denial', 'message']);
-			return empty($_message) ? $message : Theme_My_Login_Common::replace_vars($_message, $user_id);
+			return empty($_message) ? $message : ThemedLogin_Common::replace_vars($_message, $user_id);
 		}
 
 		/**
@@ -823,7 +823,7 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 		}
 	}
 
-	Theme_My_Login_Custom_Email::get_object();
+	ThemedLogin_Custom_Email::get_object();
 
 }
 

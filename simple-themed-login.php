@@ -20,21 +20,21 @@ require_once(THEMED_LOGIN_DIR . '/includes/class-theme-my-login.php');
 require_once(THEMED_LOGIN_DIR . '/includes/class-theme-my-login-template.php');
 require_once(THEMED_LOGIN_DIR . '/includes/class-theme-my-login-widget.php');
 
-// Instantiate a Theme_My_Login singleton.
-$themeMyLoginInstance = new Theme_My_Login();
+// Instantiate a ThemedLogin singleton.
+$themeMyLoginInstance = new ThemedLogin();
 
 if (is_admin()) {
 	require_once(THEMED_LOGIN_DIR . '/admin/class-theme-my-login-admin.php');
 
-	// Instantiate Theme_My_Login_Admin singleton
-	new Theme_My_Login_Admin();
+	// Instantiate ThemedLogin_Admin singleton
+	new ThemedLogin_Admin();
 }
 
 if (!function_exists('theme_my_login')) {
 	/**
 	 * Displays a shortcode-defined template
 	 *
-	 * @see Theme_My_Login::shortcode() for $args parameters
+	 * @see ThemedLogin::shortcode() for $args parameters
 	 *
 	 * @param array|string $args Template tag arguments
 	 */

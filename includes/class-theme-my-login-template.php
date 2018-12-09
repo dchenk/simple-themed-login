@@ -1,17 +1,17 @@
 <?php
 /**
- * Holds the Theme My Login template class
+ * Holds the Themed Login template class
  *
- * @package Theme_My_Login
+ * @package ThemedLogin
  */
 
-if ( ! class_exists( 'Theme_My_Login_Template' ) ) :
+if ( ! class_exists( 'ThemedLogin_Template' ) ) :
 /*
- * Theme My Login template class
+ * Themed Login template class
  *
  * This class contains properties and methods common to displaying output.
  */
-class Theme_My_Login_Template extends Theme_My_Login_Abstract {
+class ThemedLogin_Template extends ThemedLogin_Abstract {
 	/**
 	 * Holds active instance flag
 	 *
@@ -144,7 +144,7 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 		if ( is_user_logged_in() && 'login' == $action && $action == $this->get_option( 'default_action' ) ) {
 			$title = sprintf( __( 'Welcome, %s', 'themed-login' ), wp_get_current_user()->display_name );
 		} else {
-			if ( $page_id = Theme_My_Login::get_page_id( $action ) ) {
+			if ( $page_id = ThemedLogin::get_page_id( $action ) ) {
 				$title = get_post_field( 'post_title', $page_id );
 			} else {
 				switch ( $action ) {
@@ -188,7 +188,7 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 	public function get_errors() {
 		global $error;
 
-		$theme_my_login = Theme_My_Login::get_object();
+		$theme_my_login = ThemedLogin::get_object();
 
 		$wp_error = $theme_my_login->errors;
 
@@ -250,9 +250,9 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 			$args = array();
 			if ( $instance )
 				$args['instance'] = $instance;
-			$url = Theme_My_Login_Common::get_current_url( $args );
+			$url = ThemedLogin_Common::get_current_url( $args );
 		} else {
-			$url = Theme_My_Login::get_page_link( $action );
+			$url = ThemedLogin::get_page_link( $action );
 		}
 
 		$url = set_url_scheme( $url, $scheme );
@@ -412,7 +412,7 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 	 */
 	public function get_template( $template_names, $load = true, $args = array() ) {
 
-		$theme_my_login = Theme_My_Login::get_object();
+		$theme_my_login = ThemedLogin::get_object();
 
 		// User friendly access to this
 		$template = $this;
@@ -463,7 +463,7 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 	 */
 	public function get_redirect_url( $action = '' ) {
 
-		$theme_my_login = Theme_My_Login::get_object();
+		$theme_my_login = ThemedLogin::get_object();
 
 		if ( empty( $action ) )
 			$action = $this->get_option( 'default_action' );
@@ -473,10 +473,10 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 		switch ( $action ) {
 			case 'lostpassword' :
 			case 'retrievepassword' :
-				$url = apply_filters( 'lostpassword_redirect', ! empty( $redirect_to ) ? $redirect_to : Theme_My_Login::get_page_link( 'login', 'checkemail=confirm' ) );
+				$url = apply_filters( 'lostpassword_redirect', ! empty( $redirect_to ) ? $redirect_to : ThemedLogin::get_page_link( 'login', 'checkemail=confirm' ) );
 				break;
 			case 'register' :
-				$url = apply_filters( 'registration_redirect', ! empty( $redirect_to ) ? $redirect_to : Theme_My_Login::get_page_link( 'login', 'checkemail=registered' ) );
+				$url = apply_filters( 'registration_redirect', ! empty( $redirect_to ) ? $redirect_to : ThemedLogin::get_page_link( 'login', 'checkemail=registered' ) );
 				break;
 			case 'login' :
 			default :

@@ -1,16 +1,16 @@
 <?php
 /**
- * Holds Theme My Login Themed Profiles Admin class
+ * Holds Themed Login Themed Profiles Admin class
  *
- * @package Theme_My_Login
+ * @package ThemedLogin
  */
 
-if (!class_exists('Theme_My_Login_Themed_Profiles_Admin')) {
+if (!class_exists('ThemedLogin_Themed_Profiles_Admin')) {
 
 	/**
-	 * Theme My Login Themed Profiles Admin class
+	 * Themed Login Themed Profiles Admin class
 	 */
-	class Theme_My_Login_Themed_Profiles_Admin extends Theme_My_Login_Abstract {
+	class ThemedLogin_Themed_Profiles_Admin extends ThemedLogin_Abstract {
 		/**
 		 * Holds options key
 		 *
@@ -36,19 +36,19 @@ if (!class_exists('Theme_My_Login_Themed_Profiles_Admin')) {
 		 * @access public
 		 */
 		public static function default_options() {
-			return Theme_My_Login_Themed_Profiles::default_options();
+			return ThemedLogin_Themed_Profiles::default_options();
 		}
 
 		/**
 		 * Activates the module
 		 *
-		 * Callback for "tml_activate_themed-profiles/themed-profiles.php" hook in method Theme_My_Login_Modules_Admin::activate_module()
+		 * Callback for "tml_activate_themed-profiles/themed-profiles.php" hook in method ThemedLogin_Modules_Admin::activate_module()
 		 *
-		 * @see Theme_My_Login_Modules_Admin::activate_module()
+		 * @see ThemedLogin_Modules_Admin::activate_module()
 		 * @access public
 		 */
 		public function activate() {
-			if (!$page_id = Theme_My_Login::get_page_id('profile')) {
+			if (!$page_id = ThemedLogin::get_page_id('profile')) {
 				$page_id = wp_insert_post([
 					'post_title' => __('Your Profile', 'themed-login'),
 					'post_status' => 'publish',
@@ -64,9 +64,9 @@ if (!class_exists('Theme_My_Login_Themed_Profiles_Admin')) {
 		/**
 		 * Uninstalls the module
 		 *
-		 * Callback for "tml_uninstall_themed-profiles/themed-profiles.php" hook in method Theme_My_Login_Admin::uninstall()
+		 * Callback for "tml_uninstall_themed-profiles/themed-profiles.php" hook in method ThemedLogin_Admin::uninstall()
 		 *
-		 * @see Theme_My_Login_Admin::uninstall()
+		 * @see ThemedLogin_Admin::uninstall()
 		 * @access public
 		 */
 		public function uninstall() {
@@ -74,7 +74,7 @@ if (!class_exists('Theme_My_Login_Themed_Profiles_Admin')) {
 		}
 
 		/**
-		 * Adds "Themed Profiles" tab to Theme My Login menu
+		 * Adds "Themed Profiles" tab to Themed Login menu
 		 *
 		 * Callback for "admin_menu" hook
 		 *
@@ -115,7 +115,7 @@ if (!class_exists('Theme_My_Login_Themed_Profiles_Admin')) {
 		 * @access public
 		 */
 		public function settings_page() {
-			Theme_My_Login_Admin::settings_page([
+			ThemedLogin_Admin::settings_page([
 				'title' => __('STL Themed Profiles Settings', 'themed-login'),
 				'options_key' => $this->options_key,
 			]);
@@ -206,6 +206,6 @@ if (!class_exists('Theme_My_Login_Themed_Profiles_Admin')) {
 		}
 	}
 
-	Theme_My_Login_Themed_Profiles_Admin::get_object();
+	ThemedLogin_Themed_Profiles_Admin::get_object();
 
 }

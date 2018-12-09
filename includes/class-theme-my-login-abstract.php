@@ -1,12 +1,12 @@
 <?php
 
-if (!class_exists('Theme_My_Login_Abstract')) {
+if (!class_exists('ThemedLogin_Abstract')) {
 
 	/**
-	 * Theme My Login Abstract class
+	 * Themed Login Abstract class
 	 * This class is the base class to be extended.
 	 */
-	abstract class Theme_My_Login_Abstract {
+	abstract class ThemedLogin_Abstract {
 		/**
 		 * Holds options key
 		 *
