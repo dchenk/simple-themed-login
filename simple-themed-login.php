@@ -1,12 +1,12 @@
 <?php
 /*
-Plugin Name: Simple Themed Login
-Plugin URI: https://github.com/dchenk/simple-themed-login
+Plugin Name: Themed Login
+Plugin URI: https://github.com/dchenk/themed-login
 Description: Themes the WordPress login, registration, and forgot password pages according to your theme.
 Version: 1.2.0
-Author: Simple Themed Login
-Author URI: https://github.com/dchenk/simple-themed-login
-Text Domain: simple-themed-login
+Author: widerwebs
+Author URI: https://github.com/dchenk/themed-login
+Text Domain: themed-login
 Domain Path: /languages
 */
 
@@ -32,7 +32,7 @@ if (is_admin()) {
 
 if (!function_exists('theme_my_login')) {
 	/**
-	 * Displays a TML instance
+	 * Displays a shortcode-defined template
 	 *
 	 * @see Theme_My_Login::shortcode() for $args parameters
 	 *

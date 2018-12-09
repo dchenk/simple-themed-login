@@ -714,11 +714,11 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 			$blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
 
 			if (apply_filters('send_new_user_admin_notification', true)) {
-				$message  = sprintf(__('New user registration on your site %s:', 'simple-themed-login'), $blogname) . "\r\n\r\n";
-				$message .= sprintf(__('Username: %s', 'simple-themed-login'), $user->user_login) . "\r\n\r\n";
-				$message .= sprintf(__('E-mail: %s', 'simple-themed-login'), $user->user_email) . "\r\n";
+				$message  = sprintf(__('New user registration on your site %s:', 'themed-login'), $blogname) . "\r\n\r\n";
+				$message .= sprintf(__('Username: %s', 'themed-login'), $user->user_login) . "\r\n\r\n";
+				$message .= sprintf(__('E-mail: %s', 'themed-login'), $user->user_email) . "\r\n";
 
-				$title    = sprintf(__('[%s] New User Registration', 'simple-themed-login'), $blogname);
+				$title    = sprintf(__('[%s] New User Registration', 'themed-login'), $blogname);
 
 				$title    = apply_filters('new_user_admin_notification_title', $title, $user_id);
 				$message  = apply_filters('new_user_admin_notification_message', $message, $user_id);
@@ -744,13 +744,13 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 			$wpdb->update($wpdb->users, ['user_activation_key' => $hashed], ['user_login' => $user->user_login]);
 
 			if (apply_filters('send_new_user_notification', true)) {
-				$message  = sprintf(__('Username: %s', 'simple-themed-login'), $user->user_login) . "\r\n\r\n";
-				$message .= __('To set your password, visit the following address:', 'simple-themed-login') . "\r\n\r\n";
+				$message  = sprintf(__('Username: %s', 'themed-login'), $user->user_login) . "\r\n\r\n";
+				$message .= __('To set your password, visit the following address:', 'themed-login') . "\r\n\r\n";
 				$message .= '<' . network_site_url("wp-login.php?action=rp&key=${key}&login=" . rawurlencode($user->user_login), 'login') . ">\r\n\r\n";
 
 				$message .= wp_login_url() . "\r\n";
 
-				$title = sprintf(__('[%s] Your username and password info', 'simple-themed-login'), $blogname);
+				$title = sprintf(__('[%s] Your username and password info', 'themed-login'), $blogname);
 
 				$title   = apply_filters('new_user_notification_title', $title, $user_id);
 				$message = apply_filters('new_user_notification_message', $message, $key, $user_id);
@@ -773,8 +773,8 @@ if (!class_exists('Theme_My_Login_Custom_Email')) {
 				// we want to reverse this for the plain text arena of emails.
 				$blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
 
-				$title   = sprintf(__('[%s] Password Lost/Changed', 'simple-themed-login'), $blogname);
-				$message = sprintf(__('Password Lost and Changed for user: %s', 'simple-themed-login'), $user->user_login) . "\r\n";
+				$title   = sprintf(__('[%s] Password Lost/Changed', 'themed-login'), $blogname);
+				$message = sprintf(__('Password Lost and Changed for user: %s', 'themed-login'), $user->user_login) . "\r\n";
 
 				$title   = apply_filters('password_change_notification_title', $title, $user->ID);
 				$message = apply_filters('password_change_notification_message', $message, $user->ID);

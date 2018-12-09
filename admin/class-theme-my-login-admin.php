@@ -174,7 +174,7 @@ if (!class_exists('Theme_My_Login_Admin')) {
 			<input name="theme_my_login[enable_css]" type="checkbox" id="theme_my_login_enable_css"
 				value="1"<?php checked(1, $this->get_option('enable_css')); ?>>
 			<label
-				for="theme_my_login_enable_css"><?php _e('Enable "theme-my-login.css"', 'themed-login'); ?></label>
+				for="theme_my_login_enable_css"><?php _e('Enable this plugin&rsquos CSS', 'themed-login'); ?></label>
 			<p class="description"><?php _e('In order to keep changes between upgrades, you can store your customized "theme-my-login.css" in your current theme directory.', 'themed-login'); ?></p>
 			<?php
 		}
@@ -297,17 +297,19 @@ if (!class_exists('Theme_My_Login_Admin')) {
 		 * Wrapper for multisite uninstallation
 		 */
 		public static function uninstall() {
+			// Require plugin.php for the get_plugins and plugin_basename functions used in _uninstall.
+			require_once(ABSPATH . 'wp-admin/includes/plugin.php');
+
 			global $wpdb;
-			if (is_multisite()) {
-				if (isset($_GET['networkwide']) && ($_GET['networkwide'] == 1)) {
-					$blogids = $wpdb->get_col("SELECT blog_id FROM {$wpdb->blogs}");
-					foreach ($blogids as $blog_id) {
-						switch_to_blog($blog_id);
-						self::_uninstall();
-					}
-					restore_current_blog();
-					return;
+
+			if (is_multisite() && isset($_GET['networkwide']) && $_GET['networkwide'] == 1) {
+				$blogIDs = $wpdb->get_col("SELECT blog_id FROM {$wpdb->blogs}");
+				foreach ($blogIDs as $id) {
+					switch_to_blog($id);
+					self::_uninstall();
 				}
+				restore_current_blog();
+				return;
 			}
 			self::_uninstall();
 		}
@@ -330,8 +332,6 @@ if (!class_exists('Theme_My_Login_Admin')) {
 		}
 
 		protected static function _uninstall() {
-			require_once(ABSPATH . 'wp-admin/includes/plugin.php');
-
 			// Run module uninstall hooks
 			$modules = get_plugins(sprintf('/%s/modules', plugin_basename(THEMED_LOGIN_DIR)));
 			foreach (array_keys($modules) as $module) {

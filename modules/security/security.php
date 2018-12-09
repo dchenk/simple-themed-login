@@ -112,11 +112,11 @@ if (! class_exists('Theme_My_Login_Security')) {
 		 *
 		 * Callback for "tml_request" hook in Theme_My_Login::the_request()
 		 *
-		 * @param object $theme_my_login Reference to global $theme_my_login object
+		 * @param Theme_My_Login $tml object Reference to the global object
 		 */
-		public function action_messages(&$theme_my_login) {
+		public function action_messages(&$tml) {
 			if (isset($_GET['unlock']) && 'complete' == $_GET['unlock']) {
-				$theme_my_login->errors->add('unlock_complete', __('Your account has been unlocked. You may now log in.', 'themed-login'), 'message');
+				$tml->errors->add('unlock_complete', __('Your account has been unlocked. You may now log in.', 'themed-login'), 'message');
 			}
 		}
 

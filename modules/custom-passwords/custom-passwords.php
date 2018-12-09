@@ -62,11 +62,11 @@ class Theme_My_Login_Custom_Passwords extends Theme_My_Login_Abstract {
 		$template = Theme_My_Login::get_object()->get_current_instance();
 		?>
 		<p class="tml-user-pass1-wrap">
-			<label for="pass1<?php $template->the_instance(); ?>"><?php _e( 'Password', 'simple-themed-login' ); ?></label>
+			<label for="pass1<?php $template->the_instance(); ?>"><?php _e( 'Password', 'themed-login' ); ?></label>
 			<input autocomplete="off" name="pass1" id="pass1<?php $template->the_instance(); ?>" class="input" size="20" value="" type="password">
 		</p>
 		<p class="tml-user-pass2-wrap">
-			<label for="pass2<?php $template->the_instance(); ?>"><?php _e( 'Confirm Password', 'simple-themed-login' ); ?></label>
+			<label for="pass2<?php $template->the_instance(); ?>"><?php _e( 'Confirm Password', 'themed-login' ); ?></label>
 			<input autocomplete="off" name="pass2" id="pass2<?php $template->the_instance(); ?>" class="input" size="20" value="" type="password">
 		</p>
 		<?php
@@ -92,16 +92,16 @@ class Theme_My_Login_Custom_Passwords extends Theme_My_Login_Abstract {
 				$errors[] = $theme_my_login->errors->get_error_message( $code );
 		}
 		?>
-		<label for="pass1<?php $template->the_instance(); ?>"><?php _e( 'Password:', 'simple-themed-login' ); ?></label>
+		<label for="pass1<?php $template->the_instance(); ?>"><?php _e( 'Password:', 'themed-login' ); ?></label>
 		<?php if ( ! empty( $errors ) ) { ?>
 			<p class="error"><?php echo implode( '<br>', $errors ); ?></p>
 		<?php } ?>
 		<input autocomplete="off" name="pass1" id="pass1<?php $template->the_instance(); ?>" class="input" size="20" value="" type="password"><br>
-		<span class="hint"><?php echo apply_filters( 'tml_password_hint', sprintf( __( '(Must be at least %d characters.)', 'simple-themed-login' ), apply_filters( 'tml_minimum_password_length', 6 ) ) ); ?></span>
+		<span class="hint"><?php echo apply_filters( 'tml_password_hint', sprintf( __( '(Must be at least %d characters.)', 'themed-login' ), apply_filters( 'tml_minimum_password_length', 6 ) ) ); ?></span>
 
-		<label for="pass2<?php $template->the_instance(); ?>"><?php _e( 'Confirm Password:', 'simple-themed-login' ); ?></label>
+		<label for="pass2<?php $template->the_instance(); ?>"><?php _e( 'Confirm Password:', 'themed-login' ); ?></label>
 		<input autocomplete="off" name="pass2" id="pass2<?php $template->the_instance(); ?>" class="input" size="20" value="" type="password"><br>
-		<span class="hint"><?php echo apply_filters( 'tml_password_confirm_hint', __( 'Confirm that you\'ve typed your password correctly.', 'simple-themed-login' ) ); ?></span>
+		<span class="hint"><?php echo apply_filters( 'tml_password_confirm_hint', __( 'Confirm that you\'ve typed your password correctly.', 'themed-login' ) ); ?></span>
 		<?php
 	}
 
@@ -111,7 +111,6 @@ class Theme_My_Login_Custom_Passwords extends Theme_My_Login_Abstract {
 	 * Callback for "signup_hidden_fields" hook in file "ms-signup-blog-form.php", included by Theme_My_Login_Template::display()
 	 *
 	 * @see Theme_My_Login::display()
-	 * @since 6.1
 	 * @access public
 	 */
 	public function ms_hidden_password_field() {
@@ -138,19 +137,19 @@ class Theme_My_Login_Custom_Passwords extends Theme_My_Login_Abstract {
 
 		// Make sure passwords aren't empty
 		if ( empty( $_POST['pass1'] ) || empty( $_POST['pass2'] ) ) {
-			$errors->add( 'empty_password', __( '<strong>ERROR</strong>: Please enter your password twice.', 'simple-themed-login' ) );
+			$errors->add( 'empty_password', __( '<strong>ERROR</strong>: Please enter your password twice.', 'themed-login' ) );
 
 		// Make sure there's no "\" in the password
 		} elseif ( false !== strpos( stripslashes( $_POST['pass1'] ), "\\" ) ) {
-			$errors->add( 'password_backslash', __( '<strong>ERROR</strong>: Passwords may not contain the character "\\".', 'simple-themed-login' ) );
+			$errors->add( 'password_backslash', __( '<strong>ERROR</strong>: Passwords may not contain the character "\\".', 'themed-login' ) );
 
 		// Make sure passwords match
 		} elseif ( $_POST['pass1'] != $_POST['pass2'] ) {
-			$errors->add( 'password_mismatch', __( '<strong>ERROR</strong>: Please enter the same password in the two password fields.', 'simple-themed-login' ) );
+			$errors->add( 'password_mismatch', __( '<strong>ERROR</strong>: Please enter the same password in the two password fields.', 'themed-login' ) );
 
 		// Make sure password is long enough
 		} elseif ( strlen( $_POST['pass1'] ) < apply_filters( 'tml_minimum_password_length', 6 ) ) {
-			$errors->add( 'password_length', sprintf( __( '<strong>ERROR</strong>: Your password must be at least %d characters in length.', 'simple-themed-login' ), apply_filters( 'tml_minimum_password_length', 6 ) ) );
+			$errors->add( 'password_length', sprintf( __( '<strong>ERROR</strong>: Your password must be at least %d characters in length.', 'themed-login' ), apply_filters( 'tml_minimum_password_length', 6 ) ) );
 
 		// All is good, assign password to a friendlier key
 		} else {
@@ -279,7 +278,7 @@ class Theme_My_Login_Custom_Passwords extends Theme_My_Login_Abstract {
 	public function action_messages( &$theme_my_login ) {
 		// Change "Registration complete. Please check your e-mail." to reflect the fact that they already set a password
 		if ( isset( $_GET['registration'] ) && 'complete' == $_GET['registration'] )
-			$theme_my_login->errors->add( 'registration_complete', __( 'Registration complete. You may now log in.', 'simple-themed-login' ), 'message' );
+			$theme_my_login->errors->add( 'registration_complete', __( 'Registration complete. You may now log in.', 'themed-login' ), 'message' );
 	}
 
 	/**
