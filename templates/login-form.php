@@ -25,7 +25,7 @@ if ($stlRecaptcha) {
 	<?php
 }
 ?>
-<div class="tml tml-login" id="theme-my-login<?php $template->the_instance(); ?>">
+<div class="tml tml-login" id="themed-login<?php $template->the_instance(); ?>">
 	<?php
 	$template->the_action_template_message('login');
 	$template->the_errors(); ?>
