@@ -6,6 +6,7 @@
  */
 
 if (!class_exists('Theme_My_Login_Admin')) {
+
 	/**
 	 * Theme My Login Admin class
 	 */
@@ -207,14 +208,14 @@ if (!class_exists('Theme_My_Login_Admin')) {
 
 		/**
 		 * Renders Modules settings field
-		 *
 		 */
 		public function settings_field_modules() {
-			foreach (get_plugins(sprintf('/%s/modules', plugin_basename(SIMPLE_THEMED_LOGIN_PATH))) as $path => $data) {
+			$modules = get_plugins(sprintf('/%s/modules', plugin_basename(THEMED_LOGIN_DIR)));
+			foreach ($modules as $path => $data) {
 				$id = sanitize_key($data['Name']); ?>
 				<input name="theme_my_login[active_modules][]" type="checkbox"
 					id="theme_my_login_active_modules_<?php echo $id; ?>"
-					value="<?php echo $path; ?>"<?php checked(in_array($path, (array)$this->get_option('active_modules'), true)); ?>>
+					value="<?php echo $path; ?>"<?php checked(in_array($path, (array) $this->get_option('active_modules'), true)); ?>>
 				<label
 					for="theme_my_login_active_modules_<?php echo $id; ?>"><?php printf(__('Enable %s', 'simple-themed-login'), $data['Name']); ?></label>
 				<br>
@@ -242,7 +243,7 @@ if (!class_exists('Theme_My_Login_Admin')) {
 			// If we have modules to activate
 			if ($activate = array_diff($settings['active_modules'], $this->get_option('active_modules', []))) {
 				foreach ($activate as $module) {
-					$fp = SIMPLE_THEMED_LOGIN_PATH . '/modules/' . $module;
+					$fp = THEMED_LOGIN_DIR . '/modules/' . $module;
 					if (file_exists($fp)) {
 						include_once($fp);
 					}
@@ -281,7 +282,7 @@ if (!class_exists('Theme_My_Login_Admin')) {
 
 			// Activate modules
 			foreach ($this->get_option('active_modules', []) as $module) {
-				$fp = SIMPLE_THEMED_LOGIN_PATH . '/modules/' . $module;
+				$fp = THEMED_LOGIN_DIR . '/modules/' . $module;
 				if (file_exists($fp)) {
 					include_once($fp);
 				}
@@ -325,18 +326,18 @@ if (!class_exists('Theme_My_Login_Admin')) {
 			add_action('add_meta_boxes', [$this, 'add_meta_boxes']);
 			add_action('save_post', [$this, 'save_action_meta_box']);
 
-			register_uninstall_hook(SIMPLE_THEMED_LOGIN_PATH . '/theme-my-login.php', [$this, 'uninstall']);
+			register_uninstall_hook(THEMED_LOGIN_DIR . '/theme-my-login.php', [$this, 'uninstall']);
 		}
 
 		protected static function _uninstall() {
 			require_once(ABSPATH . 'wp-admin/includes/plugin.php');
 
 			// Run module uninstall hooks
-			$modules = get_plugins(sprintf('/%s/modules', plugin_basename(SIMPLE_THEMED_LOGIN_PATH)));
+			$modules = get_plugins(sprintf('/%s/modules', plugin_basename(THEMED_LOGIN_DIR)));
 			foreach (array_keys($modules) as $module) {
 				$module = plugin_basename(trim($module));
 
-				$filePath = SIMPLE_THEMED_LOGIN_PATH . '/modules/' . $module;
+				$filePath = THEMED_LOGIN_DIR . '/modules/' . $module;
 				if (file_exists($filePath)) {
 					@include_once($filePath);
 				}
@@ -362,4 +363,5 @@ if (!class_exists('Theme_My_Login_Admin')) {
 			delete_option('widget_theme-my-login');
 		}
 	}
+
 }

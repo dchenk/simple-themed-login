@@ -106,7 +106,7 @@ if (!class_exists('Theme_My_Login')) {
 		 */
 		public function plugins_loaded() {
 			foreach ($this->get_option('active_modules', []) as $module) {
-				$fileName = SIMPLE_THEMED_LOGIN_PATH . '/modules/' . $module;
+				$fileName = THEMED_LOGIN_DIR . '/modules/' . $module;
 				if (file_exists($fileName)) {
 					include_once($fileName);
 				}
@@ -120,7 +120,7 @@ if (!class_exists('Theme_My_Login')) {
 		public function init() {
 			global $pagenow;
 
-			load_plugin_textdomain('simple-themed-login', false, plugin_basename(SIMPLE_THEMED_LOGIN_PATH) . '/languages');
+			load_plugin_textdomain('simple-themed-login', false, plugin_basename(THEMED_LOGIN_DIR) . '/languages');
 
 			$this->errors = new WP_Error();
 

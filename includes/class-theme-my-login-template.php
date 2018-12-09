@@ -427,7 +427,7 @@ class Theme_My_Login_Template extends Theme_My_Login_Abstract {
 			get_stylesheet_directory(),
 			get_template_directory() . '/theme-my-login',
 			get_template_directory(),
-			SIMPLE_THEMED_LOGIN_PATH . '/templates'
+			THEMED_LOGIN_DIR . '/templates'
 		) );
 
 		$located = '';
