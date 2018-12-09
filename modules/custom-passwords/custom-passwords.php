@@ -55,11 +55,11 @@ class ThemedLogin_Custom_Passwords extends ThemedLogin_Abstract {
 	 * Callback for "register_form" hook in file "register-form.php", included by ThemedLogin_Template::display()
 	 *
 	 * @see ThemedLogin::display()
-	 * @since 6.0
 	 * @access public
 	 */
 	public function password_fields() {
-		$template = ThemedLogin::get_object()->get_current_instance();
+		global $themedLoginInstance;
+		$template = $themedLoginInstance->current_instance;
 		?>
 		<p class="tml-user-pass1-wrap">
 			<label for="pass1<?php $template->the_instance(); ?>"><?php _e( 'Password', 'themed-login' ); ?></label>
@@ -78,13 +78,12 @@ class ThemedLogin_Custom_Passwords extends ThemedLogin_Abstract {
 	 * Callback for "signup_extra_fields" hook in file "ms-signup-user-form.php", included by ThemedLogin_Template::display()
 	 *
 	 * @see ThemedLogin::display()
-	 * @since 6.1
 	 * @access public
 	 */
 	public function ms_password_fields() {
 		global $themedLoginInstance;
 
-		$template = $themedLoginInstance->get_active_instance();
+		$template = $themedLoginInstance->request_instance;
 
 		$errors = array();
 		foreach ( $themedLoginInstance->errors->get_error_codes() as $code ) {

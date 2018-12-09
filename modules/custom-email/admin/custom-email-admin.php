@@ -25,17 +25,6 @@ if (!class_exists('ThemedLogin_Custom_Email_Admin')) {
 		}
 
 		/**
-		 * Uninstalls the module
-		 *
-		 * Callback for "tml_uninstall_custom-email/custom-email.php" hook in method ThemedLogin_Admin::uninstall()
-		 *
-		 * @see ThemedLogin_Admin::uninstall()
-		 */
-		public function uninstall() {
-			delete_option($this->options_key);
-		}
-
-		/**
 		 * Adds "E-mail" to the Themed Login menu
 		 *
 		 * Callback for "admin_menu" hook
@@ -519,6 +508,17 @@ if (!class_exists('ThemedLogin_Custom_Email_Admin')) {
 			}
 
 			return ThemedLogin_Common::array_merge_recursive($this->get_options(), $settings);
+		}
+
+		/**
+		 * Uninstalls the module
+		 *
+		 * Callback for "tml_uninstall_custom-email/custom-email.php" hook in method ThemedLogin_Admin::uninstall()
+		 *
+		 * @see ThemedLogin_Admin::uninstall()
+		 */
+		public function uninstall() {
+			delete_option($this->options_key);
 		}
 
 		/**

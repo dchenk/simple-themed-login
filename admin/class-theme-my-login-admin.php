@@ -294,7 +294,7 @@ if (!class_exists('ThemedLogin_Admin')) {
 		}
 
 		/**
-		 * Wrapper for multisite uninstallation
+		 * Wrapper for uninstalling, including for multisite.
 		 */
 		public static function uninstall() {
 			// Require plugin.php for the get_plugins and plugin_basename functions used in _uninstall.
@@ -328,7 +328,7 @@ if (!class_exists('ThemedLogin_Admin')) {
 			add_action('add_meta_boxes', [$this, 'add_meta_boxes']);
 			add_action('save_post', [$this, 'save_action_meta_box']);
 
-			register_uninstall_hook(THEMED_LOGIN_DIR . '/themed-login.php', [$this, 'uninstall']);
+			register_uninstall_hook(THEMED_LOGIN_DIR . '/themed-login.php', 'ThemedLogin_Admin::uninstall');
 		}
 
 		protected static function _uninstall() {

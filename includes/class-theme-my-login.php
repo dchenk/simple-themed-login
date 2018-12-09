@@ -76,7 +76,11 @@ if (!class_exists('ThemedLogin')) {
 		 * @return array Default options
 		 */
 		public static function default_options() {
-			return apply_filters('tml_default_options', [
+			/**
+			 * TODO: make sure this works.
+			 * @see ThemedLogin_Abstract::load_options()
+			 */
+			return apply_filters('themed_login_default_options', [
 				'enable_css' => true,
 				'login_type' => 'default',
 				'active_modules' => [],
@@ -90,7 +94,7 @@ if (!class_exists('ThemedLogin')) {
 		 * @return array Default pages
 		 */
 		public static function default_pages() {
-			return apply_filters('tml_default_pages', [
+			return apply_filters('themed_login_default_pages', [
 				'login' => __('Log In', 'themed-login'),
 				'logout' => __('Log Out', 'themed-login'),
 				'register' => __('Register', 'themed-login'),
@@ -1061,45 +1065,6 @@ if (!class_exists('ThemedLogin')) {
 				}
 			}
 			return $stylesheet;
-		}
-
-		/**
-		 * Retrieves active instance object
-		 *
-		 * @return object Instance object
-		 */
-		public function get_active_instance() {
-			return $this->get_instance((int)$this->request_instance);
-		}
-
-		/**
-		 * Get the current instance object
-		 *
-		 * @return object Instance object
-		 */
-		public function get_current_instance() {
-			return $this->get_instance((int)$this->current_instance);
-		}
-
-		/**
-		 * Retrieves a loaded instance object
-		 *
-		 * @param int $id Instance ID
-		 * @return object Instance object
-		 */
-		public function get_instance($id = 0) {
-			if (isset($this->loaded_instances[$id])) {
-				return $this->loaded_instances[$id];
-			}
-		}
-
-		/**
-		 * Sets an instance object
-		 *
-		 * @param object $object Instance object
-		 */
-		public function set_instance($object) {
-			$this->loaded_instances[] = $object;
 		}
 
 		/**

@@ -62,18 +62,6 @@ if (!class_exists('ThemedLogin_Themed_Profiles_Admin')) {
 		}
 
 		/**
-		 * Uninstalls the module
-		 *
-		 * Callback for "tml_uninstall_themed-profiles/themed-profiles.php" hook in method ThemedLogin_Admin::uninstall()
-		 *
-		 * @see ThemedLogin_Admin::uninstall()
-		 * @access public
-		 */
-		public function uninstall() {
-			delete_option($this->options_key);
-		}
-
-		/**
 		 * Adds "Themed Profiles" tab to Themed Login menu
 		 *
 		 * Callback for "admin_menu" hook
@@ -190,6 +178,18 @@ if (!class_exists('ThemedLogin_Themed_Profiles_Admin')) {
 				}
 			}
 			return $settings;
+		}
+
+		/**
+		 * Uninstalls the module
+		 *
+		 * Callback for "tml_uninstall_themed-profiles/themed-profiles.php" hook in method ThemedLogin_Admin::uninstall()
+		 *
+		 * @see ThemedLogin_Admin::uninstall()
+		 * @access public
+		 */
+		public function uninstall() {
+			delete_option($this->options_key);
 		}
 
 		/**
