@@ -186,11 +186,9 @@ class ThemedLogin_Template extends ThemedLogin_Abstract {
 	 * @access public
 	 */
 	public function get_errors() {
-		global $error;
+		global $error, $themedLoginInstance;
 
-		$theme_my_login = ThemedLogin::get_object();
-
-		$wp_error = $theme_my_login->errors;
+		$wp_error = $themedLoginInstance->errors;
 
 		if ( empty( $wp_error ) )
 			$wp_error = new WP_Error();
@@ -411,9 +409,6 @@ class ThemedLogin_Template extends ThemedLogin_Abstract {
 	 * @return string|bool Template path if found, false if not
 	 */
 	public function get_template( $template_names, $load = true, $args = array() ) {
-
-		$theme_my_login = ThemedLogin::get_object();
-
 		// User friendly access to this
 		$template = $this;
 
@@ -423,9 +418,9 @@ class ThemedLogin_Template extends ThemedLogin_Abstract {
 		extract( apply_filters_ref_array( 'tml_template_args', array( $args, $this ) ) );
 
 		$template_paths = apply_filters( 'tml_template_paths', array(
-			get_stylesheet_directory() . '/theme-my-login',
+			get_stylesheet_directory() . '/themed-login',
 			get_stylesheet_directory(),
-			get_template_directory() . '/theme-my-login',
+			get_template_directory() . '/themed-login',
 			get_template_directory(),
 			THEMED_LOGIN_DIR . '/templates'
 		) );
@@ -462,9 +457,6 @@ class ThemedLogin_Template extends ThemedLogin_Abstract {
 	 * @return string The redirect URL
 	 */
 	public function get_redirect_url( $action = '' ) {
-
-		$theme_my_login = ThemedLogin::get_object();
-
 		if ( empty( $action ) )
 			$action = $this->get_option( 'default_action' );
 
@@ -541,4 +533,4 @@ class ThemedLogin_Template extends ThemedLogin_Abstract {
 		$this->is_active = $active;
 	}
 }
-endif; // Class exists
+endif;

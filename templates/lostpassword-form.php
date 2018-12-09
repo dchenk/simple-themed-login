@@ -8,7 +8,7 @@
 	<form name="lostpasswordform" id="lostpasswordform<?php $template->the_instance(); ?>" action="<?php $template->the_action_url( 'lostpassword', 'login_post' ); ?>" method="post">
 		<p class="tml-user-login-wrap">
 			<label for="user_login<?php $template->the_instance(); ?>"><?php
-			if ($theme_my_login->get_option( 'login_type' ) === 'email') {
+			if ($themedLoginInstance->get_option( 'login_type' ) === 'email') {
 				_e( 'E-mail:', 'themed-login' );
 			} else {
 				_e( 'Username or E-mail:', 'themed-login' );

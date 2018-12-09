@@ -6,7 +6,7 @@
 	<?php $template->the_action_template_message( 'register' ); ?>
 	<?php $template->the_errors(); ?>
 	<form name="registerform" id="registerform<?php $template->the_instance(); ?>" action="<?php $template->the_action_url( 'register', 'login_post' ); ?>" method="post">
-		<?php if ( 'email' != $theme_my_login->get_option( 'login_type' ) ) : ?>
+		<?php if ( 'email' != $themedLoginInstance->get_option( 'login_type' ) ) : ?>
 		<p class="tml-user-login-wrap">
 			<label for="user_login<?php $template->the_instance(); ?>"><?php _e( 'Username', 'themed-login' ); ?></label>
 			<input type="text" name="user_login" id="user_login<?php $template->the_instance(); ?>" class="input" value="<?php $template->the_posted_value( 'user_login' ); ?>" size="20">

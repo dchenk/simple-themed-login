@@ -128,10 +128,9 @@ if (!class_exists('ThemedLogin_Themed_Profiles')) {
 		 * @access public
 		 */
 		public function template_redirect() {
-			$theme_my_login = ThemedLogin::get_object();
-
+			global $themedLoginInstance;
 			if (ThemedLogin::is_tml_page()) {
-				switch ($theme_my_login->request_action) {
+				switch ($themedLoginInstance->request_action) {
 				case 'profile':
 					// Redirect to login page if not logged in
 					if (! is_user_logged_in()) {
@@ -148,7 +147,7 @@ if (!class_exists('ThemedLogin_Themed_Profiles')) {
 					if (is_multisite()) {
 						break;
 					}
-						// no break
+					// no break
 				default:
 					// Redirect to profile for any other action if logged in
 					if (is_user_logged_in()) {
@@ -156,7 +155,7 @@ if (!class_exists('ThemedLogin_Themed_Profiles')) {
 						wp_redirect($redirect_to);
 						exit;
 					}
-			}
+				}
 			}
 		}
 

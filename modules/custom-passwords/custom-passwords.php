@@ -82,14 +82,14 @@ class ThemedLogin_Custom_Passwords extends ThemedLogin_Abstract {
 	 * @access public
 	 */
 	public function ms_password_fields() {
-		$theme_my_login = ThemedLogin::get_object();
+		global $themedLoginInstance;
 
-		$template = $theme_my_login->get_active_instance();
+		$template = $themedLoginInstance->get_active_instance();
 
 		$errors = array();
-		foreach ( $theme_my_login->errors->get_error_codes() as $code ) {
+		foreach ( $themedLoginInstance->errors->get_error_codes() as $code ) {
 			if ( in_array( $code, array( 'empty_password', 'password_mismatch', 'password_length' ) ) )
-				$errors[] = $theme_my_login->errors->get_error_message( $code );
+				$errors[] = $themedLoginInstance->errors->get_error_message( $code );
 		}
 		?>
 		<label for="pass1<?php $template->the_instance(); ?>"><?php _e( 'Password:', 'themed-login' ); ?></label>
@@ -273,12 +273,12 @@ class ThemedLogin_Custom_Passwords extends ThemedLogin_Abstract {
 	 * @since 6.0
 	 * @access public
 	 *
-	 * @param object $theme_my_login Reference to global $theme_my_login object
+	 * @param object $themedLogin Reference to global ThemedLogin object
 	 */
-	public function action_messages( &$theme_my_login ) {
+	public function action_messages(&$themedLogin) {
 		// Change "Registration complete. Please check your e-mail." to reflect the fact that they already set a password
 		if ( isset( $_GET['registration'] ) && 'complete' == $_GET['registration'] )
-			$theme_my_login->errors->add( 'registration_complete', __( 'Registration complete. You may now log in.', 'themed-login' ), 'message' );
+			$themedLogin->errors->add( 'registration_complete', __( 'Registration complete. You may now log in.', 'themed-login' ), 'message' );
 	}
 
 	/**
