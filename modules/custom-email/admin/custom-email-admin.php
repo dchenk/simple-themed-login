@@ -73,7 +73,7 @@ if (!class_exists('Theme_My_Login_Custom_Email_Admin')) {
 		 * Callback for "load-settings_page_theme-my-login" hook in file "wp-admin/admin.php"
 		 */
 		public function load_settings_page() {
-			wp_enqueue_script('tml-custom-email-admin', plugins_url('js/custom-email-admin.js', __FILE__), ['postbox']);
+			wp_enqueue_script('tml-custom-email-admin', plugins_url('custom-email-admin.js', __FILE__), ['postbox']);
 		}
 
 		/**
