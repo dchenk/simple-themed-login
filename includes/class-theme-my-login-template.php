@@ -124,7 +124,7 @@ if (!class_exists('ThemedLogin_Template')) {
 							$template[] = $this->get_option('login_template');
 						}
 						$template[] = 'login-form.php';
-				}
+					}
 				}
 				$this->get_template($template);
 			}
@@ -172,7 +172,7 @@ if (!class_exists('ThemedLogin_Template')) {
 					case 'login':
 					default:
 						$title = __('Log In', 'themed-login');
-				}
+					}
 				}
 			}
 			return apply_filters('tml_title', $title, $action);
@@ -369,8 +369,10 @@ if (!class_exists('ThemedLogin_Template')) {
 
 		/**
 		 * Displays user avatar
+		 *
+		 * @param int $size
 		 */
-		public function the_user_avatar($size = '') {
+		public function the_user_avatar($size) {
 			if (empty($size)) {
 				$size = $this->get_option('gravatar_size', 50);
 			}
@@ -413,13 +415,17 @@ if (!class_exists('ThemedLogin_Template')) {
 		 * @param string $after_message Text/HTML to add after the message
 		 */
 		public function the_action_template_message($action = 'login', $before_message = '<p class="message">', $after_message = '</p>') {
-			if ($message = self::get_action_template_message($action)) {
+			$message = self::get_action_template_message($action);
+			if ($message) {
 				echo $before_message . $message . $after_message;
 			}
 		}
 
 		/**
-		 * Locates specified template
+		 * Locates specified template.
+		 * This function applies the filter "themed_login_template_dirs" to the array listing
+		 * the directories in which templates could be found. Further, this function applies
+		 * the "themed_login_template" filter to the string giving the template path.
 		 *
 		 * @param array|string $template_names The template(s) to locate
 		 * @param bool $load If true, the template will be included if found
@@ -435,33 +441,30 @@ if (!class_exists('ThemedLogin_Template')) {
 
 			extract(apply_filters_ref_array('themed_login_template_args', [$args, $this]));
 
-			$template_paths = apply_filters('tml_template_paths', [
-				get_stylesheet_directory() . '/themed-login',
-				get_stylesheet_directory(),
+			// $template_dirs lists the directories in which templates could be found.
+			$template_dirs = apply_filters('themed_login_template_dirs', [
 				get_template_directory() . '/themed-login',
-				get_template_directory(),
 				THEMED_LOGIN_DIR . '/templates',
 			]);
 
 			$located = '';
 			foreach ((array) $template_names as $template_name) {
-				if (! $template_name) {
-					continue;
-				}
-				if (preg_match('/\/|\\\\/', $template_name)) {
-					continue;
-				}
-				foreach ($template_paths as $template_path) {
-					if (file_exists($template_path . '/' . $template_name)) {
-						$located = $template_path . '/' . $template_name;
-						break 2;
+				if ($template_name) {
+					if (preg_match('/\/|\\\\/', $template_name)) {
+						continue;
+					}
+					foreach ($template_dirs as $dir) {
+						if (file_exists($dir . '/' . $template_name)) {
+							$located = $dir . '/' . $template_name;
+							break 2;
+						}
 					}
 				}
 			}
 
-			$located = apply_filters_ref_array('tml_template', [$located, $template_names, $this]);
+			$located = apply_filters_ref_array('themed_login_template', [$located, $template_names, $this]);
 
-			if ($load && '' != $located) {
+			if ($load && file_exists($located)) {
 				include($located);
 			}
 

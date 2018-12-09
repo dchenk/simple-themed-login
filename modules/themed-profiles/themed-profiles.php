@@ -264,16 +264,16 @@ if (!class_exists('ThemedLogin_Themed_Profiles')) {
 		 * @see ThemedLogin_Template::display()
 		 * @access public
 		 *
-		 * @param object $template Reference to $theme_my_login_template object
+		 * @param ThemedLogin_Template $template Reference to $theme_my_login_template object
 		 */
 		public function tml_display_profile(&$template) {
-			global $current_user, $profileuser, $_wp_admin_css_colors, $wp_version;
+			global $current_user, $profileuser, $_wp_admin_css_colors, $wp_version, $themedLoginInstance;
 
 			require_once(ABSPATH . 'wp-admin/includes/user.php');
 			require_once(ABSPATH . 'wp-admin/includes/misc.php');
 
 			if (isset($_GET['updated']) && 'true' == $_GET['updated']) {
-				ThemedLogin::get_object()->errors->add('profile_updated', __('Profile updated.', 'themed-login'), 'message');
+				$themedLoginInstance->errors->add('profile_updated', __('Profile updated.', 'themed-login'), 'message');
 			}
 
 			$current_user = wp_get_current_user();

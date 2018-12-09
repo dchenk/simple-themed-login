@@ -23,7 +23,7 @@ if (!class_exists('ThemedLogin')) {
 		/**
 		 * Holds errors object
 		 *
-		 * @var object
+		 * @var WP_Error
 		 */
 		public $errors;
 
