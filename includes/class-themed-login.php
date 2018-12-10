@@ -6,12 +6,12 @@
  */
 
 if (!class_exists('ThemedLogin')) {
-	/*
+
+	/**
 	 * Themed Login class
 	 *
 	 * This class contains properties and methods common to the front-end.
 	 */
-
 	class ThemedLogin extends ThemedLogin_Abstract {
 		/**
 		 * Holds plugin version

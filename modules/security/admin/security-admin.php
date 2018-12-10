@@ -267,7 +267,7 @@ if (!class_exists('ThemedLogin_Security_Admin')) {
 		 * Loads the module
 		 */
 		protected function load() {
-			error_log('loading SECURITY_ADMIN  --  ' . $_SERVER['REQUEST_URI']);
+//			error_log('loading SECURITY_ADMIN  --  ' . $_SERVER['REQUEST_URI']);
 
 			add_action('tml_uninstall_security/security.php', [$this, 'uninstall']);
 

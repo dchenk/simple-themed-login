@@ -517,7 +517,7 @@ if (! class_exists('ThemedLogin_Security')) {
 		 * Loads the module
 		 */
 		protected function load() {
-			error_log('loading SECURITY  --  ' . $_SERVER['REQUEST_URI']);
+//			error_log('loading SECURITY  --  ' . $_SERVER['REQUEST_URI']);
 
 			add_action('init', [$this, 'init']);
 			add_action('template_redirect', [$this, 'template_redirect']);
