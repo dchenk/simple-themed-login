@@ -101,37 +101,59 @@ if (!class_exists('ThemedLogin_Widget')) {
 				'login'        => __('Login', 'themed-login'),
 				'register'     => __('Register', 'themed-login'),
 				'lostpassword' => __('Lost Password', 'themed-login'),
-			];
+			]; ?>
 
-			echo '<p>' . __('Default Action', 'themed-login') . '<br><select name="' . $this->get_field_name('default_action') . '" id="' . $this->get_field_id('default_action') . '">';
-			foreach ($actions as $action => $title) {
-				?>
-				<option value="<?php echo $action; ?>"<?php selected($instance['default_action'], $action); ?>><?php echo $title; ?></option><?php
-			}
-			echo '</select></p>';
-
-			$is_checked = (empty($instance['logged_in_widget'])) ? '' : 'checked="checked" ';
-			echo '<p><input name="' . $this->get_field_name('logged_in_widget') . '" type="checkbox" id="' . $this->get_field_id('logged_in_widget') . '" value="1" ' . $is_checked . '/> <label for="' . $this->get_field_id('logged_in_widget') . '">' . __('Show When Logged In', 'themed-login') . '</label></p>';
-
-			$is_checked = (empty($instance['logged_out_widget'])) ? '' : 'checked="checked" ';
-			echo '<p><input name="' . $this->get_field_name('logged_out_widget') . '" type="checkbox" id="' . $this->get_field_id('logged_out_widget') . '" value="1" ' . $is_checked . '/> <label for="' . $this->get_field_id('logged_out_widget') . '">' . __('Show When Logged Out', 'themed-login') . '</label></p>';
-
-			$is_checked = (empty($instance['show_title'])) ? '' : 'checked="checked" ';
-			echo '<p><input name="' . $this->get_field_name('show_title') . '" type="checkbox" id="' . $this->get_field_id('show_title') . '" value="1" ' . $is_checked . '/> <label for="' . $this->get_field_id('show_title') . '">' . __('Show Title', 'themed-login') . '</label></p>';
-
-			$is_checked = (empty($instance['show_log_link'])) ? '' : 'checked="checked" ';
-			echo '<p><input name="' . $this->get_field_name('show_log_link') . '" type="checkbox" id="' . $this->get_field_id('show_log_link') . '" value="1" ' . $is_checked . '/> <label for="' . $this->get_field_id('show_log_link') . '">' . __('Show Login Link', 'themed-login') . '</label></p>';
-
-			$is_checked = (empty($instance['show_reg_link'])) ? '' : 'checked="checked" ';
-			echo '<p><input name="' . $this->get_field_name('show_reg_link') . '" type="checkbox" id="' . $this->get_field_id('show_reg_link') . '" value="1" ' . $is_checked . '/> <label for="' . $this->get_field_id('show_reg_link') . '">' . __('Show Register Link', 'themed-login') . '</label></p>';
-
-			$is_checked = (empty($instance['show_pass_link'])) ? '' : 'checked="checked" ';
-			echo '<p><input name="' . $this->get_field_name('show_pass_link') . '" type="checkbox" id="' . $this->get_field_id('show_pass_link') . '" value="1" ' . $is_checked . '/> <label for="' . $this->get_field_id('show_pass_link') . '">' . __('Show Lost Password Link', 'themed-login') . '</label></p>';
-
-			$is_checked = (empty($instance['show_gravatar'])) ? '' : 'checked="checked" ';
-			echo '<p><input name="' . $this->get_field_name('show_gravatar') . '" type="checkbox" id="' . $this->get_field_id('show_gravatar') . '" value="1" ' . $is_checked . '/> <label for="' . $this->get_field_id('show_gravatar') . '">' . __('Show Gravatar', 'themed-login') . '</label></p>';
-
-			echo '<p>' . __('Gravatar Size', 'themed-login') . ': <input name="' . $this->get_field_name('gravatar_size') . '" type="text" id="' . $this->get_field_id('gravatar_size') . '" value="' . $instance['gravatar_size'] . '" size="3"> <label for="' . $this->get_field_id('gravatar_size') . '"></label></p>';
+			<p>
+				<label for="<?php echo $this->get_field_id('default_action'); ?>"><?php _e('Action', 'themed-login'); ?></label>
+				<select name="<?php echo $this->get_field_name('default_action'); ?>" id="<?php echo $this->get_field_id('default_action'); ?>"><?php
+				foreach ($actions as $action => $title) {
+					?>
+					<option value="<?php echo $action; ?>"<?php selected($instance['default_action'], $action); ?>><?php echo $title; ?></option><?php
+				} ?>
+				</select>
+			</p>
+			<p>
+				<input type="checkbox" name="<?php echo $this->get_field_name('logged_in_widget'); ?>"
+					id="<?php echo $this->get_field_id('logged_in_widget'); ?>" value="1"<?php checked(!empty($instance['logged_in_widget'])); ?>>
+				<label for="<?php echo $this->get_field_id('logged_in_widget'); ?>"><?php _e('Show When Logged In', 'themed-login'); ?></label>
+			</p>
+			<p>
+				<input type="checkbox" name="<?php echo $this->get_field_name('logged_out_widget'); ?>"
+					id="<?php echo $this->get_field_id('logged_out_widget'); ?>" value="1"<?php checked(!empty($instance['logged_out_widget'])); ?>>
+				<label for="<?php echo $this->get_field_id('logged_out_widget'); ?>"><?php _e('Show When Logged Out', 'themed-login'); ?></label>
+			</p>
+			<p>
+				<input type="checkbox" name="<?php echo $this->get_field_name('show_title'); ?>"
+					id="<?php echo $this->get_field_id('show_title'); ?>" value="1"<?php checked(!empty($instance['show_title'])); ?>>
+				<label for="<?php echo $this->get_field_id('show_title'); ?>"><?php _e('Show Title', 'themed-login'); ?></label>
+			</p>
+			<p>
+				<input type="checkbox" name="<?php echo $this->get_field_name('show_log_link'); ?>"
+					id="<?php echo $this->get_field_id('show_log_link'); ?>" value="1"<?php checked(!empty($instance['show_log_link'])); ?>>
+				<label for="<?php echo $this->get_field_id('show_log_link'); ?>"><?php _e('Show Login Link', 'themed-login'); ?></label>
+			</p>
+			<p>
+				<input type="checkbox" name="<?php echo $this->get_field_name('show_reg_link'); ?>"
+					id="<?php echo $this->get_field_id('show_reg_link'); ?>" value="1"<?php checked(!empty($instance['show_reg_link'])); ?>>
+				<label for="<?php echo $this->get_field_id('show_reg_link'); ?>"><?php _e('Show Register Link', 'themed-login'); ?></label>
+			</p>
+			<p>
+				<input type="checkbox" name="<?php echo $this->get_field_name('show_pass_link'); ?>"
+					id="<?php echo $this->get_field_id('show_pass_link'); ?>" value="1"<?php checked(!empty($instance['show_pass_link'])); ?>>
+				<label for="<?php echo $this->get_field_id('show_pass_link'); ?>"><?php _e('Show Lost Password Link', 'themed-login'); ?></label>
+			</p>
+			<p>
+				<input type="checkbox" name="<?php echo $this->get_field_name('show_gravatar'); ?>"
+					id="<?php echo $this->get_field_id('show_gravatar'); ?>" value="1"<?php checked(!empty($instance['show_gravatar'])); ?>>
+				<label for="<?php echo $this->get_field_id('show_gravatar'); ?>"><?php _e('Show Gravatar', 'themed-login'); ?></label>
+			</p>
+			<p>
+				<?php _e('Gravatar Size', 'themed-login'); ?>:
+				<input type="number" name="<?php echo $this->get_field_name('gravatar_size'); ?>"
+					id="<?php echo $this->get_field_id('gravatar_size'); ?>" value="<?php echo $instance['gravatar_size']; ?>" size="3">
+				<label for="<?php echo $this->get_field_id('gravatar_size'); ?>"></label>
+			</p>
+			<?php
 		}
 	}
 
