@@ -234,9 +234,9 @@ if (!class_exists('ThemedLogin')) {
 		public function template_redirect() {
 			global $errors;
 
-			do_action_ref_array('tml_request', [&$this]);
+			do_action_ref_array('themed_login_request', [&$this]);
 
-			// allow plugins to override the default actions, and to add extra actions if they want
+			// Allow plugins to override the default actions and to add extra actions if they want
 			do_action('login_form_' . $this->request_action);
 
 			if (has_action('tml_request_' . $this->request_action)) {
@@ -244,291 +244,292 @@ if (!class_exists('ThemedLogin')) {
 				return;
 			}
 
-			$http_post = $_SERVER['REQUEST_METHOD'] === 'POST';
+			$posting = $_SERVER['REQUEST_METHOD'] === 'POST';
+
 			switch ($this->request_action) {
-				case 'postpass':
-					if (!array_key_exists('post_password', $_POST)) {
-						wp_safe_redirect(wp_get_referer());
-						exit;
-					}
-
-					require_once(ABSPATH . 'wp-includes/class-phpass.php');
-					$hasher = new PasswordHash(8, true);
-
-					$expire = apply_filters('post_password_expires', time() + 10 * DAY_IN_SECONDS);
-					$referer = wp_get_referer();
-					if ($referer) {
-						$secure = ('https' === parse_url($referer, PHP_URL_SCHEME));
-					} else {
-						$secure = false;
-					}
-					setcookie('wp-postpass_' . COOKIEHASH, $hasher->HashPassword(wp_unslash($_POST['post_password'])), $expire, COOKIEPATH, COOKIE_DOMAIN, $secure);
-
+			case 'postpass':
+				if (!array_key_exists('post_password', $_POST)) {
 					wp_safe_redirect(wp_get_referer());
 					exit;
+				}
 
-				case 'logout':
-					check_admin_referer('log-out');
+				require_once(ABSPATH . 'wp-includes/class-phpass.php');
+				$hasher = new PasswordHash(8, true);
 
-					$user = wp_get_current_user();
+				$expire = apply_filters('post_password_expires', time() + 10 * DAY_IN_SECONDS);
+				$referer = wp_get_referer();
+				if ($referer) {
+					$secure = ('https' === parse_url($referer, PHP_URL_SCHEME));
+				} else {
+					$secure = false;
+				}
+				setcookie('wp-postpass_' . COOKIEHASH, $hasher->HashPassword(wp_unslash($_POST['post_password'])), $expire, COOKIEPATH, COOKIE_DOMAIN, $secure, true);
 
-					wp_logout();
+				wp_safe_redirect(wp_get_referer());
+				exit;
 
-					if (!empty($_REQUEST['redirect_to'])) {
-						$redirect_to = $requested_redirect_to = $_REQUEST['redirect_to'];
-					} else {
-						$redirect_to = site_url('wp-login.php?loggedout=true');
-						$requested_redirect_to = '';
-					}
+			case 'logout':
+				check_admin_referer('log-out');
 
-					$redirect_to = apply_filters('logout_redirect', $redirect_to, $requested_redirect_to, $user);
-					wp_safe_redirect($redirect_to);
-					exit;
+				$user = wp_get_current_user();
 
-				case 'lostpassword':
-				case 'retrievepassword':
-					if ($http_post) {
-						$this->errors = self::retrieve_password();
-						if (!is_wp_error($this->errors)) {
-							$redirect_to = !empty($_REQUEST['redirect_to']) ? $_REQUEST['redirect_to'] : site_url('wp-login.php?checkemail=confirm');
-							wp_safe_redirect($redirect_to);
-							exit;
-						}
-					}
+				wp_logout();
 
-					if (isset($_REQUEST['error'])) {
-						if ('invalidkey' == $_REQUEST['error']) {
-							$this->errors->add('invalidkey', __('Your password reset link appears to be invalid. Please request a new link below.', 'themed-login'));
-						} else {
-							if ('expiredkey' == $_REQUEST['error']) {
-								$this->errors->add('expiredkey', __('Your password reset link has expired. Please request a new link below.', 'themed-login'));
-							}
-						}
-					}
+				if (!empty($_REQUEST['redirect_to'])) {
+					$redirect_to = $requested_redirect_to = $_REQUEST['redirect_to'];
+				} else {
+					$redirect_to = site_url('wp-login.php?loggedout=true');
+					$requested_redirect_to = '';
+				}
 
-					do_action('lost_password');
-					break;
-				case 'resetpass':
-				case 'rp':
-					// Dirty hack for now
-					global $rp_login, $rp_key;
+				$redirect_to = apply_filters('logout_redirect', $redirect_to, $requested_redirect_to, $user);
+				wp_safe_redirect($redirect_to);
+				exit;
 
-					$rp_cookie = 'wp-resetpass-' . COOKIEHASH;
-					if (isset($_GET['key'])) {
-						$value = sprintf('%s:%s', wp_unslash($_GET['login']), wp_unslash($_GET['key']));
-						setcookie($rp_cookie, $value, 0, '/', COOKIE_DOMAIN, is_ssl(), true);
-						wp_safe_redirect(remove_query_arg(['key', 'login']));
-						exit;
-					}
-
-					if (isset($_COOKIE[$rp_cookie]) && 0 < strpos($_COOKIE[$rp_cookie], ':')) {
-						list($rp_login, $rp_key) = explode(':', wp_unslash($_COOKIE[$rp_cookie]), 2);
-						$user = check_password_reset_key($rp_key, $rp_login);
-						if (isset($_POST['pass1']) && !hash_equals($rp_key, $_POST['rp_key'])) {
-							$user = false;
-						}
-					} else {
-						$user = false;
-					}
-
-					if (!$user || is_wp_error($user)) {
-						setcookie($rp_cookie, ' ', time() - YEAR_IN_SECONDS, '/', COOKIE_DOMAIN, is_ssl(), true);
-						if ($user && $user->get_error_code() === 'expired_key') {
-							wp_redirect(site_url('wp-login.php?action=lostpassword&error=expiredkey'));
-						} else {
-							wp_redirect(site_url('wp-login.php?action=lostpassword&error=invalidkey'));
-						}
-						exit;
-					}
-
-					if (isset($_POST['pass1']) && $_POST['pass1'] != $_POST['pass2']) {
-						$this->errors->add('password_reset_mismatch', __('The passwords do not match.', 'themed-login'));
-					}
-
-					do_action('validate_password_reset', $this->errors, $user);
-
-					if ((!$this->errors->get_error_code()) && isset($_POST['pass1']) && !empty($_POST['pass1'])) {
-						reset_password($user, $_POST['pass1']);
-						setcookie($rp_cookie, ' ', time() - YEAR_IN_SECONDS, '/', COOKIE_DOMAIN, is_ssl(), true);
-						$redirect_to = site_url('wp-login.php?resetpass=complete');
+			case 'lostpassword':
+			case 'retrievepassword':
+				if ($posting) {
+					$this->errors = self::retrieve_password();
+					if (!is_wp_error($this->errors)) {
+						$redirect_to = !empty($_REQUEST['redirect_to']) ? $_REQUEST['redirect_to'] : site_url('wp-login.php?checkemail=confirm');
 						wp_safe_redirect($redirect_to);
 						exit;
 					}
+				}
 
-					wp_enqueue_script('utils');
-					wp_enqueue_script('user-profile');
-					break;
+				if (isset($_REQUEST['error'])) {
+					if ('invalidkey' == $_REQUEST['error']) {
+						$this->errors->add('invalidkey', __('Your password reset link appears to be invalid. Please request a new link below.', 'themed-login'));
+					} else {
+						if ('expiredkey' == $_REQUEST['error']) {
+							$this->errors->add('expiredkey', __('Your password reset link has expired. Please request a new link below.', 'themed-login'));
+						}
+					}
+				}
 
-				case 'register':
-					if (!get_option('users_can_register')) {
-						$redirect_to = site_url('wp-login.php?registration=disabled');
+				do_action('lost_password');
+				break;
+
+			case 'resetpass':
+			case 'rp':
+				// Dirty hack for now
+				global $rp_login, $rp_key;
+
+				$rp_cookie = 'wp-resetpass-' . COOKIEHASH;
+				if (isset($_GET['key'])) {
+					$value = sprintf('%s:%s', wp_unslash($_GET['login']), wp_unslash($_GET['key']));
+					setcookie($rp_cookie, $value, 0, '/', COOKIE_DOMAIN, is_ssl(), true);
+					wp_safe_redirect(remove_query_arg(['key', 'login']));
+					exit;
+				}
+
+				if (isset($_COOKIE[$rp_cookie]) && 0 < strpos($_COOKIE[$rp_cookie], ':')) {
+					list($rp_login, $rp_key) = explode(':', wp_unslash($_COOKIE[$rp_cookie]), 2);
+					$user = check_password_reset_key($rp_key, $rp_login);
+					if (isset($_POST['pass1']) && !hash_equals($rp_key, $_POST['rp_key'])) {
+						$user = false;
+					}
+				} else {
+					$user = false;
+				}
+
+				if (!$user || is_wp_error($user)) {
+					setcookie($rp_cookie, ' ', time() - YEAR_IN_SECONDS, '/', COOKIE_DOMAIN, is_ssl(), true);
+					if ($user && $user->get_error_code() === 'expired_key') {
+						wp_redirect(site_url('wp-login.php?action=lostpassword&error=expiredkey'));
+					} else {
+						wp_redirect(site_url('wp-login.php?action=lostpassword&error=invalidkey'));
+					}
+					exit;
+				}
+
+				if (isset($_POST['pass1']) && $_POST['pass1'] != $_POST['pass2']) {
+					$this->errors->add('password_reset_mismatch', __('The passwords do not match.', 'themed-login'));
+				}
+
+				do_action('validate_password_reset', $this->errors, $user);
+
+				if ((!$this->errors->get_error_code()) && isset($_POST['pass1']) && !empty($_POST['pass1'])) {
+					reset_password($user, $_POST['pass1']);
+					setcookie($rp_cookie, ' ', time() - YEAR_IN_SECONDS, '/', COOKIE_DOMAIN, is_ssl(), true);
+					$redirect_to = site_url('wp-login.php?resetpass=complete');
+					wp_safe_redirect($redirect_to);
+					exit;
+				}
+
+				wp_enqueue_script('utils');
+				wp_enqueue_script('user-profile');
+				break;
+
+			case 'register':
+				if (!get_option('users_can_register')) {
+					$redirect_to = site_url('wp-login.php?registration=disabled');
+					wp_redirect($redirect_to);
+					exit;
+				}
+
+				if ($posting) {
+					if ($this->get_option('login_type') === 'email') {
+						$user_login = $_POST['user_email'] ?? '';
+					} else {
+						$user_login = $_POST['user_login'] ?? '';
+					}
+					$user_email = $_POST['user_email'] ?? '';
+
+					$this->errors = register_new_user($user_login, $user_email);
+					if (!is_wp_error($this->errors)) {
+						$redirect_to = !empty($_POST['redirect_to']) ? $_POST['redirect_to'] : site_url('wp-login.php?checkemail=registered');
+						wp_safe_redirect($redirect_to);
+						exit;
+					}
+				}
+				break;
+
+			case 'confirmaction':
+				if (!isset($_GET['request_id'])) {
+					wp_die(__('Invalid request.'));
+				}
+
+				$request_id = (int) $_GET['request_id'];
+
+				if (isset($_GET['confirm_key'])) {
+					$key = sanitize_text_field(wp_unslash($_GET['confirm_key']));
+					$result = wp_validate_user_request_key($request_id, $key);
+				} else {
+					$result = new WP_Error('invalid_key', __('Invalid key'));
+				}
+
+				if (is_wp_error($result)) {
+					wp_die($result);
+				}
+
+				do_action('user_request_action_confirmed', $request_id);
+				break;
+
+			case 'login':
+			default:
+				$secure_cookie = true;
+
+				// If the user wants ssl but the session is not ssl, force a secure cookie.
+				if (!empty($_POST['log']) && !force_ssl_admin()) {
+					$user_name = sanitize_user($_POST['log']);
+					$user = get_user_by('login', $user_name);
+					if ($user) {
+						if (get_user_option('use_ssl', $user->ID)) {
+							force_ssl_admin(true);
+						} else {
+							$secure_cookie = false;
+						}
+					}
+				}
+
+				if (!empty($_REQUEST['redirect_to'])) {
+					$redirect_to = $_REQUEST['redirect_to'];
+					// Redirect to https if user wants ssl
+					if ($secure_cookie && false !== strpos($redirect_to, 'wp-admin')) {
+						$redirect_to = preg_replace('|^http://|', 'https://', $redirect_to);
+					}
+				} else {
+					$redirect_to = admin_url();
+				}
+
+				$reauth = !empty($_REQUEST['reauth']);
+
+				if (isset($_POST['log']) || isset($_GET['testcookie'])) {
+					$user = wp_signon([], $secure_cookie);
+
+					$redirect_to = apply_filters('login_redirect', $redirect_to, $_REQUEST['redirect_to'] ?? '', $user);
+
+					if (!is_wp_error($user) && empty($_COOKIE[LOGGED_IN_COOKIE])) {
+						$redirect_to = add_query_arg([
+							'testcookie' => 1,
+							'redirect_to' => $redirect_to,
+						]);
 						wp_redirect($redirect_to);
 						exit;
 					}
 
-					if ($http_post) {
-						if ('email' == $this->get_option('login_type')) {
-							$user_login = $_POST['user_email'] ?? '';
+					if (empty($_COOKIE[LOGGED_IN_COOKIE])) {
+						if (headers_sent()) {
+							// translators: 1: Browser cookie documentation URL, 2: Support forums URL
+							$user = new WP_Error(
+								'test_cookie',
+								sprintf(
+									__('<strong>ERROR</strong>: Cookies are blocked due to unexpected output. For help, please see <a href="%1$s">this documentation</a> or try the <a href="%2$s">support forums</a>.'),
+									__('https://codex.wordpress.org/Cookies'),
+									__('https://wordpress.org/support/')
+								)
+							);
 						} else {
-							$user_login = $_POST['user_login'] ?? '';
-						}
-						$user_email = $_POST['user_email'] ?? '';
-
-						$this->errors = register_new_user($user_login, $user_email);
-						if (!is_wp_error($this->errors)) {
-							$redirect_to = !empty($_POST['redirect_to']) ? $_POST['redirect_to'] : site_url('wp-login.php?checkemail=registered');
-							wp_safe_redirect($redirect_to);
-							exit;
-						}
-					}
-					break;
-
-				case 'confirmaction':
-					if (!isset($_GET['request_id'])) {
-						wp_die(__('Invalid request.'));
-					}
-
-					$request_id = (int)$_GET['request_id'];
-
-					if (isset($_GET['confirm_key'])) {
-						$key = sanitize_text_field(wp_unslash($_GET['confirm_key']));
-						$result = wp_validate_user_request_key($request_id, $key);
-					} else {
-						$result = new WP_Error('invalid_key', __('Invalid key'));
-					}
-
-					if (is_wp_error($result)) {
-						wp_die($result);
-					}
-
-					do_action('user_request_action_confirmed', $request_id);
-					break;
-
-				case 'login':
-				default:
-					$secure_cookie = '';
-					$interim_login = isset($_REQUEST['interim-login']);
-
-					// If the user wants ssl but the session is not ssl, force a secure cookie.
-					if (!empty($_POST['log']) && !force_ssl_admin()) {
-						$user_name = sanitize_user($_POST['log']);
-						$user = get_user_by('login', $user_name);
-						if ($user) {
-							if (get_user_option('use_ssl', $user->ID)) {
-								$secure_cookie = true;
-								force_ssl_admin(true);
-							}
-						}
-					}
-
-					if (!empty($_REQUEST['redirect_to'])) {
-						$redirect_to = $_REQUEST['redirect_to'];
-						// Redirect to https if user wants ssl
-						if ($secure_cookie && false !== strpos($redirect_to, 'wp-admin')) {
-							$redirect_to = preg_replace('|^http://|', 'https://', $redirect_to);
-						}
-					} else {
-						$redirect_to = admin_url();
-					}
-
-					$reauth = !empty($_REQUEST['reauth']);
-
-					if (isset($_POST['log']) || isset($_GET['testcookie'])) {
-						$user = wp_signon([], $secure_cookie);
-
-						$redirect_to = apply_filters('login_redirect', $redirect_to, $_REQUEST['redirect_to'] ?? '', $user);
-
-						if (!is_wp_error($user) && empty($_COOKIE[LOGGED_IN_COOKIE])) {
-							$redirect_to = add_query_arg([
-								'testcookie' => 1,
-								'redirect_to' => $redirect_to,
-							]);
-							wp_redirect($redirect_to);
-							exit;
-						}
-
-						if (empty($_COOKIE[LOGGED_IN_COOKIE])) {
-							if (headers_sent()) {
-								// translators: 1: Browser cookie documentation URL, 2: Support forums URL
+							if (isset($_GET['testcookie'])) {
+								// If cookies are disabled we can't log in even with a valid user+pass
+								// translators: 1: Browser cookie documentation URL
 								$user = new WP_Error(
 									'test_cookie',
 									sprintf(
-										__('<strong>ERROR</strong>: Cookies are blocked due to unexpected output. For help, please see <a href="%1$s">this documentation</a> or try the <a href="%2$s">support forums</a>.'),
-										__('https://codex.wordpress.org/Cookies'),
-										__('https://wordpress.org/support/')
+										__('<strong>ERROR</strong>: Cookies are blocked or not supported by your browser. You must <a href="%s">enable cookies</a> to use WordPress.'),
+										__('https://codex.wordpress.org/Cookies')
 									)
 								);
-							} else {
-								if (isset($_GET['testcookie'])) {
-									// If cookies are disabled we can't log in even with a valid user+pass
-									// translators: 1: Browser cookie documentation URL
-									$user = new WP_Error(
-										'test_cookie',
-										sprintf(
-											__('<strong>ERROR</strong>: Cookies are blocked or not supported by your browser. You must <a href="%s">enable cookies</a> to use WordPress.'),
-											__('https://codex.wordpress.org/Cookies')
-										)
-									);
-								}
 							}
-						} else {
-							$user = wp_get_current_user();
 						}
+					} else {
+						$user = wp_get_current_user();
+					}
 
-						if (!is_wp_error($user) && !$reauth) {
-							if ((empty($redirect_to) || $redirect_to == 'wp-admin/' || $redirect_to == admin_url())) {
-								// If the user doesn't belong to a blog, send them to user admin. If the user can't edit posts, send them to their profile.
-								if (is_multisite() && !get_active_blog_for_user($user->ID) && !is_super_admin($user->ID)) {
-									$redirect_to = user_admin_url();
+					if (!is_wp_error($user) && !$reauth) {
+						if (empty($redirect_to) || $redirect_to == 'wp-admin/' || $redirect_to == admin_url()) {
+							// If the user doesn't belong to a blog, send them to user admin. If the user can't edit posts, send them to their profile.
+							if (is_multisite() && !get_active_blog_for_user($user->ID) && !is_super_admin($user->ID)) {
+								$redirect_to = user_admin_url();
+							} else {
+								if (is_multisite() && !$user->has_cap('read')) {
+									$redirect_to = get_dashboard_url($user->ID);
 								} else {
-									if (is_multisite() && !$user->has_cap('read')) {
-										$redirect_to = get_dashboard_url($user->ID);
-									} else {
-										if (!$user->has_cap('edit_posts')) {
-											$redirect_to = $user->has_cap('read') ? admin_url('profile.php') : home_url();
-										}
+									if (!$user->has_cap('edit_posts')) {
+										$redirect_to = $user->has_cap('read') ? admin_url('profile.php') : home_url();
 									}
 								}
 							}
-							wp_safe_redirect($redirect_to);
-							exit;
 						}
-
-						$this->errors = $user;
+						wp_safe_redirect($redirect_to);
+						exit;
 					}
 
-					// Clear errors if loggedout is set.
-					if (!empty($_GET['loggedout']) || $reauth) {
-						$this->errors = new WP_Error();
-					}
+					$this->errors = $user;
+				}
 
-					if ($interim_login) {
-						if (!$this->errors->get_error_code()) {
-							$errors->add('expired', __('Your session has expired. Please log in to continue where you left off.', 'themed-login'), 'message');
-						}
+				// Clear errors if loggedout is set.
+				if (!empty($_GET['loggedout']) || $reauth) {
+					$this->errors = new WP_Error();
+				}
+
+				if (isset($_REQUEST['interim-login'])) {
+					if (!$this->errors->get_error_code()) {
+						$errors->add('expired', __('Your session has expired. Please log in to continue where you left off.', 'themed-login'), 'message');
+					}
+				} else {
+					// Some parts of this script use the main login form to display a message
+					if (isset($_GET['loggedout']) && true == $_GET['loggedout']) {
+						$this->errors->add('loggedout', __('You are now logged out.', 'themed-login'), 'message');
 					} else {
-						// Some parts of this script use the main login form to display a message
-						if (isset($_GET['loggedout']) && true == $_GET['loggedout']) {
-							$this->errors->add('loggedout', __('You are now logged out.', 'themed-login'), 'message');
+						if (isset($_GET['registration']) && 'disabled' == $_GET['registration']) {
+							$this->errors->add('registerdisabled', __('User registration is currently not allowed.', 'themed-login'));
 						} else {
-							if (isset($_GET['registration']) && 'disabled' == $_GET['registration']) {
-								$this->errors->add('registerdisabled', __('User registration is currently not allowed.', 'themed-login'));
+							if (isset($_GET['checkemail']) && 'confirm' == $_GET['checkemail']) {
+								$this->errors->add('confirm', __('Check your email for the confirmation link.', 'themed-login'), 'message');
 							} else {
-								if (isset($_GET['checkemail']) && 'confirm' == $_GET['checkemail']) {
-									$this->errors->add('confirm', __('Check your email for the confirmation link.', 'themed-login'), 'message');
+								if (isset($_GET['checkemail']) && 'newpass' == $_GET['checkemail']) {
+									$this->errors->add('newpass', __('Check your email for your new password.', 'themed-login'), 'message');
 								} else {
-									if (isset($_GET['checkemail']) && 'newpass' == $_GET['checkemail']) {
-										$this->errors->add('newpass', __('Check your email for your new password.', 'themed-login'), 'message');
+									if (isset($_GET['resetpass']) && 'complete' == $_GET['resetpass']) {
+										$this->errors->add('password_reset', __('Your password has been reset.', 'themed-login'), 'message');
 									} else {
-										if (isset($_GET['resetpass']) && 'complete' == $_GET['resetpass']) {
-											$this->errors->add('password_reset', __('Your password has been reset.', 'themed-login'), 'message');
+										if (isset($_GET['checkemail']) && 'registered' == $_GET['checkemail']) {
+											$this->errors->add('registered', __('Registration complete. Please check your email.', 'themed-login'), 'message');
 										} else {
-											if (isset($_GET['checkemail']) && 'registered' == $_GET['checkemail']) {
-												$this->errors->add('registered', __('Registration complete. Please check your email.', 'themed-login'), 'message');
-											} else {
-												if (strpos($redirect_to, 'about.php?updated')) {
-													$this->errors->add('updated', __('<strong>You have successfully updated WordPress!</strong> Please log back in to see what&#8217;s new.', 'themed-login'), 'message');
-												}
+											if (strpos($redirect_to, 'about.php?updated')) {
+												$this->errors->add('updated', __('<strong>You have successfully updated WordPress!</strong> Please log back in to see what&#8217;s new.', 'themed-login'), 'message');
 											}
 										}
 									}
@@ -536,11 +537,15 @@ if (!class_exists('ThemedLogin')) {
 							}
 						}
 					}
+				}
 
-					// Clear any stale cookies.
-					if ($reauth) {
-						wp_clear_auth_cookie();
-					}
+			error_log('GOT THIS FAR ============================================================');
+			error_log('$this->errors->errors: ' . print_r($this->errors->errors, true));
+
+				// Clear any stale cookies.
+				if ($reauth) {
+					wp_clear_auth_cookie();
+				}
 			}
 		}
 

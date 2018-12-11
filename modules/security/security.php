@@ -73,9 +73,9 @@ if (!class_exists('ThemedLogin_Security')) {
 		/**
 		 * Handles "unlock" action for login page
 		 *
-		 * Callback for "tml_request_activate" hook in method ThemedLogin::the_request();
+		 * Callback for "tml_request_unlock" hook in method ThemedLogin::template_redirect()
 		 *
-		 * @see ThemedLogin::the_request();
+		 * @see ThemedLogin::template_redirect()
 		 */
 		public function request_unlock() {
 			$user = self::check_user_unlock_key($_GET['key'], $_GET['login']);
@@ -148,14 +148,16 @@ if (!class_exists('ThemedLogin_Security')) {
 		public function authenticate($user, $username, $password) {
 			// Make sure user exists
 			$field = is_email($username) ? 'email' : 'login';
-			if (! $userdata = get_user_by($field, $username)) {
+			$userdata = get_user_by($field, $username);
+			if (!$userdata) {
 				return $user;
 			}
-			// Current time
+
 			$time = time();
 
 			if (self::is_user_locked($userdata->ID)) {
-				if ($expiration = self::get_user_lock_expiration($userdata->ID)) {
+				$expiration = self::get_user_lock_expiration($userdata->ID);
+				if ($expiration) {
 					if ($time > $expiration) {
 						self::unlock_user($userdata->ID);
 					} else {
@@ -510,7 +512,7 @@ if (!class_exists('ThemedLogin_Security')) {
 			add_action('init', [$this, 'init']);
 			add_action('template_redirect', [$this, 'template_redirect']);
 			add_action('tml_request_unlock', [$this, 'request_unlock']);
-			add_action('tml_request', [$this, 'action_messages']);
+			add_action('themed_login_request', [$this, 'action_messages']);
 
 			add_action('authenticate', [$this, 'authenticate'], 100, 3);
 			add_filter('allow_password_reset', [$this, 'allow_password_reset'], 10, 2);

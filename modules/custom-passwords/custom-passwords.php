@@ -284,7 +284,7 @@ if (!class_exists('ThemedLogin_Custom_Passwords')) {
 			add_action('approve_user', [$this, 'remove_default_password_nag']);
 
 			add_filter('themed_login_register_passmail_template_message', [$this, 'register_passmail_template_message']);
-			add_action('tml_request', [$this, 'action_messages']);
+			add_action('themed_login_request', [$this, 'action_messages']);
 
 			add_filter('registration_redirect', [$this, 'registration_redirect']);
 		}
