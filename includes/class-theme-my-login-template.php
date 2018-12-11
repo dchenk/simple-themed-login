@@ -79,10 +79,12 @@ if (!class_exists('ThemedLogin_Template')) {
 			}
 
 			ob_start();
+
 			echo $this->get_option('before_widget');
 			if ($this->get_option('show_title')) {
 				echo $this->get_option('before_title') . $this->get_title($action) . $this->get_option('after_title') . "\n";
 			}
+
 			// Is there a specified template?
 			if (has_action('tml_display_' . $action)) {
 				do_action_ref_array('tml_display_' . $action, [&$this]);
@@ -129,8 +131,10 @@ if (!class_exists('ThemedLogin_Template')) {
 				$this->get_template($template);
 			}
 			echo $this->get_option('after_widget') . "\n";
+
 			$output = ob_get_contents();
 			ob_end_clean();
+
 			return apply_filters_ref_array('tml_display', [$output, $action, $this]);
 		}
 
@@ -143,17 +147,19 @@ if (!class_exists('ThemedLogin_Template')) {
 		 * @return string Title of $action
 		 */
 		public function get_title($action = '') {
+			if (is_admin()) {
+				return '';
+			}
+
 			if (empty($action)) {
 				$action = $this->get_option('default_action');
 			}
 
-			if (is_admin()) {
-				return;
-			}
-			if (is_user_logged_in() && 'login' == $action && $action == $this->get_option('default_action')) {
+			if (is_user_logged_in() && $action === 'login' && $action == $this->get_option('default_action')) {
 				$title = sprintf(__('Welcome, %s', 'themed-login'), wp_get_current_user()->display_name);
 			} else {
-				if ($page_id = ThemedLogin::get_page_id($action)) {
+				$page_id = ThemedLogin::get_page_id($action);
+				if ($page_id) {
 					$title = get_post_field('post_title', $page_id);
 				} else {
 					switch ($action) {
@@ -175,7 +181,8 @@ if (!class_exists('ThemedLogin_Template')) {
 					}
 				}
 			}
-			return apply_filters('tml_title', $title, $action);
+
+			return apply_filters('themed_login_title', $title, $action);
 		}
 
 		/**
@@ -183,7 +190,7 @@ if (!class_exists('ThemedLogin_Template')) {
 		 *
 		 * @access public
 		 *
-		 * @param string $action The action to retieve. Defaults to current action.
+		 * @param string $action The action to retrieve. Defaults to current action.
 		 */
 		public function the_title($action = '') {
 			echo $this->get_title($action);
@@ -289,7 +296,7 @@ if (!class_exists('ThemedLogin_Template')) {
 		 * @param array|string $args Optionally specify which actions to include/exclude. By default, all are included.
 		 * @return array
 		 */
-		public function get_action_links($args = '') {
+		public function get_action_links($args = []) {
 			$args = wp_parse_args($args, [
 				'login'        => true,
 				'register'     => true,
@@ -315,7 +322,7 @@ if (!class_exists('ThemedLogin_Template')) {
 					'url'   => $this->get_action_url('lostpassword'),
 				];
 			}
-			return apply_filters('tml_action_links', $action_links, $args);
+			return apply_filters('themed_login_action_links', $action_links, $args);
 		}
 
 		/**
@@ -325,7 +332,7 @@ if (!class_exists('ThemedLogin_Template')) {
 		 *
 		 * @param array|string $args Optionally specify which actions to include/exclude. By default, all are included.
 		 */
-		public function the_action_links($args = '') {
+		public function the_action_links($args = []) {
 			$links = $this->get_action_links($args);
 			if ($links) {
 				echo '<ul class="tml-action-links">';
@@ -391,20 +398,20 @@ if (!class_exists('ThemedLogin_Template')) {
 		public static function get_action_template_message($action = '') {
 			switch ($action) {
 			case 'register':
-				$message = __('Register For This Site', 'themed-login');
+				$message = __('Register for this site', 'themed-login');
 				break;
 			case 'lostpassword':
-				$message = __('Please enter your username or email address. You will receive a link to create a new password via email.', 'themed-login');
+				$message = __('Please enter your username or email address. You will receive a link via email to create a new password.', 'themed-login');
 				break;
 			case 'resetpass':
 				$message = __('Enter your new password below.', 'themed-login');
 				break;
 			default:
 				$message = '';
-		}
+			}
 			$message = apply_filters('login_message', $message);
 
-			return apply_filters('tml_action_template_message', $message, $action);
+			return apply_filters("themed_login_action_template_message_${action}", $message);
 		}
 
 		/**

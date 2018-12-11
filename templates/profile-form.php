@@ -1,6 +1,9 @@
 <?php
 // If you would like to edit this file, copy it to your current theme's directory and edit it there.
 // This plugin will always look in your theme's directory first, before using this default template.
+
+global $themedLoginInstance;
+
 ?>
 <div class="tml tml-profile" id="themed-login<?php $template->the_instance(); ?>">
 	<?php $template->the_action_template_message( 'profile' ); ?>

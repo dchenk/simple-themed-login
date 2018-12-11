@@ -8,7 +8,7 @@
  * @package ThemedLogin
  */
 
-if (! class_exists('ThemedLogin_Security')) {
+if (!class_exists('ThemedLogin_Security')) {
 
 	/**
 	 * Themed Login Security module class
@@ -22,16 +22,6 @@ if (! class_exists('ThemedLogin_Security')) {
 		 * @var string
 		 */
 		protected $options_key = 'theme_my_login_security';
-
-		/**
-		 * Returns singleton instance
-		 *
-		 * @param null|mixed $class
-		 * @return object
-		 */
-		public static function get_object($class = null) {
-			return parent::get_object(__CLASS__);
-		}
 
 		/**
 		 * Returns default options
@@ -57,7 +47,6 @@ if (! class_exists('ThemedLogin_Security')) {
 		 */
 		public function init() {
 			global $pagenow;
-			error_log('SECURITY INIT');
 			if ($pagenow == 'wp-login.php' && $this->get_option('private_login')) {
 				parse_str($_SERVER['QUERY_STRING'], $q);
 				if (empty($q['interim-login']) && empty($_REQUEST['interim-login'])) {
@@ -555,7 +544,6 @@ if (! class_exists('ThemedLogin_Security')) {
 		}
 	}
 
-//	ThemedLogin_Security::get_object();
 	new ThemedLogin_Security();
 
 }

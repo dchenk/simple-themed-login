@@ -25,17 +25,6 @@ if (!class_exists('ThemedLogin_Themed_Profiles')) {
 		protected $options_key = 'theme_my_login_themed_profiles';
 
 		/**
-		 * Returns singleton instance
-		 *
-		 * @access public
-		 * @param null|mixed $class
-		 * @return object
-		 */
-		public static function get_object($class = null) {
-			return parent::get_object(__CLASS__);
-		}
-
-		/**
 		 * Returns default options
 		 *
 		 * @access public
@@ -245,7 +234,7 @@ if (!class_exists('ThemedLogin_Themed_Profiles')) {
 
 				if (! is_wp_error($errors)) {
 					$args = ['updated' => 'true'];
-					if (! empty($_REQUEST['instance'])) {
+					if (!empty($_REQUEST['instance'])) {
 						$args['instance'] = $_REQUEST['instance'];
 					}
 					$redirect = add_query_arg($args);

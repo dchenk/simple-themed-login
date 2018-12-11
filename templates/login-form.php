@@ -6,7 +6,7 @@
 // and contain just the key string.
 $recapKey = '{not found}';
 $recapKeyPath = ABSPATH . 'recaptcha-key.txt';
-$stlRecaptcha = defined('STL_RECAPTCHA') && STL_RECAPTCHA;
+$stlRecaptcha = defined('THEMED_LOGIN_RECAPTCHA') && THEMED_LOGIN_RECAPTCHA;
 if ($stlRecaptcha) {
 	if (file_exists($recapKeyPath)) {
 		$recapKey = file_get_contents($recapKeyPath);
@@ -24,6 +24,9 @@ if ($stlRecaptcha) {
 	</script>
 	<?php
 }
+
+global $themedLoginInstance;
+
 ?>
 <div class="tml tml-login" id="themed-login<?php $template->the_instance(); ?>">
 	<?php
@@ -32,12 +35,15 @@ if ($stlRecaptcha) {
 	<form name="loginform" id="loginform<?php $template->the_instance(); ?>" action="<?php $template->the_action_url('login', 'login_post'); ?>" method="post">
 		<p class="tml-user-login-wrap">
 			<label for="user_login<?php $template->the_instance(); ?>"><?php
-				if ('username' == $themedLoginInstance->get_option('login_type')) {
+				switch ($themedLoginInstance->get_option('login_type')) {
+				case 'username':
 					_e('Username', 'themed-login');
-				} elseif ('email' == $themedLoginInstance->get_option('login_type')) {
-					_e('E-mail', 'themed-login');
-				} else {
-					_e('Username or E-mail', 'themed-login');
+					break;
+				case 'email':
+					_e('Email', 'themed-login');
+					break;
+				default:
+					_e('Username or Email', 'themed-login');
 				}
 			?></label>
 			<input type="text" name="log" id="user_login<?php $template->the_instance(); ?>" class="input" value="<?php $template->the_posted_value('log'); ?>" size="20">

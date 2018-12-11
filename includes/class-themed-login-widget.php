@@ -12,11 +12,11 @@ if (!class_exists('ThemedLogin_Widget')) {
 	 */
 	class ThemedLogin_Widget extends WP_Widget {
 		public function __construct() {
-			$widget_options = [
-				'classname'   => 'widget_theme_my_login',
-				'description' => __('A login form for your blog.', 'themed-login'),
+			$options = [
+				'classname'   => 'widget_themed_login',
+				'description' => __('A login form for your site.', 'themed-login'),
 			];
-			parent::__construct('simple-themed-login', __('Simple Themed Login', 'themed-login'), $widget_options);
+			parent::__construct('themed-login', __('Themed Login', 'themed-login'), $options);
 		}
 
 		/**
@@ -27,27 +27,30 @@ if (!class_exists('ThemedLogin_Widget')) {
 		 */
 		public function widget($args, $instance) {
 			global $themedLoginInstance;
+//			error_log('args: ' . print_r($instance, true));
 
 			$instance = wp_parse_args($instance, [
-				'default_action'      => 'login',
-				'logged_in_widget'    => true,
-				'logged_out_widget'   => true,
-				'show_title'          => true,
-				'show_log_link'       => true,
-				'show_reg_link'       => true,
-				'show_pass_link'      => true,
-				'show_gravatar'       => true,
-				'gravatar_size'       => 50,
+				'default_action'    => 'login',
+				'logged_in_widget'  => true,
+				'logged_out_widget' => true,
+				'show_title'        => true,
+				'show_log_link'     => true,
+				'show_reg_link'     => true,
+				'show_pass_link'    => true,
+				'show_gravatar'     => true,
+				'gravatar_size'     => 50,
 			]);
 
 			// Show if logged in
 			if (is_user_logged_in() && !$instance['logged_in_widget']) {
 				return;
 			}
+
 			// Show if logged out
 			if (!is_user_logged_in() && !$instance['logged_out_widget']) {
 				return;
 			}
+
 			$args = array_merge($args, $instance);
 
 			echo $themedLoginInstance->shortcode($args);

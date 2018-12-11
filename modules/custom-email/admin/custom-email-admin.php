@@ -6,6 +6,7 @@
  */
 
 if (!class_exists('ThemedLogin_Custom_Email_Admin')) {
+
 	/**
 	 * Themed Login Custom E-mail Admin class
 	 */
@@ -32,8 +33,8 @@ if (!class_exists('ThemedLogin_Custom_Email_Admin')) {
 		public function admin_menu() {
 			add_submenu_page(
 				'theme_my_login',
-				__('STL Custom E-mail Settings', 'themed-login'),
-				__('E-mail', 'themed-login'),
+				__('Custom Email Settings', 'themed-login'),
+				__('Email Settings', 'themed-login'),
 				'manage_options',
 				$this->options_key,
 				[$this, 'settings_page']
@@ -72,7 +73,7 @@ if (!class_exists('ThemedLogin_Custom_Email_Admin')) {
 		 */
 		public function settings_page() {
 			ThemedLogin_Admin::settings_page([
-				'title' => __('Login Email Settings', 'themed-login'),
+				'title' => __('Custom Email Settings', 'themed-login'),
 				'options_key' => $this->options_key,
 			]);
 		}

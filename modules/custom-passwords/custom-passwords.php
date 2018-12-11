@@ -19,7 +19,7 @@ if (!class_exists('ThemedLogin_Custom_Passwords')) {
 		/**
 		 * Outputs password fields to registration form
 		 *
-		 * Callback for "register_form" hook in file "register-form.php", included by ThemedLogin_Template::display()
+		 * Callback for "password_fields" hook in file "register-form.php", included by ThemedLogin_Template::display()
 		 *
 		 * @see ThemedLogin::display()
 		 * @access public
@@ -57,19 +57,20 @@ if (!class_exists('ThemedLogin_Custom_Passwords')) {
 					$errors[] = $themedLoginInstance->errors->get_error_message($code);
 				}
 			} ?>
-		<label for="pass1<?php $template->the_instance(); ?>"><?php _e('Password:', 'themed-login'); ?></label>
-		<?php if (! empty($errors)) {
+			<label for="pass1<?php $template->the_instance(); ?>"><?php _e('Password:', 'themed-login'); ?></label>
+			<?php
+			if (!empty($errors)) {
 				?>
-			<p class="error"><?php echo implode('<br>', $errors); ?></p>
-		<?php
+				<p class="error"><?php echo implode('<br>', $errors); ?></p>
+				<?php
 			} ?>
-		<input autocomplete="off" name="pass1" id="pass1<?php $template->the_instance(); ?>" class="input" size="20" value="" type="password"><br>
-		<span class="hint"><?php echo apply_filters('tml_password_hint', sprintf(__('(Must be at least %d characters.)', 'themed-login'), apply_filters('tml_minimum_password_length', 6))); ?></span>
+			<input autocomplete="off" name="pass1" id="pass1<?php $template->the_instance(); ?>" class="input" size="20" value="" type="password"><br>
+			<span class="hint"><?php echo apply_filters('tml_password_hint', sprintf(__('(Must be at least %d characters.)', 'themed-login'), apply_filters('tml_minimum_password_length', 6))); ?></span>
 
-		<label for="pass2<?php $template->the_instance(); ?>"><?php _e('Confirm Password:', 'themed-login'); ?></label>
-		<input autocomplete="off" name="pass2" id="pass2<?php $template->the_instance(); ?>" class="input" size="20" value="" type="password"><br>
-		<span class="hint"><?php echo apply_filters('tml_password_confirm_hint', __('Confirm that you\'ve typed your password correctly.', 'themed-login')); ?></span>
-		<?php
+			<label for="pass2<?php $template->the_instance(); ?>"><?php _e('Confirm Password:', 'themed-login'); ?></label>
+			<input autocomplete="off" name="pass2" id="pass2<?php $template->the_instance(); ?>" class="input" size="20" value="" type="password"><br>
+			<span class="hint"><?php echo apply_filters('tml_password_confirm_hint', __('Confirm that you\'ve typed your password correctly.', 'themed-login')); ?></span>
+			<?php
 		}
 
 		/**

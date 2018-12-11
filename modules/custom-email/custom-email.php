@@ -43,18 +43,7 @@ if (!class_exists('ThemedLogin_Custom_Email')) {
 		protected $mail_content_type;
 
 		/**
-		 * Returns singleton instance
-		 *
-		 * @param null|mixed $class
-		 * @return object
-		 */
-		public static function get_object($class = null) {
-			return parent::get_object(__CLASS__);
-		}
-
-		/**
 		 * Returns default options
-		 *
 		 */
 		public static function default_options() {
 			return [
@@ -823,7 +812,7 @@ if (!class_exists('ThemedLogin_Custom_Email')) {
 		}
 	}
 
-	ThemedLogin_Custom_Email::get_object();
+	new ThemedLogin_Custom_Email();
 
 }
 

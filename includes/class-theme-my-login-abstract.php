@@ -30,19 +30,6 @@ if (!class_exists('ThemedLogin_Abstract')) {
 		}
 
 		/**
-		 * Returns singleton instance
-		 *
-		 * @param string $class Class to instantiate
-		 * @return object Instance of $class
-		 */
-//		public static function get_object($class = null) {
-//			if (!class_exists($class)) {
-//				return null;
-//			}
-//			return new $class;
-//		}
-
-		/**
 		 * Loads options from DB
 		 *
 		 * @param array|string

@@ -52,9 +52,9 @@ if (!class_exists('ThemedLogin')) {
 		/**
 		 * Holds the current instance being displayed
 		 *
-		 * @var int
+		 * @var ThemedLogin_Template
 		 */
-		public $current_instance = 0;
+		public $current_instance;
 
 		/**
 		 * Holds options key
@@ -64,11 +64,19 @@ if (!class_exists('ThemedLogin')) {
 		protected $options_key = 'theme_my_login';
 
 		/**
-		 * Holds loaded instances
+		 * Holds the number of loaded template instances
 		 *
-		 * @var array
+		 * @var int
 		 */
-		protected $loaded_instances = [];
+		protected $loaded_instances = 0;
+
+		/**
+		 * The first instance created of ThemedLogin_Template is saved here as the
+		 * main instance.
+		 *
+		 * @var ThemedLogin_Template
+		 */
+		private $main_instance;
 
 		/**
 		 * Returns default options
@@ -120,6 +128,10 @@ if (!class_exists('ThemedLogin')) {
 
 		/**
 		 * Initializes the plugin
+		 *
+		 * Note that custom translation files inside the plugin folder will be removed on
+		 * plugin updates. If you're creating custom translation files, please place them
+		 * in a '/themed-login/' directory within the global language folder.
 		 */
 		public function init() {
 			global $pagenow;
@@ -128,7 +140,7 @@ if (!class_exists('ThemedLogin')) {
 
 			$this->errors = new WP_Error();
 
-			if (!is_admin() && 'wp-login.php' != $pagenow && $this->get_option('enable_css')) {
+			if (!is_admin() && $pagenow !== 'wp-login.php' && $this->get_option('enable_css')) {
 				wp_enqueue_style('themed-login', self::get_stylesheet(), ['dashicons'], self::VERSION);
 			}
 		}
@@ -137,9 +149,7 @@ if (!class_exists('ThemedLogin')) {
 		 * Registers the widget
 		 */
 		public function widgets_init() {
-			if (class_exists('ThemedLogin_Widget')) {
-				register_widget('ThemedLogin_Widget');
-			}
+			register_widget('ThemedLogin_Widget');
 		}
 
 		/**
@@ -168,10 +178,6 @@ if (!class_exists('ThemedLogin')) {
 				add_action('login_head', 'wp_no_robots');
 
 				if (force_ssl_admin() && !is_ssl()) {
-					if (0 === strpos($_SERVER['REQUEST_URI'], 'http')) {
-						wp_redirect(set_url_scheme($_SERVER['REQUEST_URI'], 'https'));
-						exit;
-					}
 					wp_redirect('https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
 					exit;
 				}
@@ -663,11 +669,12 @@ if (!class_exists('ThemedLogin')) {
 			global $pagenow;
 
 			// Bail if currently viewing wp-login.php
-			if ('wp-login.php' == $pagenow) {
+			if ($pagenow === 'wp-login.php') {
 				return $url;
 			}
+
 			// Bail if the URL isn't a login URL
-			if (false === strpos($url, 'wp-login.php')) {
+			if (strpos($url, 'wp-login.php') === false) {
 				return $url;
 			}
 			// Parse the query string from the URL
@@ -690,11 +697,6 @@ if (!class_exists('ThemedLogin')) {
 			// Get the action's page link
 			$url = self::get_page_link($action, $query);
 
-			// Change the connection scheme to HTTPS, if needed
-			if ('https' == strtolower($orig_scheme)) {
-				$url = preg_replace('|^http://|', 'https://', $url);
-			}
-
 			return $url;
 		}
 
@@ -716,23 +718,6 @@ if (!class_exists('ThemedLogin')) {
 		}
 
 		/**
-		 * Changes single_post_title() to reflect the current action
-		 *
-		 * Callback for "single_post_title" hook in single_post_title()
-		 *
-		 * @see single_post_title()
-		 *
-		 * @param string $title The current post title
-		 * @return string The modified post title
-		 */
-		public function single_post_title($title) {
-			if (self::is_tml_page('login') && is_user_logged_in()) {
-				$title = $this->get_instance()->get_title('login');
-			}
-			return $title;
-		}
-
-		/**
 		 * Changes the_title() to reflect the current action
 		 *
 		 * Callback for "the_title" hook in the_title()
@@ -745,16 +730,13 @@ if (!class_exists('ThemedLogin')) {
 		 * @return string The modified post title
 		 */
 		public function the_title($title, $post_id = 0) {
-			if (is_admin()) {
-				return $title;
-			}
-			if (self::is_tml_page('login', $post_id)) {
+			if (!is_admin() && self::is_tml_page('login', $post_id)) {
 				if (in_the_loop()) {
 					if (is_user_logged_in()) {
-						$title = $this->get_instance()->get_title('login');
+						$title = $this->main_instance->get_title('login');
 					} else {
 						if ('login' != $this->request_action) {
-							$title = $this->get_instance()->get_title($this->request_action);
+							$title = $this->main_instance->get_title($this->request_action);
 						}
 					}
 				}
@@ -765,7 +747,7 @@ if (!class_exists('ThemedLogin')) {
 		/**
 		 * Changes wp_get_document_title() to reflect the current action
 		 *
-		 * Callback for "document_title_parts" hok in wp_get_document_title()
+		 * Callback for "document_title_parts" hook in wp_get_document_title()
 		 *
 		 * @see wp_get_document_title()
 		 *
@@ -775,10 +757,10 @@ if (!class_exists('ThemedLogin')) {
 		public function document_title_parts($parts) {
 			if (self::is_tml_page('login')) {
 				if (is_user_logged_in()) {
-					$parts['title'] = $this->get_instance()->get_title('login');
+					$parts['title'] = $this->main_instance->get_title('login');
 				} else {
 					if ('login' != $this->request_action) {
-						$parts['title'] = $this->get_instance()->get_title($this->request_action);
+						$parts['title'] = $this->main_instance->get_title($this->request_action);
 					}
 				}
 			}
@@ -874,7 +856,7 @@ if (!class_exists('ThemedLogin')) {
 		 *
 		 * Optional $atts contents:
 		 *
-		 * - instance - A unique instance ID for this instance.
+		 * - instance - A unique ID for this instance.
 		 * - default_action - The action to display. Defaults to "login".
 		 * - login_template - The template used for the login form. Defaults to "login-form.php".
 		 * - register_template - The template used for the register form. Defaults to "register-form.php".
@@ -899,25 +881,22 @@ if (!class_exists('ThemedLogin')) {
 			$atts = wp_parse_args($atts);
 
 			if (self::is_tml_page() && in_the_loop() && is_main_query() && !$did_main_instance) {
-				$instance = $this->get_instance();
+				$instance = $this->load_instance();
 
 				if (!empty($this->request_instance)) {
 					$instance->set_active(false);
 				}
 
-				if ('login' != $this->request_page) {
+				if ($this->request_page !== 'login') {
 					$atts['default_action'] = $this->request_page;
 				}
 
-				if (!isset($atts['show_title'])) {
-					$atts['show_title'] = false;
-				}
+				$atts['show_title'] = !empty($atts['show_title']);
 
 				foreach ($atts as $option => $value) {
-					if ('instance' == $option) {
-						continue;
+					if ($option !== 'instance') {
+						$instance->set_option($option, $value);
 					}
-					$instance->set_option($option, $value);
 				}
 
 				$did_main_instance = true;
@@ -925,7 +904,7 @@ if (!class_exists('ThemedLogin')) {
 				$instance = $this->load_instance($atts);
 			}
 
-			$this->current_instance = $instance->get_option('instance');
+			$this->current_instance = $instance;
 
 			return $instance->display();
 		}
@@ -934,8 +913,7 @@ if (!class_exists('ThemedLogin')) {
 		 * Determines if $action is for $page
 		 *
 		 * @param array|string $action An action or array of actions to check
-		 * @param int|object Post ID or WP_Post object, or null to use global $post
-		 * @param null|mixed $page
+		 * @param int|object $page Post ID or WP_Post object, or null to use global
 		 * @return bool True if $action is for $page, false otherwise
 		 */
 		public static function is_tml_page($action = '', $page = null) {
@@ -964,7 +942,7 @@ if (!class_exists('ThemedLogin')) {
 		 * @return string Login page link with optional $query arguments appended
 		 */
 		public static function get_page_link($action, $query = '') {
-			global $wp_rewrite;
+			global $wp_rewrite, $themedLoginInstance;
 
 			if ($page_id = self::get_page_id($action)) {
 				if ($wp_rewrite instanceof WP_Rewrite) {
@@ -982,7 +960,7 @@ if (!class_exists('ThemedLogin')) {
 					$link = add_query_arg('action', $action, $link);
 				} else {
 					// Remove site_url filter so we can use wp-login.php
-					remove_filter('site_url', [self::get_object(), 'site_url'], 10, 3);
+					remove_filter('site_url', [$themedLoginInstance, 'site_url'], 10, 3);
 
 					$link = site_url("wp-login.php?action=${action}");
 				}
@@ -1037,10 +1015,11 @@ if (!class_exists('ThemedLogin')) {
 		 * Get the action for a page
 		 *
 		 * @param int|object Post ID or object
-		 * @return bool|string Action name if exists, false otherwise
+		 * @return bool|string Action name if it exists, false otherwise
 		 */
 		public static function get_page_action($page) {
-			if (!$page = get_post($page)) {
+			$page = get_post($page);
+			if (!$page) {
 				return false;
 			}
 			return get_post_meta($page->ID, '_tml_action', true);
@@ -1071,36 +1050,19 @@ if (!class_exists('ThemedLogin')) {
 		 * Instantiates an instance
 		 *
 		 * @param array|string $args Array or query string of arguments
-		 * @return object Instance object
+		 * @return ThemedLogin_Template Instance object
 		 */
-		public function load_instance($args = '') {
+		public function load_instance($args = ''): ThemedLogin_Template {
 			$instance = new ThemedLogin_Template($args);
-			$instance->set_option('instance', count($this->loaded_instances));
+			$instance->set_option('instance', $this->loaded_instances);
+			++$this->loaded_instances;
 
 			if ($instance->get_option('instance') === $this->request_instance) {
 				$instance->set_active();
 				$instance->set_option('default_action', $this->request_action ? $this->request_action : 'login');
 			}
 
-			$this->loaded_instances[] = $instance;
-
 			return $instance;
-		}
-
-		/**
-		 * Load a custom translation file for current language if available.
-		 *
-		 * Note that custom translation files inside the plugin folder
-		 * will be removed on plugin updates. If you're creating custom
-		 * translation files, please place them in a '/theme-my-login/'
-		 * directory within the global language folder.
-		 *
-		 * @param string $domain The domain for which a language file is being loaded.
-		 */
-		public function load_custom_textdomain($domain) {
-			if ('themed-login' === $domain) {
-				add_action('load_textdomain', [$this, 'load_custom_textdomain'], 10, 2);
-			}
 		}
 
 		/**
@@ -1178,11 +1140,10 @@ if (!class_exists('ThemedLogin')) {
 			$this->request_action = isset($_REQUEST['action']) ? sanitize_key($_REQUEST['action']) : '';
 			$this->request_instance = isset($_REQUEST['instance']) ? (int) $_REQUEST['instance'] : 0;
 
-			$this->load_instance();
+			$this->main_instance = $this->load_instance();
 
 			add_action('plugins_loaded', [$this, 'plugins_loaded']);
 			add_action('init', [$this, 'init']);
-			add_action('load_textdomain', [$this, 'load_custom_textdomain'], 10, 2);
 			add_action('widgets_init', [$this, 'widgets_init']);
 			add_action('wp', [$this, 'wp']);
 			add_action('pre_get_posts', [$this, 'pre_get_posts']);
@@ -1194,7 +1155,6 @@ if (!class_exists('ThemedLogin')) {
 
 			add_filter('site_url', [$this, 'site_url'], 10, 3);
 			add_filter('logout_url', [$this, 'logout_url'], 10, 2);
-			add_filter('single_post_title', [$this, 'single_post_title']);
 			add_filter('the_title', [$this, 'the_title'], 10, 2);
 			add_filter('document_title_parts', [$this, 'document_title_parts']);
 			add_filter('wp_setup_nav_menu_item', [$this, 'wp_setup_nav_menu_item']);
@@ -1204,12 +1164,12 @@ if (!class_exists('ThemedLogin')) {
 
 			add_shortcode('theme-my-login', [$this, 'shortcode']);
 
-			if ('username' == $this->get_option('login_type')) {
+			switch ($this->get_option('login_type')) {
+			case 'username':
 				remove_filter('authenticate', 'wp_authenticate_email_password', 20);
-			} else {
-				if ('email' == $this->get_option('login_type')) {
-					remove_filter('authenticate', 'wp_authenticate_username_password', 20);
-				}
+				break;
+			case 'email':
+				remove_filter('authenticate', 'wp_authenticate_username_password', 20);
 			}
 		}
 	}

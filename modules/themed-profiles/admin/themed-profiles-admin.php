@@ -20,17 +20,6 @@ if (!class_exists('ThemedLogin_Themed_Profiles_Admin')) {
 		protected $options_key = 'theme_my_login_themed_profiles';
 
 		/**
-		 * Returns singleton instance
-		 *
-		 * @access public
-		 * @param null|mixed $class
-		 * @return object
-		 */
-		public static function get_object($class = null) {
-			return parent::get_object(__CLASS__);
-		}
-
-		/**
 		 * Returns default options
 		 *
 		 * @access public
@@ -71,7 +60,7 @@ if (!class_exists('ThemedLogin_Themed_Profiles_Admin')) {
 		public function admin_menu() {
 			add_submenu_page(
 				'theme_my_login',
-				__('STL Themed Profiles Settings', 'themed-login'),
+				__('Themed Profiles Settings', 'themed-login'),
 				__('Themed Profiles', 'themed-login'),
 				'manage_options',
 				$this->options_key,
@@ -104,7 +93,7 @@ if (!class_exists('ThemedLogin_Themed_Profiles_Admin')) {
 		 */
 		public function settings_page() {
 			ThemedLogin_Admin::settings_page([
-				'title' => __('STL Themed Profiles Settings', 'themed-login'),
+				'title' => __('Themed Profiles Settings', 'themed-login'),
 				'options_key' => $this->options_key,
 			]);
 		}
@@ -206,6 +195,6 @@ if (!class_exists('ThemedLogin_Themed_Profiles_Admin')) {
 		}
 	}
 
-	ThemedLogin_Themed_Profiles_Admin::get_object();
+	new ThemedLogin_Themed_Profiles_Admin();
 
 }

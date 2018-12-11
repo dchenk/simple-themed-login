@@ -30,11 +30,12 @@ if (!class_exists('ThemedLogin_Admin')) {
 		 */
 		public function admin_menu() {
 			add_menu_page(
-				__('Simple Themed Login Settings', 'themed-login'),
-				'STL',
+				__('Themed Login Settings', 'themed-login'),
+				'Themed Login',
 				'manage_options',
 				'theme_my_login',
-				[$this, 'settings_page']
+				[$this, 'settings_page'],
+				'dashicons-id-alt'
 			);
 		}
 
@@ -150,10 +151,10 @@ if (!class_exists('ThemedLogin_Admin')) {
 		 */
 		public static function settings_page($args = '') {
 			$args = wp_parse_args($args, [
-				'title' => 'Simple Themed Login Settings',
+				'title' => 'Themed Login Settings',
 				'options_key' => 'theme_my_login',
 			]); ?>
-			<div id="<?php echo 'theme_my_login'; ?>" class="wrap">
+			<div id="themed-login" class="wrap">
 				<h2><?php echo esc_html($args['title']); ?></h2>
 				<?php settings_errors(); ?>
 				<form method="post" action="options.php">
@@ -174,7 +175,7 @@ if (!class_exists('ThemedLogin_Admin')) {
 			<input name="theme_my_login[enable_css]" type="checkbox" id="theme_my_login_enable_css"
 				value="1"<?php checked(1, $this->get_option('enable_css')); ?>>
 			<label
-				for="theme_my_login_enable_css"><?php _e('Enable this plugin&rsquos CSS', 'themed-login'); ?></label>
+				for="theme_my_login_enable_css"><?php _e('Enable this plugin\'s CSS', 'themed-login'); ?></label>
 			<p class="description"><?php _e('In order to keep changes between upgrades, you can store your customized "theme-my-login.css" in your current theme directory.', 'themed-login'); ?></p>
 			<?php
 		}
@@ -345,22 +346,19 @@ if (!class_exists('ThemedLogin_Admin')) {
 				do_action('tml_uninstall_' . $module);
 			}
 
-			// Get pages
 			$pages = get_posts([
-				'post_type' => 'page',
-				'post_status' => 'any',
-				'meta_key' => '_tml_action',
+				'post_type'      => 'page',
+				'post_status'    => 'any',
+				'meta_key'       => '_tml_action',
 				'posts_per_page' => -1,
 			]);
 
-			// Delete pages
 			foreach ($pages as $page) {
 				wp_delete_post($page->ID);
 			}
 
-			// Delete options
 			delete_option('theme_my_login');
-			delete_option('widget_theme-my-login');
+			delete_option('widget_themed-login');
 		}
 	}
 

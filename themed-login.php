@@ -16,9 +16,9 @@ if (!defined('THEMED_LOGIN_DIR')) {
 
 require_once(THEMED_LOGIN_DIR . '/includes/class-theme-my-login-common.php');
 require_once(THEMED_LOGIN_DIR . '/includes/class-theme-my-login-abstract.php');
-require_once(THEMED_LOGIN_DIR . '/includes/class-theme-my-login.php');
+require_once(THEMED_LOGIN_DIR . '/includes/class-themed-login.php');
 require_once(THEMED_LOGIN_DIR . '/includes/class-theme-my-login-template.php');
-require_once(THEMED_LOGIN_DIR . '/includes/class-theme-my-login-widget.php');
+require_once(THEMED_LOGIN_DIR . '/includes/class-themed-login-widget.php');
 
 // Instantiate a ThemedLogin singleton.
 $themedLoginInstance = new ThemedLogin();
@@ -28,18 +28,4 @@ if (is_admin()) {
 
 	// Instantiate ThemedLogin_Admin singleton
 	new ThemedLogin_Admin();
-}
-
-if (!function_exists('theme_my_login')) {
-	/**
-	 * Displays a shortcode-defined template
-	 *
-	 * @see ThemedLogin::shortcode() for $args parameters
-	 *
-	 * @param array|string $args Template tag arguments
-	 */
-	function theme_my_login($args = '') {
-		global $themedLoginInstance;
-		echo $themedLoginInstance->shortcode($args);
-	}
 }

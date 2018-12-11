@@ -1,6 +1,9 @@
 <?php
 // If you would like to edit this file, copy it to your current theme's directory and edit it there.
 // This plugin will always look in your theme's directory first, before using this default template.
+
+global $themedLoginInstance;
+
 ?>
 <div class="tml tml-register" id="themed-login<?php $template->the_instance(); ?>">
 	<?php
@@ -17,14 +20,15 @@
 		} ?>
 
 		<p class="tml-user-email-wrap">
-			<label for="user_email<?php $template->the_instance(); ?>">E-mail</label>
+			<label for="user_email<?php $template->the_instance(); ?>">Email</label>
 			<input type="text" name="user_email" id="user_email<?php $template->the_instance(); ?>" class="input" value="<?php $template->the_posted_value('user_email'); ?>" size="20">
 		</p>
 
 		<?php do_action('register_form'); ?>
 
-		<p class="tml-registration-confirmation" id="reg_passmail<?php $template->the_instance(); ?>"><?php
-			echo apply_filters('themed_login_register_passmail_template_message', __('Registration confirmation will be emailed to you.', 'themed-login')); ?></p>
+		<p class="tml-registration-confirmation"><?php
+			echo apply_filters('themed_login_register_passmail_template_message', __('Registration confirmation will be emailed to you.', 'themed-login')); ?>
+		</p>
 
 		<p class="tml-submit-wrap">
 			<input type="submit" name="wp-submit" id="wp-submit<?php $template->the_instance(); ?>" value="<?php esc_attr_e('Register', 'themed-login'); ?>">
