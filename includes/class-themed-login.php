@@ -361,8 +361,12 @@ if (!class_exists('ThemedLogin')) {
 
 			case 'register':
 				if (!get_option('users_can_register')) {
-					$redirect_to = site_url('wp-login.php?registration=disabled');
-					wp_redirect($redirect_to);
+					$referer = wp_get_referer();
+					if ($referer) {
+						wp_redirect(add_query_arg('registration', 'disabled', $referer));
+					} else {
+						wp_redirect(site_url('wp-login.php?registration=disabled'));
+					}
 					exit;
 				}
 
@@ -508,32 +512,27 @@ if (!class_exists('ThemedLogin')) {
 					}
 				} else {
 					// Some parts of this script use the main login form to display a message
-					if (isset($_GET['loggedout']) && true == $_GET['loggedout']) {
+					switch (true) {
+					case !empty($_GET['loggedout']):
 						$this->errors->add('loggedout', __('You are now logged out.', 'themed-login'), 'message');
-					} else {
-						if (isset($_GET['registration']) && 'disabled' == $_GET['registration']) {
-							$this->errors->add('registerdisabled', __('User registration is currently not allowed.', 'themed-login'));
-						} else {
-							if (isset($_GET['checkemail']) && 'confirm' == $_GET['checkemail']) {
-								$this->errors->add('confirm', __('Check your email for the confirmation link.', 'themed-login'), 'message');
-							} else {
-								if (isset($_GET['checkemail']) && 'newpass' == $_GET['checkemail']) {
-									$this->errors->add('newpass', __('Check your email for your new password.', 'themed-login'), 'message');
-								} else {
-									if (isset($_GET['resetpass']) && 'complete' == $_GET['resetpass']) {
-										$this->errors->add('password_reset', __('Your password has been reset.', 'themed-login'), 'message');
-									} else {
-										if (isset($_GET['checkemail']) && 'registered' == $_GET['checkemail']) {
-											$this->errors->add('registered', __('Registration complete. Please check your email.', 'themed-login'), 'message');
-										} else {
-											if (strpos($redirect_to, 'about.php?updated')) {
-												$this->errors->add('updated', __('<strong>You have successfully updated WordPress!</strong> Please log back in to see what&#8217;s new.', 'themed-login'), 'message');
-											}
-										}
-									}
-								}
-							}
-						}
+						break;
+					case isset($_GET['registration']) && 'disabled' == $_GET['registration']:
+						$this->errors->add('registerdisabled', __('User registration is currently not allowed.', 'themed-login'));
+						break;
+					case isset($_GET['checkemail']) && 'confirm' == $_GET['checkemail']:
+						$this->errors->add('confirm', __('Check your email for the confirmation link.', 'themed-login'), 'message');
+						break;
+					case isset($_GET['checkemail']) && 'newpass' == $_GET['checkemail']:
+						$this->errors->add('newpass', __('Check your email for your new password.', 'themed-login'), 'message');
+						break;
+					case isset($_GET['resetpass']) && 'complete' == $_GET['resetpass']:
+						$this->errors->add('password_reset', __('Your password has been reset.', 'themed-login'), 'message');
+						break;
+					case isset($_GET['checkemail']) && 'registered' == $_GET['checkemail']:
+						$this->errors->add('registered', __('Registration complete. Please check your email.', 'themed-login'), 'message');
+						break;
+					case strpos($redirect_to, 'about.php?updated'):
+						$this->errors->add('updated', __('<strong>You have successfully updated WordPress!</strong> Please log back in to see what&#8217;s new.', 'themed-login'), 'message');
 					}
 				}
 
@@ -1104,7 +1103,7 @@ if (!class_exists('ThemedLogin')) {
 
 			$message = sprintf(
 				__('Someone requested that the password be reset for the account with the username %s on %s', 'themed-login'),
-					$user_login, network_home_url()) . "\r\n\r\n";
+				$user_login, network_home_url()) . "\r\n\r\n";
 			$message .= __('If this was a mistake, you can ignore this email and nothing will happen.', 'themed-login') . "\r\n\r\n";
 			$message .= __('To reset your password, visit the following address:', 'themed-login') . "\r\n";
 			$message .= network_site_url("wp-login.php?action=rp&key=${key}&login=" . rawurlencode($user_login), 'login') . "\r\n";
