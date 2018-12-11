@@ -38,55 +38,6 @@ if (!class_exists('ThemedLogin_Custom_Passwords')) {
 		}
 
 		/**
-		 * Outputs password fields to multisite signup user form
-		 *
-		 * Callback for "signup_extra_fields" hook in file "ms-signup-user-form.php", included by ThemedLogin_Template::display()
-		 *
-		 * @see ThemedLogin::display()
-		 * @access public
-		 */
-		public function ms_password_fields() {
-			global $themedLoginInstance;
-
-			$template = $themedLoginInstance->request_instance;
-
-			$errors = [];
-			foreach ($themedLoginInstance->errors->get_error_codes() as $code) {
-				if (in_array($code, ['empty_password', 'password_mismatch', 'password_length'], true)) {
-					$errors[] = $themedLoginInstance->errors->get_error_message($code);
-				}
-			} ?>
-			<label for="pass1<?php $template->the_instance(); ?>"><?php _e('Password:', 'themed-login'); ?></label>
-			<?php
-			if (!empty($errors)) {
-				?>
-				<p class="error"><?php echo implode('<br>', $errors); ?></p>
-				<?php
-			} ?>
-			<input autocomplete="off" name="pass1" id="pass1<?php $template->the_instance(); ?>" class="input" size="20" value="" type="password"><br>
-			<span class="hint"><?php echo apply_filters('tml_password_hint', sprintf(__('(Must be at least %d characters.)', 'themed-login'), apply_filters('tml_minimum_password_length', 6))); ?></span>
-
-			<label for="pass2<?php $template->the_instance(); ?>"><?php _e('Confirm Password:', 'themed-login'); ?></label>
-			<input autocomplete="off" name="pass2" id="pass2<?php $template->the_instance(); ?>" class="input" size="20" value="" type="password"><br>
-			<span class="hint"><?php echo apply_filters('tml_password_confirm_hint', __('Confirm that you\'ve typed your password correctly.', 'themed-login')); ?></span>
-			<?php
-		}
-
-		/**
-		 * Outputs password field to multisite signup blog form
-		 *
-		 * Callback for "signup_hidden_fields" hook in file "ms-signup-blog-form.php", included by ThemedLogin_Template::display()
-		 *
-		 * @see ThemedLogin::display()
-		 * @access public
-		 */
-		public function ms_hidden_password_field() {
-			if (isset($_POST['user_pass'])) {
-				echo '<input type="hidden" name="user_pass" value="' . $_POST['user_pass'] . '">';
-			}
-		}
-
-		/**
 		 * Handles password errors for registration form
 		 *
 		 * Callback for "registration_errors" hook in ThemedLogin::register_new_user()
@@ -94,12 +45,12 @@ if (!class_exists('ThemedLogin_Custom_Passwords')) {
 		 * @see ThemedLogin::register_new_user()
 		 * @access public
 		 *
-		 * @param WP_Error $errors WP_Error object
-		 * @return WP_Error WP_Error object
+		 * @param bool|WP_Error $errors WP_Error object
+		 * @return WP_Error object
 		 */
-		public function password_errors($errors = '') {
+		public function password_errors($errors) {
 			// Make sure $errors is a WP_Error object
-			if (empty($errors)) {
+			if (!$errors) {
 				$errors = new WP_Error();
 			}
 
@@ -135,11 +86,13 @@ if (!class_exists('ThemedLogin_Custom_Passwords')) {
 		 * @see ThemedLogin::register_new_user()
 		 * @access public
 		 *
-		 * @return WP_Error WP_Error object
+		 * @param array $result
+		 *
+		 * @return array object
 		 */
 		public function ms_password_errors($result) {
 			if (isset($_POST['stage']) && 'validate-user-signup' == $_POST['stage']) {
-				$errors = $this->password_errors();
+				$errors = $this->password_errors($result['errors'] ?? false);
 				foreach ($errors->get_error_codes() as $code) {
 					foreach ($errors->get_error_messages($code) as $error) {
 						$result['errors']->add($code, preg_replace('/<strong>([^<]+)<\/strong>: /', '', $error));
@@ -184,7 +137,8 @@ if (!class_exists('ThemedLogin_Custom_Passwords')) {
 			remove_filter('random_password', [$this, 'set_password']);
 
 			if (is_multisite() && isset($_REQUEST['key'])) {
-				if ($meta = $wpdb->get_var($wpdb->prepare("SELECT meta FROM {$wpdb->signups} WHERE activation_key = %s", $_REQUEST['key']))) {
+				$meta = $wpdb->get_var($wpdb->prepare("SELECT meta FROM {$wpdb->signups} WHERE activation_key = %s", $_REQUEST['key']));
+				if ($meta) {
 					$meta = unserialize($meta);
 					if (isset($meta['user_pass'])) {
 						$password = $meta['user_pass'];
@@ -194,7 +148,7 @@ if (!class_exists('ThemedLogin_Custom_Passwords')) {
 				}
 			} else {
 				// Make sure password isn't empty
-				if (! empty($_POST['user_pass'])) {
+				if (!empty($_POST['user_pass'])) {
 					$password = $_POST['user_pass'];
 				}
 			}
@@ -275,8 +229,6 @@ if (!class_exists('ThemedLogin_Custom_Passwords')) {
 			add_filter('registration_errors', [$this, 'password_errors']);
 			add_filter('random_password', [$this, 'set_password']);
 
-			add_action('signup_extra_fields', [$this, 'ms_password_fields']);
-			add_action('signup_hidden_fields', [$this, 'ms_hidden_password_field']);
 			add_filter('wpmu_validate_user_signup', [$this, 'ms_password_errors']);
 			add_filter('add_signup_meta', [$this, 'ms_save_password']);
 

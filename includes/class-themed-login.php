@@ -232,8 +232,6 @@ if (!class_exists('ThemedLogin')) {
 		 * Callback for "template_redirect" hook in template-loader.php
 		 */
 		public function template_redirect() {
-			global $errors;
-
 			do_action_ref_array('themed_login_request', [&$this]);
 
 			// Allow plugins to override the default actions and to add extra actions if they want
@@ -506,7 +504,7 @@ if (!class_exists('ThemedLogin')) {
 
 				if (isset($_REQUEST['interim-login'])) {
 					if (!$this->errors->get_error_code()) {
-						$errors->add('expired', __('Your session has expired. Please log in to continue where you left off.', 'themed-login'), 'message');
+						$this->errors->add('expired', __('Your session has expired. Please log in to continue where you left off.', 'themed-login'), 'message');
 					}
 				} else {
 					// Some parts of this script use the main login form to display a message
@@ -539,8 +537,7 @@ if (!class_exists('ThemedLogin')) {
 					}
 				}
 
-			error_log('GOT THIS FAR ============================================================');
-			error_log('$this->errors->errors: ' . print_r($this->errors->errors, true));
+				error_log('$this->errors->errors: ' . print_r($this->errors->errors, true));
 
 				// Clear any stale cookies.
 				if ($reauth) {
@@ -882,10 +879,6 @@ if (!class_exists('ThemedLogin')) {
 
 			if (self::is_tml_page() && in_the_loop() && is_main_query() && !$did_main_instance) {
 				$instance = $this->load_instance();
-
-				if (!empty($this->request_instance)) {
-					$instance->set_active(false);
-				}
 
 				if ($this->request_page !== 'login') {
 					$atts['default_action'] = $this->request_page;

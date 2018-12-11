@@ -216,26 +216,24 @@ if (!class_exists('ThemedLogin_Template')) {
 			}
 
 			$output = '';
-			if ($this->is_active()) {
-				if ($wp_error->get_error_code()) {
-					$errors = '';
-					$messages = '';
-					foreach ($wp_error->get_error_codes() as $code) {
-						$severity = $wp_error->get_error_data($code);
-						foreach ($wp_error->get_error_messages($code) as $error) {
-							if ('message' == $severity) {
-								$messages .= '    ' . $error . "<br>\n";
-							} else {
-								$errors .= '    ' . $error . "<br>\n";
-							}
+			if ($this->is_active() && $wp_error->get_error_code()) {
+				$errors = '';
+				$messages = '';
+				foreach ($wp_error->get_error_codes() as $code) {
+					$severity = $wp_error->get_error_data($code);
+					foreach ($wp_error->get_error_messages($code) as $error) {
+						if ('message' == $severity) {
+							$messages .= '    ' . $error . "<br>\n";
+						} else {
+							$errors .= '    ' . $error . "<br>\n";
 						}
 					}
-					if (!empty($errors)) {
-						$output .= '<p class="error">' . apply_filters('login_errors', $errors) . "</p>\n";
-					}
-					if (!empty($messages)) {
-						$output .= '<p class="message">' . apply_filters('login_messages', $messages) . "</p>\n";
-					}
+				}
+				if (!empty($errors)) {
+					$output .= '<p class="error">' . apply_filters('login_errors', $errors) . "</p>\n";
+				}
+				if (!empty($messages)) {
+					$output .= '<p class="message">' . apply_filters('login_messages', $messages) . "</p>\n";
 				}
 			}
 			return $output;
@@ -439,9 +437,6 @@ if (!class_exists('ThemedLogin_Template')) {
 		 * @return bool|string Template path if found, false if not
 		 */
 		public function get_template($template_names, $load = true, $args = []) {
-			// User friendly access to this
-			$template = $this;
-
 			// Easy access to current user
 			$current_user = wp_get_current_user();
 
@@ -555,12 +550,10 @@ if (!class_exists('ThemedLogin_Template')) {
 		}
 
 		/**
-		 * Sets active status
-		 *
-		 * @param bool $active Active status
+		 * Sets the template instance as active
 		 */
-		public function set_active($active = true) {
-			$this->is_active = $active;
+		public function set_active() {
+			$this->is_active = true;
 		}
 	}
 

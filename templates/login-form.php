@@ -26,6 +26,7 @@ if ($stlRecaptcha) {
 }
 
 global $themedLoginInstance;
+$template = $themedLoginInstance->current_instance;
 
 ?>
 <div class="tml tml-login" id="themed-login<?php $template->the_instance(); ?>">
@@ -46,7 +47,7 @@ global $themedLoginInstance;
 					_e('Username or Email', 'themed-login');
 				}
 			?></label>
-			<input type="text" name="log" id="user_login<?php $template->the_instance(); ?>" class="input" value="<?php $template->the_posted_value('log'); ?>" size="20">
+			<input type="text" name="log" id="user_login<?php $template->the_instance(); ?>" value="<?php $template->the_posted_value('log'); ?>" size="20">
 		</p>
 		<p class="tml-user-pass-wrap">
 			<label for="user_pass<?php $template->the_instance(); ?>"><?php _e('Password', 'themed-login'); ?></label>

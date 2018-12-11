@@ -3,6 +3,7 @@
 // This plugin will always look in your theme's directory first, before using this default template.
 
 global $themedLoginInstance;
+$template = $themedLoginInstance->current_instance;
 
 ?>
 <div class="tml tml-register" id="themed-login<?php $template->the_instance(); ?>">
