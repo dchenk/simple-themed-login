@@ -36,7 +36,7 @@ if (!class_exists('ThemedLogin_Abstract')) {
 		 */
 		public function load_options() {
 			if (method_exists($this, 'default_options')) {
-				$this->options = (array) $this->default_options();
+				$this->options = $this->default_options();
 			}
 
 			if (!$this->options_key) {

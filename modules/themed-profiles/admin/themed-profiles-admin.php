@@ -24,7 +24,7 @@ if (!class_exists('ThemedLogin_Themed_Profiles_Admin')) {
 		 *
 		 * @access public
 		 */
-		public static function default_options() {
+		public static function default_options(): array {
 			return ThemedLogin_Themed_Profiles::default_options();
 		}
 

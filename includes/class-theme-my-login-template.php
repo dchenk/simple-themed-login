@@ -29,10 +29,9 @@ if (!class_exists('ThemedLogin_Template')) {
 		 * @param array|string $options Instance options
 		 */
 		public function __construct($options = '') {
-			$options = wp_parse_args($options);
-			$options = shortcode_atts(self::default_options(), $options);
+			parent::__construct();
 
-			$this->set_options($options);
+			$this->options = wp_parse_args($options, $this->options);
 		}
 
 		/**
@@ -42,7 +41,7 @@ if (!class_exists('ThemedLogin_Template')) {
 		 *
 		 * @return array Default options
 		 */
-		public static function default_options() {
+		public static function default_options(): array {
 			return [
 				'instance'              => 0,
 				'default_action'        => 'login',
@@ -211,7 +210,7 @@ if (!class_exists('ThemedLogin_Template')) {
 			}
 
 			// In case a plugin uses $error rather than the $errors object
-			if (! empty($error)) {
+			if (!empty($error)) {
 				$wp_error->add('error', $error);
 				unset($error);
 			}

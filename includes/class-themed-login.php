@@ -83,7 +83,7 @@ if (!class_exists('ThemedLogin')) {
 		 *
 		 * @return array Default options
 		 */
-		public static function default_options() {
+		public static function default_options(): array {
 			/**
 			 * TODO: make sure this works.
 			 * @see ThemedLogin_Abstract::load_options()
@@ -431,7 +431,7 @@ if (!class_exists('ThemedLogin')) {
 						$redirect_to = admin_url();
 					}
 
-					$reauth = empty($_REQUEST['reauth']) ? false : true;
+					$reauth = !empty($_REQUEST['reauth']);
 
 					if (isset($_POST['log']) || isset($_GET['testcookie'])) {
 						$user = wp_signon([], $secure_cookie);
@@ -489,9 +489,6 @@ if (!class_exists('ThemedLogin')) {
 										}
 									}
 								}
-
-								wp_redirect($redirect_to);
-								exit;
 							}
 							wp_safe_redirect($redirect_to);
 							exit;
@@ -544,7 +541,7 @@ if (!class_exists('ThemedLogin')) {
 					if ($reauth) {
 						wp_clear_auth_cookie();
 					}
-			} // end switch
+			}
 		}
 
 		/**
@@ -942,14 +939,16 @@ if (!class_exists('ThemedLogin')) {
 		public static function get_page_link($action, $query = '') {
 			global $wp_rewrite, $themedLoginInstance;
 
-			if ($page_id = self::get_page_id($action)) {
+			$page_id = self::get_page_id($action);
+			if ($page_id) {
 				if ($wp_rewrite instanceof WP_Rewrite) {
 					$link = get_permalink($page_id);
 				} else {
 					$link = home_url('?page_id=' . $page_id);
 				}
 			} else {
-				if ($page_id = self::get_page_id('login')) {
+				$page_id = self::get_page_id('login');
+				if ($page_id) {
 					if ($wp_rewrite instanceof WP_Rewrite) {
 						$link = get_permalink($page_id);
 					} else {

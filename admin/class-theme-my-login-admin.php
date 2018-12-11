@@ -21,7 +21,7 @@ if (!class_exists('ThemedLogin_Admin')) {
 		/**
 		 * Returns default options
 		 */
-		public static function default_options() {
+		public static function default_options(): array {
 			return ThemedLogin::default_options();
 		}
 

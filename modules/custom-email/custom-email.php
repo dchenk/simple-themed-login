@@ -45,7 +45,7 @@ if (!class_exists('ThemedLogin_Custom_Email')) {
 		/**
 		 * Returns default options
 		 */
-		public static function default_options() {
+		public static function default_options(): array {
 			return [
 				'new_user' => [
 					'mail_from' => '',
@@ -434,7 +434,7 @@ if (!class_exists('ThemedLogin_Custom_Email')) {
 		 * @see ThemedLogin::register_new_user()
 		 */
 		public function apply_user_moderation_notification_filters() {
-			if (! class_exists('ThemedLogin_User_Moderation')) {
+			if (!class_exists('ThemedLogin_User_Moderation')) {
 				return;
 			}
 			$moderation_type = ThemedLogin_User_Moderation::get_object()->get_option('type');
@@ -458,8 +458,7 @@ if (!class_exists('ThemedLogin_Custom_Email')) {
 				add_filter('user_approval_admin_notification_title', [$this, 'user_approval_admin_notification_title_filter'], 10, 2);
 				add_filter('user_approval_admin_notification_message', [$this, 'user_approval_admin_notification_message_filter'], 10, 2);
 				add_filter('send_new_user_approval_admin_notification', [$this, 'send_new_user_approval_admin_notification_filter']);
-				break;
-		}
+			}
 		}
 
 		/**
@@ -471,10 +470,10 @@ if (!class_exists('ThemedLogin_Custom_Email')) {
 		 */
 		public function apply_user_approval_notification_filters() {
 			$this->set_mail_headers(
-			$this->get_option(['user_approval', 'mail_from']),
-			$this->get_option(['user_approval', 'mail_from_name']),
-			$this->get_option(['user_approval', 'mail_content_type'])
-		);
+				$this->get_option(['user_approval', 'mail_from']),
+				$this->get_option(['user_approval', 'mail_from_name']),
+				$this->get_option(['user_approval', 'mail_content_type'])
+			);
 			add_filter('user_approval_notification_title', [$this, 'user_approval_notification_title_filter'], 10, 2);
 			add_filter('user_approval_notification_message', [$this, 'user_approval_notification_message_filter'], 10, 3);
 		}
@@ -566,7 +565,7 @@ if (!class_exists('ThemedLogin_Custom_Email')) {
 			if (! empty($_message)) {
 				$user = get_user_by('id', $user_id);
 				$message = ThemedLogin_Common::replace_vars($_message, $user_id, [
-					'%loginurl%' => ThemedLogin::get_object()->get_page_link('login'),
+					'%loginurl%' => ThemedLogin::get_page_link('login'),
 					'%reseturl%' => site_url("wp-login.php?action=rp&key=${key}&login=" . rawurlencode($user->user_login), 'login'),
 				]);
 			}

@@ -32,7 +32,7 @@ global $themedLoginInstance;
 	<?php
 	$template->the_action_template_message('login');
 	$template->the_errors(); ?>
-	<form name="loginform" id="loginform<?php $template->the_instance(); ?>" action="<?php $template->the_action_url('login', 'login_post'); ?>" method="post">
+	<form id="loginform<?php $template->the_instance(); ?>" action="<?php $template->the_action_url('login', 'login_post'); ?>" method="post">
 		<p class="tml-user-login-wrap">
 			<label for="user_login<?php $template->the_instance(); ?>"><?php
 				switch ($themedLoginInstance->get_option('login_type')) {
@@ -50,7 +50,7 @@ global $themedLoginInstance;
 		</p>
 		<p class="tml-user-pass-wrap">
 			<label for="user_pass<?php $template->the_instance(); ?>"><?php _e('Password', 'themed-login'); ?></label>
-			<input type="password" name="pwd" id="user_pass<?php $template->the_instance(); ?>" class="input" value="" size="20" autocomplete="off">
+			<input type="password" name="pwd" id="user_pass<?php $template->the_instance(); ?>" value="" size="20" autocomplete="off">
 		</p>
 		<?php
 		if ($stlRecaptcha) {

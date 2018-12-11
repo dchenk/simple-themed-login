@@ -5,7 +5,7 @@
 <div class="tml tml-resetpass" id="themed-login<?php $template->the_instance(); ?>">
 	<?php $template->the_action_template_message( 'resetpass' ); ?>
 	<?php $template->the_errors(); ?>
-	<form name="resetpassform" id="resetpassform<?php $template->the_instance(); ?>" action="<?php $template->the_action_url( 'resetpass', 'login_post' ); ?>" method="post" autocomplete="off">
+	<form id="resetpassform<?php $template->the_instance(); ?>" action="<?php $template->the_action_url( 'resetpass', 'login_post' ); ?>" method="post" autocomplete="off">
 
 		<div class="user-pass1-wrap">
 			<p>
@@ -14,7 +14,7 @@
 
 			<div class="wp-pwd">
 				<div class="password-input-wrapper">
-					<input type="password" data-reveal="1" data-pw="<?php echo esc_attr( wp_generate_password( 16 ) ); ?>" name="pass1" id="pass1" class="input password-input" value="" autocomplete="off" aria-describedby="pass-strength-result">
+					<input type="password" data-reveal="1" data-pw="<?php echo esc_attr( wp_generate_password( 16 ) ); ?>" name="pass1" id="pass1" class="password-input" value="" autocomplete="off" aria-describedby="pass-strength-result">
 					<span class="wp-hide-pw hide-if-no-js">
 						<span class="dashicons dashicons-hidden"></span>
 					</span>

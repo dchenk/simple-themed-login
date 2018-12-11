@@ -9,7 +9,7 @@ global $themedLoginInstance;
 	<?php
 	$template->the_action_template_message('register');
 	$template->the_errors(); ?>
-	<form name="registerform" id="registerform<?php $template->the_instance(); ?>" action="<?php $template->the_action_url('register', 'login_post'); ?>" method="post">
+	<form id="registerform<?php $template->the_instance(); ?>" action="<?php $template->the_action_url('register', 'login_post'); ?>" method="post">
 		<?php
 		if ($themedLoginInstance->get_option('login_type') != 'email') {
 			?>

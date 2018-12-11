@@ -31,7 +31,7 @@ if (!class_exists('ThemedLogin_Themed_Profiles')) {
 		 *
 		 * @return array Default options
 		 */
-		public static function default_options() {
+		public static function default_options(): array {
 			global $wp_roles;
 
 			if (empty($wp_roles)) {
@@ -187,13 +187,12 @@ if (!class_exists('ThemedLogin_Themed_Profiles')) {
 		 * @return array Body classes
 		 */
 		public function body_class($classes) {
-			if (! ThemedLogin::is_tml_page('profile')) {
+			if (!ThemedLogin::is_tml_page('profile')) {
 				return $classes;
 			}
-			if (! in_array('no-js', $classes, true)) {
+			if (!in_array('no-js', $classes, true)) {
 				$classes[] = 'no-js';
 			}
-
 			return $classes;
 		}
 
@@ -208,6 +207,8 @@ if (!class_exists('ThemedLogin_Themed_Profiles')) {
 		public function tml_request_profile() {
 			require_once(ABSPATH . 'wp-admin/includes/user.php');
 			require_once(ABSPATH . 'wp-admin/includes/misc.php');
+
+			global $themedLoginInstance;
 
 			define('IS_PROFILE_PAGE', true);
 
@@ -241,7 +242,7 @@ if (!class_exists('ThemedLogin_Themed_Profiles')) {
 					wp_redirect($redirect);
 					exit;
 				}
-				ThemedLogin::get_object()->errors = $errors;
+				$themedLoginInstance->errors = $errors;
 			}
 		}
 
@@ -379,7 +380,7 @@ if (!class_exists('ThemedLogin_Themed_Profiles')) {
 		}
 	}
 
-	ThemedLogin_Themed_Profiles::get_object();
+	new ThemedLogin_Themed_Profiles();
 
 }
 

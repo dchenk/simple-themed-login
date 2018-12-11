@@ -62,12 +62,11 @@ if (!class_exists('ThemedLogin_Security')) {
 		 * Callback for "template_redirect" hook in the file wp-settings.php
 		 */
 		public function template_redirect() {
-			if ($private_site = apply_filters('tml_enforce_private_site', $this->get_option('private_site'))) {
-				if (! (is_user_logged_in() || ThemedLogin::is_tml_page())) {
-					$redirect_to = apply_filters('tml_security_private_site_redirect', wp_login_url($_SERVER['REQUEST_URI'], true));
-					wp_safe_redirect($redirect_to);
-					exit;
-				}
+			$private_site = apply_filters('themed_login_enforce_private_site', $this->get_option('private_site'));
+			if ($private_site && !is_user_logged_in() && !ThemedLogin::is_tml_page()) {
+				$redirect_to = apply_filters('tml_security_private_site_redirect', wp_login_url($_SERVER['REQUEST_URI'], true));
+				wp_safe_redirect($redirect_to);
+				exit;
 			}
 		}
 
