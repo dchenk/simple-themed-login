@@ -188,27 +188,23 @@ if (!class_exists('ThemedLogin')) {
 
 		/**
 		 * Exclude pages from search
+		 *
+		 * @param WP_Query $query
 		 */
 		public function pre_get_posts($query) {
-			// Bail if in admin area
-			if (is_admin()) {
+			// Return if in admin area, or if not the main query, or if not a search.
+			if (is_admin() || !$query->is_main_query() || !$query->is_search) {
 				return;
 			}
-			// Bail if not the main query
-			if (!$query->is_main_query()) {
-				return;
-			}
-			// Bail if not a search
-			if (!$query->is_search) {
-				return;
-			}
+
 			// Get the requested post type
 			$post_type = $query->get('post_type');
 
 			// Bail if not querying pages
-			if (!empty($post_type) && !in_array('page', (array)$post_type, true)) {
+			if (!empty($post_type) && !in_array('page', (array) $post_type, true)) {
 				return;
 			}
+
 			// Get pages
 			$pages = get_posts([
 				'post_type' => 'page',
@@ -221,7 +217,7 @@ if (!class_exists('ThemedLogin')) {
 			$pages = wp_list_pluck($pages, 'ID');
 
 			// Get any currently exclude posts
-			$excludes = (array)$query->get('post__not_in');
+			$excludes = (array) $query->get('post__not_in');
 
 			// Merge the excludes
 			$excludes = array_merge($excludes, $pages);
@@ -271,7 +267,6 @@ if (!class_exists('ThemedLogin')) {
 					wp_safe_redirect(wp_get_referer());
 					exit;
 
-					break;
 				case 'logout':
 					check_admin_referer('log-out');
 
@@ -289,7 +284,7 @@ if (!class_exists('ThemedLogin')) {
 					$redirect_to = apply_filters('logout_redirect', $redirect_to, $requested_redirect_to, $user);
 					wp_safe_redirect($redirect_to);
 					exit;
-					break;
+
 				case 'lostpassword':
 				case 'retrievepassword':
 					if ($http_post) {
@@ -363,6 +358,7 @@ if (!class_exists('ThemedLogin')) {
 					wp_enqueue_script('utils');
 					wp_enqueue_script('user-profile');
 					break;
+
 				case 'register':
 					if (!get_option('users_can_register')) {
 						$redirect_to = site_url('wp-login.php?registration=disabled');
@@ -386,6 +382,7 @@ if (!class_exists('ThemedLogin')) {
 						}
 					}
 					break;
+
 				case 'confirmaction':
 					if (!isset($_GET['request_id'])) {
 						wp_die(__('Invalid request.'));
@@ -406,6 +403,7 @@ if (!class_exists('ThemedLogin')) {
 
 					do_action('user_request_action_confirmed', $request_id);
 					break;
+
 				case 'login':
 				default:
 					$secure_cookie = '';
@@ -414,7 +412,8 @@ if (!class_exists('ThemedLogin')) {
 					// If the user wants ssl but the session is not ssl, force a secure cookie.
 					if (!empty($_POST['log']) && !force_ssl_admin()) {
 						$user_name = sanitize_user($_POST['log']);
-						if ($user = get_user_by('login', $user_name)) {
+						$user = get_user_by('login', $user_name);
+						if ($user) {
 							if (get_user_option('use_ssl', $user->ID)) {
 								$secure_cookie = true;
 								force_ssl_admin(true);
@@ -545,7 +544,6 @@ if (!class_exists('ThemedLogin')) {
 					if ($reauth) {
 						wp_clear_auth_cookie();
 					}
-					break;
 			} // end switch
 		}
 
@@ -1074,16 +1072,16 @@ if (!class_exists('ThemedLogin')) {
 			$errors = new WP_Error();
 
 			if (empty($_POST['user_login'])) {
-				$errors->add('empty_username', __('<strong>ERROR</strong>: Enter a username or e-mail address.', 'themed-login'));
+				$errors->add('empty_username', __('<strong>ERROR</strong>: Enter a username or email address.', 'themed-login'));
 			} else {
 				if (strpos($_POST['user_login'], '@')) {
-					$user_data = get_user_by('email', trim(wp_unslash($_POST['user_login'])));
-					if (empty($user_data)) {
+					$user = get_user_by('email', trim(wp_unslash($_POST['user_login'])));
+					if (empty($user)) {
 						$errors->add('invalid_email', __('<strong>ERROR</strong>: There is no user registered with that email address.', 'themed-login'));
 					}
 				} else {
 					$login = trim($_POST['user_login']);
-					$user_data = get_user_by('login', $login);
+					$user = get_user_by('login', $login);
 				}
 			}
 
@@ -1092,26 +1090,27 @@ if (!class_exists('ThemedLogin')) {
 			if ($errors->get_error_code()) {
 				return $errors;
 			}
-			if (!$user_data) {
+
+			if (!$user) {
 				$errors->add('invalidcombo', __('<strong>ERROR</strong>: Invalid username or e-mail.', 'themed-login'));
 				return $errors;
 			}
 
 			// redefining user_login ensures we return the right case in the email
-			$user_login = $user_data->user_login;
-			$user_email = $user_data->user_email;
-			$key = get_password_reset_key($user_data);
+			$user_login = $user->user_login;
+			$user_email = $user->user_email;
+			$key = get_password_reset_key($user);
 
 			if (is_wp_error($key)) {
 				return $key;
 			}
 
-			$message = __('Someone requested that the password be reset for the following account:', 'themed-login') . "\r\n\r\n";
-			$message .= network_home_url('/') . "\r\n\r\n";
-			$message .= sprintf(__('Username: %s', 'themed-login'), $user_login) . "\r\n\r\n";
-			$message .= __('If this was a mistake, just ignore this email and nothing will happen.', 'themed-login') . "\r\n\r\n";
-			$message .= __('To reset your password, visit the following address:', 'themed-login') . "\r\n\r\n";
-			$message .= '<' . network_site_url("wp-login.php?action=rp&key=${key}&login=" . rawurlencode($user_login), 'login') . ">\r\n";
+			$message = sprintf(
+				__('Someone requested that the password be reset for the account with the username %s on %s', 'themed-login'),
+					$user_login, network_home_url()) . "\r\n\r\n";
+			$message .= __('If this was a mistake, you can ignore this email and nothing will happen.', 'themed-login') . "\r\n\r\n";
+			$message .= __('To reset your password, visit the following address:', 'themed-login') . "\r\n";
+			$message .= network_site_url("wp-login.php?action=rp&key=${key}&login=" . rawurlencode($user_login), 'login') . "\r\n";
 
 			if (is_multisite()) {
 				$blogname = $GLOBALS['current_site']->site_name;
@@ -1123,11 +1122,11 @@ if (!class_exists('ThemedLogin')) {
 
 			$title = '[' . $blogname . '] ' . __('Password Reset', 'themed-login');
 
-			$title = apply_filters('retrieve_password_title', $title, $user_login, $user_data);
-			$message = apply_filters('retrieve_password_message', $message, $key, $user_login, $user_data);
+			$title = apply_filters('retrieve_password_title', $title, $user_login, $user);
+			$message = apply_filters('retrieve_password_message', $message, $key, $user_login, $user);
 
 			if ($message && !wp_mail($user_email, $title, $message)) {
-				wp_die(__('The e-mail could not be sent.', 'themed-login') . "<br>\n" . __('Possible reason: your host may have disabled the mail() function.', 'themed-login'));
+				wp_die(__('The email could not be sent.', 'themed-login') . "<br>\n" . __('Possible reason: your host may have disabled the mail() function.', 'themed-login'));
 			}
 
 			return true;

@@ -231,10 +231,10 @@ if (!class_exists('ThemedLogin_Template')) {
 							}
 						}
 					}
-					if (! empty($errors)) {
+					if (!empty($errors)) {
 						$output .= '<p class="error">' . apply_filters('login_errors', $errors) . "</p>\n";
 					}
-					if (! empty($messages)) {
+					if (!empty($messages)) {
 						$output .= '<p class="message">' . apply_filters('login_messages', $messages) . "</p>\n";
 					}
 				}
@@ -379,8 +379,8 @@ if (!class_exists('ThemedLogin_Template')) {
 		 *
 		 * @param int $size
 		 */
-		public function the_user_avatar($size) {
-			if (empty($size)) {
+		public function the_user_avatar($size = 0) {
+			if ($size === 0) {
 				$size = $this->get_option('gravatar_size', 50);
 			}
 
