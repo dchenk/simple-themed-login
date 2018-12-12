@@ -27,12 +27,12 @@ if (!class_exists('ThemedLogin_Custom_Passwords')) {
 			global $themedLoginInstance;
 			$template = $themedLoginInstance->current_instance; ?>
 			<p class="tml-user-pass1-wrap">
-				<label for="pass1<?php $template->the_instance(); ?>"><?php _e('Password', 'themed-login'); ?></label>
-				<input autocomplete="off" name="pass1" id="pass1<?php $template->the_instance(); ?>" class="input" size="20" type="password">
+				<label for="pass1<?php $template->instance_id(); ?>"><?php _e('Password', 'themed-login'); ?></label>
+				<input autocomplete="off" name="pass1" id="pass1<?php $template->instance_id(); ?>" class="input" size="20" type="password">
 			</p>
 			<p class="tml-user-pass2-wrap">
-				<label for="pass2<?php $template->the_instance(); ?>"><?php _e('Confirm Password', 'themed-login'); ?></label>
-				<input autocomplete="off" name="pass2" id="pass2<?php $template->the_instance(); ?>" class="input" size="20" type="password">
+				<label for="pass2<?php $template->instance_id(); ?>"><?php _e('Confirm Password', 'themed-login'); ?></label>
+				<input autocomplete="off" name="pass2" id="pass2<?php $template->instance_id(); ?>" class="input" size="20" type="password">
 			</p>
 			<?php
 		}

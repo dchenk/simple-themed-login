@@ -6,7 +6,7 @@ global $themedLoginInstance;
 $template = $themedLoginInstance->current_instance;
 
 ?>
-<div class="tml tml-user-panel" id="themed-login<?php $template->the_instance(); ?>">
+<div class="tml tml-user-panel" id="themed-login<?php $template->instance_id(); ?>">
 	<?php
 	if ($template->options['show_gravatar']) {
 		?>

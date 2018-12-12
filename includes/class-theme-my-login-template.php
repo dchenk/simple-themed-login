@@ -14,6 +14,14 @@ if (!class_exists('ThemedLogin_Template')) {
 	 */
 	class ThemedLogin_Template extends ThemedLogin_Abstract {
 		/**
+		 * Holds the ID of the instance, which just marks its position on the page.
+		 * The first instance has an ID of 0.
+		 *
+		 * @var int
+		 */
+		private $id = 0;
+
+		/**
 		 * Holds active instance flag
 		 *
 		 * @access private
@@ -43,7 +51,7 @@ if (!class_exists('ThemedLogin_Template')) {
 		 */
 		public static function default_options(): array {
 			return [
-				'instance'              => 0,
+				// 'instance'              => 0,
 				'default_action'        => 'login',
 				'login_template'        => '',
 				'register_template'     => '',
@@ -258,12 +266,10 @@ if (!class_exists('ThemedLogin_Template')) {
 		 * @return string The requested action URL
 		 */
 		public function get_action_url($action = '', $scheme = 'login') {
-			$instance = $this->get_option('instance');
-
 			if ($action == $this->get_option('default_action')) {
 				$args = [];
-				if ($instance) {
-					$args['instance'] = $instance;
+				if ($this->id) {
+					$args['instance'] = $this->id;
 				}
 				$url = ThemedLogin_Common::get_current_url($args);
 			} else {
@@ -272,7 +278,7 @@ if (!class_exists('ThemedLogin_Template')) {
 
 			$url = set_url_scheme($url, $scheme);
 
-			return apply_filters('tml_action_url', $url, $action, $scheme, $instance);
+			return apply_filters('themed_login_action_url', $url, $action, $scheme, $this->id);
 		}
 
 		/**
@@ -510,12 +516,19 @@ if (!class_exists('ThemedLogin_Template')) {
 		}
 
 		/**
-		 * Outputs current template instance ID
+		 * Outputs the current template instance ID
 		 */
-		public function the_instance() {
-			if ($this->get_option('instance')) {
-				echo esc_attr($this->get_option('instance'));
-			}
+		public function instance_id() {
+			echo $this->id > 0 ? $this->id : '';
+		}
+
+		/**
+		 * Sets the instance ID.
+		 *
+		 * @param int $id
+		 */
+		public function set_id(int $id) {
+			$this->id = $id;
 		}
 
 		/**

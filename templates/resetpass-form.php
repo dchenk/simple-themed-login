@@ -6,10 +6,10 @@ global $themedLoginInstance;
 $template = $themedLoginInstance->current_instance;
 
 ?>
-<div class="tml tml-resetpass" id="themed-login<?php $template->the_instance(); ?>">
+<div class="tml tml-resetpass" id="themed-login<?php $template->instance_id(); ?>">
 	<?php $template->the_action_template_message( 'resetpass' ); ?>
 	<?php $template->the_errors(); ?>
-	<form id="resetpassform<?php $template->the_instance(); ?>" action="<?php $template->the_action_url( 'resetpass', 'login_post' ); ?>" method="post" autocomplete="off">
+	<form id="resetpassform<?php $template->instance_id(); ?>" action="<?php $template->the_action_url( 'resetpass', 'login_post' ); ?>" method="post" autocomplete="off">
 
 		<div class="user-pass1-wrap">
 			<p>
@@ -43,10 +43,10 @@ $template = $themedLoginInstance->current_instance;
 		<?php do_action( 'resetpassword_form' ); ?>
 
 		<p class="tml-submit-wrap">
-			<input type="submit" name="wp-submit" id="wp-submit<?php $template->the_instance(); ?>" value="<?php esc_attr_e( 'Reset Password', 'themed-login' ); ?>">
+			<input type="submit" name="wp-submit" id="wp-submit<?php $template->instance_id(); ?>" value="<?php esc_attr_e( 'Reset Password', 'themed-login' ); ?>">
 			<input type="hidden" id="user_login" value="<?php echo esc_attr( $GLOBALS['rp_login'] ); ?>" autocomplete="off">
 			<input type="hidden" name="rp_key" value="<?php echo esc_attr( $GLOBALS['rp_key'] ); ?>">
-			<input type="hidden" name="instance" value="<?php $template->the_instance(); ?>">
+			<input type="hidden" name="instance" value="<?php $template->instance_id(); ?>">
 			<input type="hidden" name="action" value="resetpass">
 		</p>
 	</form>

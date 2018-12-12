@@ -1048,10 +1048,12 @@ if (!class_exists('ThemedLogin')) {
 		 */
 		public function load_instance($args = ''): ThemedLogin_Template {
 			$instance = new ThemedLogin_Template($args);
-			$instance->set_option('instance', $this->loaded_instances);
+
+			$id = $this->loaded_instances;
+			$instance->set_id($id);
 			++$this->loaded_instances;
 
-			if ($instance->get_option('instance') === $this->request_instance) {
+			if ($id === $this->request_instance) {
 				$instance->set_active();
 				$instance->set_option('default_action', $this->request_action ? $this->request_action : 'login');
 			}

@@ -29,13 +29,13 @@ global $themedLoginInstance;
 $template = $themedLoginInstance->current_instance;
 
 ?>
-<div class="tml tml-login" id="themed-login<?php $template->the_instance(); ?>">
+<div class="tml tml-login" id="themed-login<?php $template->instance_id(); ?>">
 	<?php
 	$template->the_action_template_message('login');
 	$template->the_errors(); ?>
-	<form id="loginform<?php $template->the_instance(); ?>" action="<?php $template->the_action_url('login', 'login_post'); ?>" method="post">
+	<form id="loginform<?php $template->instance_id(); ?>" action="<?php $template->the_action_url('login', 'login_post'); ?>" method="post">
 		<p class="tml-user-login-wrap">
-			<label for="user_login<?php $template->the_instance(); ?>"><?php
+			<label for="user_login<?php $template->instance_id(); ?>"><?php
 				switch ($themedLoginInstance->get_option('login_type')) {
 				case 'username':
 					_e('Username', 'themed-login');
@@ -47,11 +47,11 @@ $template = $themedLoginInstance->current_instance;
 					_e('Username or Email', 'themed-login');
 				}
 			?></label>
-			<input type="text" name="log" id="user_login<?php $template->the_instance(); ?>" value="<?php $template->the_posted_value('log'); ?>" size="20">
+			<input type="text" name="log" id="user_login<?php $template->instance_id(); ?>" value="<?php $template->the_posted_value('log'); ?>" size="20">
 		</p>
 		<p class="tml-user-pass-wrap">
-			<label for="user_pass<?php $template->the_instance(); ?>"><?php _e('Password', 'themed-login'); ?></label>
-			<input type="password" name="pwd" id="user_pass<?php $template->the_instance(); ?>" value="" size="20" autocomplete="off">
+			<label for="user_pass<?php $template->instance_id(); ?>"><?php _e('Password', 'themed-login'); ?></label>
+			<input type="password" name="pwd" id="user_pass<?php $template->instance_id(); ?>" value="" size="20" autocomplete="off">
 		</p>
 		<?php
 		if ($stlRecaptcha) {
@@ -60,13 +60,13 @@ $template = $themedLoginInstance->current_instance;
 		<?php do_action('login_form'); ?>
 		<div class="tml-rememberme-submit-wrap">
 			<p class="tml-rememberme-wrap">
-				<input name="rememberme" type="checkbox" id="rememberme<?php $template->the_instance(); ?>" value="forever">
-				<label for="rememberme<?php $template->the_instance(); ?>"><?php esc_attr_e('Remember Me', 'themed-login'); ?></label>
+				<input name="rememberme" type="checkbox" id="rememberme<?php $template->instance_id(); ?>" value="forever">
+				<label for="rememberme<?php $template->instance_id(); ?>"><?php esc_attr_e('Remember Me', 'themed-login'); ?></label>
 			</p>
 			<p class="tml-submit-wrap">
-				<input type="submit" name="wp-submit" id="wp-submit<?php $template->the_instance(); ?>" value="<?php esc_attr_e('Log In', 'themed-login'); ?>">
+				<input type="submit" name="wp-submit" id="wp-submit<?php $template->instance_id(); ?>" value="<?php esc_attr_e('Log In', 'themed-login'); ?>">
 				<input type="hidden" name="redirect_to" value="<?php $template->the_redirect_url('login'); ?>">
-				<input type="hidden" name="instance" value="<?php $template->the_instance(); ?>">
+				<input type="hidden" name="instance" value="<?php $template->instance_id(); ?>">
 				<input type="hidden" name="action" value="login">
 			</p>
 		</div>

@@ -6,7 +6,7 @@ global $themedLoginInstance;
 $template = $themedLoginInstance->current_instance;
 
 ?>
-<div class="tml tml-profile" id="themed-login<?php $template->the_instance(); ?>">
+<div class="tml tml-profile" id="themed-login<?php $template->instance_id(); ?>">
 	<?php $template->the_action_template_message( 'profile' ); ?>
 	<?php $template->the_errors(); ?>
 	<form id="your-profile" action="<?php $template->the_action_url( 'profile', 'login_post' ); ?>" method="post">
@@ -192,7 +192,7 @@ $template = $themedLoginInstance->current_instance;
 
 		<p class="tml-submit-wrap">
 			<input type="hidden" name="action" value="profile">
-			<input type="hidden" name="instance" value="<?php $template->the_instance(); ?>">
+			<input type="hidden" name="instance" value="<?php $template->instance_id(); ?>">
 			<input type="hidden" name="user_id" id="user_id" value="<?php echo esc_attr( $current_user->ID ); ?>">
 			<input type="submit" class="button-primary" value="<?php esc_attr_e( 'Update Profile', 'themed-login' ); ?>" name="submit" id="submit">
 		</p>
