@@ -597,7 +597,7 @@ if (!class_exists('ThemedLogin')) {
 				case 'register':
 					?>
 					<script>
-						const ul = document.getElementById("user_login");
+						const ul = document.getElementById("user_login<?php $this->current_instance->instance_id(); ?>");
 						if (ul) {
 							ul.focus();
 						}
@@ -611,7 +611,7 @@ if (!class_exists('ThemedLogin')) {
 				case 'rp':
 					?>
 					<script>
-						const p1 = document.getElementById("pass1");
+						const p1 = document.getElementById("pass1<?php $this->current_instance->instance_id(); ?>");
 						if (p1) {
 							p1.focus();
 						}
@@ -622,24 +622,23 @@ if (!class_exists('ThemedLogin')) {
 					<?php
 					break;
 				case 'login':
-					$user_login = false;
-					if (isset($_POST['log'])) {
-						$user_login = ('incorrect_password' == $this->errors->get_error_code() || 'empty_password' == $this->errors->get_error_code()) ? esc_attr(stripslashes($_POST['log'])) : '';
+					$badPass = false;
+					if (!empty($_POST['log'])) {
+						$badPass = $this->errors->get_error_code() == 'incorrect_password' || $this->errors->get_error_code() == 'empty_password';
 					}
 					?>
 					<script>
-						const badPass = <?php echo $user_login ? 'false' : 'true'; ?>;
+						const badPass = <?php echo $badPass ? 'true' : 'false'; ?>;
 						setTimeout(function() {
 							var d;
 							if (badPass) {
-								d = document.getElementById("user_pass");
+								d = document.getElementById("user_pass<?php $this->current_instance->instance_id(); ?>");
 							} else {
-								d = document.getElementById("user_login");
+								d = document.getElementById("user_login<?php $this->current_instance->instance_id(); ?>");
 							}
 							if (d) {
 								d.value = "";
 								d.focus();
-								d.select();
 							}
 						}, 200);
 

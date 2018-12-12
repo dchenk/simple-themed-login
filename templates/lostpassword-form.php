@@ -14,9 +14,9 @@ $template = $themedLoginInstance->current_instance;
 		<p class="tml-user-login-wrap">
 			<label for="user_login<?php $template->instance_id(); ?>"><?php
 			if ($themedLoginInstance->get_option('login_type') === 'email') {
-				_e('E-mail:', 'themed-login');
+				_e('Email:', 'themed-login');
 			} else {
-				_e('Username or E-mail:', 'themed-login');
+				_e('Username or Email:', 'themed-login');
 			} ?></label>
 			<input type="text" name="user_login" id="user_login<?php $template->instance_id(); ?>" class="input" value="<?php $template->the_posted_value('user_login'); ?>" size="20">
 		</p>

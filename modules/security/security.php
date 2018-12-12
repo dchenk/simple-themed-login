@@ -140,7 +140,7 @@ if (!class_exists('ThemedLogin_Security')) {
 		 *
 		 * @see wp_authenticate()
 		 *
-		 * @param WP_User $user WP_User object
+		 * @param WP_Error|WP_User $user WP_User or WP_Error object
 		 * @param string $username Username posted
 		 * @param string $password Password posted
 		 * @return WP_Error|WP_User WP_User if the user can login, WP_Error otherwise
@@ -161,7 +161,10 @@ if (!class_exists('ThemedLogin_Security')) {
 					if ($time > $expiration) {
 						self::unlock_user($userdata->ID);
 					} else {
-						return new WP_Error('locked_account', sprintf(__('<strong>ERROR</strong>: This account has been locked because of too many failed login attempts. You may try again in %s.', 'themed-login'), human_time_diff($time, $expiration)));
+						return new WP_Error(
+							'locked_account',
+							sprintf(__('<strong>ERROR</strong>: This account has been locked because of too many failed login attempts. You may try again in %s.', 'themed-login'), human_time_diff($time, $expiration))
+						);
 					}
 				} else {
 					return new WP_Error('locked_account', __('<strong>ERROR</strong>: This account has been locked.', 'themed-login'));
@@ -180,7 +183,7 @@ if (!class_exists('ThemedLogin_Security')) {
 				if ($time < $duration) {
 					// Log this attempt
 					self::add_failed_login_attempt($userdata->ID, $time);
-					// If failed attempts reach treshold, lock the account
+					// If failed attempts reach threshold, lock the account
 					if (self::get_failed_login_attempt_count($userdata->ID) >= $this->get_option(['failed_login', 'threshold'])) {
 						// Create new expiration
 						$expiration = $time + self::get_seconds_from_unit($this->get_option(['failed_login', 'lockout_duration']), $this->get_option(['failed_login', 'lockout_duration_unit']));
@@ -221,10 +224,11 @@ if (!class_exists('ThemedLogin_Security')) {
 		 * @param object $profileuser User object
 		 */
 		public function show_user_profile($profileuser) {
-			if (! current_user_can('manage_users')) {
+			if (!current_user_can('manage_users')) {
 				return;
 			}
-			if ($failed_login_attempts = self::get_failed_login_attempts($profileuser->ID)) {
+			$failed_attempts = self::get_failed_login_attempts($profileuser->ID);
+			if ($failed_attempts) {
 				?>
 				<h3><?php _e('Failed Login Attempts', 'themed-login'); ?></h3>
 
@@ -233,7 +237,7 @@ if (!class_exists('ThemedLogin_Security')) {
 					<th scope="col"><?php _e('IP Address', 'themed-login'); ?></th>
 					<th scope="col"><?php _e('Date', 'themed-login'); ?></th>
 				</tr>
-				<?php foreach ($failed_login_attempts as $attempt) {
+				<?php foreach ($failed_attempts as $attempt) {
 					$t_time = date_i18n(__('Y/m/d g:i:s A', 'themed-login'), $attempt['time']);
 
 					$time_diff = time() - $attempt['time'];
@@ -243,11 +247,11 @@ if (!class_exists('ThemedLogin_Security')) {
 					} else {
 						$h_time = date_i18n(__('Y/m/d', 'themed-login'), $attempt['time']);
 					} ?>
-				<tr>
-					<td><?php echo $attempt['ip']; ?></td>
-					<td><abbr title="<?php echo $t_time; ?>"><?php echo $h_time; ?></abbr></td>
-				</tr>
-				<?php
+					<tr>
+						<td><?php echo $attempt['ip']; ?></td>
+						<td><abbr title="<?php echo $t_time; ?>"><?php echo $h_time; ?></abbr></td>
+					</tr>
+					<?php
 				} ?>
 				</table>
 			<?php
