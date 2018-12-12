@@ -2,19 +2,20 @@
 # This file is distributed under the same license as the Themed Login plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Themed Login 1.2.0\n"
+"Project-Id-Version: Themed Login 2.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/themed-login\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2018-12-09T08:59:48+00:00\n"
-"PO-Revision-Date: 2018-12-09T08:59:48+00:00\n"
+"POT-Creation-Date: 2018-12-12T04:19:20+00:00\n"
+"PO-Revision-Date: 2018-12-12T04:19:20+00:00\n"
 "X-Generator: WP-CLI 2.0.1\n"
 "X-Domain: themed-login\n"
 
 #. Plugin Name of the plugin
+#: includes/class-themed-login-widget.php:19
 msgid "Themed Login"
 msgstr ""
 
@@ -31,448 +32,444 @@ msgstr ""
 msgid "widerwebs"
 msgstr ""
 
-#: includes/class-theme-my-login.php:94
-#: includes/class-theme-my-login-template.php:165
-#: templates/login-form.php:60
+#: includes/class-themed-login.php:94
+#: includes/class-theme-my-login-template.php:198
+#: templates/login-form.php:67
 msgid "Log In"
 msgstr ""
 
-#: includes/class-theme-my-login.php:95
+#: includes/class-themed-login.php:95
 msgid "Log Out"
 msgstr ""
 
-#: includes/class-theme-my-login.php:96
-#: includes/class-theme-my-login-widget.php:93
-#: includes/class-theme-my-login-template.php:152
-#: templates/register-form.php:26
+#: includes/class-themed-login.php:96
+#: includes/class-themed-login-widget.php:105
+#: includes/class-theme-my-login-template.php:188
+#: templates/register-form.php:42
 msgid "Register"
 msgstr ""
 
-#: includes/class-theme-my-login.php:97
-#: includes/class-theme-my-login-widget.php:94
-#: includes/class-theme-my-login-template.php:158
+#: includes/class-themed-login.php:97
+#: includes/class-themed-login-widget.php:106
+#: includes/class-theme-my-login-template.php:193
 msgid "Lost Password"
 msgstr ""
 
-#: includes/class-theme-my-login.php:98
-#: templates/resetpass-form.php:42
-#: modules/custom-email/admin/custom-email-admin.php:58
+#: includes/class-themed-login.php:98
+#: templates/resetpass-form.php:46
+#: modules/custom-email/admin/custom-email-admin.php:48
 msgid "Reset Password"
 msgstr ""
 
-#: includes/class-theme-my-login.php:296
+#: includes/class-themed-login.php:289
 msgid "Your password reset link appears to be invalid. Please request a new link below."
 msgstr ""
 
-#: includes/class-theme-my-login.php:299
+#: includes/class-themed-login.php:292
 msgid "Your password reset link has expired. Please request a new link below."
 msgstr ""
 
-#: includes/class-theme-my-login.php:340
+#: includes/class-themed-login.php:333
 msgid "The passwords do not match."
 msgstr ""
 
-#: includes/class-theme-my-login.php:501
+#: includes/class-themed-login.php:498
 msgid "Your session has expired. Please log in to continue where you left off."
 msgstr ""
 
-#: includes/class-theme-my-login.php:506
+#: includes/class-themed-login.php:504
 msgid "You are now logged out."
 msgstr ""
 
-#: includes/class-theme-my-login.php:509
+#: includes/class-themed-login.php:507
+#: templates/register-form.php:17
 msgid "User registration is currently not allowed."
 msgstr ""
 
-#: includes/class-theme-my-login.php:512
+#: includes/class-themed-login.php:510
 msgid "Check your email for the confirmation link."
 msgstr ""
 
-#: includes/class-theme-my-login.php:515
+#: includes/class-themed-login.php:513
 msgid "Check your email for your new password."
 msgstr ""
 
-#: includes/class-theme-my-login.php:518
+#: includes/class-themed-login.php:516
 msgid "Your password has been reset."
 msgstr ""
 
-#: includes/class-theme-my-login.php:521
+#: includes/class-themed-login.php:519
 msgid "Registration complete. Please check your email."
 msgstr ""
 
-#: includes/class-theme-my-login.php:524
+#: includes/class-themed-login.php:522
 msgid "<strong>You have successfully updated WordPress!</strong> Please log back in to see what&#8217;s new."
 msgstr ""
 
-#: includes/class-theme-my-login.php:860
+#: includes/class-themed-login.php:820
 msgid "<strong>ERROR</strong>: Invalid email address."
 msgstr ""
 
-#: includes/class-theme-my-login.php:1150
-msgid "<strong>ERROR</strong>: Enter a username or e-mail address."
+#: includes/class-themed-login.php:1045
+msgid "<strong>ERROR</strong>: Enter a username or email address."
 msgstr ""
 
-#: includes/class-theme-my-login.php:1155
+#: includes/class-themed-login.php:1050
 msgid "<strong>ERROR</strong>: There is no user registered with that email address."
 msgstr ""
 
-#: includes/class-theme-my-login.php:1169
+#: includes/class-themed-login.php:1065
 msgid "<strong>ERROR</strong>: Invalid username or e-mail."
 msgstr ""
 
-#: includes/class-theme-my-login.php:1182
-msgid "Someone requested that the password be reset for the following account:"
+#: includes/class-themed-login.php:1079
+msgid "Someone requested that the password be reset for the account with the username %s on %s"
 msgstr ""
 
-#: includes/class-theme-my-login.php:1184
-#: modules/custom-email/custom-email.php:718
-#: modules/custom-email/custom-email.php:747
-msgid "Username: %s"
+#: includes/class-themed-login.php:1081
+msgid "If this was a mistake, you can ignore this email and nothing will happen."
 msgstr ""
 
-#: includes/class-theme-my-login.php:1185
-msgid "If this was a mistake, just ignore this email and nothing will happen."
-msgstr ""
-
-#: includes/class-theme-my-login.php:1186
+#: includes/class-themed-login.php:1082
 msgid "To reset your password, visit the following address:"
 msgstr ""
 
-#: includes/class-theme-my-login.php:1197
+#: includes/class-themed-login.php:1093
 msgid "Password Reset"
 msgstr ""
 
-#: includes/class-theme-my-login.php:1203
-msgid "The e-mail could not be sent."
+#: includes/class-themed-login.php:1099
+msgid "The email could not be sent."
 msgstr ""
 
-#: includes/class-theme-my-login.php:1203
+#: includes/class-themed-login.php:1099
 msgid "Possible reason: your host may have disabled the mail() function."
 msgstr ""
 
-#: includes/class-theme-my-login-widget.php:16
-msgid "A login form for your blog."
+#: includes/class-themed-login-widget.php:17
+msgid "A login form for your site."
 msgstr ""
 
-#: includes/class-theme-my-login-widget.php:18
-msgid "Simple Themed Login"
-msgstr ""
-
-#: includes/class-theme-my-login-widget.php:92
+#: includes/class-themed-login-widget.php:104
 msgid "Login"
 msgstr ""
 
-#: includes/class-theme-my-login-widget.php:97
-msgid "Default Action"
+#: includes/class-themed-login-widget.php:110
+msgid "Action"
 msgstr ""
 
-#: includes/class-theme-my-login-widget.php:105
+#: includes/class-themed-login-widget.php:121
 msgid "Show When Logged In"
 msgstr ""
 
-#: includes/class-theme-my-login-widget.php:108
+#: includes/class-themed-login-widget.php:126
 msgid "Show When Logged Out"
 msgstr ""
 
-#: includes/class-theme-my-login-widget.php:111
+#: includes/class-themed-login-widget.php:131
 msgid "Show Title"
 msgstr ""
 
-#: includes/class-theme-my-login-widget.php:114
+#: includes/class-themed-login-widget.php:136
 msgid "Show Login Link"
 msgstr ""
 
-#: includes/class-theme-my-login-widget.php:117
+#: includes/class-themed-login-widget.php:141
 msgid "Show Register Link"
 msgstr ""
 
-#: includes/class-theme-my-login-widget.php:120
+#: includes/class-themed-login-widget.php:146
 msgid "Show Lost Password Link"
 msgstr ""
 
-#: includes/class-theme-my-login-widget.php:123
+#: includes/class-themed-login-widget.php:151
 msgid "Show Gravatar"
 msgstr ""
 
-#: includes/class-theme-my-login-widget.php:125
+#: includes/class-themed-login-widget.php:154
 msgid "Gravatar Size"
 msgstr ""
 
-#: includes/class-theme-my-login-template.php:145
+#: includes/class-theme-my-login-template.php:166
 msgid "Welcome, %s"
 msgstr ""
 
-#: includes/class-theme-my-login-template.php:161
+#: includes/class-theme-my-login-template.php:195
 msgid "Your Data Request"
 msgstr ""
 
-#: includes/class-theme-my-login-template.php:334
+#: includes/class-theme-my-login-template.php:366
 msgid "Dashboard"
 msgstr ""
 
-#: includes/class-theme-my-login-template.php:337
-#: modules/themed-profiles/themed-profiles.php:70
+#: includes/class-theme-my-login-template.php:370
+#: modules/themed-profiles/themed-profiles.php:59
 msgid "Profile"
 msgstr ""
 
-#: includes/class-theme-my-login-template.php:377
-msgid "Register For This Site"
+#: includes/class-theme-my-login-template.php:413
+msgid "Register for this site"
 msgstr ""
 
-#: includes/class-theme-my-login-template.php:380
-msgid "Please enter your username or email address. You will receive a link to create a new password via email."
+#: includes/class-theme-my-login-template.php:416
+msgid "Please enter your username or email address. You will receive a link via email to create a new password."
 msgstr ""
 
-#: includes/class-theme-my-login-template.php:383
+#: includes/class-theme-my-login-template.php:419
 msgid "Enter your new password below."
 msgstr ""
 
 #: admin/class-theme-my-login-admin.php:33
-msgid "Simple Themed Login Settings"
-msgstr ""
-
-#: admin/class-theme-my-login-admin.php:54
-msgid "General"
+msgid "Themed Login Settings"
 msgstr ""
 
 #: admin/class-theme-my-login-admin.php:55
-#: admin/class-theme-my-login-admin.php:60
+msgid "General"
+msgstr ""
+
+#: admin/class-theme-my-login-admin.php:56
+#: admin/class-theme-my-login-admin.php:61
 msgid "Modules"
 msgstr ""
 
-#: admin/class-theme-my-login-admin.php:58
+#: admin/class-theme-my-login-admin.php:59
 msgid "Stylesheet"
 msgstr ""
 
-#: admin/class-theme-my-login-admin.php:59
+#: admin/class-theme-my-login-admin.php:60
 msgid "Login Type"
 msgstr ""
 
-#: admin/class-theme-my-login-admin.php:104
+#: admin/class-theme-my-login-admin.php:105
 msgid "Login Action"
 msgstr ""
 
-#: admin/class-theme-my-login-admin.php:177
-msgid "Enable this plugin&rsquos CSS"
-msgstr ""
-
 #: admin/class-theme-my-login-admin.php:178
-msgid "In order to keep changes between upgrades, you can store your customized \"theme-my-login.css\" in your current theme directory."
+msgid "Enable this plugin's CSS"
 msgstr ""
 
-#: admin/class-theme-my-login-admin.php:191
-#: templates/login-form.php:40
+#: admin/class-theme-my-login-admin.php:179
+msgid "In order to keep changes between upgrades, you can store your customized \"themed-login.css\" in your current theme directory."
+msgstr ""
+
+#: admin/class-theme-my-login-admin.php:192
 msgid "Username or E-mail"
 msgstr ""
 
-#: admin/class-theme-my-login-admin.php:196
+#: admin/class-theme-my-login-admin.php:197
 msgid "Username only"
 msgstr ""
 
-#: admin/class-theme-my-login-admin.php:201
+#: admin/class-theme-my-login-admin.php:202
 msgid "E-mail only"
 msgstr ""
 
-#: admin/class-theme-my-login-admin.php:205
+#: admin/class-theme-my-login-admin.php:206
 msgid "Allow users to login using their username and/or e-mail address."
 msgstr ""
 
-#: admin/class-theme-my-login-admin.php:220
+#: admin/class-theme-my-login-admin.php:221
 msgid "Enable %s"
 msgstr ""
 
-#: templates/resetpass-form.php:12
+#: templates/resetpass-form.php:16
 msgid "New password"
 msgstr ""
 
-#: templates/resetpass-form.php:22
+#: templates/resetpass-form.php:26
 msgid "Strength indicator"
 msgstr ""
 
-#: templates/resetpass-form.php:27
-#: templates/profile-form.php:179
+#: templates/resetpass-form.php:31
+#: templates/profile-form.php:183
 msgid "Confirm use of weak password"
 msgstr ""
 
-#: templates/resetpass-form.php:33
+#: templates/resetpass-form.php:37
 msgid "Confirm new password"
 msgstr ""
 
-#: templates/register-form.php:11
-#: templates/profile-form.php:37
-#: templates/login-form.php:36
+#: templates/register-form.php:25
+#: templates/profile-form.php:41
+#: templates/login-form.php:41
 msgid "Username"
 msgstr ""
 
-#: templates/register-form.php:23
-msgid "Registration confirmation will be e-mailed to you."
+#: templates/register-form.php:38
+msgid "Registration confirmation will be emailed to you."
 msgstr ""
 
-#: templates/profile-form.php:15
+#: templates/profile-form.php:19
 msgid "Personal Options"
 msgstr ""
 
-#: templates/profile-form.php:20
+#: templates/profile-form.php:24
 msgid "Toolbar"
 msgstr ""
 
-#: templates/profile-form.php:23
+#: templates/profile-form.php:27
 msgid "Show Toolbar when viewing site"
 msgstr ""
 
-#: templates/profile-form.php:33
+#: templates/profile-form.php:37
 msgid "Name"
 msgstr ""
 
-#: templates/profile-form.php:38
+#: templates/profile-form.php:42
 msgid "Usernames cannot be changed."
 msgstr ""
 
-#: templates/profile-form.php:42
+#: templates/profile-form.php:46
 msgid "First Name"
 msgstr ""
 
-#: templates/profile-form.php:47
+#: templates/profile-form.php:51
 msgid "Last Name"
 msgstr ""
 
-#: templates/profile-form.php:52
+#: templates/profile-form.php:56
 msgid "Nickname"
 msgstr ""
 
-#: templates/profile-form.php:52
-#: templates/profile-form.php:97
+#: templates/profile-form.php:56
+#: templates/profile-form.php:101
 msgid "(required)"
 msgstr ""
 
-#: templates/profile-form.php:57
+#: templates/profile-form.php:61
 msgid "Display name publicly as"
 msgstr ""
 
-#: templates/profile-form.php:93
+#: templates/profile-form.php:97
 msgid "Contact Info"
 msgstr ""
 
-#: templates/profile-form.php:97
-#: templates/login-form.php:38
-#: modules/custom-email/admin/custom-email-admin.php:47
+#: templates/profile-form.php:101
 msgid "E-mail"
 msgstr ""
 
-#: templates/profile-form.php:105
+#: templates/profile-form.php:109
 msgid "There is a pending change of your e-mail to %1$s. <a href=\"%2$s\">Cancel</a>"
 msgstr ""
 
-#: templates/profile-form.php:114
+#: templates/profile-form.php:118
 msgid "Website"
 msgstr ""
 
-#: templates/profile-form.php:130
+#: templates/profile-form.php:134
 msgid "About Yourself"
 msgstr ""
 
-#: templates/profile-form.php:134
+#: templates/profile-form.php:138
 msgid "Biographical Info"
 msgstr ""
 
-#: templates/profile-form.php:136
+#: templates/profile-form.php:140
 msgid "Share a little biographical information to fill out your profile. This may be shown publicly."
 msgstr ""
 
-#: templates/profile-form.php:145
+#: templates/profile-form.php:149
 msgid "Account Management"
 msgstr ""
 
-#: templates/profile-form.php:148
+#: templates/profile-form.php:152
 msgid "New Password"
 msgstr ""
 
-#: templates/profile-form.php:151
+#: templates/profile-form.php:155
 msgid "Generate Password"
 msgstr ""
 
-#: templates/profile-form.php:157
+#: templates/profile-form.php:161
 msgid "Hide password"
 msgstr ""
 
-#: templates/profile-form.php:159
+#: templates/profile-form.php:163
 msgid "Hide"
 msgstr ""
 
-#: templates/profile-form.php:161
+#: templates/profile-form.php:165
 msgid "Cancel password change"
 msgstr ""
 
-#: templates/profile-form.php:162
+#: templates/profile-form.php:166
 msgid "Cancel"
 msgstr ""
 
-#: templates/profile-form.php:168
+#: templates/profile-form.php:172
 msgid "Repeat New Password"
 msgstr ""
 
-#: templates/profile-form.php:171
+#: templates/profile-form.php:175
 msgid "Type your new password again."
 msgstr ""
 
-#: templates/profile-form.php:175
-#: modules/custom-passwords/custom-passwords.php:69
+#: templates/profile-form.php:179
+#: modules/custom-passwords/custom-passwords.php:34
 msgid "Confirm Password"
 msgstr ""
 
-#: templates/profile-form.php:193
+#: templates/profile-form.php:197
 msgid "Update Profile"
 msgstr ""
 
-#: templates/lostpassword-form.php:12
-msgid "E-mail:"
+#: templates/lostpassword-form.php:17
+msgid "Email:"
 msgstr ""
 
-#: templates/lostpassword-form.php:14
-msgid "Username or E-mail:"
+#: templates/lostpassword-form.php:19
+msgid "Username or Email:"
 msgstr ""
 
-#: templates/lostpassword-form.php:22
+#: templates/lostpassword-form.php:27
 msgid "Get New Password"
 msgstr ""
 
-#: templates/login-form.php:46
-#: modules/custom-passwords/custom-passwords.php:65
+#: templates/login-form.php:44
+msgid "Email"
+msgstr ""
+
+#: templates/login-form.php:47
+msgid "Username or Email"
+msgstr ""
+
+#: templates/login-form.php:53
+#: modules/custom-passwords/custom-passwords.php:30
 msgid "Password"
 msgstr ""
 
-#: templates/login-form.php:57
+#: templates/login-form.php:64
 msgid "Remember Me"
 msgstr ""
 
-#: modules/themed-profiles/admin/themed-profiles-admin.php:53
+#: modules/themed-profiles/admin/themed-profiles-admin.php:42
 msgid "Your Profile"
 msgstr ""
 
-#: modules/themed-profiles/admin/themed-profiles-admin.php:86
-#: modules/themed-profiles/admin/themed-profiles-admin.php:119
-msgid "STL Themed Profiles Settings"
+#: modules/themed-profiles/admin/themed-profiles-admin.php:63
+#: modules/themed-profiles/admin/themed-profiles-admin.php:96
+msgid "Themed Profiles Settings"
 msgstr ""
 
-#: modules/themed-profiles/admin/themed-profiles-admin.php:87
-#: modules/themed-profiles/admin/themed-profiles-admin.php:95
+#: modules/themed-profiles/admin/themed-profiles-admin.php:64
+#: modules/themed-profiles/admin/themed-profiles-admin.php:72
 msgid "Themed Profiles"
 msgstr ""
 
-#: modules/themed-profiles/admin/themed-profiles-admin.php:96
+#: modules/themed-profiles/admin/themed-profiles-admin.php:73
 msgid "Restrict Admin Access"
 msgstr ""
 
-#: modules/themed-profiles/themed-profiles.php:240
+#: modules/themed-profiles/themed-profiles.php:229
 msgid "You do not have permission to edit this user."
 msgstr ""
 
-#: modules/themed-profiles/themed-profiles.php:277
+#: modules/themed-profiles/themed-profiles.php:266
 msgid "Profile updated."
 msgstr ""
 
 #: modules/security/admin/security-admin.php:51
-#: modules/security/admin/security-admin.php:80
+#: modules/security/admin/security-admin.php:79
 msgid "Login Security Settings"
 msgstr ""
 
@@ -492,345 +489,335 @@ msgstr ""
 msgid "Login Attempts"
 msgstr ""
 
-#: modules/security/admin/security-admin.php:93
+#: modules/security/admin/security-admin.php:92
 msgid "Require users to be logged in to view site"
 msgstr ""
 
-#: modules/security/admin/security-admin.php:105
+#: modules/security/admin/security-admin.php:104
 msgid "Disable <code>wp-login.php</code>"
 msgstr ""
 
-#: modules/security/admin/security-admin.php:114
+#: modules/security/admin/security-admin.php:113
 msgid "minutes"
 msgstr ""
 
-#: modules/security/admin/security-admin.php:115
+#: modules/security/admin/security-admin.php:114
 msgid "hours"
 msgstr ""
 
-#: modules/security/admin/security-admin.php:116
+#: modules/security/admin/security-admin.php:115
 msgid "days"
 msgstr ""
 
-#: modules/security/admin/security-admin.php:142
+#: modules/security/admin/security-admin.php:141
 msgid "After %1$s failed login attempts within %2$s %3$s, lock the account out for %4$s %5$s."
 msgstr ""
 
-#: modules/security/admin/security-admin.php:184
-#: modules/security/admin/security-admin.php:188
+#: modules/security/admin/security-admin.php:183
+#: modules/security/admin/security-admin.php:187
 msgid "You can&#8217;t edit that user."
 msgstr ""
 
-#: modules/security/admin/security-admin.php:218
+#: modules/security/admin/security-admin.php:217
 msgid "User locked."
 msgstr ""
 
-#: modules/security/admin/security-admin.php:221
+#: modules/security/admin/security-admin.php:220
 msgid "User unlocked."
 msgstr ""
 
-#: modules/security/admin/security-admin.php:249
+#: modules/security/admin/security-admin.php:248
 msgid "Unlock"
 msgstr ""
 
-#: modules/security/admin/security-admin.php:258
+#: modules/security/admin/security-admin.php:257
 msgid "Lock"
 msgstr ""
 
-#: modules/security/security.php:119
+#: modules/security/security.php:107
 msgid "Your account has been unlocked. You may now log in."
 msgstr ""
 
-#: modules/security/security.php:134
-#: modules/security/security.php:137
-#: modules/security/security.php:140
-#: modules/security/security.php:143
+#: modules/security/security.php:122
+#: modules/security/security.php:125
+#: modules/security/security.php:128
+#: modules/security/security.php:131
 msgid "Invalid key"
 msgstr ""
 
-#: modules/security/security.php:174
-#: modules/security/security.php:198
+#: modules/security/security.php:166
+#: modules/security/security.php:191
 msgid "<strong>ERROR</strong>: This account has been locked because of too many failed login attempts. You may try again in %s."
 msgstr ""
 
-#: modules/security/security.php:177
+#: modules/security/security.php:170
 msgid "<strong>ERROR</strong>: This account has been locked."
 msgstr ""
 
-#: modules/security/security.php:239
+#: modules/security/security.php:233
 msgid "Failed Login Attempts"
 msgstr ""
 
-#: modules/security/security.php:243
+#: modules/security/security.php:237
 msgid "IP Address"
 msgstr ""
 
-#: modules/security/security.php:244
+#: modules/security/security.php:238
 msgid "Date"
 msgstr ""
 
-#: modules/security/security.php:247
-#: modules/security/security.php:504
+#: modules/security/security.php:241
+#: modules/security/security.php:498
 msgid "Y/m/d g:i:s A"
 msgstr ""
 
-#: modules/security/security.php:252
+#: modules/security/security.php:246
 msgid "%s ago"
 msgstr ""
 
-#: modules/security/security.php:254
+#: modules/security/security.php:248
 msgid "Y/m/d"
 msgstr ""
 
-#: modules/security/security.php:496
+#: modules/security/security.php:490
 msgid "[%s] Account Locked"
 msgstr ""
 
-#: modules/security/security.php:497
+#: modules/security/security.php:491
 msgid "For your security, your account has been locked because of too many failed login attempts. To unlock your account please click the following link: "
 msgstr ""
 
-#: modules/security/security.php:502
+#: modules/security/security.php:496
 msgid "The following attempts resulted in the lock:"
 msgstr ""
 
-#: modules/custom-passwords/custom-passwords.php:95
-msgid "Password:"
-msgstr ""
-
-#: modules/custom-passwords/custom-passwords.php:100
-msgid "(Must be at least %d characters.)"
-msgstr ""
-
-#: modules/custom-passwords/custom-passwords.php:102
-msgid "Confirm Password:"
-msgstr ""
-
-#: modules/custom-passwords/custom-passwords.php:104
-msgid "Confirm that you've typed your password correctly."
-msgstr ""
-
-#: modules/custom-passwords/custom-passwords.php:140
+#: modules/custom-passwords/custom-passwords.php:59
 msgid "<strong>ERROR</strong>: Please enter your password twice."
 msgstr ""
 
-#: modules/custom-passwords/custom-passwords.php:144
+#: modules/custom-passwords/custom-passwords.php:63
 msgid "<strong>ERROR</strong>: Passwords may not contain the character \"\\\"."
 msgstr ""
 
-#: modules/custom-passwords/custom-passwords.php:148
+#: modules/custom-passwords/custom-passwords.php:67
 msgid "<strong>ERROR</strong>: Please enter the same password in the two password fields."
 msgstr ""
 
-#: modules/custom-passwords/custom-passwords.php:152
+#: modules/custom-passwords/custom-passwords.php:71
 msgid "<strong>ERROR</strong>: Your password must be at least %d characters in length."
 msgstr ""
 
-#: modules/custom-passwords/custom-passwords.php:281
+#: modules/custom-passwords/custom-passwords.php:198
 msgid "Registration complete. You may now log in."
 msgstr ""
 
-#: modules/custom-email/admin/custom-email-admin.php:46
-msgid "STL Custom E-mail Settings"
+#: modules/custom-email/admin/custom-email-admin.php:36
+#: modules/custom-email/admin/custom-email-admin.php:76
+msgid "Custom Email Settings"
 msgstr ""
 
-#: modules/custom-email/admin/custom-email-admin.php:55
+#: modules/custom-email/admin/custom-email-admin.php:37
+msgid "Email Settings"
+msgstr ""
+
+#: modules/custom-email/admin/custom-email-admin.php:45
 msgid "New User"
 msgstr ""
 
-#: modules/custom-email/admin/custom-email-admin.php:56
+#: modules/custom-email/admin/custom-email-admin.php:46
 msgid "New User Admin"
 msgstr ""
 
-#: modules/custom-email/admin/custom-email-admin.php:57
+#: modules/custom-email/admin/custom-email-admin.php:47
 msgid "Retrieve Password"
 msgstr ""
 
-#: modules/custom-email/admin/custom-email-admin.php:86
-msgid "Login Email Settings"
-msgstr ""
-
-#: modules/custom-email/admin/custom-email-admin.php:101
+#: modules/custom-email/admin/custom-email-admin.php:91
 msgid "This e-mail will be sent to a new user upon registration."
 msgstr ""
 
-#: modules/custom-email/admin/custom-email-admin.php:102
-#: modules/custom-email/admin/custom-email-admin.php:205
-#: modules/custom-email/admin/custom-email-admin.php:356
+#: modules/custom-email/admin/custom-email-admin.php:92
+#: modules/custom-email/admin/custom-email-admin.php:195
+#: modules/custom-email/admin/custom-email-admin.php:346
 msgid "Please be sure to include the variable %reseturl% or else the user will not be able to recover their password!"
 msgstr ""
 
-#: modules/custom-email/admin/custom-email-admin.php:103
-#: modules/custom-email/admin/custom-email-admin.php:149
-#: modules/custom-email/admin/custom-email-admin.php:206
-#: modules/custom-email/admin/custom-email-admin.php:252
-#: modules/custom-email/admin/custom-email-admin.php:310
-#: modules/custom-email/admin/custom-email-admin.php:357
-#: modules/custom-email/admin/custom-email-admin.php:403
-#: modules/custom-email/admin/custom-email-admin.php:460
+#: modules/custom-email/admin/custom-email-admin.php:93
+#: modules/custom-email/admin/custom-email-admin.php:139
+#: modules/custom-email/admin/custom-email-admin.php:196
+#: modules/custom-email/admin/custom-email-admin.php:242
+#: modules/custom-email/admin/custom-email-admin.php:300
+#: modules/custom-email/admin/custom-email-admin.php:347
+#: modules/custom-email/admin/custom-email-admin.php:393
+#: modules/custom-email/admin/custom-email-admin.php:450
 msgid "If any field is left empty, the default will be used instead."
 msgstr ""
 
-#: modules/custom-email/admin/custom-email-admin.php:107
-#: modules/custom-email/admin/custom-email-admin.php:157
-#: modules/custom-email/admin/custom-email-admin.php:210
-#: modules/custom-email/admin/custom-email-admin.php:260
-#: modules/custom-email/admin/custom-email-admin.php:314
-#: modules/custom-email/admin/custom-email-admin.php:361
-#: modules/custom-email/admin/custom-email-admin.php:411
-#: modules/custom-email/admin/custom-email-admin.php:464
+#: modules/custom-email/admin/custom-email-admin.php:97
+#: modules/custom-email/admin/custom-email-admin.php:147
+#: modules/custom-email/admin/custom-email-admin.php:200
+#: modules/custom-email/admin/custom-email-admin.php:250
+#: modules/custom-email/admin/custom-email-admin.php:304
+#: modules/custom-email/admin/custom-email-admin.php:351
+#: modules/custom-email/admin/custom-email-admin.php:401
+#: modules/custom-email/admin/custom-email-admin.php:454
 msgid "From Name"
 msgstr ""
 
-#: modules/custom-email/admin/custom-email-admin.php:111
-#: modules/custom-email/admin/custom-email-admin.php:161
-#: modules/custom-email/admin/custom-email-admin.php:214
-#: modules/custom-email/admin/custom-email-admin.php:264
-#: modules/custom-email/admin/custom-email-admin.php:318
-#: modules/custom-email/admin/custom-email-admin.php:365
-#: modules/custom-email/admin/custom-email-admin.php:415
-#: modules/custom-email/admin/custom-email-admin.php:468
+#: modules/custom-email/admin/custom-email-admin.php:101
+#: modules/custom-email/admin/custom-email-admin.php:151
+#: modules/custom-email/admin/custom-email-admin.php:204
+#: modules/custom-email/admin/custom-email-admin.php:254
+#: modules/custom-email/admin/custom-email-admin.php:308
+#: modules/custom-email/admin/custom-email-admin.php:355
+#: modules/custom-email/admin/custom-email-admin.php:405
+#: modules/custom-email/admin/custom-email-admin.php:458
 msgid "From E-mail"
 msgstr ""
 
-#: modules/custom-email/admin/custom-email-admin.php:115
-#: modules/custom-email/admin/custom-email-admin.php:165
-#: modules/custom-email/admin/custom-email-admin.php:218
-#: modules/custom-email/admin/custom-email-admin.php:268
-#: modules/custom-email/admin/custom-email-admin.php:322
-#: modules/custom-email/admin/custom-email-admin.php:369
-#: modules/custom-email/admin/custom-email-admin.php:419
-#: modules/custom-email/admin/custom-email-admin.php:472
+#: modules/custom-email/admin/custom-email-admin.php:105
+#: modules/custom-email/admin/custom-email-admin.php:155
+#: modules/custom-email/admin/custom-email-admin.php:208
+#: modules/custom-email/admin/custom-email-admin.php:258
+#: modules/custom-email/admin/custom-email-admin.php:312
+#: modules/custom-email/admin/custom-email-admin.php:359
+#: modules/custom-email/admin/custom-email-admin.php:409
+#: modules/custom-email/admin/custom-email-admin.php:462
 msgid "E-mail Format"
 msgstr ""
 
+#: modules/custom-email/admin/custom-email-admin.php:108
+#: modules/custom-email/admin/custom-email-admin.php:158
+#: modules/custom-email/admin/custom-email-admin.php:211
+#: modules/custom-email/admin/custom-email-admin.php:261
+#: modules/custom-email/admin/custom-email-admin.php:315
+#: modules/custom-email/admin/custom-email-admin.php:362
+#: modules/custom-email/admin/custom-email-admin.php:412
+#: modules/custom-email/admin/custom-email-admin.php:465
+msgid "Plain Text"
+msgstr ""
+
+#: modules/custom-email/admin/custom-email-admin.php:109
+#: modules/custom-email/admin/custom-email-admin.php:159
+#: modules/custom-email/admin/custom-email-admin.php:212
+#: modules/custom-email/admin/custom-email-admin.php:262
+#: modules/custom-email/admin/custom-email-admin.php:316
+#: modules/custom-email/admin/custom-email-admin.php:363
+#: modules/custom-email/admin/custom-email-admin.php:413
+#: modules/custom-email/admin/custom-email-admin.php:466
+msgid "HTML"
+msgstr ""
+
+#: modules/custom-email/admin/custom-email-admin.php:114
+#: modules/custom-email/admin/custom-email-admin.php:163
+#: modules/custom-email/admin/custom-email-admin.php:217
+#: modules/custom-email/admin/custom-email-admin.php:267
+#: modules/custom-email/admin/custom-email-admin.php:321
+#: modules/custom-email/admin/custom-email-admin.php:368
+#: modules/custom-email/admin/custom-email-admin.php:418
+#: modules/custom-email/admin/custom-email-admin.php:471
+msgid "Subject"
+msgstr ""
+
 #: modules/custom-email/admin/custom-email-admin.php:118
-#: modules/custom-email/admin/custom-email-admin.php:168
+#: modules/custom-email/admin/custom-email-admin.php:167
 #: modules/custom-email/admin/custom-email-admin.php:221
 #: modules/custom-email/admin/custom-email-admin.php:271
 #: modules/custom-email/admin/custom-email-admin.php:325
 #: modules/custom-email/admin/custom-email-admin.php:372
 #: modules/custom-email/admin/custom-email-admin.php:422
 #: modules/custom-email/admin/custom-email-admin.php:475
-msgid "Plain Text"
-msgstr ""
-
-#: modules/custom-email/admin/custom-email-admin.php:119
-#: modules/custom-email/admin/custom-email-admin.php:169
-#: modules/custom-email/admin/custom-email-admin.php:222
-#: modules/custom-email/admin/custom-email-admin.php:272
-#: modules/custom-email/admin/custom-email-admin.php:326
-#: modules/custom-email/admin/custom-email-admin.php:373
-#: modules/custom-email/admin/custom-email-admin.php:423
-#: modules/custom-email/admin/custom-email-admin.php:476
-msgid "HTML"
-msgstr ""
-
-#: modules/custom-email/admin/custom-email-admin.php:124
-#: modules/custom-email/admin/custom-email-admin.php:173
-#: modules/custom-email/admin/custom-email-admin.php:227
-#: modules/custom-email/admin/custom-email-admin.php:277
-#: modules/custom-email/admin/custom-email-admin.php:331
-#: modules/custom-email/admin/custom-email-admin.php:378
-#: modules/custom-email/admin/custom-email-admin.php:428
-#: modules/custom-email/admin/custom-email-admin.php:481
-msgid "Subject"
-msgstr ""
-
-#: modules/custom-email/admin/custom-email-admin.php:128
-#: modules/custom-email/admin/custom-email-admin.php:177
-#: modules/custom-email/admin/custom-email-admin.php:231
-#: modules/custom-email/admin/custom-email-admin.php:281
-#: modules/custom-email/admin/custom-email-admin.php:335
-#: modules/custom-email/admin/custom-email-admin.php:382
-#: modules/custom-email/admin/custom-email-admin.php:432
-#: modules/custom-email/admin/custom-email-admin.php:485
 msgid "Message"
 msgstr ""
 
-#: modules/custom-email/admin/custom-email-admin.php:130
-#: modules/custom-email/admin/custom-email-admin.php:179
-#: modules/custom-email/admin/custom-email-admin.php:233
-#: modules/custom-email/admin/custom-email-admin.php:283
-#: modules/custom-email/admin/custom-email-admin.php:337
-#: modules/custom-email/admin/custom-email-admin.php:384
-#: modules/custom-email/admin/custom-email-admin.php:434
-#: modules/custom-email/admin/custom-email-admin.php:487
+#: modules/custom-email/admin/custom-email-admin.php:120
+#: modules/custom-email/admin/custom-email-admin.php:169
+#: modules/custom-email/admin/custom-email-admin.php:223
+#: modules/custom-email/admin/custom-email-admin.php:273
+#: modules/custom-email/admin/custom-email-admin.php:327
+#: modules/custom-email/admin/custom-email-admin.php:374
+#: modules/custom-email/admin/custom-email-admin.php:424
+#: modules/custom-email/admin/custom-email-admin.php:477
 msgid "Available Variables"
 msgstr ""
 
-#: modules/custom-email/admin/custom-email-admin.php:148
+#: modules/custom-email/admin/custom-email-admin.php:138
 msgid "This e-mail will be sent to the e-mail address or addresses (multiple addresses may be separated by commas) specified below, upon new user registration."
 msgstr ""
 
-#: modules/custom-email/admin/custom-email-admin.php:153
-#: modules/custom-email/admin/custom-email-admin.php:256
-#: modules/custom-email/admin/custom-email-admin.php:407
+#: modules/custom-email/admin/custom-email-admin.php:143
+#: modules/custom-email/admin/custom-email-admin.php:246
+#: modules/custom-email/admin/custom-email-admin.php:397
 msgid "To"
 msgstr ""
 
-#: modules/custom-email/admin/custom-email-admin.php:187
-#: modules/custom-email/admin/custom-email-admin.php:291
-#: modules/custom-email/admin/custom-email-admin.php:442
+#: modules/custom-email/admin/custom-email-admin.php:177
+#: modules/custom-email/admin/custom-email-admin.php:281
+#: modules/custom-email/admin/custom-email-admin.php:432
 msgid "Disable Admin Notification"
 msgstr ""
 
-#: modules/custom-email/admin/custom-email-admin.php:204
+#: modules/custom-email/admin/custom-email-admin.php:194
 msgid "This e-mail will be sent to a user when they attempt to recover their password."
 msgstr ""
 
-#: modules/custom-email/admin/custom-email-admin.php:251
+#: modules/custom-email/admin/custom-email-admin.php:241
 msgid "This e-mail will be sent to the e-mail address or addresses (multiple addresses may be separated by commas) specified below, upon user password change."
 msgstr ""
 
-#: modules/custom-email/admin/custom-email-admin.php:308
+#: modules/custom-email/admin/custom-email-admin.php:298
 msgid "This e-mail will be sent to a new user upon registration when \"E-mail Confirmation\" is checked for \"User Moderation\"."
 msgstr ""
 
-#: modules/custom-email/admin/custom-email-admin.php:309
+#: modules/custom-email/admin/custom-email-admin.php:299
 msgid "Please be sure to include the variable %activateurl% or else the user will not be able to activate their account!"
 msgstr ""
 
-#: modules/custom-email/admin/custom-email-admin.php:355
+#: modules/custom-email/admin/custom-email-admin.php:345
 msgid "This e-mail will be sent to a new user upon admin approval when \"Admin Approval\" is checked for \"User Moderation\"."
 msgstr ""
 
-#: modules/custom-email/admin/custom-email-admin.php:402
+#: modules/custom-email/admin/custom-email-admin.php:392
 msgid "This e-mail will be sent to the e-mail address or addresses (multiple addresses may be separated by commas) specified below upon user registration when \"Admin Approval\" is checked for \"User Moderation\"."
 msgstr ""
 
-#: modules/custom-email/admin/custom-email-admin.php:459
+#: modules/custom-email/admin/custom-email-admin.php:449
 msgid "This e-mail will be sent to a user who is deleted/denied when \"Admin Approval\" is checked for \"User Moderation\" and the user's role is \"Pending\"."
 msgstr ""
 
-#: modules/custom-email/admin/custom-email-admin.php:495
+#: modules/custom-email/admin/custom-email-admin.php:485
 msgid "Disable Notification"
 msgstr ""
 
-#: modules/custom-email/custom-email.php:717
+#: modules/custom-email/custom-email.php:705
 msgid "New user registration on your site %s:"
 msgstr ""
 
-#: modules/custom-email/custom-email.php:719
+#: modules/custom-email/custom-email.php:706
+#: modules/custom-email/custom-email.php:735
+msgid "Username: %s"
+msgstr ""
+
+#: modules/custom-email/custom-email.php:707
 msgid "E-mail: %s"
 msgstr ""
 
-#: modules/custom-email/custom-email.php:721
+#: modules/custom-email/custom-email.php:709
 msgid "[%s] New User Registration"
 msgstr ""
 
-#: modules/custom-email/custom-email.php:748
+#: modules/custom-email/custom-email.php:736
 msgid "To set your password, visit the following address:"
 msgstr ""
 
-#: modules/custom-email/custom-email.php:753
+#: modules/custom-email/custom-email.php:741
 msgid "[%s] Your username and password info"
 msgstr ""
 
-#: modules/custom-email/custom-email.php:776
+#: modules/custom-email/custom-email.php:764
 msgid "[%s] Password Lost/Changed"
 msgstr ""
 
-#: modules/custom-email/custom-email.php:777
+#: modules/custom-email/custom-email.php:765
 msgid "Password Lost and Changed for user: %s"
 msgstr ""

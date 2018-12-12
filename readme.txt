@@ -3,14 +3,14 @@ Contributors: dchenk, jfarthing84
 Tags: widget, login, registration, theme, log in, register, e-mail
 Requires at least: 4.9
 Tested up to: 4.9.8
-Stable tag: 1.2.0
+Stable tag: 2.0.0
 
 Themes the WordPress login pages according to your theme.
 
 
 == Description ==
 
-This plugin themes the WordPress login, registration and forgot password pages according to your current theme.
+This plugin themes the WordPress login, registration, and forgot password pages according to your current theme.
 It creates a page to use in place of wp-login.php, using a page template from your theme.
 Also included is a widget for sidebar login.
 
@@ -25,6 +25,9 @@ Also included is a widget for sidebar login.
 
 
 == Changelog ==
+
+= 2.0.0 =
+* A complete overhaul, bringing various fixes and many performance and UI improvements.
 
 = 1.2.0 =
 * Now requiring the constant STL_RECAPTCHA to be set to true for the re-captcha feature to be enabled.

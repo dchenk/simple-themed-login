@@ -3,7 +3,7 @@
 Plugin Name: Themed Login
 Plugin URI: https://github.com/dchenk/themed-login
 Description: Themes the WordPress login, registration, and forgot password pages according to your theme.
-Version: 1.2.0
+Version: 2.0.0
 Author: widerwebs
 Author URI: https://github.com/dchenk/themed-login
 Text Domain: themed-login
