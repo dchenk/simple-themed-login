@@ -9,7 +9,14 @@ $template = $themedLoginInstance->current_instance;
 <div class="tml tml-register" id="themed-login<?php $template->instance_id(); ?>">
 	<?php
 	$template->the_action_template_message('register');
-	$template->the_errors(); ?>
+	$template->the_errors();
+
+	// In case someone places a registration form somewhere on a page but registrations are not
+	// permitted, display an error message along with the form.
+	if (!get_option('users_can_register')) {
+		?><p class="error"><?php _e('User registration is currently not allowed.', 'themed-login'); ?></p><?php
+	}
+	?>
 	<form id="registerform<?php $template->instance_id(); ?>" action="<?php $template->the_action_url('register', 'login_post'); ?>" method="post">
 		<?php
 		if ($themedLoginInstance->get_option('login_type') != 'email') {

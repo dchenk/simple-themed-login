@@ -237,10 +237,10 @@ if (!class_exists('ThemedLogin_Template')) {
 				foreach ($wp_error->get_error_codes() as $code) {
 					$severity = $wp_error->get_error_data($code);
 					foreach ($wp_error->get_error_messages($code) as $error) {
-						if ('message' == $severity) {
-							$messages .= '    ' . $error . "<br>\n";
+						if ($severity === 'message') {
+							$messages .= $error . "<br>";
 						} else {
-							$errors .= '    ' . $error . "<br>\n";
+							$errors .= $error . "<br>";
 						}
 					}
 				}

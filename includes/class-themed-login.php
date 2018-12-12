@@ -504,7 +504,7 @@ if (!class_exists('ThemedLogin')) {
 						$this->errors->add('loggedout', __('You are now logged out.', 'themed-login'), 'message');
 						break;
 					case isset($_GET['registration']) && 'disabled' == $_GET['registration']:
-						$this->errors->add('registerdisabled', __('User registration is currently not allowed.', 'themed-login'));
+						$this->errors->add('registerdisabled', __('User registration is currently not allowed.', 'themed-login'), 'message');
 						break;
 					case isset($_GET['checkemail']) && 'confirm' == $_GET['checkemail']:
 						$this->errors->add('confirm', __('Check your email for the confirmation link.', 'themed-login'), 'message');
