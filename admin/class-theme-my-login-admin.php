@@ -176,7 +176,7 @@ if (!class_exists('ThemedLogin_Admin')) {
 				value="1"<?php checked(1, $this->get_option('enable_css')); ?>>
 			<label
 				for="theme_my_login_enable_css"><?php _e('Enable this plugin\'s CSS', 'themed-login'); ?></label>
-			<p class="description"><?php _e('In order to keep changes between upgrades, you can store your customized "theme-my-login.css" in your current theme directory.', 'themed-login'); ?></p>
+			<p class="description"><?php _e('In order to keep changes between upgrades, you can store your customized "themed-login.css" in your current theme directory.', 'themed-login'); ?></p>
 			<?php
 		}
 

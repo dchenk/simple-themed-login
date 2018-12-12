@@ -361,7 +361,7 @@ if (!class_exists('ThemedLogin')) {
 
 			case 'register':
 				if (!get_option('users_can_register')) {
-					$this->errors->add('registerdisabled', __('User registration is currently not allowed.', 'themed-login'));
+//					$this->errors->add('registerdisabled', __('User registration is currently not allowed.', 'themed-login'));
 					$referer = wp_get_referer();
 					if (!$referer) {
 						$referer = site_url('wp-login.php');
@@ -586,13 +586,11 @@ if (!class_exists('ThemedLogin')) {
 		}
 
 		/**
-		 * Prints javascript in the footer
+		 * Prints javascript in the footer on pages that have a defined action as a post meta option.
 		 */
 		public function wp_print_footer_scripts() {
-			if (!self::is_tml_page()) {
-				return;
-			}
-			switch ($this->request_action) {
+			if (self::is_tml_page()) {
+				switch ($this->request_action) {
 				case 'lostpassword':
 				case 'retrievepassword':
 				case 'register':
@@ -630,7 +628,7 @@ if (!class_exists('ThemedLogin')) {
 					?>
 					<script>
 						const badPass = <?php echo $badPass ? 'true' : 'false'; ?>;
-						setTimeout(function() {
+						setTimeout(function () {
 							var d;
 							if (badPass) {
 								d = document.getElementById("user_pass<?php $this->current_instance->instance_id(); ?>");
@@ -648,6 +646,7 @@ if (!class_exists('ThemedLogin')) {
 						}
 					</script>
 					<?php
+				}
 			}
 		}
 
@@ -731,7 +730,7 @@ if (!class_exists('ThemedLogin')) {
 					if (is_user_logged_in()) {
 						$title = $this->main_instance->get_title('login');
 					} else {
-						if ('login' != $this->request_action) {
+						if ($this->request_action != 'login') {
 							$title = $this->main_instance->get_title($this->request_action);
 						}
 					}
@@ -1027,17 +1026,11 @@ if (!class_exists('ThemedLogin')) {
 		 * @param string $file Filename of stylesheet to load
 		 * @return string Path to stylesheet
 		 */
-		public static function get_stylesheet($file = 'themed-login.css') {
-			if (file_exists(get_stylesheet_directory() . '/' . $file)) {
-				$stylesheet = get_stylesheet_directory_uri() . '/' . $file;
-			} else {
-				if (file_exists(get_template_directory() . '/' . $file)) {
-					$stylesheet = get_template_directory_uri() . '/' . $file;
-				} else {
-					$stylesheet = plugins_url($file, __DIR__);
-				}
+		public static function get_stylesheet($file = 'themed-login.css'): string {
+			if (file_exists(get_template_directory() . '/' . $file)) {
+				return get_template_directory_uri() . '/' . $file;
 			}
-			return $stylesheet;
+			return plugins_url($file, __DIR__);
 		}
 
 		/**
