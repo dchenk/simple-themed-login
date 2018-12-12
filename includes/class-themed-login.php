@@ -257,7 +257,7 @@ if (!class_exists('ThemedLogin')) {
 				$expire = apply_filters('post_password_expires', time() + 10 * DAY_IN_SECONDS);
 				$referer = wp_get_referer();
 				if ($referer) {
-					$secure = ('https' === parse_url($referer, PHP_URL_SCHEME));
+					$secure = 'https' === parse_url($referer, PHP_URL_SCHEME);
 				} else {
 					$secure = false;
 				}
@@ -296,12 +296,12 @@ if (!class_exists('ThemedLogin')) {
 				}
 
 				if (isset($_REQUEST['error'])) {
-					if ('invalidkey' == $_REQUEST['error']) {
+					switch ($_REQUEST['error']) {
+					case 'invalidkey':
 						$this->errors->add('invalidkey', __('Your password reset link appears to be invalid. Please request a new link below.', 'themed-login'));
-					} else {
-						if ('expiredkey' == $_REQUEST['error']) {
-							$this->errors->add('expiredkey', __('Your password reset link has expired. Please request a new link below.', 'themed-login'));
-						}
+						break;
+					case 'expiredkey':
+						$this->errors->add('expiredkey', __('Your password reset link has expired. Please request a new link below.', 'themed-login'));
 					}
 				}
 
@@ -347,7 +347,7 @@ if (!class_exists('ThemedLogin')) {
 
 				do_action('validate_password_reset', $this->errors, $user);
 
-				if ((!$this->errors->get_error_code()) && isset($_POST['pass1']) && !empty($_POST['pass1'])) {
+				if (!$this->errors->get_error_code() && isset($_POST['pass1']) && !empty($_POST['pass1'])) {
 					reset_password($user, $_POST['pass1']);
 					setcookie($rp_cookie, ' ', time() - YEAR_IN_SECONDS, '/', COOKIE_DOMAIN, is_ssl(), true);
 					$redirect_to = site_url('wp-login.php?resetpass=complete');
@@ -361,12 +361,15 @@ if (!class_exists('ThemedLogin')) {
 
 			case 'register':
 				if (!get_option('users_can_register')) {
+					$this->errors->add('registerdisabled', __('User registration is currently not allowed.', 'themed-login'));
 					$referer = wp_get_referer();
-					if ($referer) {
-						wp_redirect(add_query_arg('registration', 'disabled', $referer));
-					} else {
-						wp_redirect(site_url('wp-login.php?registration=disabled'));
+					if (!$referer) {
+						$referer = site_url('wp-login.php');
 					}
+					wp_redirect(add_query_arg([
+						'registration' => 'disabled',
+						'instance'     => $this->request_instance,
+					], $referer));
 					exit;
 				}
 
@@ -535,8 +538,6 @@ if (!class_exists('ThemedLogin')) {
 						$this->errors->add('updated', __('<strong>You have successfully updated WordPress!</strong> Please log back in to see what&#8217;s new.', 'themed-login'), 'message');
 					}
 				}
-
-				error_log('$this->errors->errors: ' . print_r($this->errors->errors, true));
 
 				// Clear any stale cookies.
 				if ($reauth) {
