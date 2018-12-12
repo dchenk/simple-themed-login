@@ -71,23 +71,11 @@ if (!class_exists('ThemedLogin')) {
 		protected $loaded_instances = 0;
 
 		/**
-		 * The first instance created of ThemedLogin_Template is saved here as the
-		 * main instance.
-		 *
-		 * @var ThemedLogin_Template
-		 */
-		private $main_instance;
-
-		/**
 		 * Returns default options
 		 *
 		 * @return array Default options
 		 */
 		public static function default_options(): array {
-			/**
-			 * TODO: make sure this works.
-			 * @see ThemedLogin_Abstract::load_options()
-			 */
 			return apply_filters('themed_login_default_options', [
 				'enable_css' => true,
 				'login_type' => 'default',
@@ -361,15 +349,11 @@ if (!class_exists('ThemedLogin')) {
 
 			case 'register':
 				if (!get_option('users_can_register')) {
-//					$this->errors->add('registerdisabled', __('User registration is currently not allowed.', 'themed-login'));
 					$referer = wp_get_referer();
 					if (!$referer) {
 						$referer = site_url('wp-login.php');
 					}
-					wp_redirect(add_query_arg([
-						'registration' => 'disabled',
-						'instance'     => $this->request_instance,
-					], $referer));
+					wp_redirect(add_query_arg('registration', 'disabled', $referer));
 					exit;
 				}
 
@@ -713,26 +697,21 @@ if (!class_exists('ThemedLogin')) {
 		}
 
 		/**
-		 * Changes the_title() to reflect the current action
-		 *
-		 * Callback for "the_title" hook in the_title()
-		 *
-		 * @see the_title()
-		 * @acess public
+		 * Hooks to the_title to adjust the title based on the current action.
 		 *
 		 * @param string $title The current post title
 		 * @param int $post_id The current post ID
 		 * @return string The modified post title
 		 */
 		public function the_title($title, $post_id = 0) {
-			if (!is_admin() && self::is_tml_page('login', $post_id)) {
-				if (in_the_loop()) {
-					if (is_user_logged_in()) {
-						$title = $this->main_instance->get_title('login');
+			if (!is_admin() && self::is_tml_page('login', $post_id) && in_the_loop()) {
+				if (is_user_logged_in()) {
+					$title = $this->current_instance->get_title('login');
+				} else {
+					if ($this->current_instance) {
+						$title = $this->current_instance->get_title($this->request_action);
 					} else {
-						if ($this->request_action != 'login') {
-							$title = $this->main_instance->get_title($this->request_action);
-						}
+						$title = ThemedLogin_Template::default_title($this->request_action);
 					}
 				}
 			}
@@ -752,10 +731,10 @@ if (!class_exists('ThemedLogin')) {
 		public function document_title_parts($parts) {
 			if (self::is_tml_page('login')) {
 				if (is_user_logged_in()) {
-					$parts['title'] = $this->main_instance->get_title('login');
+					$parts['title'] = $this->current_instance->get_title('login');
 				} else {
 					if ('login' != $this->request_action) {
-						$parts['title'] = $this->main_instance->get_title($this->request_action);
+						$parts['title'] = $this->current_instance->get_title($this->request_action);
 					}
 				}
 			}
@@ -1129,8 +1108,6 @@ if (!class_exists('ThemedLogin')) {
 		protected function load() {
 			$this->request_action = isset($_REQUEST['action']) ? sanitize_key($_REQUEST['action']) : '';
 			$this->request_instance = isset($_REQUEST['instance']) ? (int) $_REQUEST['instance'] : 0;
-
-			$this->main_instance = $this->load_instance();
 
 			add_action('plugins_loaded', [$this, 'plugins_loaded']);
 			add_action('init', [$this, 'init']);

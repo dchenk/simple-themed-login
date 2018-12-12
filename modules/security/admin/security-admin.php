@@ -75,7 +75,6 @@ if (!class_exists('ThemedLogin_Security_Admin')) {
 		 * Renders settings page
 		 */
 		public function settings_page() {
-			error_log("Options key, settings_page (security-admin): {$this->options_key}");
 			ThemedLogin_Admin::settings_page([
 				'title' => __('Login Security Settings', 'themed-login'),
 				'options_key' => $this->options_key,

@@ -51,7 +51,6 @@ if (!class_exists('ThemedLogin_Template')) {
 		 */
 		public static function default_options(): array {
 			return [
-				// 'instance'              => 0,
 				'default_action'        => 'login',
 				'login_template'        => '',
 				'register_template'     => '',
@@ -146,14 +145,15 @@ if (!class_exists('ThemedLogin_Template')) {
 		}
 
 		/**
-		 * Returns action title
+		 * Returns the title to be used for a particular action.
+		 * The returned title depends on whether the user is logged in.
 		 *
 		 * @access public
 		 *
 		 * @param string $action The action to retrieve. Defaults to current action.
 		 * @return string Title of $action
 		 */
-		public function get_title($action = '') {
+		public function get_title($action = ''): string {
 			if (is_admin()) {
 				return '';
 			}
@@ -162,34 +162,41 @@ if (!class_exists('ThemedLogin_Template')) {
 				$action = $this->get_option('default_action');
 			}
 
-			if (is_user_logged_in() && $action === 'login' && $action == $this->get_option('default_action')) {
+			if (is_user_logged_in() && $action === 'login' && $this->get_option('default_action') === 'login') {
 				$title = sprintf(__('Welcome, %s', 'themed-login'), wp_get_current_user()->display_name);
 			} else {
 				$page_id = ThemedLogin::get_page_id($action);
 				if ($page_id) {
 					$title = get_post_field('post_title', $page_id);
 				} else {
-					switch ($action) {
-					case 'register':
-						$title = __('Register', 'themed-login');
-						break;
-					case 'lostpassword':
-					case 'retrievepassword':
-					case 'resetpass':
-					case 'rp':
-						$title = __('Lost Password', 'themed-login');
-						break;
-					case 'confirmaction':
-						$title = __('Your Data Request', 'themed-login');
-						break;
-					case 'login':
-					default:
-						$title = __('Log In', 'themed-login');
-					}
+					$title = self::default_title($action);
 				}
 			}
 
 			return apply_filters('themed_login_title', $title, $action);
+		}
+
+		/**
+		 * Returns the default title to be used for a particular action.
+		 *
+		 * @param string $action
+		 * @return string
+		 */
+		public static function default_title(string $action): string {
+			switch ($action) {
+			case 'register':
+				return __('Register', 'themed-login');
+			case 'lostpassword':
+			case 'retrievepassword':
+			case 'resetpass':
+			case 'rp':
+				return __('Lost Password', 'themed-login');
+			case 'confirmaction':
+				return __('Your Data Request', 'themed-login');
+			case 'login':
+			default:
+				return __('Log In', 'themed-login');
+			}
 		}
 
 		/**
@@ -276,6 +283,8 @@ if (!class_exists('ThemedLogin_Template')) {
 				$url = ThemedLogin::get_page_link($action);
 			}
 
+			$url = remove_query_arg(ThemedLogin_Common::filtered_query_args(), $url);
+
 			$url = set_url_scheme($url, $scheme);
 
 			return apply_filters('themed_login_action_url', $url, $action, $scheme, $this->id);
@@ -299,7 +308,7 @@ if (!class_exists('ThemedLogin_Template')) {
 		 * @param array|string $args Optionally specify which actions to include/exclude. By default, all are included.
 		 * @return array
 		 */
-		public function get_action_links($args = []) {
+		public function get_action_links($args = []): array {
 			$args = wp_parse_args($args, [
 				'login'        => true,
 				'register'     => true,
@@ -494,16 +503,16 @@ if (!class_exists('ThemedLogin_Template')) {
 			switch ($action) {
 			case 'lostpassword':
 			case 'retrievepassword':
-				$url = apply_filters('lostpassword_redirect', ! empty($redirect_to) ? $redirect_to : ThemedLogin::get_page_link('login', 'checkemail=confirm'));
+				$url = apply_filters('lostpassword_redirect', !empty($redirect_to) ? $redirect_to : ThemedLogin::get_page_link('login', 'checkemail=confirm'));
 				break;
 			case 'register':
-				$url = apply_filters('registration_redirect', ! empty($redirect_to) ? $redirect_to : ThemedLogin::get_page_link('login', 'checkemail=registered'));
+				$url = apply_filters('registration_redirect', !empty($redirect_to) ? $redirect_to : ThemedLogin::get_page_link('login', 'checkemail=registered'));
 				break;
 			case 'login':
 			default:
-				$url = apply_filters('login_redirect', ! empty($redirect_to) ? $redirect_to : admin_url(), $redirect_to, null);
-		}
-			return apply_filters('tml_redirect_url', $url, $action);
+				$url = apply_filters('login_redirect', !empty($redirect_to) ? $redirect_to : admin_url(), $redirect_to, null);
+			}
+			return apply_filters('themed_login_redirect_url', $url, $action);
 		}
 
 		/**

@@ -13,8 +13,32 @@ if (!class_exists('ThemedLogin_Common')) {
 	 * This class holds methods common to being common.
 	 */
 	class ThemedLogin_Common {
+
 		/**
-		 * Returns current URL
+		 * Returns a list of the query arguments to be filtered out.
+		 *
+		 * @return array
+		 */
+		public static function filtered_query_args(): array {
+			return [
+				'instance',
+				'action',
+				'checkemail',
+				'error',
+				'loggedout',
+				'registered',
+				'registration',
+				'redirect_to',
+				'updated',
+				'key',
+				'_wpnonce',
+				'reauth',
+				'login',
+			];
+		}
+
+		/**
+		 * Returns current URL with certain query parameters removed.
 		 *
 		 * @access public
 		 *
@@ -22,7 +46,7 @@ if (!class_exists('ThemedLogin_Common')) {
 		 * @return string URL with optional path appended
 		 */
 		public static function get_current_url($query = '') {
-			$url = remove_query_arg(['instance', 'action', 'checkemail', 'error', 'loggedout', 'registered', 'redirect_to', 'updated', 'key', '_wpnonce', 'reauth', 'login', 'updated']);
+			$url = remove_query_arg(self::filtered_query_args());
 
 			if (!empty($_REQUEST['instance'])) {
 				$url = add_query_arg('instance', $_REQUEST['instance']);
@@ -122,28 +146,6 @@ if (!class_exists('ThemedLogin_Common')) {
 			$replace = array_values($replacements);
 
 			return str_replace($search, $replace, $input);
-		}
-
-		/**
-		 * Strip unwanted query arguments from a URL
-		 *
-		 * @param string $url The URL
-		 * @return string The URL
-		 */
-		public static function strip_query_args($url) {
-			return remove_query_arg([
-				'instance',
-				'action',
-				'checkemail',
-				'error',
-				'loggedout',
-				'registered',
-				'redirect_to',
-				'updated',
-				'key',
-				'_wpnonce',
-				'reauth',
-			], $url);
 		}
 	}
 
