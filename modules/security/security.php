@@ -456,7 +456,7 @@ if (!class_exists('ThemedLogin_Security')) {
 		 * @param string $unit Can be either "day", "hour" or "minute"
 		 * @return int Number of seconds
 		 */
-		public static function get_seconds_from_unit($value, $unit = 'minute') {
+		public static function get_seconds_from_unit($value, $unit = 'minute'): int {
 			switch ($unit) {
 			case 'day':
 				return $value * 24 * 60 * 60;
