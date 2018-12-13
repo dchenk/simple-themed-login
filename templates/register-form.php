@@ -14,7 +14,7 @@ $template = $themedLoginInstance->current_instance;
 	// In case someone places a registration form somewhere on a page but registrations are not
 	// permitted, display an error message along with the form.
 	if (!get_option('users_can_register')) {
-		?><p class="error"><?php _e('User registration is currently not allowed.', 'themed-login'); ?></p><?php
+		?><p class="error has-background"><?php _e('User registration is currently not allowed.', 'themed-login'); ?></p><?php
 	}
 	?>
 	<form id="registerform<?php $template->instance_id(); ?>" action="<?php $template->the_action_url('register', 'login_post'); ?>" method="post">

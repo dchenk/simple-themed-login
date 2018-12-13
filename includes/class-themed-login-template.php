@@ -245,10 +245,10 @@ if (!class_exists('ThemedLogin_Template')) {
 					}
 				}
 				if (!empty($errors)) {
-					$output .= '<p class="error">' . apply_filters('login_errors', $errors) . "</p>\n";
+					$output .= '<p class="error has-background">' . apply_filters('login_errors', $errors) . "</p>\n";
 				}
 				if (!empty($messages)) {
-					$output .= '<p class="message">' . apply_filters('login_messages', $messages) . "</p>\n";
+					$output .= '<p class="message has-background">' . apply_filters('login_messages', $messages) . "</p>\n";
 				}
 			}
 			return $output;
@@ -433,7 +433,7 @@ if (!class_exists('ThemedLogin_Template')) {
 		 * @param string $before_message Text/HTML to add before the message
 		 * @param string $after_message Text/HTML to add after the message
 		 */
-		public function the_action_template_message($action = 'login', $before_message = '<p class="message">', $after_message = '</p>') {
+		public function the_action_template_message($action = 'login', $before_message = '<p class="message has-background">', $after_message = '</p>') {
 			$message = self::get_action_template_message($action);
 			if ($message) {
 				echo $before_message . $message . $after_message;

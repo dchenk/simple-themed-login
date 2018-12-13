@@ -210,7 +210,7 @@ if (!class_exists('ThemedLogin_Security_Admin')) {
 		 */
 		public function admin_notices() {
 			if (isset($_GET['update'])) {
-				echo '<div id="message" class="updated fade"><p>';
+				echo '<div class="updated fade"><p>';
 				switch ($_GET['update']) {
 					case 'lock':
 						echo __('User locked.', 'themed-login');
