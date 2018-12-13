@@ -503,19 +503,22 @@ if (!class_exists('ThemedLogin')) {
 					case !empty($_GET['loggedout']):
 						$this->errors->add('loggedout', __('You are now logged out.', 'themed-login'), 'message');
 						break;
-					case isset($_GET['registration']) && 'disabled' == $_GET['registration']:
+					case isset($_GET['registration']) && $_GET['registration'] === 'disabled':
 						$this->errors->add('registerdisabled', __('User registration is currently not allowed.', 'themed-login'), 'message');
 						break;
-					case isset($_GET['checkemail']) && 'confirm' == $_GET['checkemail']:
+					case isset($_GET['checkemail']) && $_GET['checkemail'] === 'confirm':
 						$this->errors->add('confirm', __('Check your email for the confirmation link.', 'themed-login'), 'message');
 						break;
-					case isset($_GET['checkemail']) && 'newpass' == $_GET['checkemail']:
+					case isset($_GET['checkemail']) && $_GET['checkemail'] === 'newpass':
 						$this->errors->add('newpass', __('Check your email for your new password.', 'themed-login'), 'message');
 						break;
-					case isset($_GET['resetpass']) && 'complete' == $_GET['resetpass']:
+					case isset($_GET['resetpass']) && $_GET['resetpass'] === 'complete':
 						$this->errors->add('password_reset', __('Your password has been reset.', 'themed-login'), 'message');
 						break;
-					case isset($_GET['checkemail']) && 'registered' == $_GET['checkemail']:
+					case isset($_GET['unlock']) && $_GET['unlock'] === 'invalidkey':
+						$this->errors->add('invalidkey', __('Something is wrong with the unlock key or link.', 'themed-login'), 'message');
+						break;
+					case isset($_GET['checkemail']) && $_GET['checkemail'] === 'registered':
 						$this->errors->add('registered', __('Registration complete. Please check your email.', 'themed-login'), 'message');
 						break;
 					case strpos($redirect_to, 'about.php?updated'):

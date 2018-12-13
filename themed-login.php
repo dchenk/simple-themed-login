@@ -17,7 +17,7 @@ if (!defined('THEMED_LOGIN_DIR')) {
 require_once(THEMED_LOGIN_DIR . '/includes/class-theme-my-login-common.php');
 require_once(THEMED_LOGIN_DIR . '/includes/class-theme-my-login-abstract.php');
 require_once(THEMED_LOGIN_DIR . '/includes/class-themed-login.php');
-require_once(THEMED_LOGIN_DIR . '/includes/class-theme-my-login-template.php');
+require_once(THEMED_LOGIN_DIR . '/includes/class-themed-login-template.php');
 require_once(THEMED_LOGIN_DIR . '/includes/class-themed-login-widget.php');
 
 // Instantiate a ThemedLogin singleton.
