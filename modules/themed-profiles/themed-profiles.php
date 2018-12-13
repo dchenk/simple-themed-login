@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Themed Profiles
- * Description: Enabling this module will initialize and enable themed profiles. You will then have to configure the settings via the "Themed Profiles" tab.
+ * Description: Enable themed profile pages. Configured in the "Themed Profiles" tab.
  *
  * Holds Themed Login Themed Profiles class
  *

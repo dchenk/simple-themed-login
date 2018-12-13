@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Security
- * Description: Enabling this module will initialize security. You will then have to configure the settings via the "Security" tab.
+ * Description: Adds a few security features. Configured in the "Security" tab.
  *
  * Holds Themed Login Security class
  *
@@ -78,7 +78,10 @@ if (!class_exists('ThemedLogin_Security')) {
 		 * @see ThemedLogin::template_redirect()
 		 */
 		public function request_unlock() {
-			$user = self::check_user_unlock_key($_GET['key'], $_GET['login']);
+			$user = self::check_user_unlock_key(
+				$_GET['key'] ?? '',
+				$_GET['login'] ?? ''
+			);
 
 			$redirect_to = ThemedLogin_Common::get_current_url();
 
@@ -115,21 +118,28 @@ if (!class_exists('ThemedLogin_Security')) {
 		 * @param string $login User login
 		 * @return WP_Error|WP_User WP_User object on success, WP_Error object on failure
 		 */
-		public static function check_user_unlock_key($key, $login) {
+		public static function check_user_unlock_key(string $key, string $login) {
+			$err = new WP_Error('invalid_key', __('Invalid key', 'themed-login'));
+
+			if (empty($key) || !is_string($key)) {
+				return $err;
+			}
+
 			$key = preg_replace('/[^a-z0-9]/i', '', $key);
 
-			if (empty($key) || ! is_string($key)) {
-				return new WP_Error('invalid_key', __('Invalid key', 'themed-login'));
-			}
 			if (empty($login) || ! is_string($login)) {
-				return new WP_Error('invalid_key', __('Invalid key', 'themed-login'));
+				return $err;
 			}
-			if (! $user = get_user_by('login', $login)) {
-				return new WP_Error('invalid_key', __('Invalid key', 'themed-login'));
+
+			$user = get_user_by('login', $login);
+			if (!$user) {
+				return $err;
 			}
-			if ($key != self::get_user_unlock_key($user->ID)) {
-				return new WP_Error('invalid_key', __('Invalid key', 'themed-login'));
+
+			if ($key !== self::get_user_unlock_key($user->ID)) {
+				return $err;
 			}
+
 			return $user;
 		}
 
@@ -303,17 +313,11 @@ if (!class_exists('ThemedLogin_Security')) {
 		/**
 		 * Unlocks a user
 		 *
-		 * @param int|WP_User $user User ID or WP_User object
+		 * @param int $user User ID
 		 * @return bool|int
 		 */
-		public static function unlock_user($user) {
-			if (is_object($user)) {
-				$user = $user->ID;
-			}
-
-			$user = (int) $user;
-
-			do_action('tml_unlock_user', $user);
+		public static function unlock_user(int $user) {
+			do_action('themed_login_unlock_user', $user);
 
 			$security = self::get_security_meta($user);
 
@@ -331,7 +335,7 @@ if (!class_exists('ThemedLogin_Security')) {
 		 * @param int|WP_User $user User ID or WP_User object
 		 * @return bool True if user is locked, false if not
 		 */
-		public static function is_user_locked($user) {
+		public static function is_user_locked($user): bool {
 			if (is_object($user)) {
 				$user = $user->ID;
 			}
@@ -345,12 +349,14 @@ if (!class_exists('ThemedLogin_Security')) {
 				return false;
 			}
 
-			// If "lock_expires" is not set, there is a lock but no expiry
-			if (!$expires = self::get_user_lock_expiration($user)) {
+			$expires = self::get_user_lock_expiration($user);
+
+			// If "lock_expires" is not set, there is a lock but no expiry.
+			if (!$expires) {
 				return true;
 			}
 
-			// We have a lock with an expiry
+			// We have a lock with an expiry.
 			if (time() > $expires) {
 				self::unlock_user($user);
 				return false;
@@ -400,7 +406,7 @@ if (!class_exists('ThemedLogin_Security')) {
 		 * @param string $ip IP address of attempt
 		 * @return bool|int
 		 */
-		public static function add_failed_login_attempt($user_id, $time = '', $ip = '') {
+		public static function add_failed_login_attempt($user_id, $time = 0, $ip = '') {
 			$security_meta = self::get_security_meta($user_id);
 			if (! is_array($security_meta['failed_login_attempts'])) {
 				$security_meta['failed_login_attempts'] = [];
@@ -427,9 +433,9 @@ if (!class_exists('ThemedLogin_Security')) {
 		 * @param int $user_id User ID
 		 * @return int User's lock expiration time
 		 */
-		public static function get_user_lock_expiration($user_id) {
-			$security_meta = self::get_security_meta($user_id);
-			return apply_filters('tml_user_lock_expiration', absint($security_meta['lock_expiration']), $user_id);
+		public static function get_user_lock_expiration(int $user_id): int {
+			$meta = self::get_security_meta($user_id);
+			return apply_filters('themed_login_user_lock_expiration', absint($meta['lock_expiration']), $user_id);
 		}
 
 		/**
@@ -438,9 +444,9 @@ if (!class_exists('ThemedLogin_Security')) {
 		 * @param int $user_id User ID
 		 * @return string User's unlock key
 		 */
-		public static function get_user_unlock_key($user_id) {
-			$security_meta = self::get_security_meta($user_id);
-			return apply_filters('tml_user_unlock_key', $security_meta['unlock_key'], $user_id);
+		public static function get_user_unlock_key(int $user_id): string {
+			$meta = self::get_security_meta($user_id);
+			return $meta['unlock_key'];
 		}
 
 		/**
@@ -511,8 +517,6 @@ if (!class_exists('ThemedLogin_Security')) {
 		 * Loads the module
 		 */
 		protected function load() {
-//			error_log('loading SECURITY  --  ' . $_SERVER['REQUEST_URI']);
-
 			add_action('init', [$this, 'init']);
 			add_action('template_redirect', [$this, 'template_redirect']);
 			add_action('tml_request_unlock', [$this, 'request_unlock']);
@@ -533,13 +537,14 @@ if (!class_exists('ThemedLogin_Security')) {
 		 * @param int $user_id User ID
 		 * @return array User's security meta
 		 */
-		protected static function get_security_meta($user_id) {
+		protected static function get_security_meta($user_id): array {
 			$defaults = [
 				'is_locked'             => false,
 				'lock_expiration'       => 0,
 				'unlock_key'            => '',
 				'failed_login_attempts' => [],
 			];
+
 			$meta = get_user_meta($user_id, 'theme_my_login_security', true);
 			if (!is_array($meta)) {
 				$meta = [];

@@ -44,10 +44,8 @@ if (!class_exists('ThemedLogin_Security_Admin')) {
 		 * Callback for "admin_menu" hook
 		 */
 		public function admin_menu() {
-//			error_log('SECURITY ADMIN admin_menu');
-
 			add_submenu_page(
-				'theme_my_login',
+				'themed_login',
 				__('Login Security Settings', 'themed-login'),
 				__('Security', 'themed-login'),
 				'manage_options',
@@ -56,8 +54,6 @@ if (!class_exists('ThemedLogin_Security_Admin')) {
 			);
 
 			add_settings_section('general', null, '__return_false', $this->options_key);
-
-//			error_log("Options key (security-admin): {$this->options_key}");
 
 			add_settings_field('private_site', __('Private Site', 'themed-login'), [$this, 'settings_field_private_site'], $this->options_key, 'general');
 			add_settings_field('private_login', __('Private Login', 'themed-login'), [$this, 'settings_field_private_login'], $this->options_key, 'general');
@@ -176,27 +172,30 @@ if (!class_exists('ThemedLogin_Security_Admin')) {
 			add_action('admin_notices', [$this, 'admin_notices']);
 
 			if (isset($_GET['action']) && in_array($_GET['action'], ['lock', 'unlock'], true)) {
-				$redirect_to = isset($_REQUEST['wp_http_referer']) ? remove_query_arg(['wp_http_referer', 'updated', 'delete_count'], stripslashes($_REQUEST['wp_http_referer'])) : 'users.php';
-				$user = $_GET['user'] ?? '';
+				$redirect_to = isset($_REQUEST['wp_http_referer']) ?
+					remove_query_arg(['wp_http_referer', 'updated', 'delete_count'], stripslashes($_REQUEST['wp_http_referer'])) :
+					'users.php';
 
-				if (!$user || !current_user_can('edit_user', $user)) {
+				$user_id = (int) ($_GET['user'] ?? 0);
+
+				if ($user_id === 0 || !current_user_can('edit_user', $user_id)) {
 					wp_die(__('You can&#8217;t edit that user.', 'themed-login'));
 				}
 
-				if (!$user = get_userdata($user)) {
-					wp_die(__('You can&#8217;t edit that user.', 'themed-login'));
+				if (!get_userdata($user_id)) {
+					wp_die(__('Cannot get the user&#8217;s data.', 'themed-login'));
 				}
 
-				if ('lock' == $_GET['action']) {
-					check_admin_referer('lock-user_' . $user->ID);
-					ThemedLogin_Security::lock_user($user);
+				switch ($_GET['action']) {
+				case 'lock':
+					check_admin_referer('lock-user_' . $user_id);
+					ThemedLogin_Security::lock_user($user_id);
 					$redirect_to = add_query_arg('update', 'lock', $redirect_to);
-				} else {
-					if ('unlock' == $_GET['action']) {
-						check_admin_referer('unlock-user_' . $user->ID);
-						ThemedLogin_Security::unlock_user($user);
-						$redirect_to = add_query_arg('update', 'unlock', $redirect_to);
-					}
+					break;
+				case 'unlock':
+					check_admin_referer('unlock-user_' . $user_id);
+					ThemedLogin_Security::unlock_user($user_id);
+					$redirect_to = add_query_arg('update', 'unlock', $redirect_to);
 				}
 
 				wp_redirect($redirect_to);
@@ -235,7 +234,7 @@ if (!class_exists('ThemedLogin_Security_Admin')) {
 		public function user_row_actions($actions, $user_object) {
 			$current_user = wp_get_current_user();
 
-			$security_meta = isset($user_object->theme_my_login_security) ? (array)$user_object->theme_my_login_security : [];
+			$security_meta = isset($user_object->theme_my_login_security) ? (array) $user_object->theme_my_login_security : [];
 
 			if ($current_user->ID != $user_object->ID) {
 				if (isset($security_meta['is_locked']) && $security_meta['is_locked']) {
@@ -266,8 +265,6 @@ if (!class_exists('ThemedLogin_Security_Admin')) {
 		 * Loads the module
 		 */
 		protected function load() {
-//			error_log('loading SECURITY_ADMIN  --  ' . $_SERVER['REQUEST_URI']);
-
 			add_action('tml_uninstall_security/security.php', [$this, 'uninstall']);
 
 			add_action('admin_menu', [$this, 'admin_menu']);
@@ -278,7 +275,6 @@ if (!class_exists('ThemedLogin_Security_Admin')) {
 		}
 	}
 
-//	ThemedLogin_Security_Admin::get_object();
 	new ThemedLogin_Security_Admin();
 
 }

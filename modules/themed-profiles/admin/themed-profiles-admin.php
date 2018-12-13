@@ -59,7 +59,7 @@ if (!class_exists('ThemedLogin_Themed_Profiles_Admin')) {
 		 */
 		public function admin_menu() {
 			add_submenu_page(
-				'theme_my_login',
+				'themed_login',
 				__('Themed Profiles Settings', 'themed-login'),
 				__('Themed Profiles', 'themed-login'),
 				'manage_options',

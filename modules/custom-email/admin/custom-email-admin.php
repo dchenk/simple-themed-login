@@ -32,9 +32,9 @@ if (!class_exists('ThemedLogin_Custom_Email_Admin')) {
 		 */
 		public function admin_menu() {
 			add_submenu_page(
-				'theme_my_login',
+				'themed_login',
 				__('Custom Email Settings', 'themed-login'),
-				__('Email Settings', 'themed-login'),
+				__('Custom Emails', 'themed-login'),
 				'manage_options',
 				$this->options_key,
 				[$this, 'settings_page']

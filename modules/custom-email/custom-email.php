@@ -1,7 +1,7 @@
 <?php
 /**
- * Plugin Name: Custom E-mail
- * Description: Enabling this module will initialize custom e-mails. You will then have to configure the settings via the "E-mail" tab.
+ * Plugin Name: Custom Emails
+ * Description: Customize the emails sent out related to user accounts. Configured in the "Custom Emails" tab.
  *
  * Holds Themed Login Custom E-mail class
  *

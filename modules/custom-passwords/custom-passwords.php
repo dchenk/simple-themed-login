@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Custom Passwords
- * Description: This module lets users create their own password when registering. There are no other settings for this module.
+ * Description: Let users create their own password when registering. This module has no other settings.
  *
  *
  * @package ThemedLogin

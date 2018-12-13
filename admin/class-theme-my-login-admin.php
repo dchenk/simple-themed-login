@@ -33,7 +33,7 @@ if (!class_exists('ThemedLogin_Admin')) {
 				__('Themed Login Settings', 'themed-login'),
 				'Themed Login',
 				'manage_options',
-				'theme_my_login',
+				'themed_login',
 				[$this, 'settings_page'],
 				'dashicons-id-alt'
 			);
