@@ -2,15 +2,15 @@
 # This file is distributed under the same license as the Themed Login plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Themed Login 2.0.0\n"
+"Project-Id-Version: Themed Login 2.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/themed-login\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2018-12-12T04:19:20+00:00\n"
-"PO-Revision-Date: 2018-12-12T04:19:20+00:00\n"
+"POT-Creation-Date: 2018-12-13T02:45:35+00:00\n"
+"PO-Revision-Date: 2018-12-13T02:45:35+00:00\n"
 "X-Generator: WP-CLI 2.0.1\n"
 "X-Domain: themed-login\n"
 
@@ -33,7 +33,7 @@ msgid "widerwebs"
 msgstr ""
 
 #: includes/class-themed-login.php:94
-#: includes/class-theme-my-login-template.php:198
+#: includes/class-themed-login-template.php:198
 #: templates/login-form.php:67
 msgid "Log In"
 msgstr ""
@@ -43,15 +43,15 @@ msgid "Log Out"
 msgstr ""
 
 #: includes/class-themed-login.php:96
+#: includes/class-themed-login-template.php:188
 #: includes/class-themed-login-widget.php:105
-#: includes/class-theme-my-login-template.php:188
 #: templates/register-form.php:42
 msgid "Register"
 msgstr ""
 
 #: includes/class-themed-login.php:97
+#: includes/class-themed-login-template.php:193
 #: includes/class-themed-login-widget.php:106
-#: includes/class-theme-my-login-template.php:193
 msgid "Lost Password"
 msgstr ""
 
@@ -99,51 +99,84 @@ msgid "Your password has been reset."
 msgstr ""
 
 #: includes/class-themed-login.php:519
-msgid "Registration complete. Please check your email."
+msgid "Something is wrong with the unlock key or link."
 msgstr ""
 
 #: includes/class-themed-login.php:522
+msgid "Registration complete. Please check your email."
+msgstr ""
+
+#: includes/class-themed-login.php:525
 msgid "<strong>You have successfully updated WordPress!</strong> Please log back in to see what&#8217;s new."
 msgstr ""
 
-#: includes/class-themed-login.php:820
+#: includes/class-themed-login.php:823
 msgid "<strong>ERROR</strong>: Invalid email address."
 msgstr ""
 
-#: includes/class-themed-login.php:1045
+#: includes/class-themed-login.php:1048
 msgid "<strong>ERROR</strong>: Enter a username or email address."
 msgstr ""
 
-#: includes/class-themed-login.php:1050
+#: includes/class-themed-login.php:1053
 msgid "<strong>ERROR</strong>: There is no user registered with that email address."
 msgstr ""
 
-#: includes/class-themed-login.php:1065
+#: includes/class-themed-login.php:1068
 msgid "<strong>ERROR</strong>: Invalid username or e-mail."
 msgstr ""
 
-#: includes/class-themed-login.php:1079
+#: includes/class-themed-login.php:1082
 msgid "Someone requested that the password be reset for the account with the username %s on %s"
 msgstr ""
 
-#: includes/class-themed-login.php:1081
+#: includes/class-themed-login.php:1084
 msgid "If this was a mistake, you can ignore this email and nothing will happen."
 msgstr ""
 
-#: includes/class-themed-login.php:1082
+#: includes/class-themed-login.php:1085
 msgid "To reset your password, visit the following address:"
 msgstr ""
 
-#: includes/class-themed-login.php:1093
+#: includes/class-themed-login.php:1096
 msgid "Password Reset"
 msgstr ""
 
-#: includes/class-themed-login.php:1099
+#: includes/class-themed-login.php:1102
 msgid "The email could not be sent."
 msgstr ""
 
-#: includes/class-themed-login.php:1099
+#: includes/class-themed-login.php:1102
 msgid "Possible reason: your host may have disabled the mail() function."
+msgstr ""
+
+#: includes/class-themed-login-template.php:166
+msgid "Welcome, %s"
+msgstr ""
+
+#: includes/class-themed-login-template.php:195
+msgid "Your Data Request"
+msgstr ""
+
+#: includes/class-themed-login-template.php:366
+msgid "Dashboard"
+msgstr ""
+
+#: includes/class-themed-login-template.php:370
+#: modules/themed-profiles/themed-profiles.php:59
+msgid "Profile"
+msgstr ""
+
+#: includes/class-themed-login-template.php:413
+msgid "Register for this site"
+msgstr ""
+
+#: includes/class-themed-login-template.php:416
+msgid "Please enter your username or email address. You will receive a link via email to create a new password."
+msgstr ""
+
+#: includes/class-themed-login-template.php:419
+msgid "Enter your new password below."
 msgstr ""
 
 #: includes/class-themed-login-widget.php:17
@@ -188,35 +221,6 @@ msgstr ""
 
 #: includes/class-themed-login-widget.php:154
 msgid "Gravatar Size"
-msgstr ""
-
-#: includes/class-theme-my-login-template.php:166
-msgid "Welcome, %s"
-msgstr ""
-
-#: includes/class-theme-my-login-template.php:195
-msgid "Your Data Request"
-msgstr ""
-
-#: includes/class-theme-my-login-template.php:366
-msgid "Dashboard"
-msgstr ""
-
-#: includes/class-theme-my-login-template.php:370
-#: modules/themed-profiles/themed-profiles.php:59
-msgid "Profile"
-msgstr ""
-
-#: includes/class-theme-my-login-template.php:413
-msgid "Register for this site"
-msgstr ""
-
-#: includes/class-theme-my-login-template.php:416
-msgid "Please enter your username or email address. You will receive a link via email to create a new password."
-msgstr ""
-
-#: includes/class-theme-my-login-template.php:419
-msgid "Enter your new password below."
 msgstr ""
 
 #: admin/class-theme-my-login-admin.php:33
@@ -281,7 +285,7 @@ msgid "Strength indicator"
 msgstr ""
 
 #: templates/resetpass-form.php:31
-#: templates/profile-form.php:183
+#: templates/profile-form.php:192
 msgid "Confirm use of weak password"
 msgstr ""
 
@@ -290,7 +294,7 @@ msgid "Confirm new password"
 msgstr ""
 
 #: templates/register-form.php:25
-#: templates/profile-form.php:41
+#: templates/profile-form.php:46
 #: templates/login-form.php:41
 msgid "Username"
 msgstr ""
@@ -299,117 +303,117 @@ msgstr ""
 msgid "Registration confirmation will be emailed to you."
 msgstr ""
 
-#: templates/profile-form.php:19
+#: templates/profile-form.php:21
 msgid "Personal Options"
 msgstr ""
 
-#: templates/profile-form.php:24
+#: templates/profile-form.php:28
 msgid "Toolbar"
 msgstr ""
 
-#: templates/profile-form.php:27
+#: templates/profile-form.php:31
 msgid "Show Toolbar when viewing site"
 msgstr ""
 
-#: templates/profile-form.php:37
+#: templates/profile-form.php:42
 msgid "Name"
 msgstr ""
 
-#: templates/profile-form.php:42
+#: templates/profile-form.php:47
 msgid "Usernames cannot be changed."
 msgstr ""
 
-#: templates/profile-form.php:46
+#: templates/profile-form.php:51
 msgid "First Name"
 msgstr ""
 
-#: templates/profile-form.php:51
+#: templates/profile-form.php:56
 msgid "Last Name"
 msgstr ""
 
-#: templates/profile-form.php:56
+#: templates/profile-form.php:61
 msgid "Nickname"
 msgstr ""
 
-#: templates/profile-form.php:56
-#: templates/profile-form.php:101
+#: templates/profile-form.php:61
+#: templates/profile-form.php:109
 msgid "(required)"
 msgstr ""
 
-#: templates/profile-form.php:61
+#: templates/profile-form.php:66
 msgid "Display name publicly as"
 msgstr ""
 
-#: templates/profile-form.php:97
+#: templates/profile-form.php:105
 msgid "Contact Info"
 msgstr ""
 
-#: templates/profile-form.php:101
+#: templates/profile-form.php:109
 msgid "E-mail"
 msgstr ""
 
-#: templates/profile-form.php:109
+#: templates/profile-form.php:118
 msgid "There is a pending change of your e-mail to %1$s. <a href=\"%2$s\">Cancel</a>"
 msgstr ""
 
-#: templates/profile-form.php:118
+#: templates/profile-form.php:128
 msgid "Website"
 msgstr ""
 
-#: templates/profile-form.php:134
+#: templates/profile-form.php:144
 msgid "About Yourself"
 msgstr ""
 
-#: templates/profile-form.php:138
+#: templates/profile-form.php:148
 msgid "Biographical Info"
 msgstr ""
 
-#: templates/profile-form.php:140
+#: templates/profile-form.php:150
 msgid "Share a little biographical information to fill out your profile. This may be shown publicly."
 msgstr ""
 
-#: templates/profile-form.php:149
+#: templates/profile-form.php:158
 msgid "Account Management"
 msgstr ""
 
-#: templates/profile-form.php:152
+#: templates/profile-form.php:161
 msgid "New Password"
 msgstr ""
 
-#: templates/profile-form.php:155
+#: templates/profile-form.php:164
 msgid "Generate Password"
 msgstr ""
 
-#: templates/profile-form.php:161
+#: templates/profile-form.php:170
 msgid "Hide password"
 msgstr ""
 
-#: templates/profile-form.php:163
+#: templates/profile-form.php:172
 msgid "Hide"
 msgstr ""
 
-#: templates/profile-form.php:165
+#: templates/profile-form.php:174
 msgid "Cancel password change"
 msgstr ""
 
-#: templates/profile-form.php:166
+#: templates/profile-form.php:175
 msgid "Cancel"
 msgstr ""
 
-#: templates/profile-form.php:172
+#: templates/profile-form.php:181
 msgid "Repeat New Password"
 msgstr ""
 
-#: templates/profile-form.php:175
+#: templates/profile-form.php:184
 msgid "Type your new password again."
 msgstr ""
 
-#: templates/profile-form.php:179
+#: templates/profile-form.php:188
 #: modules/custom-passwords/custom-passwords.php:34
 msgid "Confirm Password"
 msgstr ""
 
-#: templates/profile-form.php:197
+#: templates/profile-form.php:206
 msgid "Update Profile"
 msgstr ""
 
@@ -468,126 +472,126 @@ msgstr ""
 msgid "Profile updated."
 msgstr ""
 
-#: modules/security/admin/security-admin.php:51
-#: modules/security/admin/security-admin.php:79
+#: modules/security/admin/security-admin.php:49
+#: modules/security/admin/security-admin.php:75
 msgid "Login Security Settings"
 msgstr ""
 
-#: modules/security/admin/security-admin.php:52
+#: modules/security/admin/security-admin.php:50
 msgid "Security"
 msgstr ""
 
-#: modules/security/admin/security-admin.php:62
+#: modules/security/admin/security-admin.php:58
 msgid "Private Site"
 msgstr ""
 
-#: modules/security/admin/security-admin.php:63
+#: modules/security/admin/security-admin.php:59
 msgid "Private Login"
 msgstr ""
 
-#: modules/security/admin/security-admin.php:64
+#: modules/security/admin/security-admin.php:60
 msgid "Login Attempts"
 msgstr ""
 
-#: modules/security/admin/security-admin.php:92
+#: modules/security/admin/security-admin.php:88
 msgid "Require users to be logged in to view site"
 msgstr ""
 
-#: modules/security/admin/security-admin.php:104
+#: modules/security/admin/security-admin.php:100
 msgid "Disable <code>wp-login.php</code>"
 msgstr ""
 
-#: modules/security/admin/security-admin.php:113
+#: modules/security/admin/security-admin.php:109
 msgid "minutes"
 msgstr ""
 
-#: modules/security/admin/security-admin.php:114
+#: modules/security/admin/security-admin.php:110
 msgid "hours"
 msgstr ""
 
-#: modules/security/admin/security-admin.php:115
+#: modules/security/admin/security-admin.php:111
 msgid "days"
 msgstr ""
 
-#: modules/security/admin/security-admin.php:141
+#: modules/security/admin/security-admin.php:137
 msgid "After %1$s failed login attempts within %2$s %3$s, lock the account out for %4$s %5$s."
 msgstr ""
 
-#: modules/security/admin/security-admin.php:183
-#: modules/security/admin/security-admin.php:187
+#: modules/security/admin/security-admin.php:182
 msgid "You can&#8217;t edit that user."
 msgstr ""
 
-#: modules/security/admin/security-admin.php:217
+#: modules/security/admin/security-admin.php:186
+msgid "Cannot get the user&#8217;s data."
+msgstr ""
+
+#: modules/security/admin/security-admin.php:216
 msgid "User locked."
 msgstr ""
 
-#: modules/security/admin/security-admin.php:220
+#: modules/security/admin/security-admin.php:219
 msgid "User unlocked."
 msgstr ""
 
-#: modules/security/admin/security-admin.php:248
+#: modules/security/admin/security-admin.php:247
 msgid "Unlock"
 msgstr ""
 
-#: modules/security/admin/security-admin.php:257
+#: modules/security/admin/security-admin.php:256
 msgid "Lock"
 msgstr ""
 
-#: modules/security/security.php:107
+#: modules/security/security.php:110
 msgid "Your account has been unlocked. You may now log in."
 msgstr ""
 
 #: modules/security/security.php:122
-#: modules/security/security.php:125
-#: modules/security/security.php:128
-#: modules/security/security.php:131
 msgid "Invalid key"
 msgstr ""
 
-#: modules/security/security.php:166
-#: modules/security/security.php:191
+#: modules/security/security.php:176
+#: modules/security/security.php:201
 msgid "<strong>ERROR</strong>: This account has been locked because of too many failed login attempts. You may try again in %s."
 msgstr ""
 
-#: modules/security/security.php:170
+#: modules/security/security.php:180
 msgid "<strong>ERROR</strong>: This account has been locked."
 msgstr ""
 
-#: modules/security/security.php:233
+#: modules/security/security.php:243
 msgid "Failed Login Attempts"
 msgstr ""
 
-#: modules/security/security.php:237
+#: modules/security/security.php:247
 msgid "IP Address"
 msgstr ""
 
-#: modules/security/security.php:238
+#: modules/security/security.php:248
 msgid "Date"
 msgstr ""
 
-#: modules/security/security.php:241
-#: modules/security/security.php:498
+#: modules/security/security.php:251
+#: modules/security/security.php:504
 msgid "Y/m/d g:i:s A"
 msgstr ""
 
-#: modules/security/security.php:246
+#: modules/security/security.php:256
 msgid "%s ago"
 msgstr ""
 
-#: modules/security/security.php:248
+#: modules/security/security.php:258
 msgid "Y/m/d"
 msgstr ""
 
-#: modules/security/security.php:490
+#: modules/security/security.php:496
 msgid "[%s] Account Locked"
 msgstr ""
 
-#: modules/security/security.php:491
+#: modules/security/security.php:497
 msgid "For your security, your account has been locked because of too many failed login attempts. To unlock your account please click the following link: "
 msgstr ""
 
-#: modules/security/security.php:496
+#: modules/security/security.php:502
 msgid "The following attempts resulted in the lock:"
 msgstr ""
 
@@ -617,7 +621,7 @@ msgid "Custom Email Settings"
 msgstr ""
 
 #: modules/custom-email/admin/custom-email-admin.php:37
-msgid "Email Settings"
+msgid "Custom Emails"
 msgstr ""
 
 #: modules/custom-email/admin/custom-email-admin.php:45
