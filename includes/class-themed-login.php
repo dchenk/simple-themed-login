@@ -18,7 +18,7 @@ if (!class_exists('ThemedLogin')) {
 		 *
 		 * @const string
 		 */
-		const VERSION = '2.1.0';
+		const VERSION = '2.1.1';
 
 		/**
 		 * Holds errors object
@@ -736,8 +736,10 @@ if (!class_exists('ThemedLogin')) {
 				if (is_user_logged_in()) {
 					$parts['title'] = $this->current_instance->get_title('login');
 				} else {
-					if ('login' != $this->request_action) {
+					if ($this->current_instance) {
 						$parts['title'] = $this->current_instance->get_title($this->request_action);
+					} else {
+						$parts['title'] = ThemedLogin_Template::default_title($this->request_action);
 					}
 				}
 			}
