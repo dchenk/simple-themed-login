@@ -18,7 +18,7 @@ if (!class_exists('ThemedLogin')) {
 		 *
 		 * @const string
 		 */
-		const VERSION = '2.1.1';
+		const VERSION = '2.1.2';
 
 		/**
 		 * Holds errors object
@@ -708,15 +708,11 @@ if (!class_exists('ThemedLogin')) {
 		 */
 		public function the_title($title, $post_id = 0) {
 			if (!is_admin() && self::is_tml_page('login', $post_id) && in_the_loop()) {
-				if (is_user_logged_in()) {
-					$title = $this->current_instance->get_title('login');
-				} else {
-					if ($this->current_instance) {
-						$title = $this->current_instance->get_title($this->request_action);
-					} else {
-						$title = ThemedLogin_Template::default_title($this->request_action);
-					}
+				$inst = $this->current_instance;
+				if (!$inst) {
+					$inst = new ThemedLogin_Template();
 				}
+				$title = $inst->get_title('login');
 			}
 			return $title;
 		}
@@ -733,15 +729,11 @@ if (!class_exists('ThemedLogin')) {
 		 */
 		public function document_title_parts($parts) {
 			if (self::is_tml_page('login')) {
-				if (is_user_logged_in()) {
-					$parts['title'] = $this->current_instance->get_title('login');
-				} else {
-					if ($this->current_instance) {
-						$parts['title'] = $this->current_instance->get_title($this->request_action);
-					} else {
-						$parts['title'] = ThemedLogin_Template::default_title($this->request_action);
-					}
+				$inst = $this->current_instance;
+				if (!$inst) {
+					$inst = new ThemedLogin_Template();
 				}
+				$parts['title'] = $inst->get_title('login');
 			}
 			return $parts;
 		}

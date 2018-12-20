@@ -165,9 +165,9 @@ if (!class_exists('ThemedLogin_Template')) {
 			if (is_user_logged_in() && $action === 'login' && $this->get_option('default_action') === 'login') {
 				$title = sprintf(__('Welcome, %s', 'themed-login'), wp_get_current_user()->display_name);
 			} else {
-				$page_id = ThemedLogin::get_page_id($action);
-				if ($page_id) {
-					$title = get_post_field('post_title', $page_id);
+				$pageID = ThemedLogin::get_page_id($action);
+				if ($pageID) {
+					$title = get_post_field('post_title', $pageID);
 				} else {
 					$title = self::default_title($action);
 				}
