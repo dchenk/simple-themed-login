@@ -256,7 +256,7 @@ if (!class_exists('ThemedLogin_Themed_Profiles')) {
 		 *
 		 * @param ThemedLogin_Template $template Reference to $theme_my_login_template object
 		 */
-		public function tml_display_profile(&$template) {
+		public function display_profile(&$template) {
 			global $current_user, $profileuser, $_wp_admin_css_colors, $wp_version, $themedLoginInstance;
 
 			require_once(ABSPATH . 'wp-admin/includes/user.php');
@@ -277,12 +277,12 @@ if (!class_exists('ThemedLogin_Themed_Profiles')) {
 			$_template = [];
 
 			// Allow template override via shortcode or template tag args
-			if (! empty($template->options['profile_template'])) {
+			if (!empty($template->options['profile_template'])) {
 				$_template[] = $template->options['profile_template'];
 			}
 
-			// Allow role template overrid via shortcode or template tag args
-			if (! empty($template->options["profile_template_{$user_role}"])) {
+			// Allow role template override via shortcode or template tag args
+			if (!empty($template->options["profile_template_{$user_role}"])) {
 				$_template[] = $template->options["profile_template_{$user_role}"];
 			}
 
@@ -374,7 +374,7 @@ if (!class_exists('ThemedLogin_Themed_Profiles')) {
 			add_filter('body_class', [$this, 'body_class']);
 
 			add_action('tml_request_profile', [$this, 'tml_request_profile']);
-			add_action('tml_display_profile', [$this, 'tml_display_profile']);
+			add_action('tml_display_profile', [$this, 'display_profile']);
 
 			add_filter('wp_setup_nav_menu_item', [$this, 'wp_setup_nav_menu_item'], 12);
 		}

@@ -221,7 +221,7 @@ if (!class_exists('ThemedLogin_Security')) {
 		 * @param int $user_id User ID
 		 * @return bool Whether to allow password reset or not
 		 */
-		public function allow_password_reset($allow, $user_id) {
+		public function allow_password_reset($allow, $user_id): bool {
 			if (self::is_user_locked($user_id) && !self::get_user_lock_expiration($user_id)) {
 				$allow = false;
 			}

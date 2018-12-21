@@ -27,7 +27,6 @@ if (!class_exists('ThemedLogin_Widget')) {
 		 */
 		public function widget($args, $instance) {
 			global $themedLoginInstance;
-//			error_log('args: ' . print_r($instance, true));
 
 			$instance = wp_parse_args($instance, [
 				'default_action'    => 'login',

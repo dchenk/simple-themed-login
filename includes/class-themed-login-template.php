@@ -6,7 +6,6 @@
  */
 
 if (!class_exists('ThemedLogin_Template')) {
-
 	/*
 	 * Themed Login template class
 	 *
@@ -57,7 +56,7 @@ if (!class_exists('ThemedLogin_Template')) {
 				'lostpassword_template' => '',
 				'resetpass_template'    => '',
 				'user_template'         => '',
-				'show_title'            => true,
+				'show_title'            => false,
 				'show_log_link'         => true,
 				'show_reg_link'         => true,
 				'show_pass_link'        => true,
@@ -79,10 +78,8 @@ if (!class_exists('ThemedLogin_Template')) {
 		 *
 		 * @return string HTML output
 		 */
-		public function display($action = '') {
-			if (empty($action)) {
-				$action = $this->get_option('default_action');
-			}
+		public function display() {
+			$action = $this->get_option('default_action');
 
 			ob_start();
 
@@ -147,6 +144,8 @@ if (!class_exists('ThemedLogin_Template')) {
 		/**
 		 * Returns the title to be used for a particular action.
 		 * The returned title depends on whether the user is logged in.
+		 * This function is used both for filtering the post title meta value and for determining
+		 * what title to output above a template, such as a template selected by a shortcode.
 		 *
 		 * @access public
 		 *
@@ -158,19 +157,17 @@ if (!class_exists('ThemedLogin_Template')) {
 				return '';
 			}
 
+			$defaultAction = $this->get_option('default_action');
+
 			if (empty($action)) {
-				$action = $this->get_option('default_action');
+				$action = $defaultAction;
 			}
 
-			if (is_user_logged_in() && $action === 'login' && $this->get_option('default_action') === 'login') {
+			if (is_user_logged_in() && $action === 'login' && $defaultAction === 'login') {
 				$title = sprintf(__('Welcome, %s', 'themed-login'), wp_get_current_user()->display_name);
 			} else {
-				$pageID = ThemedLogin::get_page_id($action);
-				if ($pageID) {
-					$title = get_post_field('post_title', $pageID);
-				} else {
-					$title = self::default_title($action);
-				}
+				// Do not consult the title that's set on the page.
+				$title = self::default_title($action);
 			}
 
 			return apply_filters('themed_login_title', $title, $action);
@@ -179,7 +176,7 @@ if (!class_exists('ThemedLogin_Template')) {
 		/**
 		 * Returns the default title to be used for a particular action.
 		 *
-		 * @param string $action
+		 * @param string $action The action being handled
 		 * @return string
 		 */
 		public static function default_title(string $action): string {
@@ -215,7 +212,7 @@ if (!class_exists('ThemedLogin_Template')) {
 		 *
 		 * @access public
 		 */
-		public function get_errors() {
+		public function get_errors(): string {
 			global $error, $themedLoginInstance;
 
 			$wp_error = $themedLoginInstance->errors;
@@ -238,9 +235,9 @@ if (!class_exists('ThemedLogin_Template')) {
 					$severity = $wp_error->get_error_data($code);
 					foreach ($wp_error->get_error_messages($code) as $error) {
 						if ($severity === 'message') {
-							$messages .= $error . "<br>";
+							$messages .= $error . '<br>';
 						} else {
-							$errors .= $error . "<br>";
+							$errors .= $error . '<br>';
 						}
 					}
 				}
@@ -533,8 +530,6 @@ if (!class_exists('ThemedLogin_Template')) {
 
 		/**
 		 * Sets the instance ID.
-		 *
-		 * @param int $id
 		 */
 		public function set_id(int $id) {
 			$this->id = $id;
@@ -578,5 +573,4 @@ if (!class_exists('ThemedLogin_Template')) {
 			$this->is_active = true;
 		}
 	}
-
 }

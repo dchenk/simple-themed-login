@@ -42,7 +42,7 @@ if (!class_exists('ThemedLogin')) {
 		public $request_action;
 
 		/**
-		 * Holds current instance being requested
+		 * Holds the ID of the instance being requested
 		 *
 		 * @access public
 		 * @var int
@@ -222,7 +222,7 @@ if (!class_exists('ThemedLogin')) {
 		public function template_redirect() {
 			do_action_ref_array('themed_login_request', [&$this]);
 
-			// Allow plugins to override the default actions and to add extra actions if they want
+			// Allow plugins to override the default actions and to add extra actions.
 			do_action('login_form_' . $this->request_action);
 
 			if (has_action('tml_request_' . $this->request_action)) {
@@ -349,12 +349,10 @@ if (!class_exists('ThemedLogin')) {
 
 			case 'register':
 				if (!get_option('users_can_register')) {
-					$referer = wp_get_referer();
-					if (!$referer) {
-						$referer = site_url('wp-login.php');
-					}
-					wp_redirect(add_query_arg('registration', 'disabled', $referer));
-					exit;
+					// Do not redirect the user anywhere, but let them get to the page they requested and see the error message.
+					// This is the best way to handle the error because redirecting here is error prone.
+					$this->errors->add('registerdisabled', __('User registration is currently not allowed.', 'themed-login'), 'message');
+					break;
 				}
 
 				if ($posting) {
@@ -650,15 +648,11 @@ if (!class_exists('ThemedLogin')) {
 		public function site_url($url, $path, $orig_scheme) {
 			global $pagenow;
 
-			// Bail if currently viewing wp-login.php
-			if ($pagenow === 'wp-login.php') {
+			// Bail if currently viewing wp-login.php or if the URL isn't a login URL.
+			if ($pagenow === 'wp-login.php' || strpos($url, 'wp-login.php') === false) {
 				return $url;
 			}
 
-			// Bail if the URL isn't a login URL
-			if (strpos($url, 'wp-login.php') === false) {
-				return $url;
-			}
 			// Parse the query string from the URL
 			parse_str(parse_url($url, PHP_URL_QUERY), $query);
 
@@ -666,20 +660,19 @@ if (!class_exists('ThemedLogin')) {
 			 * Bail if the URL is an interim-login URL
 			 *
 			 * This only works using the javascript workaround as implemented in
-			 * admin/theme-my-login-admin.php and admin/theme-my-login-admin.js.
+			 * admin/class-themed-login-admin.php and admin/theme-my-login-admin.js.
 			 *
 			 * @see https://core.trac.wordpress.org/ticket/31821
 			 */
 			if (isset($query['interim-login'])) {
 				return $url;
 			}
+
 			// Determine the action
 			$action = $query['action'] ?? 'login';
 
 			// Get the action's page link
-			$url = self::get_page_link($action, $query);
-
-			return $url;
+			return self::get_page_link($action, $query);
 		}
 
 		/**
@@ -712,7 +705,7 @@ if (!class_exists('ThemedLogin')) {
 				if (!$inst) {
 					$inst = new ThemedLogin_Template();
 				}
-				$title = $inst->get_title('login');
+				$title = $inst->get_title($this->request_action);
 			}
 			return $title;
 		}
@@ -733,7 +726,7 @@ if (!class_exists('ThemedLogin')) {
 				if (!$inst) {
 					$inst = new ThemedLogin_Template();
 				}
-				$parts['title'] = $inst->get_title('login');
+				$parts['title'] = $inst->get_title($this->request_action);
 			}
 			return $parts;
 		}
@@ -747,23 +740,19 @@ if (!class_exists('ThemedLogin')) {
 		 * @access public
 		 *
 		 * @param object $menu_item The menu item
-		 * @return object The (possibly) modified menu item
+		 * @return object The possibly modified menu item
 		 */
 		public function wp_setup_nav_menu_item($menu_item) {
-			if (is_admin()) {
-				return $menu_item;
-			}
-			if ('page' != $menu_item->object) {
+			if (is_admin() || $menu_item->object != 'page') {
 				return $menu_item;
 			}
 			if (is_user_logged_in()) {
-				// Hide login, register and lost password
+				// Hide login, register, and lost password links.
 				if (self::is_tml_page(['login', 'register', 'lostpassword'], $menu_item->object_id)) {
 					$menu_item->_invalid = true;
 				}
 			} else {
-				// User is not logged in
-				// Hide Logout
+				// Hide logout link.
 				if (self::is_tml_page('logout', $menu_item->object_id)) {
 					$menu_item->_invalid = true;
 				}
@@ -827,14 +816,13 @@ if (!class_exists('ThemedLogin')) {
 		 *
 		 * Optional $atts contents:
 		 *
-		 * - instance - A unique ID for this instance.
 		 * - default_action - The action to display. Defaults to "login".
 		 * - login_template - The template used for the login form. Defaults to "login-form.php".
 		 * - register_template - The template used for the register form. Defaults to "register-form.php".
 		 * - lostpassword_template - The template used for the lost password form. Defaults to "lostpassword-form.php".
 		 * - resetpass_template - The template used for the reset password form. Defaults to "resetpass-form.php".
 		 * - user_template - The template used for when a user is logged in. Defaults to "user-panel.php".
-		 * - show_title - True to display the current title, false to hide. Defaults to true.
+		 * - show_title - True to display the current title, false to hide. Defaults to false.
 		 * - show_log_link - True to display the login link, false to hide. Defaults to true.
 		 * - show_reg_link - True to display the register link, false to hide. Defaults to true.
 		 * - show_pass_link - True to display the lost password link, false to hide. Defaults to true.
@@ -847,33 +835,19 @@ if (!class_exists('ThemedLogin')) {
 		 * @return string HTML output from ThemedLogin_Template->display()
 		 */
 		public function shortcode($atts = '') {
-			static $did_main_instance = false;
-
 			$atts = wp_parse_args($atts);
 
-			if (self::is_tml_page() && in_the_loop() && is_main_query() && !$did_main_instance) {
-				$instance = $this->load_instance();
-
+			if (self::is_tml_page() && in_the_loop() && is_main_query()) {
 				if ($this->request_page !== 'login') {
 					$atts['default_action'] = $this->request_page;
 				}
 
 				$atts['show_title'] = !empty($atts['show_title']);
-
-				foreach ($atts as $option => $value) {
-					if ($option !== 'instance') {
-						$instance->set_option($option, $value);
-					}
-				}
-
-				$did_main_instance = true;
-			} else {
-				$instance = $this->load_instance($atts);
 			}
 
-			$this->current_instance = $instance;
+			$this->current_instance = $this->load_instance($atts);
 
-			return $instance->display();
+			return $this->current_instance->display();
 		}
 
 		/**
@@ -911,20 +885,20 @@ if (!class_exists('ThemedLogin')) {
 		public static function get_page_link($action, $query = '') {
 			global $wp_rewrite, $themedLoginInstance;
 
-			$page_id = self::get_page_id($action);
-			if ($page_id) {
+			$pageID = self::get_page_id($action);
+			if ($pageID) {
 				if ($wp_rewrite instanceof WP_Rewrite) {
-					$link = get_permalink($page_id);
+					$link = get_permalink($pageID);
 				} else {
-					$link = home_url('?page_id=' . $page_id);
+					$link = home_url("?page_id=${pageID}");
 				}
 			} else {
-				$page_id = self::get_page_id('login');
-				if ($page_id) {
+				$pageID = self::get_page_id('login');
+				if ($pageID) {
 					if ($wp_rewrite instanceof WP_Rewrite) {
-						$link = get_permalink($page_id);
+						$link = get_permalink($pageID);
 					} else {
-						$link = home_url('?page_id=' . $page_id);
+						$link = home_url("?page_id=${pageID}");
 					}
 					$link = add_query_arg('action', $action, $link);
 				} else {
@@ -1015,7 +989,7 @@ if (!class_exists('ThemedLogin')) {
 		 * @param array|string $args Array or query string of arguments
 		 * @return ThemedLogin_Template Instance object
 		 */
-		public function load_instance($args = ''): ThemedLogin_Template {
+		private function load_instance($args = ''): ThemedLogin_Template {
 			$instance = new ThemedLogin_Template($args);
 
 			$id = $this->loaded_instances;
