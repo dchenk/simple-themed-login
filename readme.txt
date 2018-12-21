@@ -3,7 +3,7 @@ Contributors: dchenk, jfarthing84
 Tags: widget, login, registration, theme, log in, register, e-mail
 Requires at least: 4.9
 Tested up to: 5.0.2
-Stable tag: 2.1.2
+Stable tag: 2.2.0
 
 Themes the WordPress login pages according to your theme.
 
@@ -25,6 +25,10 @@ Also included is a widget for sidebar login.
 
 
 == Changelog ==
+
+= 2.2.0 =
+* Improve the handling of page and template titles.
+* Fix error notices when user registration is disabled.
 
 = 2.1.2 =
 * Fix a small PHP bug and ensure compatibility with WP 5.0.
